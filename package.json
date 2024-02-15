@@ -17,7 +17,8 @@
     "prepare": "husky",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "lintStaged": "lint-staged"
+    "lintStaged": "lint-staged",
+    "checkTs": "tsc --noEmit"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.20.5",

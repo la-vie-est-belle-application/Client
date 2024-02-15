@@ -2,3 +2,10 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 npx --no-install commitlint --edit $1
+
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+cd client
+npm run checkTs
+npm run lintStaged
