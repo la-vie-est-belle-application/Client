@@ -14,7 +14,6 @@
     "format": "pnpm run prettier && pnpm run eslint",
     "format:fix": "pnpm run prettier:fix && pnpm run eslint:fix",
     "preview": "vite preview",
-    "prepare": "husky",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "lintStaged": "lint-staged",
