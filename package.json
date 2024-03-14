@@ -4,18 +4,21 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "craco start",
-    "build": "craco build",
-    "test": "craco test",
+    "start": "vite",
+    "build": "vite build",
+    "test": "vite test",
     "prettier": "prettier --check --ignore-path .gitignore .",
     "prettier:fix": "prettier --write --ignore-path .gitignore .",
     "eslint": "eslint ./src",
     "eslint:fix": "eslint --fix ./src",
-    "format": "pnpm run prettier:fix && pnpm run eslint:fix",
+    "format": "pnpm run prettier && pnpm run eslint",
+    "format:fix": "pnpm run prettier:fix && pnpm run eslint:fix",
     "preview": "vite preview",
     "prepare": "husky",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "lintStaged": "lint-staged",
+    "checkTs": "tsc --noEmit"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.20.5",
@@ -26,7 +29,8 @@
     "zustand": "^4.5.0"
   },
   "devDependencies": {
-    "@craco/craco": "^7.1.0",
+    "@commitlint/cli": "^19.1.0",
+    "@commitlint/config-conventional": "^19.1.0",
     "@storybook/addon-essentials": "^7.6.15",
     "@storybook/addon-interactions": "^7.6.15",
     "@storybook/addon-links": "^7.6.15",
@@ -35,8 +39,6 @@
     "@storybook/react": "^7.6.15",
     "@storybook/react-vite": "^7.6.15",
     "@storybook/test": "^7.6.15",
-    "@tanstack/eslint-plugin-query": "^5.20.1",
-    "@types/node": "^20.11.18",
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.19",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
@@ -50,7 +52,8 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
     "eslint-plugin-storybook": "^0.6.15",
-    "husky": "^9.0.11",
+    "husky": "8.0.3",
+    "lint-staged": "^15.2.2",
     "msw": "^2.2.0",
     "prettier": "^3.2.5",
     "storybook": "^7.6.15",
@@ -68,6 +71,15 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{md,json}": [
+      "prettier --write"
     ]
   }
 }
