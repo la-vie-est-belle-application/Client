@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "pnpm start",
-    "build": "pnpm build",
-    "test": "pnpm test",
+    "start": "vite",
+    "build": "vite build",
+    "test": "vite test",
     "prettier": "prettier --check --ignore-path .gitignore .",
     "prettier:fix": "prettier --write --ignore-path .gitignore .",
     "eslint": "eslint ./src",
