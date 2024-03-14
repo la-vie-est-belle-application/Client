@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "craco start",
-    "build": "craco build",
-    "test": "craco test",
+    "start": "pnpm start",
+    "build": "pnpm build",
+    "test": "pnpm test",
     "prettier": "prettier --check --ignore-path .gitignore .",
     "prettier:fix": "prettier --write --ignore-path .gitignore .",
     "eslint": "eslint ./src",
@@ -29,9 +29,6 @@
     "zustand": "^4.5.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.1.0",
-    "@commitlint/config-conventional": "^19.1.0",
-    "@craco/craco": "^7.1.0",
     "@storybook/addon-essentials": "^7.6.15",
     "@storybook/addon-interactions": "^7.6.15",
     "@storybook/addon-links": "^7.6.15",
