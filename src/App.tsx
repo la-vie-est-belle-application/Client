@@ -1,11 +1,12 @@
-import { Test } from "@components/Test";
+import Typography from "@components/Typography/Typography";
 import "./App.css";
 
 function App() {
   return (
     <>
-      <p>asdasdas</p>
-      <Test></Test>
+      <Typography fontType="caption1" bold={true}>
+        asdasdas
+      </Typography>
     </>
   );
 }

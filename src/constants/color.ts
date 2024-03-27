@@ -1,4 +1,4 @@
-interface Colors {
+export interface Colors {
   [key: string]: string;
 }
 
