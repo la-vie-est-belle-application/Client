@@ -1,4 +1,4 @@
-import styled from "styled-components";
+/*import styled from "styled-components";
 
 export interface ButtonProps {
   backgroundColor?: string;
@@ -13,4 +13,33 @@ export interface ButtonProps {
 
 const Button = styled.button<ButtonProps>(() => ({}));
 
-export default Button;
+export default Button;*/
+
+import {
+  ButtonDesignSystem,
+  BUTTON_DESIGN_SYSTEM,
+} from "@components/Button/buttonStyle";
+import styled, { CSSProperties } from "styled-components";
+
+interface ButtonProps {
+  display?: CSSProperties["display"];
+  justifyContent?: CSSProperties["justifyContent"];
+  alignItems?: CSSProperties["alignItems"];
+  border?: CSSProperties["border"];
+  cursor?: CSSProperties["cursor"];
+  type: ButtonDesignSystem;
+  onClick?: () => void;
+}
+
+const ButtonItem = styled.button<ButtonProps>(
+  ({
+    display = "flex",
+    justifyContent = "center",
+    alignItems = "center",
+    border = "none",
+    cursor = "pointer",
+  }) => ({ display, justifyContent, alignItems, border, cursor }),
+  ({ type }) => BUTTON_DESIGN_SYSTEM[type],
+);
+
+export default ButtonItem;

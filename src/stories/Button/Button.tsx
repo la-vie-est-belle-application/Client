@@ -1,32 +1,37 @@
-import styled from "styled-components";
+import {
+  ButtonDesignSystem,
+  BUTTON_DESIGN_SYSTEM,
+} from "@components/Button/buttonStyle";
+import styled, { CSSProperties } from "styled-components";
 
 interface ButtonProps {
-  label: JSX.Element | JSX.Element[];
-  backgroundColor?: string;
-  borderRadius?: string;
-  width?: string;
-  height?: string;
-  textAlign?: string;
-  fontSize?: string;
-  color?: string;
-  boxShadow?: string;
+  display?: CSSProperties["display"];
+  justifyContent?: CSSProperties["justifyContent"];
+  alignItems?: CSSProperties["alignItems"];
+  border?: CSSProperties["border"];
+  cursor?: CSSProperties["cursor"];
+  type: ButtonDesignSystem;
+}
+
+export interface Props {
+  label?: JSX.Element | JSX.Element[];
+  type: ButtonDesignSystem;
   onClick?: () => void;
 }
 
-export const Button = ({ ...props }: ButtonProps): JSX.Element => {
-  return <StyledButton {...props}>{props.label}</StyledButton>;
+const Button = ({ type, label }: Props) => {
+  return <ButtonItem type={type}>{label}</ButtonItem>;
 };
 
-const StyledButton = styled.button<ButtonProps>`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: none;
-  cursor: pointer;
-  background-color: ${({ backgroundColor }) => backgroundColor};
-  border-radius: ${({ borderRadius }) => borderRadius};
-  width: ${({ width }) => width};
-  height: ${({ height }) => height};
-  color: ${({ color }) => color};
-  box-shadow: ${({ boxShadow }) => boxShadow};
-`;
+const ButtonItem = styled.button<ButtonProps>(
+  ({
+    display = "flex",
+    justifyContent = "center",
+    alignItems = "center",
+    border = "none",
+    cursor = "pointer",
+  }) => ({ display, justifyContent, alignItems, border, cursor }),
+  ({ type }) => BUTTON_DESIGN_SYSTEM[type],
+);
+
+export default Button;
