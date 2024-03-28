@@ -1,5 +1,7 @@
 import { css } from "styled-components";
 
+export type FontDesignSystem = keyof typeof FONT_DESIGN_SYSTEM;
+
 export const FONT_DESIGN_SYSTEM = {
   subtitle1: css`
     font-size: 4rem;
@@ -57,5 +59,3 @@ export const FONT_DESIGN_SYSTEM = {
     line-height: 1.5;
   `,
 };
-
-export type FontDesignSystem = keyof typeof FONT_DESIGN_SYSTEM;
