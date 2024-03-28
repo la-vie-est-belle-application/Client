@@ -1,3 +1,4 @@
+import ButtonItem from "@components/Button/Button";
 import ScheduleDetailLink from "@components/ScheduleDetailLink/ScheduleDetailLink";
 
 const Home = () => {
@@ -8,6 +9,7 @@ const Home = () => {
         $isScheduleStatus={false}
         $isDone={false}
       ></ScheduleDetailLink>
+      <ButtonItem type="signIn">asdasdasd</ButtonItem>
     </div>
   );
 };
