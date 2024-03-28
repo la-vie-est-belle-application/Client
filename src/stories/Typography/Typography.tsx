@@ -1,6 +1,7 @@
 import { Colors } from "@constants/color";
 import { FONT_DESIGN_SYSTEM, FontDesignSystem } from "@constants/typography";
 import styled, { CSSProperties } from "styled-components";
+import "./Typography.css";
 
 interface TypographyProps {
   type?: FontDesignSystem;
