@@ -37,15 +37,15 @@ const ScheduleDetailLinkWrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 18px 12px;
-  border-radius: 8px;
+  padding: 1.8rem 1.2rem;
+  border-radius: 0.8rem;
   background-color: ${COLORS.purple300};
   width: 100%;
 `;
 
 const ScheduleStatus = styled.div<ScheduleStatusProps>`
-  width: 10px;
-  height: 10px;
+  width: 1rem;
+  height: 1rem;
   border-radius: 50%;
   background-color: ${(props) =>
     props.$isScheduleStatus ? COLORS.success : COLORS.gray100};
