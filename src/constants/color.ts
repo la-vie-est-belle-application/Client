@@ -1,10 +1,8 @@
-export interface Colors {
-  [key: string]: string;
-}
+export type Colors = keyof typeof COLORS;
 
-export const COLORS: Colors = {
+export const COLORS = {
   blue: "#1e90ff",
-  white: "FFFFFF",
+  white: "#FFFFFF",
   gray100: "#F9F9FA",
   gray200: "#F1F5F8",
   gray300: "#E5E9ED",
