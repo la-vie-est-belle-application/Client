@@ -1,13 +1,14 @@
-import Typography from "@components/Typography/Typography";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
+import Home from "@pages/Home";
 
 function App() {
   return (
-    <>
-      <Typography fontType="caption1" bold={true}>
-        asdasdas
-      </Typography>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
