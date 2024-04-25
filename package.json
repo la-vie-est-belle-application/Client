@@ -27,6 +27,7 @@
     "@emotion/styled": "^11.11.0",
     "@tanstack/react-query": "^5.20.5",
     "@tanstack/react-query-devtools": "^5.20.5",
+    "blocks": "link:@storybook/addon-docs/blocks",
     "framer-motion": "^11.0.22",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
