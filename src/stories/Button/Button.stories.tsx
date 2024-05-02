@@ -4,14 +4,7 @@ import { COLORS } from "@constants/color";
 import chat from "/assets/chat.svg";
 import setting from "/assets/setting.svg";
 import signOut from "/assets/sign-out.svg";
-import {
-  AddIcon,
-  BellIcon,
-  DeleteIcon,
-  EditIcon,
-  HamburgerIcon,
-  PhoneIcon,
-} from "@chakra-ui/icons";
+import { AddIcon, DeleteIcon, EditIcon, PhoneIcon } from "@chakra-ui/icons";
 import { Title, Subtitle, Stories } from "@storybook/blocks";
 import { FONT_DESIGN_SYSTEM } from "@constants/typography";
 
@@ -108,35 +101,11 @@ export const Sign: StoryObj<ButtonProps> = {
   ),
 };
 
-const Alarm: Story = {
-  args: {
-    icon: <BellIcon width={16} height={19.5} color={COLORS.white} />,
-    type: "headerIcon",
-  },
-};
-
-const Menu: Story = {
-  args: {
-    icon: <HamburgerIcon width={20.3} height={14} color={COLORS.white} />,
-    type: "headerIcon",
-  },
-};
-
-const Setting: Story = {
+export const Setting: Story = {
   args: {
     icon: <img src={setting} width={18} height={18} />,
     type: "icon",
   },
-};
-
-export const IconButton: StoryObj<ButtonProps> = {
-  render: (): JSX.Element => (
-    <div style={{ display: "flex", gap: "10px" }}>
-      <Button {...Alarm.args} />
-      <Button {...Menu.args} />
-      <Button {...Setting.args} />
-    </div>
-  ),
 };
 
 const Call: Story = {
@@ -216,8 +185,6 @@ export const ToggleButton: StoryObj<ButtonProps> = {
 
 const buttonArr: ButtonProps[] = [
   SignIn.args,
-  Alarm.args,
-  Menu.args,
   Call.args,
   Chat.args,
   Toggle.args,
