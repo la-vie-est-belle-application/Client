@@ -74,7 +74,7 @@ export const AllButton: StoryObj<ButtonProps> = {
 - 로그인 버튼 입니다.
 **/
 
-export const SignIn: Story = {
+export const WidthBlock: Story = {
   args: {
     label: "카카오 로그인",
     type: "signIn",
@@ -120,7 +120,7 @@ const SignOut: Story = {
   },
 };
 
-export const IconButton: StoryObj<ButtonProps> = {
+export const WidhIcon: StoryObj<ButtonProps> = {
   render: (): JSX.Element => (
     <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
       <Button {...Call.args} />
@@ -151,7 +151,7 @@ const ScheduleCancle: Story = {
   },
 };
 
-export const ToggleButton: StoryObj<ButtonProps> = {
+export const WidthOnlyIcon: StoryObj<ButtonProps> = {
   render: (): JSX.Element => (
     <div style={{ display: "flex", gap: "10px" }}>
       <Button {...Toggle.args} />
@@ -168,7 +168,7 @@ export const ToggleButton: StoryObj<ButtonProps> = {
 };
 
 const buttonArr: ButtonProps[] = [
-  SignIn.args,
+  WidthBlock.args,
   Call.args,
   Chat.args,
   Toggle.args,
