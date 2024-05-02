@@ -41,13 +41,6 @@ export const Default: Story = {
   },
 };
 
-export const Wirting: Story = {
-  args: {
-    backgroundColor: COLORS.purple400,
-    label: "글쓰기",
-  },
-};
-
 export const Delete: Story = {
   args: {
     backgroundColor: COLORS.purple300,
