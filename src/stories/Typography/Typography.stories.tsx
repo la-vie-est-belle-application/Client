@@ -4,7 +4,7 @@ import { FONT_DESIGN_SYSTEM } from "@constants/typography";
 import { COLORS } from "@constants/color";
 
 const meta = {
-  title: "Example/Typography",
+  title: "Components/Typography",
   component: Typography,
   tags: ["autodocs"],
   parameters: {
