@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from "@storybook/react";
 import Button, { ButtonProps } from "./Button";
 import { COLORS } from "@constants/color";
 import chat from "/assets/chat.svg";
-import setting from "/assets/setting.svg";
 import signOut from "/assets/sign-out.svg";
 import { AddIcon, DeleteIcon, EditIcon, PhoneIcon } from "@chakra-ui/icons";
 import { Title, Subtitle, Stories } from "@storybook/blocks";
@@ -75,36 +74,11 @@ export const AllButton: StoryObj<ButtonProps> = {
 - 로그인 버튼 입니다.
 **/
 
-const SignIn: Story = {
+export const WidthBlock: Story = {
   args: {
     label: "카카오 로그인",
     type: "signIn",
     fontType: "subtitle6",
-  },
-};
-
-const SignOut: Story = {
-  args: {
-    icon: <img key={1} style={{ marginRight: "0.5rem" }} src={signOut} />,
-    label: "로그아웃",
-    type: "signOut",
-    fontType: "caption1",
-  },
-};
-
-export const Sign: StoryObj<ButtonProps> = {
-  render: (): JSX.Element => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "25px" }}>
-      <Button {...SignIn.args} />
-      <Button {...SignOut.args} />
-    </div>
-  ),
-};
-
-export const Setting: Story = {
-  args: {
-    icon: <img src={setting} width={18} height={18} />,
-    type: "icon",
   },
 };
 
@@ -137,11 +111,21 @@ const Chat: Story = {
   },
 };
 
-export const WidthButton: StoryObj<ButtonProps> = {
+const SignOut: Story = {
+  args: {
+    icon: <img key={1} style={{ marginRight: "0.5rem" }} src={signOut} />,
+    label: "로그아웃",
+    type: "signOut",
+    fontType: "caption1",
+  },
+};
+
+export const WidhIcon: StoryObj<ButtonProps> = {
   render: (): JSX.Element => (
-    <div style={{ display: "flex", gap: "10px" }}>
+    <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
       <Button {...Call.args} />
       <Button {...Chat.args} />
+      <Button {...SignOut.args} />
     </div>
   ),
 };
@@ -167,7 +151,7 @@ const ScheduleCancle: Story = {
   },
 };
 
-export const ToggleButton: StoryObj<ButtonProps> = {
+export const WidthOnlyIcon: StoryObj<ButtonProps> = {
   render: (): JSX.Element => (
     <div style={{ display: "flex", gap: "10px" }}>
       <Button {...Toggle.args} />
@@ -184,12 +168,11 @@ export const ToggleButton: StoryObj<ButtonProps> = {
 };
 
 const buttonArr: ButtonProps[] = [
-  SignIn.args,
+  WidthBlock.args,
   Call.args,
   Chat.args,
   Toggle.args,
   ScheduleRegister.args,
   ScheduleCancle.args,
   SignOut.args,
-  Setting.args,
 ];
