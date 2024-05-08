@@ -1,5 +1,5 @@
 import Calender from "@components/Calender/Calender";
-import Header from "@components/Header/Header";
+import Header from "@layout/Header";
 import ViewSchedule from "@components/ViewSchedule/ViewSchedule";
 
 const ScheduleMnage = () => {

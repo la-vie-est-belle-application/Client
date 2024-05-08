@@ -1,6 +1,6 @@
 import { COLORS } from "@constants/color";
 import styled from "styled-components";
-import scheduleRed from "@assets/schedule-red.svg";
+import scheduleRed from "/assets/schedule-red.svg";
 import { Image } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import Typography from "@components/Typography/Typography";
@@ -25,12 +25,12 @@ const ViewSchedule = () => {
 export default ViewSchedule;
 
 const ViewContainer = styled.footer`
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: ${COLORS.gray100};
-  width: 375px;
-  height: 410px;
+  height: 50%;
 `;
 
 const ImageWrapper = styled.div`

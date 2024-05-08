@@ -33,8 +33,8 @@ export const BUTTON_DESIGN_SYSTEM = {
   toggle: css`
     border-radius: 50%;
     background-color: ${COLORS.purple400};
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 5rem;
+    height: 5rem;
     position: absolute;
     bottom: 27px;
     right: 14px;
