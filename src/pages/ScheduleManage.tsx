@@ -2,7 +2,7 @@ import Calender from "@components/Calender/Calender";
 import Header from "@layout/Header";
 import ViewSchedule from "@components/ViewSchedule/ViewSchedule";
 
-const ScheduleMnage = () => {
+const ScheduleManage = () => {
   return (
     <>
       <Header title="일정 관리" />
@@ -12,4 +12,4 @@ const ScheduleMnage = () => {
   );
 };
 
-export default ScheduleMnage;
+export default ScheduleManage;
