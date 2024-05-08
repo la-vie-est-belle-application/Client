@@ -21,7 +21,7 @@ const SignIn = () => {
           </SignInSubText>
         </SignInTexts>
         <ButtonItem type="signIn">
-          <Typography>카카오 로그인</Typography>
+          <Typography type="subtitle6">카카오 로그인</Typography>
         </ButtonItem>
       </SignInContainer>
     </SignInWrap>
