@@ -1,20 +1,22 @@
 import ButtonItem from "@components/Button/Button";
+import Container from "@components/Container/Container";
 import Typography from "@components/Typography/Typography";
+import { COLORS } from "@constants/color";
 import styled from "styled-components";
 
 const SignIn = () => {
   return (
-    <SignInWrap>
+    <Container>
       <SignInBackgroundImg />
       <SignInContainer>
         <SignInTexts>
           <h1>
-            <Typography type="body2" color="white">
+            <Typography type="body2" color={COLORS.white}>
               라비에벨 진행팀 애플리케이션
             </Typography>
           </h1>
           <SignInSubText>
-            <Typography type="subtitle6" color="white">
+            <Typography type="subtitle6" color={COLORS.white}>
               내 일정에 맞게 원하는 날에 스케줄을 신청하고 급여를 계산할 수
               있습니다.
             </Typography>
@@ -24,20 +26,12 @@ const SignIn = () => {
           <Typography type="subtitle6">카카오 로그인</Typography>
         </ButtonItem>
       </SignInContainer>
-    </SignInWrap>
+    </Container>
   );
 };
 
 export default SignIn;
-
-const SignInWrap = styled.div`
-  position: relative;
-  width: 100%;
-  height: 100%;
-`;
-
 const SignInContainer = styled.div`
-  padding: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
