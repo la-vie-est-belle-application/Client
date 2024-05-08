@@ -9,7 +9,7 @@ export const BUTTON_DESIGN_SYSTEM = {
     border-radius: 10px;
     background-color: ${COLORS.purple400};
     width: 100%;
-    height: 3.25rem;
+    padding: 1.2rem;
     color: ${COLORS.white};
     box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
   `,
