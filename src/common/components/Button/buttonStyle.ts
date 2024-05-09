@@ -36,8 +36,9 @@ export const BUTTON_DESIGN_SYSTEM = {
     width: 5rem;
     height: 5rem;
     position: absolute;
-    bottom: 27px;
-    right: 14px;
+    bottom: 2.5rem;
+    right: 1.4rem;
+    z-index: 20;
     box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
   `,
   scheduleCancle: css`
