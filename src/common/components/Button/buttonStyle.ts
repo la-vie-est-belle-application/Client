@@ -14,8 +14,8 @@ export const BUTTON_DESIGN_SYSTEM = {
     box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
   `,
   large: css`
-    width: 10rem;
-    height: 3rem;
+    flex: 1 1 0;
+    padding: 1.2rem;
     border-radius: 10px;
     color: ${COLORS.purple600};
     background-color: ${COLORS.purple200};

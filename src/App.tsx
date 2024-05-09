@@ -1,8 +1,8 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import Home from "@pages/Home";
-import SignIn from "@pages/SignIn";
+import Home from "@pages/home/Home";
 import ScheduleManage from "@pages/ScheduleManage";
+import SignIn from "@pages/signIn/SignIn";
 import BackGroundBlur from "@components/ViewSchedule/BackGroundBlur";
 
 function App() {

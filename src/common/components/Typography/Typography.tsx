@@ -1,4 +1,4 @@
-import { Colors } from "@constants/color";
+import { COLORS, Colors } from "@constants/color";
 import { FONT_DESIGN_SYSTEM, FontDesignSystem } from "@constants/typography";
 import styled, { CSSProperties } from "styled-components";
 
@@ -12,7 +12,7 @@ interface TypographyProps {
 
 const Typography = styled.span<TypographyProps>(
   ({ color = "gray900", $textAlign = "center", $bold = false, $cursor }) => ({
-    color,
+    color: COLORS[color as keyof typeof COLORS],
     $textAlign,
     fontWeight: $bold ? 700 : 400,
     $cursor,

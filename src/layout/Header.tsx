@@ -9,15 +9,18 @@ interface HeaderProps {
 }
 
 interface ViewProps {
-  renderTitle?: () => JSX.Element;
+  renderTitle?: () => JSX.Element | null;
   backgroundColor?: string;
   iconColor?: string;
+  $isHome?: boolean;
 }
 
 const Header = ({ title }: HeaderProps) => {
   const url = useLocation().pathname;
-  const iconColor = url === "/" ? COLORS.white : COLORS.gray900;
-  const backgroundColor = url === "/" ? COLORS.purple700 : COLORS.white;
+  const homeUrl = "/";
+  const iconColor = url === homeUrl ? COLORS.white : COLORS.gray900;
+  const backgroundColor = url === homeUrl ? COLORS.purple700 : COLORS.white;
+  const $isHome = url === homeUrl;
 
   const renderTitle = () => {
     return title ? (
@@ -25,23 +28,22 @@ const Header = ({ title }: HeaderProps) => {
         <ArrowBackIcon fontSize={25} />
         <Typography type="subtitle6">{title}</Typography>
       </>
-    ) : (
-      <></>
-    );
+    ) : null;
   };
 
   const props: ViewProps = {
     renderTitle,
     backgroundColor,
     iconColor,
+    $isHome,
   };
 
   return <HeaderView {...props} />;
 };
 
-const HeaderView = ({ renderTitle, backgroundColor, iconColor }: ViewProps) => {
+const HeaderView = ({ renderTitle, iconColor, $isHome }: ViewProps) => {
   return (
-    <HeaderContainer backgroundcolor={backgroundColor as string}>
+    <HeaderContainer $isHome={$isHome}>
       <TitleWrapper>{renderTitle && renderTitle()}</TitleWrapper>
 
       <IconWrapper>
@@ -52,15 +54,17 @@ const HeaderView = ({ renderTitle, backgroundColor, iconColor }: ViewProps) => {
   );
 };
 
-const HeaderContainer = styled.header<{ backgroundcolor: string }>`
+const HeaderContainer = styled.header<Pick<ViewProps, "$isHome">>`
+  position: relative;
+  z-index: 99;
   height: 60px;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
-  border-bottom: 1px solid ${COLORS.gray300};
-  background-color: ${(props) => props.backgroundcolor};
+  border-bottom: ${(props) =>
+    props.$isHome ? "none" : "1px solid ${COLORS.gray300}"};
 `;
 
 const TitleWrapper = styled.div`
