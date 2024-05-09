@@ -10,7 +10,7 @@ interface ButtonProps {
   alignItems?: CSSProperties["alignItems"];
   border?: CSSProperties["border"];
   cursor?: CSSProperties["cursor"];
-  gap?: CSSProperties["gap"];
+  $gap?: CSSProperties["gap"];
   type: ButtonDesignSystem;
   onClick?: () => void;
 }
@@ -22,8 +22,8 @@ const ButtonItem = styled.button<ButtonProps>(
     alignItems = "center",
     border = "none",
     cursor = "pointer",
-    gap = "0",
-  }) => ({ display, justifyContent, alignItems, border, cursor, gap }),
+    $gap = "unset",
+  }) => ({ display, justifyContent, alignItems, border, cursor, $gap }),
   ({ type }) => BUTTON_DESIGN_SYSTEM[type],
 );
 

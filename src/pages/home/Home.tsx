@@ -6,6 +6,7 @@ import UserProfile from "./components/UserProfile";
 import ScheduleRegistrationCard from "./components/ScheduleRegistrationCard";
 import Header from "@layout/Header";
 import SwiperAdminsProfileCard from "./components/SwiperAdminsProfileCard";
+import Menus from "./components/Menus";
 
 const Home = () => {
   return (
@@ -16,6 +17,7 @@ const Home = () => {
           <UserProfile />
           <ScheduleRegistrationCard />
           <SwiperAdminsProfileCard />
+          <Menus />
         </VStack>
       </Container>
     </HomeWrap>
@@ -48,7 +50,8 @@ const HomeWrap = styled.div`
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh;
+    height: 100%;
+    min-height: 100vh;
     z-index: -1;
     background-color: ${COLORS.purple100};
   }

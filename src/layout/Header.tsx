@@ -12,7 +12,7 @@ interface ViewProps {
   renderTitle?: () => JSX.Element | null;
   backgroundColor?: string;
   iconColor?: string;
-  isHome?: boolean;
+  $isHome?: boolean;
 }
 
 const Header = ({ title }: HeaderProps) => {
@@ -20,7 +20,7 @@ const Header = ({ title }: HeaderProps) => {
   const homeUrl = "/";
   const iconColor = url === homeUrl ? COLORS.white : COLORS.gray900;
   const backgroundColor = url === homeUrl ? COLORS.purple700 : COLORS.white;
-  const isHome = url === homeUrl;
+  const $isHome = url === homeUrl;
 
   const renderTitle = () => {
     return title ? (
@@ -35,15 +35,15 @@ const Header = ({ title }: HeaderProps) => {
     renderTitle,
     backgroundColor,
     iconColor,
-    isHome,
+    $isHome,
   };
 
   return <HeaderView {...props} />;
 };
 
-const HeaderView = ({ renderTitle, iconColor, isHome }: ViewProps) => {
+const HeaderView = ({ renderTitle, iconColor, $isHome }: ViewProps) => {
   return (
-    <HeaderContainer isHome={isHome}>
+    <HeaderContainer $isHome={$isHome}>
       <TitleWrapper>{renderTitle && renderTitle()}</TitleWrapper>
 
       <IconWrapper>
@@ -54,7 +54,7 @@ const HeaderView = ({ renderTitle, iconColor, isHome }: ViewProps) => {
   );
 };
 
-const HeaderContainer = styled.header<Pick<ViewProps, "isHome">>`
+const HeaderContainer = styled.header<Pick<ViewProps, "$isHome">>`
   position: relative;
   z-index: 99;
   height: 60px;
@@ -64,7 +64,7 @@ const HeaderContainer = styled.header<Pick<ViewProps, "isHome">>`
   justify-content: space-between;
   padding: 0 20px;
   border-bottom: ${(props) =>
-    props.isHome ? "none" : "1px solid ${COLORS.gray300}"};
+    props.$isHome ? "none" : "1px solid ${COLORS.gray300}"};
 `;
 
 const TitleWrapper = styled.div`

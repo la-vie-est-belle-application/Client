@@ -1,0 +1,37 @@
+[
+  {
+    "title": "일정관리",
+    "subTitle": "",
+    "imageUrl": "/assets/schedule-blue.svg"
+  },
+  {
+    "title": "공지사항",
+    "subTitle": "",
+    "imageUrl": "/assets/megaphone.svg"
+  },
+  {
+    "title": "급여계산",
+    "subTitle": "",
+    "imageUrl": "/assets/hand.svg"
+  },
+  {
+    "title": "프로필",
+    "subTitle": "",
+    "imageUrl": "/assets/profile.svg"
+  },
+  {
+    "title": "출석관리",
+    "subTitle": "",
+    "imageUrl": "/assets/chart.svg"
+  },
+  {
+    "title": "조회",
+    "subTitle": "전체 스케줄",
+    "imageUrl": "/assets/glass.svg"
+  },
+  {
+    "title": "일정등록",
+    "subTitle": "",
+    "imageUrl": "/assets/clipboard.svg"
+  }
+]

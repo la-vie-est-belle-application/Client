@@ -51,7 +51,7 @@ const AdminsProfileCard = ({
       <CardFooter>
         <Wrap spacing={".8rem"} flex={"1 1 0"}>
           <WrapItem flex={"1"}>
-            <ButtonItem type="large" gap={".8rem"}>
+            <ButtonItem type="large" $gap={".8rem"}>
               <Image
                 src={ckPhone}
                 boxSize={"2.4rem"}
@@ -63,7 +63,7 @@ const AdminsProfileCard = ({
             </ButtonItem>
           </WrapItem>
           <WrapItem flex={"1"}>
-            <ButtonItem type="large" gap={".8rem"}>
+            <ButtonItem type="large" $gap={".8rem"}>
               <Image
                 src={message}
                 boxSize={"2.4rem"}
