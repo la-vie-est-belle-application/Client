@@ -1,5 +1,11 @@
+import Header from "@layout/Header";
+
 const Home = () => {
-  return <></>;
+  return (
+    <>
+      <Header></Header>
+    </>
+  );
 };
 
 export default Home;

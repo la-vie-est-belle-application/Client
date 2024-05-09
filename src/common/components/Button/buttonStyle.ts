@@ -33,8 +33,11 @@ export const BUTTON_DESIGN_SYSTEM = {
   toggle: css`
     border-radius: 50%;
     background-color: ${COLORS.purple400};
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 5rem;
+    height: 5rem;
+    position: absolute;
+    bottom: 27px;
+    right: 14px;
     box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
   `,
   scheduleCancle: css`
