@@ -3,7 +3,7 @@ import "./App.css";
 import Home from "@pages/home/Home";
 import ScheduleManage from "@pages/ScheduleManage";
 import SignIn from "@pages/signIn/SignIn";
-import BackGroundBlur from "@components/ViewSchedule/BackGroundBlur";
+import BackGroundBlur from "@components/Modal/BackGroundBlur";
 
 function App() {
   return (
