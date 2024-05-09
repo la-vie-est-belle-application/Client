@@ -15,7 +15,7 @@ import message from "@assets/AiFillMessage.svg";
 
 const AdminsProfileCard = () => {
   return (
-    <Card borderRadius={"1.5rem"}>
+    <Card borderRadius={"1.5rem"} pb={"3rem"}>
       <CardBody>
         <Wrap align={"center"} spacing={"1.4rem"}>
           <WrapItem>
@@ -31,7 +31,7 @@ const AdminsProfileCard = () => {
               </Typography>
             </WrapItem>
             <Stack direction={"row"} h={"2rem"}>
-              <Typography type="body3" color="gray700">
+              <Typography type="body3" color="gray600">
                 010-9259-4664
               </Typography>
             </Stack>

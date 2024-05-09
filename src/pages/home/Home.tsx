@@ -4,8 +4,8 @@ import { COLORS } from "@constants/color";
 import styled from "styled-components";
 import UserProfile from "./components/UserProfile";
 import ScheduleRegistrationCard from "./components/ScheduleRegistrationCard";
-import AdminsProfileCard from "./components/AdminsProfileCard";
 import Header from "@layout/Header";
+import SwiperAdminsProfileCard from "./components/SwiperAdminsProfileCard";
 
 const Home = () => {
   return (
@@ -15,7 +15,7 @@ const Home = () => {
         <VStack align={"stretch"} gap={"1.2rem"}>
           <UserProfile />
           <ScheduleRegistrationCard />
-          <AdminsProfileCard />
+          <SwiperAdminsProfileCard />
         </VStack>
       </Container>
     </HomeWrap>
