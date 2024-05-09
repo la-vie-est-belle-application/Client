@@ -1,7 +1,7 @@
 import { ChevronRightIcon } from "@chakra-ui/icons";
 import { Card, HStack, Image, Wrap, WrapItem } from "@chakra-ui/react";
 import Typography from "@components/Typography/Typography";
-import { COLORS, RGB_COLORS } from "@constants/color";
+import { RGB_COLORS } from "@constants/color";
 import scheduleGreen from "@assets/schedule-green.svg";
 import { Link } from "react-router-dom";
 
@@ -19,10 +19,10 @@ const ScheduleRegistrationCard = () => {
         >
           <Wrap direction={"column"} spacing={"1rem"}>
             <WrapItem alignItems={"center"}>
-              <Typography type="body3" color={COLORS.white}>
+              <Typography type="body3" color={"white"}>
                 일정 등록
               </Typography>
-              <ChevronRightIcon boxSize={"2.4rem"} color={COLORS.white} />
+              <ChevronRightIcon boxSize={"2.4rem"} color={"white"} />
             </WrapItem>
             <WrapItem>
               <Typography type="subtitle6" color="white">

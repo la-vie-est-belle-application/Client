@@ -5,10 +5,12 @@ import styled from "styled-components";
 import UserProfile from "./components/UserProfile";
 import ScheduleRegistrationCard from "./components/ScheduleRegistrationCard";
 import UserProfileCard from "./components/UserProfileCard";
+import Header from "@layout/Header";
 
 const Home = () => {
   return (
     <HomeWrap>
+      <Header />
       <Container>
         <VStack align={"stretch"}>
           <UserProfile />

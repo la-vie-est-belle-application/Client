@@ -1,32 +1,38 @@
+import { Flex } from "@chakra-ui/react";
 import ButtonItem from "@components/Button/Button";
 import Container from "@components/Container/Container";
 import Typography from "@components/Typography/Typography";
-import { COLORS } from "@constants/color";
 import styled from "styled-components";
 
 const SignIn = () => {
   return (
-    <Container>
-      <SignInBackgroundImg />
-      <SignInContainer>
-        <SignInTexts>
-          <h1>
-            <Typography type="body2" color={COLORS.white}>
-              라비에벨 진행팀 애플리케이션
-            </Typography>
-          </h1>
-          <SignInSubText>
-            <Typography type="subtitle6" color={COLORS.white}>
-              내 일정에 맞게 원하는 날에 스케줄을 신청하고 급여를 계산할 수
-              있습니다.
-            </Typography>
-          </SignInSubText>
-        </SignInTexts>
-        <ButtonItem type="signIn">
-          <Typography type="subtitle6">카카오 로그인</Typography>
-        </ButtonItem>
-      </SignInContainer>
-    </Container>
+    <SignInContainer>
+      <Container>
+        <SignInBackgroundImg />
+        <Flex
+          direction={"column"}
+          justifyContent={"space-between"}
+          height={"100%"}
+        >
+          <SignInTexts>
+            <h1>
+              <Typography type="body2" color={"white"}>
+                라비에벨 진행팀 애플리케이션
+              </Typography>
+            </h1>
+            <SignInSubText>
+              <Typography type="subtitle6" color={"white"}>
+                내 일정에 맞게 원하는 날에 스케줄을 신청하고 급여를 계산할 수
+                있습니다.
+              </Typography>
+            </SignInSubText>
+          </SignInTexts>
+          <ButtonItem type="signIn">
+            <Typography type="subtitle6">카카오 로그인</Typography>
+          </ButtonItem>
+        </Flex>
+      </Container>
+    </SignInContainer>
   );
 };
 
@@ -36,7 +42,7 @@ const SignInContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
-  height: 100%;
+  height: 100vh;
 `;
 
 const SignInBackgroundImg = styled.div`
@@ -44,7 +50,8 @@ const SignInBackgroundImg = styled.div`
   inset: 0;
   width: 100%;
   height: 100%;
-  background: url("./public/assets/main.svg") no-repeat center center/cover;
+  background: url("./public/assets/main.svg") no-repeat center center/cover
+    fixed;
   z-index: -2;
   &::before {
     content: "";
