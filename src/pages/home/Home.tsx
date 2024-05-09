@@ -28,6 +28,7 @@ export default Home;
 
 const HomeWrap = styled.div`
   position: relative;
+  padding-bottom: 5rem;
   &::before {
     content: "";
     display: block;
