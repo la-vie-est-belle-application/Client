@@ -1,6 +1,5 @@
 import { Avatar, Wrap, WrapItem } from "@chakra-ui/react";
 import Typography from "@components/Typography/Typography";
-import { COLORS } from "@constants/color";
 
 const UserProfile = () => {
   return (
@@ -9,7 +8,7 @@ const UserProfile = () => {
         <Avatar />
       </WrapItem>
       <WrapItem>
-        <Typography type="subtitle6" color={COLORS.white}>
+        <Typography type="subtitle6" color="white">
           전옥진
         </Typography>
       </WrapItem>

@@ -12,9 +12,8 @@ import ButtonItem from "@components/Button/Button";
 import Typography from "@components/Typography/Typography";
 import ckPhone from "@assets/ckPhone.svg";
 import message from "@assets/AiFillMessage.svg";
-import { COLORS } from "@constants/color";
 
-const UserProfileCard = () => {
+const AdminsProfileCard = () => {
   return (
     <Card borderRadius={"1.5rem"}>
       <CardBody>
@@ -24,15 +23,15 @@ const UserProfileCard = () => {
           </WrapItem>
           <Wrap direction={"column"}>
             <WrapItem alignItems={"center"} gap={".4rem"}>
-              <Typography type="subtitle6" color={COLORS.gray900}>
+              <Typography type="subtitle6" color="gray900">
                 이두호
               </Typography>
-              <Typography type="body3" color={COLORS.gray600}>
+              <Typography type="body3" color="gray700">
                 상무님
               </Typography>
             </WrapItem>
             <Stack direction={"row"} h={"2rem"}>
-              <Typography type="body3" color={COLORS.gray600}>
+              <Typography type="body3" color="gray700">
                 010-9259-4664
               </Typography>
             </Stack>
@@ -44,7 +43,7 @@ const UserProfileCard = () => {
           <WrapItem flex={"1"}>
             <ButtonItem type="large" gap={".8rem"}>
               <Image src={ckPhone} boxSize={"2.4rem"}></Image>
-              <Typography type="body3" color={COLORS.purple600}>
+              <Typography type="body3" color={"purple600"}>
                 전화걸기
               </Typography>
             </ButtonItem>
@@ -52,7 +51,7 @@ const UserProfileCard = () => {
           <WrapItem flex={"1"}>
             <ButtonItem type="large" gap={".8rem"}>
               <Image src={message} boxSize={"2.4rem"}></Image>
-              <Typography type="body3" color={COLORS.purple600}>
+              <Typography type="body3" color="purple600">
                 대화하기
               </Typography>
             </ButtonItem>
@@ -63,4 +62,4 @@ const UserProfileCard = () => {
   );
 };
 
-export default UserProfileCard;
+export default AdminsProfileCard;
