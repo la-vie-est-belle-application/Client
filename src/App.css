@@ -10,4 +10,5 @@ body {
   display: block;
   max-width: 76.8rem;
   margin: 0 auto;
+  position: relative;
 }

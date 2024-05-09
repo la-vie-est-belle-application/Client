@@ -1,19 +1,19 @@
-import { create } from 'zustand';
-import { persist, createJSONStorage } from 'zustand/middleware';
+import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
 
 interface Store {
-  isDark: boolean;
-  toggleDarkMode: (state: boolean) => void;
+  isModal: boolean;
+  setIsModal: (state: boolean) => void;
 }
 
 const useStore = create<Store>()(
   persist(
     (set) => ({
-      isDark: false,
-      toggleDarkMode: (state: boolean) => set({ isDark: state }),
+      isModal: false,
+      setIsModal: (state: boolean) => set({ isModal: state }),
     }),
     {
-      name: 'dark-mode-storage',
+      name: "modal-storage",
       storage: createJSONStorage(() => sessionStorage),
     },
   ),

@@ -69,27 +69,23 @@ export const StyledCalendarWrapper = styled.div`
     color: ${COLORS.blue};
   }
 
-  .react-calendar__month-view__days {
-    gap: 12.5px;
-  }
   /* 일 날짜 간격 */
   .react-calendar__tile {
-    flex: 0 0 calc(11%) !important;
     text-align: center;
     font-size: 1.1rem;
     font-weight: 600;
     color: ${COLORS.gray700};
-    padding: 1.3rem 0;
-    border-radius: 50%;
+    padding: 2rem 0;
   }
-  .react-calendar__tile:first-child {
-    margin-left: 43.63% !important;
+
+  .react-calendar__tile abbr {
+    padding: 1rem;
+    border-radius: 50%;
   }
 
   /* 오늘의 날짜 색상 */
   .react-calendar__tile--now {
-    background-color: ${COLORS.purple200};
-    color: ${COLORS.white};
+    background-color: ${COLORS.white};
   }
   .react-calendar__tile--now:hover {
     background-color: ${COLORS.gray300};
@@ -98,8 +94,7 @@ export const StyledCalendarWrapper = styled.div`
 
   /* 일 선택시  */
   .react-calendar__tile--active {
-    background-color: ${COLORS.blue};
-    color: ${COLORS.white};
+    background-color: ${COLORS.white} !important;
   }
 
   /* 네비게이션 월 스타일 적용 */

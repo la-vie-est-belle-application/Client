@@ -2,11 +2,31 @@ import { COLORS } from "@constants/color";
 import styled from "styled-components";
 import scheduleRed from "/assets/schedule-red.svg";
 import { Image } from "@chakra-ui/react";
-import { AddIcon } from "@chakra-ui/icons";
+import { AddIcon, CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import Typography from "@components/Typography/Typography";
 import ButtonItem from "@components/Button/Button";
+import useStore from "@stores/store";
 
-const ViewSchedule = () => {
+interface ViewScheduleProps {
+  isModal: boolean;
+  onClickShowModal: () => void;
+}
+
+const ViewSchedule = (): JSX.Element => {
+  const { isModal, setIsModal } = useStore();
+
+  const onClickShowModal = () => {
+    setIsModal(!isModal);
+  };
+
+  const props = {
+    isModal,
+    onClickShowModal,
+  };
+  return <ScheduleView {...props} />;
+};
+
+const ScheduleView = ({ isModal, onClickShowModal }: ViewScheduleProps) => {
   return (
     <ViewContainer>
       <ImageWrapper>
@@ -15,8 +35,22 @@ const ViewSchedule = () => {
           등록된 일정이 없습니다!
         </Typography>
       </ImageWrapper>
-      <ButtonItem type="toggle">
-        <AddIcon color="white" fontSize={14} />
+      {isModal && (
+        <>
+          <ButtonItem type="scheduleCancle">
+            <DeleteIcon color={COLORS.gray700} fontSize={25} />
+          </ButtonItem>
+          <ButtonItem style={{ bottom: "8rem" }} type="toggle">
+            <EditIcon color={COLORS.white} fontSize={25} />
+          </ButtonItem>
+        </>
+      )}
+      <ButtonItem type="toggle" onClick={onClickShowModal}>
+        {isModal ? (
+          <CloseIcon color="white" fontSize={16} />
+        ) : (
+          <AddIcon color="white" fontSize={18} />
+        )}
       </ButtonItem>
     </ViewContainer>
   );
@@ -30,7 +64,7 @@ const ViewContainer = styled.footer`
   justify-content: center;
   align-items: center;
   background-color: ${COLORS.gray100};
-  height: 50%;
+  height: 35.7vh;
 `;
 
 const ImageWrapper = styled.div`
