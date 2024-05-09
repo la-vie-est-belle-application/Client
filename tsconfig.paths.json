@@ -12,7 +12,8 @@
       "@stores/*": ["./src/stores/*"],
       "@stories/*": ["./src/stories/*"],
       "@tests/*": ["./src/tests/*"],
-      "@utils/*": ["./src/utils/*"]
+      "@utils/*": ["./src/utils/*"],
+      "@datas/*": ["./src/datas/*"]
     }
   }
 }

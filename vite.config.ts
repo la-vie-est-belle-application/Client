@@ -18,6 +18,7 @@ export default defineConfig({
       { find: "@stories", replacement: "/src/stories" },
       { find: "@tests", replacement: "/src/tests" },
       { find: "@utils", replacement: "/src/utils" },
+      { find: "@datas", replacement: "/src/datas" },
     ],
   },
 });
