@@ -46,6 +46,7 @@ export const BUTTON_DESIGN_SYSTEM = {
     background-color: ${COLORS.white};
     width: 5rem;
     height: 5rem;
+    bottom: 13.6rem;
     box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
   `,
   signOut: css`
