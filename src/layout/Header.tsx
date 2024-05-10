@@ -10,7 +10,6 @@ interface HeaderProps {
 
 interface ViewProps {
   renderTitle?: () => JSX.Element | null;
-  backgroundColor?: string;
   iconColor?: string;
   $isHome?: boolean;
 }
@@ -19,13 +18,12 @@ const Header = ({ title }: HeaderProps) => {
   const url = useLocation().pathname;
   const homeUrl = "/";
   const iconColor = url === homeUrl ? COLORS.white : COLORS.gray900;
-  const backgroundColor = url === homeUrl ? COLORS.purple700 : COLORS.white;
   const $isHome = url === homeUrl;
 
   const renderTitle = () => {
     return title ? (
       <>
-        <ArrowBackIcon fontSize={25} />
+        <ArrowBackIcon fontSize={25} marginRight={4} />
         <Typography type="subtitle6">{title}</Typography>
       </>
     ) : null;
@@ -33,7 +31,6 @@ const Header = ({ title }: HeaderProps) => {
 
   const props: ViewProps = {
     renderTitle,
-    backgroundColor,
     iconColor,
     $isHome,
   };
@@ -48,7 +45,12 @@ const HeaderView = ({ renderTitle, iconColor, $isHome }: ViewProps) => {
 
       <IconWrapper>
         <BellIcon color={iconColor} fontSize={20} cursor="pointer" />
-        <HamburgerIcon color={iconColor} fontSize={20} cursor="pointer" />
+        <HamburgerIcon
+          color={iconColor}
+          fontSize={20}
+          cursor="pointer"
+          marginLeft={3}
+        />
       </IconWrapper>
     </HeaderContainer>
   );
@@ -62,9 +64,9 @@ const HeaderContainer = styled.header<Pick<ViewProps, "$isHome">>`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 20px;
+  padding: 0 14px;
   border-bottom: ${(props) =>
-    props.$isHome ? "none" : "1px solid ${COLORS.gray300}"};
+    props.$isHome ? "none" : `1px solid ${COLORS.gray300}`};
 `;
 
 const TitleWrapper = styled.div`

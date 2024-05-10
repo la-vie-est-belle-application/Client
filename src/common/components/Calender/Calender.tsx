@@ -31,7 +31,7 @@ const Calender = () => {
 export const StyledCalendarWrapper = styled.div`
   width: 100%;
   position: relative;
-  padding: 20px 14px;
+  padding: 20px 0;
   .react-calendar {
     width: 100%;
     border: none;
