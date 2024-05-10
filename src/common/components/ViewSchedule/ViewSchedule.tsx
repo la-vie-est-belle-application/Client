@@ -9,24 +9,35 @@ import useStore from "@stores/store";
 
 interface ViewScheduleProps {
   isModal: boolean;
+  onClickToggle: () => void;
   onClickShowModal: () => void;
 }
 
 const ViewSchedule = (): JSX.Element => {
-  const { isModal, setIsModal } = useStore();
+  const { setModalType, isModal, setIsModal } = useStore();
+
+  const onClickToggle = () => {
+    setIsModal(!isModal);
+    setModalType("");
+  };
 
   const onClickShowModal = () => {
-    setIsModal(!isModal);
+    setModalType("modal");
   };
 
   const props = {
     isModal,
+    onClickToggle,
     onClickShowModal,
   };
   return <ScheduleView {...props} />;
 };
 
-const ScheduleView = ({ isModal, onClickShowModal }: ViewScheduleProps) => {
+const ScheduleView = ({
+  isModal,
+  onClickShowModal,
+  onClickToggle,
+}: ViewScheduleProps) => {
   return (
     <ViewContainer>
       <ImageWrapper>
@@ -37,15 +48,20 @@ const ScheduleView = ({ isModal, onClickShowModal }: ViewScheduleProps) => {
       </ImageWrapper>
       {isModal && (
         <>
-          <ButtonItem type="scheduleCancle">
+          <ButtonItem type="scheduleCancle" onClick={onClickShowModal}>
             <DeleteIcon color={COLORS.gray700} fontSize={25} />
           </ButtonItem>
-          <ButtonItem style={{ bottom: "8rem" }} type="toggle">
+
+          <ButtonItem
+            style={{ bottom: "8rem" }}
+            type="toggle"
+            onClick={onClickShowModal}
+          >
             <EditIcon color={COLORS.white} fontSize={25} />
           </ButtonItem>
         </>
       )}
-      <ButtonItem type="toggle" onClick={onClickShowModal}>
+      <ButtonItem type="toggle" onClick={onClickToggle}>
         {isModal ? (
           <CloseIcon color="white" fontSize={16} />
         ) : (

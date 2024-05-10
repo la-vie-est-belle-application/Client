@@ -1,14 +1,22 @@
 import styled from "styled-components";
-import useStore from "@stores/store";
+import useStore, { ModalType } from "@stores/store";
 import { MouseEvent, useRef } from "react";
+import ModalComponent from "./Modal";
 
 interface VeiwBlurProps {
+  modalType: ModalType;
   modalRef: React.MutableRefObject<null>;
   onClickOutside: (event: MouseEvent) => void;
 }
+
 const BackGroundBlur = () => {
-  const { isModal, setIsModal } = useStore();
+  const { modalType, isModal, setIsModal } = useStore();
   const modalRef = useRef(null);
+
+  if (!isModal) {
+    return null;
+  }
+
   const onClickOutside = (event: MouseEvent) => {
     if (modalRef.current === event.target) {
       setIsModal(!isModal);
@@ -16,29 +24,25 @@ const BackGroundBlur = () => {
   };
 
   const props = {
+    modalType,
     modalRef,
     onClickOutside,
   };
-  if (!isModal) {
-    return null;
-  } else {
-    return <ViewBlur {...props} />;
-  }
+
+  return <ViewBlur {...props} />;
 };
 
-const ViewBlur = ({ modalRef, onClickOutside }: VeiwBlurProps) => {
-  return <Background ref={modalRef} onClick={onClickOutside}></Background>;
+const ViewBlur = ({ modalType, modalRef, onClickOutside }: VeiwBlurProps) => {
+  return (
+    <Background ref={modalRef} onClick={onClickOutside}>
+      {modalType === "modal" && <ModalComponent />}
+    </Background>
+  );
 };
 
 const Background = styled.div`
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  position: fixed;
+  inset: 0;
   background: #ffffff;
   opacity: 0.7;
   z-index: 1;
