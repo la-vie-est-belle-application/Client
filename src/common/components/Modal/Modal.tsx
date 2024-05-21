@@ -14,9 +14,14 @@ import useStore from "@stores/store";
 interface ModalViewProps {
   isModal: boolean;
   onClickCloseModal: () => void;
+  title: string;
+  description: string;
 }
 
-const ModalComponent = () => {
+const ModalComponent = ({
+  title = "제목",
+  description = "설명",
+}: Partial<ModalViewProps>) => {
   const { isModal, setIsModal } = useStore();
 
   const onClickCloseModal = () => {
@@ -26,11 +31,18 @@ const ModalComponent = () => {
   const props = {
     isModal,
     onClickCloseModal,
+    title,
+    description,
   };
   return <ModalView {...props} />;
 };
 
-const ModalView = ({ isModal, onClickCloseModal }: ModalViewProps) => {
+const ModalView = ({
+  isModal,
+  onClickCloseModal,
+  title,
+  description,
+}: ModalViewProps) => {
   return (
     <Modal
       size={"lg"}
@@ -40,11 +52,11 @@ const ModalView = ({ isModal, onClickCloseModal }: ModalViewProps) => {
     >
       <ModalContent padding={"5px 0 0 0"} top={"18%"} height={200}>
         <ModalHeader>
-          <Typography type="subtitle5">모달 제목</Typography>
+          <Typography type="subtitle5">{title}</Typography>
         </ModalHeader>
         <ModalCloseButton size={"lg"} onClick={onClickCloseModal} />
         <ModalBody>
-          <Typography type="body2">모달 내용</Typography>
+          <Typography type="body2">{description}</Typography>
         </ModalBody>
 
         <ModalFooter>

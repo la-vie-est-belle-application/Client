@@ -4,6 +4,7 @@ import Home from "@pages/home/Home";
 import ScheduleManage from "@pages/ScheduleManage";
 import SignIn from "@pages/signIn/SignIn";
 import BackGroundBlur from "@components/Modal/BackGroundBlur";
+import Notice from "@pages/notice/Notice";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" element={<Home />}></Route>
         <Route path="/signin" element={<SignIn />}></Route>
         <Route path="/scheduleManagement" element={<ScheduleManage />} />
+        <Route path="/notice" element={<Notice />} />
       </Routes>
     </>
   );
