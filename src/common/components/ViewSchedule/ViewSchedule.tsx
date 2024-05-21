@@ -5,20 +5,29 @@ import { Image } from "@chakra-ui/react";
 import { AddIcon, CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import Typography from "@components/Typography/Typography";
 import ButtonItem from "@components/Button/Button";
-import useStore from "@stores/store";
+import useStore, { ModalType } from "@stores/store";
+import { useLocation } from "react-router-dom";
 
 interface ViewScheduleProps {
   isModal: boolean;
   onClickToggle: () => void;
   onClickShowModal: () => void;
+  pathName: string;
+  modalType: ModalType;
 }
 
-const ViewSchedule = (): JSX.Element => {
-  const { setModalType, isModal, setIsModal } = useStore();
+const ViewSchedule = () => {
+  const pathName = useLocation().pathname;
+  const { modalType, setModalType, isModal, setIsModal } = useStore();
 
   const onClickToggle = () => {
-    setIsModal(!isModal);
-    setModalType("");
+    if (pathName === "/scheduleRegister") {
+      setModalType("register");
+      setIsModal(!isModal);
+    } else {
+      setIsModal(!isModal);
+      setModalType("");
+    }
   };
 
   const onClickShowModal = () => {
@@ -26,17 +35,21 @@ const ViewSchedule = (): JSX.Element => {
   };
 
   const props = {
+    modalType,
     isModal,
     onClickToggle,
     onClickShowModal,
+    pathName,
   };
   return <ScheduleView {...props} />;
 };
 
 const ScheduleView = ({
+  modalType,
   isModal,
   onClickShowModal,
   onClickToggle,
+  pathName,
 }: ViewScheduleProps) => {
   return (
     <ViewContainer>
@@ -48,26 +61,34 @@ const ScheduleView = ({
       </ImageWrapper>
       {isModal && (
         <>
-          <ButtonItem type="scheduleCancle" onClick={onClickShowModal}>
-            <DeleteIcon color={COLORS.gray700} fontSize={25} />
-          </ButtonItem>
+          {pathName === "/scheduleRegister" ? null : (
+            <>
+              <ButtonItem type="scheduleCancel" onClick={onClickShowModal}>
+                <DeleteIcon color={COLORS.gray700} fontSize={25} />
+              </ButtonItem>
+              <ButtonItem
+                style={{ bottom: "8rem" }}
+                type="toggle"
+                onClick={onClickShowModal}
+              >
+                <EditIcon color={COLORS.white} fontSize={25} />
+              </ButtonItem>
+            </>
+          )}
+        </>
+      )}
 
-          <ButtonItem
-            style={{ bottom: "8rem" }}
-            type="toggle"
-            onClick={onClickShowModal}
-          >
-            <EditIcon color={COLORS.white} fontSize={25} />
+      {modalType === "register" ? null : (
+        <>
+          <ButtonItem type="toggle" onClick={onClickToggle}>
+            {isModal ? (
+              <CloseIcon color="white" fontSize={16} />
+            ) : (
+              <AddIcon color="white" fontSize={18} />
+            )}
           </ButtonItem>
         </>
       )}
-      <ButtonItem type="toggle" onClick={onClickToggle}>
-        {isModal ? (
-          <CloseIcon color="white" fontSize={16} />
-        ) : (
-          <AddIcon color="white" fontSize={18} />
-        )}
-      </ButtonItem>
     </ViewContainer>
   );
 };
@@ -75,7 +96,6 @@ const ScheduleView = ({
 export default ViewSchedule;
 
 const ViewContainer = styled.footer`
-  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -88,3 +108,4 @@ const ImageWrapper = styled.div`
   flex-direction: column;
   align-items: center;
 `;
+

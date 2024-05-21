@@ -57,7 +57,7 @@ export const StyledCalendarWrapper = styled.div`
   .react-calendar__month-view__weekdays abbr {
     text-decoration: none;
     font-weight: 700;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     color: ${COLORS.gray500};
   }
 
@@ -72,7 +72,7 @@ export const StyledCalendarWrapper = styled.div`
   /* 일 날짜 간격 */
   .react-calendar__tile {
     text-align: center;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: 600;
     color: ${COLORS.gray700};
     padding: 2rem 0;
