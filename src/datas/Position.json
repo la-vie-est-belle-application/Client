@@ -1,0 +1,47 @@
+[
+  {
+    "position": "팀장",
+    "name": ["랄랄랄"],
+    "other": "교육"
+  },
+  {
+    "position": "스캔",
+    "name": ["호호호", "사사사"],
+    "other": ""
+  },
+  {
+    "position": "메인",
+    "name": ["게게게"],
+    "other": "교육"
+  },
+  {
+    "position": "드레스",
+    "name": ["버버버"],
+    "other": "2명"
+  },
+  {
+    "position": "축가",
+    "name": ["쇼쇼쇼"],
+    "other": ""
+  },
+  {
+    "position": "대기실",
+    "name": ["실실실"],
+    "other": "교육"
+  },
+  {
+    "position": "드레스실",
+    "name": ["드드드", "사사사"],
+    "other": "교육"
+  },
+  {
+    "position": "매니저",
+    "name": ["으으으", "사사사"],
+    "other": "교육"
+  },
+  {
+    "position": "안내",
+    "name": ["요요요", "사사사"],
+    "other": "2명"
+  }
+]

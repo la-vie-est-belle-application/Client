@@ -1,16 +1,17 @@
 import styled from "styled-components";
 import useStore, { ModalType } from "@stores/store";
-import { MouseEvent, useRef } from "react";
+import React, { MouseEvent, useRef } from "react";
 import ModalComponent from "./Modal";
+import RegisterForm from "./RegisterForm/RegisterForm";
 
-interface VeiwBlurProps {
+interface ViewBlurProps {
   modalType: ModalType;
   modalRef: React.MutableRefObject<null>;
   onClickOutside: (event: MouseEvent) => void;
 }
 
 const BackGroundBlur = () => {
-  const { modalType, isModal, setIsModal } = useStore();
+  const { modalType, setModalType, isModal, setIsModal } = useStore();
   const modalRef = useRef(null);
 
   if (!isModal) {
@@ -20,6 +21,7 @@ const BackGroundBlur = () => {
   const onClickOutside = (event: MouseEvent) => {
     if (modalRef.current === event.target) {
       setIsModal(!isModal);
+      setModalType("");
     }
   };
 
@@ -32,19 +34,19 @@ const BackGroundBlur = () => {
   return <ViewBlur {...props} />;
 };
 
-const ViewBlur = ({ modalType, modalRef, onClickOutside }: VeiwBlurProps) => {
+const ViewBlur = ({ modalType, modalRef, onClickOutside }: ViewBlurProps) => {
   return (
     <Background ref={modalRef} onClick={onClickOutside}>
       {modalType === "modal" && <ModalComponent />}
+      {modalType === "register" && <RegisterForm />}
     </Background>
   );
 };
 
 const Background = styled.div`
-  position: fixed;
+  position: absolute;
   inset: 0;
-  background: #ffffff;
-  opacity: 0.7;
+  background: rgba(255, 255, 255, 0.528);
   z-index: 1;
 `;
 

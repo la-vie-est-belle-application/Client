@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 
-export type ModalType = "" | "modal" | "menu";
+export type ModalType = "" | "modal" | "menu" | "register";
 
 interface Store {
   modalType: ModalType;

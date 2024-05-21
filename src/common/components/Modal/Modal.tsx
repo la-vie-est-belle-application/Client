@@ -50,7 +50,7 @@ const ModalView = ({
       isOpen={isModal}
       onClose={onClickCloseModal}
     >
-      <ModalContent padding={"5px 0 0 0"} top={"18%"} height={200}>
+      <ModalContent padding={"5px 0 0 0"} top={"10rem"} height={200}>
         <ModalHeader>
           <Typography type="subtitle5">{title}</Typography>
         </ModalHeader>
