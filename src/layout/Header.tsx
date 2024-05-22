@@ -3,18 +3,21 @@ import { ArrowBackIcon, BellIcon, HamburgerIcon } from "@chakra-ui/icons";
 import Typography from "@components/Typography/Typography";
 import { COLORS } from "@constants/color";
 import { useLocation } from "react-router-dom";
+import useStore from "@stores/store.ts";
 
 interface HeaderProps {
   title?: string;
 }
 
-interface ViewProps {
+interface HeaderViewProps {
   renderTitle?: () => JSX.Element | null;
   iconColor?: string;
   $isHome?: boolean;
+  onClickHamburger: () => void;
 }
 
 const Header = ({ title }: HeaderProps) => {
+  const { isModal, setModalType, setIsModal } = useStore();
   const url = useLocation().pathname;
   const homeUrl = "/";
   const iconColor = url === homeUrl ? COLORS.white : COLORS.gray900;
@@ -29,36 +32,48 @@ const Header = ({ title }: HeaderProps) => {
     ) : null;
   };
 
-  const props: ViewProps = {
+  const onClickHamburger = () => {
+    setIsModal(!isModal);
+    setModalType("menu");
+  };
+
+  const props: HeaderViewProps = {
     renderTitle,
     iconColor,
     $isHome,
+    onClickHamburger,
   };
 
   return <HeaderView {...props} />;
 };
 
-const HeaderView = ({ renderTitle, iconColor, $isHome }: ViewProps) => {
+const HeaderView = ({
+  renderTitle,
+  iconColor,
+  $isHome,
+  onClickHamburger,
+}: HeaderViewProps) => {
   return (
     <HeaderContainer $isHome={$isHome}>
       <TitleWrapper>{renderTitle && renderTitle()}</TitleWrapper>
 
       <IconWrapper>
-        <BellIcon color={iconColor} fontSize={20} cursor="pointer" />
+        <BellIcon color={iconColor} fontSize={20} cursor="pointer" zIndex={0} />
         <HamburgerIcon
           color={iconColor}
           fontSize={20}
           cursor="pointer"
           marginLeft={3}
+          onClick={onClickHamburger}
         />
       </IconWrapper>
     </HeaderContainer>
   );
 };
 
-const HeaderContainer = styled.header<Pick<ViewProps, "$isHome">>`
+const HeaderContainer = styled.header<Pick<HeaderViewProps, "$isHome">>`
   position: relative;
-  z-index: 99;
+  z-index: 50;
   height: 60px;
   width: 100%;
   display: flex;

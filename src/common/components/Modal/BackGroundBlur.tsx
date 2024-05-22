@@ -3,6 +3,7 @@ import useStore, { ModalType } from "@stores/store";
 import React, { MouseEvent, useRef } from "react";
 import ModalComponent from "./Modal";
 import RegisterForm from "./RegisterForm/RegisterForm";
+import Menu from "@components/Modal/Menu/Menu.tsx";
 
 interface ViewBlurProps {
   modalType: ModalType;
@@ -36,18 +37,22 @@ const BackGroundBlur = () => {
 
 const ViewBlur = ({ modalType, modalRef, onClickOutside }: ViewBlurProps) => {
   return (
-    <Background ref={modalRef} onClick={onClickOutside}>
+    <Background modalType={modalType} ref={modalRef} onClick={onClickOutside}>
       {modalType === "modal" && <ModalComponent />}
       {modalType === "register" && <RegisterForm />}
+      {modalType === "menu" && <Menu />}
     </Background>
   );
 };
 
-const Background = styled.div`
+const Background = styled.div<{ modalType: ModalType }>`
   position: absolute;
   inset: 0;
-  background: rgba(255, 255, 255, 0.528);
-  z-index: 1;
+  background: ${(props) =>
+    props.modalType === "menu"
+      ? "rgba(0, 0, 0, 0.528)"
+      : "rgba(255, 255, 255, 0.528)"};
+  z-index: ${(props) => (props.modalType === "menu" ? 65 : 55)};
 `;
 
 export default BackGroundBlur;

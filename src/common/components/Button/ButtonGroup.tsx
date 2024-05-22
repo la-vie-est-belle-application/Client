@@ -1,12 +1,13 @@
 import ButtonItem from "@components/Button/Button.tsx";
 import { AddIcon, CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
-import useStore from "@stores/store.ts";
+import useStore, { ModalType } from "@stores/store.ts";
 import { useLocation } from "react-router-dom";
 import { COLORS } from "@constants/color.ts";
 import React, { useState } from "react";
 import ModalComponent from "@components/Modal/Modal.tsx";
 
 interface ButtonGroupViewProps {
+  modalType: ModalType;
   isModal: boolean;
   onClickToggle: () => void;
   onClickShowModal: () => void;
@@ -16,15 +17,20 @@ interface ButtonGroupViewProps {
 
 const ButtonGroup = () => {
   const url = useLocation().pathname;
-  const { setModalType, isModal, setIsModal } = useStore();
+  const { modalType, setModalType, isModal, setIsModal } = useStore();
   const [isForRegisterModal, setIsForRegisterModal] = useState(false);
 
   const onClickToggle = () => {
     if (url === "/scheduleRegister") {
       setModalType("register");
     } else {
+      setModalType("toggle");
+    }
+
+    if (modalType === "register" || modalType === "toggle") {
       setModalType("");
     }
+
     setIsModal(!isModal);
   };
 
@@ -37,6 +43,7 @@ const ButtonGroup = () => {
   };
 
   const props = {
+    modalType,
     isModal,
     onClickToggle,
     onClickShowModal,
@@ -47,6 +54,7 @@ const ButtonGroup = () => {
 };
 
 const ButtonGroupView = ({
+  modalType,
   isModal,
   onClickShowModal,
   onClickToggle,
@@ -61,7 +69,7 @@ const ButtonGroupView = ({
           setIsForRegisterModal={setIsForRegisterModal}
         />
       )}
-      {isModal && (
+      {(isModal && modalType === "toggle") || modalType === "register" ? (
         <>
           <ButtonItem type="scheduleCancel" onClick={onClickShowModal}>
             <DeleteIcon color={COLORS.gray700} fontSize={25} />
@@ -74,7 +82,7 @@ const ButtonGroupView = ({
             <EditIcon color={COLORS.white} fontSize={25} />
           </ButtonItem>
         </>
-      )}
+      ) : null}
 
       <ButtonItem type="toggle" onClick={onClickToggle}>
         {isModal ? (

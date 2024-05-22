@@ -3,8 +3,6 @@ import { COLORS } from "@constants/color";
 import styled from "styled-components";
 import MemberList from "./components/MemberList";
 import ScheduleTable from "./components/ScheduleTable";
-/*import ButtonItem from "@components/Button/Button.tsx";
-import { CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";*/
 import ButtonGroup from "@components/Button/ButtonGroup.tsx";
 
 const RegisterForm = () => {
@@ -21,15 +19,6 @@ const RegisterFormView = () => {
         <ScheduleTable />
         <MemberList />
       </Form>
-      {/*<ButtonItem type="scheduleCancel">
-        <DeleteIcon color={COLORS.gray700} fontSize={25} />
-      </ButtonItem>
-      <ButtonItem style={{ bottom: "8rem" }} type="toggle">
-        <EditIcon color={COLORS.white} fontSize={25} />
-      </ButtonItem>
-      <ButtonItem type="toggle">
-        <CloseIcon color="white" fontSize={16} />
-      </ButtonItem>*/}
       <ButtonGroup />
     </>
   );
