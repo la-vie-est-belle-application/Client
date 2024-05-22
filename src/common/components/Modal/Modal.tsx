@@ -10,22 +10,31 @@ import {
 import Typography from "@components/Typography/Typography";
 import { COLORS } from "@constants/color";
 import useStore from "@stores/store";
+import React from "react";
 
 interface ModalViewProps {
   isModal: boolean;
   onClickCloseModal: () => void;
   title: string;
   description: string;
+  isForRegisterModal?: boolean;
+  setIsForRegisterModal?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const ModalComponent = ({
   title = "제목",
   description = "설명",
+  isForRegisterModal,
+  setIsForRegisterModal,
 }: Partial<ModalViewProps>) => {
-  const { isModal, setIsModal } = useStore();
+  const { isModal, setIsModal, setModalType } = useStore();
 
   const onClickCloseModal = () => {
     setIsModal(!isModal);
+    setModalType("");
+    if (setIsForRegisterModal) {
+      setIsForRegisterModal(!isForRegisterModal);
+    }
   };
 
   const props = {

@@ -2,22 +2,23 @@ import { COLORS } from "@constants/color";
 import styled from "styled-components";
 import scheduleRed from "/assets/schedule-red.svg";
 import { Image } from "@chakra-ui/react";
-import { AddIcon, CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import Typography from "@components/Typography/Typography";
+/*import { AddIcon, CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import ButtonItem from "@components/Button/Button";
 import useStore, { ModalType } from "@stores/store";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";*/
+import ButtonGroup from "@components/Button/ButtonGroup.tsx";
 
-interface ViewScheduleProps {
+/*interface ViewScheduleProps {
   isModal: boolean;
   onClickToggle: () => void;
   onClickShowModal: () => void;
   pathName: string;
   modalType: ModalType;
-}
+}*/
 
 const ViewSchedule = () => {
-  const pathName = useLocation().pathname;
+  /*const pathName = useLocation().pathname;
   const { modalType, setModalType, isModal, setIsModal } = useStore();
 
   const onClickToggle = () => {
@@ -40,17 +41,17 @@ const ViewSchedule = () => {
     onClickToggle,
     onClickShowModal,
     pathName,
-  };
-  return <ScheduleView {...props} />;
+  };*/
+  return <ScheduleView />;
 };
 
-const ScheduleView = ({
+const ScheduleView = (/*{
   modalType,
   isModal,
   onClickShowModal,
   onClickToggle,
   pathName,
-}: ViewScheduleProps) => {
+}: ViewScheduleProps*/) => {
   return (
     <ViewContainer>
       <ImageWrapper>
@@ -59,7 +60,7 @@ const ScheduleView = ({
           등록된 일정이 없습니다!
         </Typography>
       </ImageWrapper>
-      {isModal && (
+      {/*isModal && (
         <>
           {pathName === "/scheduleRegister" ? null : (
             <>
@@ -76,9 +77,9 @@ const ScheduleView = ({
             </>
           )}
         </>
-      )}
+      )*/}
 
-      {modalType === "register" ? null : (
+      {/*modalType === "register" ? null : (
         <>
           <ButtonItem type="toggle" onClick={onClickToggle}>
             {isModal ? (
@@ -88,7 +89,8 @@ const ScheduleView = ({
             )}
           </ButtonItem>
         </>
-      )}
+      )*/}
+      <ButtonGroup />
     </ViewContainer>
   );
 };
@@ -108,4 +110,3 @@ const ImageWrapper = styled.div`
   flex-direction: column;
   align-items: center;
 `;
-
