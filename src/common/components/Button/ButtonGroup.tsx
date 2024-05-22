@@ -22,11 +22,10 @@ const ButtonGroup = () => {
   const onClickToggle = () => {
     if (url === "/scheduleRegister") {
       setModalType("register");
-      setIsModal(!isModal);
     } else {
-      setIsModal(!isModal);
       setModalType("");
     }
+    setIsModal(!isModal);
   };
 
   const onClickShowModal = () => {
