@@ -28,7 +28,7 @@ const MenuBody = () => {
       return (
         <MenuLink key={index} style={additionalStyle}>
           <Typography type="caption1">{text}</Typography>
-          <ChevronRightIcon fontSize={13} color={COLORS.gray400} />
+          <ChevronRightIcon fontSize={20} color={COLORS.gray400} />
         </MenuLink>
       );
     });
@@ -49,7 +49,6 @@ const LinkContainer = styled.ul`
   flex: 5;
   margin-top: 3.6rem;
   padding-bottom: 2rem;
-  border-bottom: 1px solid #d9d9d9;
 `;
 const MenuLink = styled.li`
   list-style: none;
@@ -57,7 +56,8 @@ const MenuLink = styled.li`
   justify-content: space-between;
   align-items: center;
   padding: 0 1rem 0 1rem;
-  margin-top: 1.8rem;
+  margin-top: 2rem;
+  cursor: pointer;
 `;
 
 export default MenuBody;

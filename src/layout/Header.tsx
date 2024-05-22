@@ -73,8 +73,9 @@ const HeaderView = ({
 
 const HeaderContainer = styled.header<Pick<HeaderViewProps, "$isHome">>`
   position: relative;
+  flex: 0 0 auto;
   z-index: 50;
-  height: 60px;
+  height: 6rem;
   width: 100%;
   display: flex;
   align-items: center;

@@ -27,8 +27,7 @@ const RegisterFormView = () => {
 const Form = styled.form`
   position: relative;
   width: 100%;
-  height: 80dvh;
-  max-width: 76rem;
+  height: 90dvh;
   top: 12rem;
   background-color: ${COLORS.gray100};
   text-align: center;

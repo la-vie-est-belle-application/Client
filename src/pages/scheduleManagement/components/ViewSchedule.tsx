@@ -1,8 +1,8 @@
-import { COLORS } from "@constants/color";
+import { COLORS } from "@constants/color.ts";
 import styled from "styled-components";
 import scheduleRed from "/assets/schedule-red.svg";
 import { Image } from "@chakra-ui/react";
-import Typography from "@components/Typography/Typography";
+import Typography from "@components/Typography/Typography.tsx";
 import ButtonGroup from "@components/Button/ButtonGroup.tsx";
 
 const ViewSchedule = () => {
@@ -29,8 +29,12 @@ const ViewContainer = styled.footer`
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100%;
   background-color: ${COLORS.gray100};
-  height: 35.7vh;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const ImageWrapper = styled.div`

@@ -17,7 +17,6 @@ const MenuFooter = () => {
 };
 
 const FooterContainer = styled.footer`
-  border-top: 0.1px solid #d9d9d9;
   padding-top: 1rem;
   display: flex;
   justify-content: space-between;
