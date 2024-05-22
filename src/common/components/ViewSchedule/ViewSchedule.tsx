@@ -6,10 +6,10 @@ import Typography from "@components/Typography/Typography";
 import ButtonGroup from "@components/Button/ButtonGroup.tsx";
 
 const ViewSchedule = () => {
-  return <ScheduleView />;
+  return <ScheduleLinkView />;
 };
 
-const ScheduleView = () => {
+const ScheduleLinkView = () => {
   return (
     <ViewContainer>
       <ImageWrapper>
