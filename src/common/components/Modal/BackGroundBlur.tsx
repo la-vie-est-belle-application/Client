@@ -52,7 +52,7 @@ const Background = styled.div<{ modalType: ModalType }>`
     props.modalType === "menu"
       ? "rgba(0, 0, 0, 0.528)"
       : "rgba(255, 255, 255, 0.528)"};
-  z-index: 55;
+  z-index: ${(props) => (props.modalType === "menu" ? 65 : 55)};
 `;
 
 export default BackGroundBlur;

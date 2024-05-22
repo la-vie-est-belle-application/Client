@@ -38,7 +38,7 @@ export const BUTTON_DESIGN_SYSTEM = {
     position: absolute;
     bottom: 2.5rem;
     right: 1.4rem;
-    z-index: 20;
+    z-index: 60;
     box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
   `,
   scheduleCancel: css`
@@ -49,7 +49,7 @@ export const BUTTON_DESIGN_SYSTEM = {
     position: absolute;
     bottom: 13.6rem;
     right: 1.4rem;
-    z-index: 20;
+    z-index: 60;
     box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
   `,
   signOut: css`

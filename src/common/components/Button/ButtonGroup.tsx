@@ -26,6 +26,11 @@ const ButtonGroup = () => {
     } else {
       setModalType("toggle");
     }
+
+    if (modalType === "register") {
+      setModalType("");
+    }
+
     setIsModal(!isModal);
   };
 
@@ -64,20 +69,21 @@ const ButtonGroupView = ({
           setIsForRegisterModal={setIsForRegisterModal}
         />
       )}
-      {isModal && modalType === "toggle" && (
-        <>
-          <ButtonItem type="scheduleCancel" onClick={onClickShowModal}>
-            <DeleteIcon color={COLORS.gray700} fontSize={25} />
-          </ButtonItem>
-          <ButtonItem
-            style={{ bottom: "8rem" }}
-            type="toggle"
-            onClick={onClickShowModal}
-          >
-            <EditIcon color={COLORS.white} fontSize={25} />
-          </ButtonItem>
-        </>
-      )}
+      {(isModal && modalType === "toggle") ||
+        (modalType === "register" && (
+          <>
+            <ButtonItem type="scheduleCancel" onClick={onClickShowModal}>
+              <DeleteIcon color={COLORS.gray700} fontSize={25} />
+            </ButtonItem>
+            <ButtonItem
+              style={{ bottom: "8rem" }}
+              type="toggle"
+              onClick={onClickShowModal}
+            >
+              <EditIcon color={COLORS.white} fontSize={25} />
+            </ButtonItem>
+          </>
+        ))}
 
       <ButtonItem type="toggle" onClick={onClickToggle}>
         {isModal ? (
