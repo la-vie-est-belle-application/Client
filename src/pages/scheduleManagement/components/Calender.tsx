@@ -12,26 +12,25 @@ const Calender = () => {
   const [value, onChange] = useState<Value>(new Date());
 
   return (
-    <div>
-      <StyledCalendarWrapper>
-        <Calendar
-          onChange={onChange}
-          value={value}
-          calendarType="gregory" // 일요일 부터 시작
-          showNeighboringMonth={false} // 전달, 다음달 날짜 숨기기
-          next2Label={null} // +1년 & +10년 이동 버튼 숨기기
-          prev2Label={null} // -1년 & -10년 이동 버튼 숨기기
-          minDetail="year" // 10년단위 년도 숨기기
-        />
-      </StyledCalendarWrapper>
-    </div>
+    <StyledCalendarWrapper>
+      <Calendar
+        onChange={onChange}
+        value={value}
+        calendarType="gregory" // 일요일 부터 시작
+        showNeighboringMonth={false} // 전달, 다음달 날짜 숨기기
+        next2Label={null} // +1년 & +10년 이동 버튼 숨기기
+        prev2Label={null} // -1년 & -10년 이동 버튼 숨기기
+        minDetail="year" // 10년단위 년도 숨기기
+      />
+    </StyledCalendarWrapper>
   );
 };
 
 export const StyledCalendarWrapper = styled.div`
   width: 100%;
+  flex: 1;
   position: relative;
-  padding: 20px 0;
+  padding: 4rem 0;
   .react-calendar {
     width: 100%;
     border: none;

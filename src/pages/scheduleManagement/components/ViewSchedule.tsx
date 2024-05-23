@@ -29,7 +29,7 @@ const ViewContainer = styled.footer`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  flex: 1.5;
   background-color: ${COLORS.gray100};
   overflow-y: scroll;
   &::-webkit-scrollbar {

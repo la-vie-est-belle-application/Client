@@ -18,5 +18,5 @@ const MemberList = () => {
 export default MemberList;
 
 const List = styled.section`
-  margin-top: 4rem;
+  padding: 2rem 0;
 `;
