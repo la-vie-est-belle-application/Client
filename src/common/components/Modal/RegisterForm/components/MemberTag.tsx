@@ -16,7 +16,7 @@ const MemberTag = ({ name }: TagProps) => {
             size={"lg"}
             backgroundColor={COLORS.purple800}
             color={COLORS.white}
-            padding={"0.5rem 1rem"}
+            padding={"0.2rem 1rem"}
             borderRadius={6}
             marginRight={3}
             cursor={"pointer"}
