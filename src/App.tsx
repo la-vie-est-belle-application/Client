@@ -6,7 +6,7 @@ import SignIn from "@pages/signIn/SignIn";
 import BackGroundBlur from "@components/Modal/BackGroundBlur";
 import Notice from "@pages/notice/Notice";
 import ScheduleRegister from "@pages/schedule/ScheduleRegister";
-import ScheduleView from "@pages/schedule/ScheduleView";
+import ScheduleView from "@pages/schedule/scheduleView/ScheduleView";
 import NotFound from "@pages/notfound/NotFound";
 
 function App() {

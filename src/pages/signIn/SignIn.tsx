@@ -52,8 +52,7 @@ const SignInBackgroundImg = styled.div`
   inset: 0;
   width: 100%;
   height: 100%;
-  background: url("./public/assets/main.svg") no-repeat center center/cover
-    fixed;
+  background: url("./public/assets/main.svg") no-repeat center center/cover;
   z-index: -2;
   &::before {
     content: "";

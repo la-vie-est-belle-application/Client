@@ -4,25 +4,35 @@ import Typography from "@components/Typography/Typography";
 import Header from "@layout/Header";
 import { getCurrentDate } from "@utils/getCurrentDate";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import ScheduleViewContent from "./components/ScheduleViewContent";
 
 interface ScheduleViewProps {
-  scheduleMonths: string[];
+  formattedScheduleMonths: string[];
   formattedThisMonth: string;
   navigateToSelectedDate: (selectedDate: string) => void;
 }
 
 const ScheduleView = () => {
   const navigate = useNavigate();
+  const params = useParams();
   const { thisMonth, currentYear, currentMonth } = getCurrentDate();
-
-  const formattedThisMonth = addDotToThisMonth(thisMonth);
+  const formattedThisMonth = addDotToDate(thisMonth);
   const scheduleMonths = calculateScheduleMonths();
+  const formattedScheduleMonths = addDotToScheduleMonths(scheduleMonths);
 
-  function addDotToThisMonth(thisMonth: string): string {
-    const year = thisMonth.slice(0, 4);
-    const month = thisMonth.slice(4);
+  function formatDateString(date: string): string {
+    const year = date.slice(0, 4);
+    const month = date.slice(4);
     return `${year}.${month}`;
+  }
+
+  function addDotToDate(date: string): string {
+    return formatDateString(date);
+  }
+
+  function addDotToScheduleMonths(scheduleMonths: string[]): string[] {
+    return scheduleMonths.map((item) => formatDateString(item));
   }
 
   function calculateScheduleMonths() {
@@ -35,7 +45,7 @@ const ScheduleView = () => {
     while (current <= endDate) {
       const year = current.getFullYear();
       const month = String(current.getMonth() + 1).padStart(2, "0");
-      scheduleMonths.push(`${year}.${month}`);
+      scheduleMonths.push(`${year}${month}`);
       current.setMonth(current.getMonth() + 1);
     }
 
@@ -44,11 +54,17 @@ const ScheduleView = () => {
 
   function navigateToSelectedDate(selectedDate: string) {
     const currentUrl = window.location.pathname;
-    const pattern = /\/schedule\/view\/.*/;
-    const baseUrl = currentUrl.replace(pattern, "/schedule/view/");
+    const REGEX = /\/schedule\/view\/.*/;
+    const ROUTE_URL = "/schedule/view/";
+    const baseUrl = currentUrl.replace(REGEX, ROUTE_URL);
     const formattedDate = selectedDate.replace(/\./g, "");
     const newUrl = `${baseUrl}${formattedDate}`;
     navigate(newUrl);
+  }
+
+  function test() {
+    console.log(scheduleMonths);
+    console.log(params.date);
   }
 
   useEffect(() => {
@@ -56,10 +72,11 @@ const ScheduleView = () => {
     if (!scheduleMonths.includes(thisMonth)) {
       navigateToSelectedDate(thisMonth);
     }
+    test();
   }, []);
 
   const props = {
-    scheduleMonths,
+    formattedScheduleMonths,
     formattedThisMonth,
     navigateToSelectedDate,
   };
@@ -68,7 +85,7 @@ const ScheduleView = () => {
 };
 
 const ScheduleComponentView = ({
-  scheduleMonths,
+  formattedScheduleMonths,
   formattedThisMonth,
   navigateToSelectedDate,
 }: ScheduleViewProps) => {
@@ -84,7 +101,7 @@ const ScheduleComponentView = ({
               navigateToSelectedDate(e.target.value);
             }}
           >
-            {scheduleMonths?.map((data, index) => {
+            {formattedScheduleMonths?.map((data, index) => {
               return (
                 <option key={index} value={data}>
                   {data}
@@ -103,6 +120,7 @@ const ScheduleComponentView = ({
             </Typography>
           </HStack>
         </HStack>
+        <ScheduleViewContent />
       </Container>
     </>
   );
