@@ -8,7 +8,7 @@ type ValuePiece = Date | null;
 
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
-const Calender = () => {
+const ScheduleCalendar = () => {
   const [value, onChange] = useState<Value>(new Date());
 
   return (
@@ -108,4 +108,4 @@ export const StyledCalendarWrapper = styled.div`
   }
 `;
 
-export default Calender;
+export default ScheduleCalendar;
