@@ -7,21 +7,29 @@ import BackGroundBlur from "@components/Modal/BackGroundBlur";
 import Notice from "@pages/notice/Notice";
 import ScheduleRegister from "@pages/schedule/ScheduleRegister";
 import ScheduleView from "@pages/schedule/scheduleView/ScheduleView";
-import NotFound from "@pages/notfound/NotFound";
+import useAuthStore from "@stores/auth";
 
 function App() {
+  const { isLoggedIn } = useAuthStore();
   return (
     <>
       <BackGroundBlur />
-      <Routes>
-        <Route path="/" element={<Home />}></Route>
-        <Route path="/signin" element={<SignIn />}></Route>
-        <Route path="/notice" element={<Notice />} />
-        <Route path="/schedule/management" element={<ScheduleManage />} />
-        <Route path="/schedule/register" element={<ScheduleRegister />} />
-        <Route path="/schedule/view/:date" element={<ScheduleView />}></Route>
-        <Route path="/*" element={<NotFound />}></Route>
-      </Routes>
+      {!isLoggedIn ? (
+        <Routes>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/notice" element={<Notice />} />
+          <Route path="/schedule/manage" element={<ScheduleManage />} />
+          <Route path="/schedule/register" element={<ScheduleRegister />} />
+          <Route
+            path="/schedule/search/:date"
+            element={<ScheduleView />}
+          ></Route>
+        </Routes>
+      ) : (
+        <Routes>
+          <Route path="/signin" element={<SignIn />}></Route>
+        </Routes>
+      )}
     </>
   );
 }
