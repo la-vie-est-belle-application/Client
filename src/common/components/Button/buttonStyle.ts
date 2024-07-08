@@ -9,9 +9,10 @@ export const BUTTON_DESIGN_SYSTEM = {
     border-radius: 10px;
     background-color: ${COLORS.purple400};
     width: 100%;
-    padding: 1.2rem;
+    max-width: 35rem;
     color: ${COLORS.white};
     box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+    align-self: center;
   `,
   large: css`
     flex: 1 1 0;

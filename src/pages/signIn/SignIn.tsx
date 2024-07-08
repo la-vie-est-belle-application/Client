@@ -28,9 +28,10 @@ const SignIn = () => {
             </SignInSubText>
           </SignInTexts>
           <ButtonItem type="signIn">
-            <Typography type="subtitle6" color="white">
-              카카오 로그인
-            </Typography>
+            <SignInImg
+              src="https://developers.kakao.com/tool/resource/static/img/button/login/full/ko/kakao_login_large_wide.png"
+              alt="카카오 로그인"
+            />
           </ButtonItem>
         </Flex>
       </Container>
@@ -75,4 +76,8 @@ const SignInTexts = styled.div`
 const SignInSubText = styled.p`
   width: 17.8rem;
   word-break: keep-all;
+`;
+
+const SignInImg = styled.img`
+  width: 100%;
 `;
