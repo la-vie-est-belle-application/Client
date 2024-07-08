@@ -26,6 +26,7 @@ const useCalendar = () => {
   const onSelectedDateChange = (date: SelectedDate) => {
     dispatch(date as Date | null);
   };
+
   return { selectedDates, onSelectedDateChange };
 };
 
