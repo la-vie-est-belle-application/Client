@@ -1,8 +1,8 @@
 import { useReducer } from "react";
 import { Value } from "react-calendar/dist/cjs/shared/types";
 
-type SelectedDate = Value | null;
-type SelectedDates = (Date | null)[];
+export type SelectedDate = Value | null;
+export type SelectedDates = (Date | null)[];
 
 const checkDuplicateDatesReducer = (
   dates: SelectedDates,

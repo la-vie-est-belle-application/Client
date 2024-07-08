@@ -1,11 +1,14 @@
 import { COLORS } from "@constants/color.ts";
-import useCalendar from "@hooks/useCalendar";
+import { SelectedDate } from "@hooks/useCalendar";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import styled from "styled-components";
 
-const ScheduleCalendar = () => {
-  const { onSelectedDateChange } = useCalendar();
+interface Props {
+  onSelectedDateChange: (date: SelectedDate) => void;
+}
+
+const ScheduleCalendar = ({ onSelectedDateChange }: Props) => {
   return (
     <StyledCalendarWrapper>
       <Calendar
