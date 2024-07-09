@@ -14,11 +14,15 @@ const ScheduleManage = () => {
       <ScheduleCalendar onSelectedDateChange={onSelectedDateChange} />
       {selectedDates.length > 0 && (
         <>
-          <StyledSelectedSchduleItemWrap>
+          <StyledSelectedScheduleItemWrap>
             {selectedDates.map((date, index) => (
-              <ScheduleItem key={index} date={date} />
+              <ScheduleItem
+                key={index}
+                date={date}
+                onSelectedDateChange={onSelectedDateChange}
+              />
             ))}
-          </StyledSelectedSchduleItemWrap>
+          </StyledSelectedScheduleItemWrap>
           <ButtonGroup />
         </>
       )}
@@ -32,7 +36,7 @@ const StyledContainer = styled.div`
   height: 100vh;
 `;
 
-const StyledSelectedSchduleItemWrap = styled.div`
+const StyledSelectedScheduleItemWrap = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.2rem;

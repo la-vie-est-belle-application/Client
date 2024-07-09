@@ -5,9 +5,10 @@ import styled from "styled-components";
 
 interface Props {
   date: SelectedDate;
+  onSelectedDateChange: (date: SelectedDate) => void;
 }
 
-const ScheduleItem = ({ date }: Props) => {
+const ScheduleItem = ({ date, onSelectedDateChange }: Props) => {
   let dateString: string | undefined = undefined;
 
   if (date instanceof Date) {
@@ -23,7 +24,7 @@ const ScheduleItem = ({ date }: Props) => {
   }
 
   return (
-    <StyledContainer>
+    <StyledContainer onClick={() => onSelectedDateChange(date)}>
       <Typography type="subtitle6" color="white">
         {dateString}
       </Typography>
@@ -41,4 +42,5 @@ const StyledContainer = styled.div`
   border-radius: 0.8rem;
   background-color: ${COLORS.purple300};
   padding: 2rem 0;
+  cursor: pointer;
 `;
