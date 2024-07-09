@@ -16,7 +16,8 @@ const checkDuplicateDatesReducer = (
   if (isDuplicate) {
     return dates.filter((d) => d && d.getTime() !== date.getTime());
   } else {
-    return [...dates, date];
+    const newDates = [...dates, date];
+    return newDates.sort((a, b) => (a && b ? a.getTime() - b.getTime() : 0));
   }
 };
 
