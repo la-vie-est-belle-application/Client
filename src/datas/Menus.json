@@ -1,35 +1,42 @@
 [
   {
+    "url": "schedule/manage",
     "title": "일정관리",
     "subTitle": "",
     "imageUrl": "/assets/schedule-blue.svg"
   },
   {
+    "url": "notice",
     "title": "공지사항",
     "subTitle": "",
     "imageUrl": "/assets/megaphone.svg"
   },
   {
+    "url": "calculator",
     "title": "급여계산",
     "subTitle": "",
     "imageUrl": "/assets/hand.svg"
   },
   {
+    "url": "profile",
     "title": "프로필",
     "subTitle": "",
     "imageUrl": "/assets/profile.svg"
   },
   {
+    "url": "attendance",
     "title": "출석관리",
     "subTitle": "",
     "imageUrl": "/assets/chart.svg"
   },
   {
+    "url": "schedule/search",
     "title": "조회",
     "subTitle": "전체 스케줄",
     "imageUrl": "/assets/glass.svg"
   },
   {
+    "url": "schedule/register",
     "title": "일정등록",
     "subTitle": "",
     "imageUrl": "/assets/clipboard.svg"

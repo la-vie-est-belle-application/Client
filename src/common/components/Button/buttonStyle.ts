@@ -9,9 +9,10 @@ export const BUTTON_DESIGN_SYSTEM = {
     border-radius: 10px;
     background-color: ${COLORS.purple400};
     width: 100%;
-    padding: 1.2rem;
+    max-width: 35rem;
     color: ${COLORS.white};
     box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+    align-self: center;
   `,
   large: css`
     flex: 1 1 0;
@@ -35,7 +36,7 @@ export const BUTTON_DESIGN_SYSTEM = {
     background-color: ${COLORS.purple400};
     width: 5rem;
     height: 5rem;
-    position: absolute;
+    position: fixed;
     bottom: 2.5rem;
     right: 1.4rem;
     z-index: 60;
@@ -60,7 +61,7 @@ export const BUTTON_DESIGN_SYSTEM = {
 };
 
 export const BUTTON_SIZE_SYSTEM = {
-  midium: css`
+  medium: css`
     width: 10rem;
     height: 2.5rem;
   `,
@@ -72,7 +73,7 @@ export const BUTTON_SIZE_SYSTEM = {
     width: 3rem;
     height: 3rem;
   `,
-  toggleMidium: css`
+  toggleMedium: css`
     width: 3.5rem;
     height: 3.5rem;
   `,

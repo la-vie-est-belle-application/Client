@@ -21,7 +21,8 @@ const ButtonGroup = () => {
   const [isForRegisterModal, setIsForRegisterModal] = useState(false);
 
   const onClickToggle = () => {
-    if (url === "/scheduleRegister") {
+    if (url === "/schedule/resister") {
+      console.log(url);
       setModalType("register");
     } else {
       setModalType("toggle");
@@ -35,7 +36,7 @@ const ButtonGroup = () => {
   };
 
   const onClickShowModal = () => {
-    if (url === "/scheduleRegister") {
+    if (url === "/schedule/register") {
       setIsForRegisterModal(!isForRegisterModal);
     } else {
       setModalType("modal");

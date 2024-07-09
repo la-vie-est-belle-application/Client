@@ -1,21 +1,20 @@
 import { COLORS } from "@constants/color.ts";
-import { useState } from "react";
+import { SelectedDate } from "@hooks/useCalendar";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import styled from "styled-components";
 
-type ValuePiece = Date | null;
+interface Props {
+  onSelectedDateChange: (date: SelectedDate) => void;
+}
 
-type Value = ValuePiece | [ValuePiece, ValuePiece];
-
-const Calender = () => {
-  const [value, onChange] = useState<Value>(new Date());
-
+const ScheduleCalendar = ({ onSelectedDateChange }: Props) => {
   return (
     <StyledCalendarWrapper>
       <Calendar
-        onChange={onChange}
-        value={value}
+        onChange={(date) => {
+          onSelectedDateChange(date);
+        }}
         calendarType="gregory" // 일요일 부터 시작
         showNeighboringMonth={false} // 전달, 다음달 날짜 숨기기
         next2Label={null} // +1년 & +10년 이동 버튼 숨기기
@@ -68,6 +67,10 @@ export const StyledCalendarWrapper = styled.div`
     color: ${COLORS.blue};
   }
 
+  .react-calendar__month-view__days__day--weekend {
+    color: red;
+  }
+
   /* 일 날짜 간격 */
   .react-calendar__tile {
     text-align: center;
@@ -108,4 +111,4 @@ export const StyledCalendarWrapper = styled.div`
   }
 `;
 
-export default Calender;
+export default ScheduleCalendar;

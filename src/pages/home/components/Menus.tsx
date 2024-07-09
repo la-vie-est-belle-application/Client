@@ -13,7 +13,7 @@ const Menus = () => {
       {MenusData.map((data, index) => {
         return (
           <GridItem key={data.title} rowSpan={index === 0 ? 2 : 1}>
-            <Link to={"/"}>
+            <Link to={`/${data.url}`}>
               <Card height={"100%"} borderRadius={"1.5rem"} py={"1.2rem"}>
                 <Flex
                   height={"100%"}
