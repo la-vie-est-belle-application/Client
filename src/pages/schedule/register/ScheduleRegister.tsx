@@ -2,10 +2,10 @@ import Header from "@layout/Header";
 import ScheduleCalendar from "../calendar/ScheduleCalendar";
 import useCalendar from "@hooks/useCalendar";
 import ScheduleItem from "../scheduleItem/ScheduleItem";
-import ButtonGroup from "@components/Button/ButtonGroup";
 import NoScheduleItem from "@components/NoScheduleItem/NoScheduleItem";
 import { COLORS } from "@constants/color";
 import styled from "styled-components";
+import UtilityButton from "@components/Button/UtilityButton";
 
 const ScheduleRegister = () => {
   const { selectedDates, onSelectedDateChange } = useCalendar();
@@ -23,7 +23,7 @@ const ScheduleRegister = () => {
                 onSelectedDateChange={onSelectedDateChange}
               />
             ))}
-            <ButtonGroup />
+            <UtilityButton />
           </>
         ) : (
           <NoScheduleItem />
@@ -36,7 +36,7 @@ const ScheduleRegister = () => {
 export default ScheduleRegister;
 
 const StyledContainer = styled.div`
-  height: 100vh;
+  min-height: 100vh;
 `;
 
 const StyledSelectedScheduleItemWrap = styled.div`
