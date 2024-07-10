@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { ArrowBackIcon, BellIcon, HamburgerIcon } from "@chakra-ui/icons";
 import Typography from "@components/Typography/Typography";
 import { COLORS } from "@constants/color";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import useStore from "@stores/store.ts";
 
 interface HeaderProps {
@@ -17,16 +17,23 @@ interface HeaderViewProps {
 }
 
 const Header = ({ title }: HeaderProps) => {
+  const navigate = useNavigate();
   const { isModal, setModalType, setIsModal } = useStore();
   const url = useLocation().pathname;
   const homeUrl = "/";
   const iconColor = url === homeUrl ? COLORS.white : COLORS.gray900;
   const $isHome = url === homeUrl;
 
+  const onClickBackButton = () => {
+    navigate(-1);
+  };
+
   const renderTitle = () => {
     return title ? (
       <>
-        <ArrowBackIcon fontSize={25} marginRight={4} />
+        <BackButton onClick={onClickBackButton}>
+          <ArrowBackIcon fontSize={25} marginRight={4} />
+        </BackButton>
         <Typography type="subtitle6">{title}</Typography>
       </>
     ) : null;
@@ -58,7 +65,7 @@ const HeaderView = ({
       <TitleWrapper>{renderTitle && renderTitle()}</TitleWrapper>
 
       <IconWrapper>
-        <BellIcon color={iconColor} fontSize={20} cursor="pointer" zIndex={0} />
+        <BellIcon color={iconColor} marginRight={0} />
         <HamburgerIcon
           color={iconColor}
           fontSize={20}
@@ -96,4 +103,10 @@ const IconWrapper = styled.div`
   align-items: center;
 `;
 
+const BackButton = styled.button`
+  display: flex;
+
+  padding: 0 0.4rem 0 0;
+  font-size: 2rem;
+`;
 export default Header;
