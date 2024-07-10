@@ -46,4 +46,5 @@ const StyledSelectedScheduleItemWrap = styled.div`
   border-top: 0.1rem solid ${COLORS.gray300};
   padding: 1.2rem;
   background-color: ${COLORS.gray100};
+  min-height: 30rem;
 `;

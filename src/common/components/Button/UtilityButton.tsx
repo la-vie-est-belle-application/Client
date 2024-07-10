@@ -1,14 +1,17 @@
 import { AddIcon, CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import Typography from "@components/Typography/Typography";
 import { COLORS } from "@constants/color";
+import useStore from "@stores/store";
 import { useState } from "react";
 import styled, { keyframes, css } from "styled-components";
 
 const UtilityButton = () => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const { isModal, setIsModal } = useStore();
 
   const handleButtonClick = () => {
     setIsExpanded(!isExpanded);
+    setIsModal(!isModal);
   };
 
   return (
@@ -60,12 +63,13 @@ const slideUp = keyframes`
 `;
 
 const Container = styled.div`
-  position: absolute;
+  position: fixed;
   right: 2rem;
   bottom: 5rem;
   display: flex;
   flex-direction: column-reverse;
   gap: 1.2rem;
+  z-index: 100;
 `;
 
 const StyledButtonWrap = styled.div<{ isExpanded?: boolean }>`

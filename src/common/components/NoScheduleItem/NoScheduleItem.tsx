@@ -18,7 +18,9 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+  justify-content: center;
   gap: 1.2rem;
+  min-height: 30rem;
 `;
 
 const StyledImg = styled.img`
