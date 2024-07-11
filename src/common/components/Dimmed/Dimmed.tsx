@@ -5,11 +5,18 @@ type DimmedTheme = keyof typeof DIMMED_COLORS;
 
 interface Props {
   theme?: DimmedTheme;
-  children: React.ReactNode;
+  dependency: React.DispatchWithoutAction;
 }
 
-const Dimmed = ({ theme = "default", children }: Props) => {
-  return <StyledDimmed theme={theme}>{children}</StyledDimmed>;
+const Dimmed = ({ theme = "default", dependency }: Props) => {
+  return (
+    <StyledDimmed
+      theme={theme}
+      onClick={() => {
+        dependency();
+      }}
+    ></StyledDimmed>
+  );
 };
 
 export default Dimmed;

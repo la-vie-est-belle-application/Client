@@ -5,6 +5,7 @@ interface Props {
   name: string;
   onClick: () => void;
 }
+
 const NameTag = ({ name, onClick }: Props) => {
   return (
     <HStack spacing={4}>

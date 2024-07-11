@@ -8,10 +8,11 @@ import styled from "styled-components";
 import UtilityButton from "@components/Button/UtilityButton";
 import useSchedule from "@hooks/useSchedule";
 import ScheduleDetail from "../detail/ScheduleDetail";
+import Dimmed from "@components/Dimmed/Dimmed";
 
 const ScheduleRegister = () => {
   const { selectedDates, onChangeSelectedDate } = useCalendar();
-  const { onShowDetail, isOpenDetail } = useSchedule();
+  const { onShowDetail, isOpenDetail, toggleIsOpenDetail } = useSchedule();
 
   return (
     <StyledContainer>
@@ -21,14 +22,18 @@ const ScheduleRegister = () => {
         {selectedDates ? (
           <>
             {selectedDates.map((date, index) => (
-              <>
+              <div key={index}>
                 <ScheduleItem
-                  key={index}
                   date={date}
                   onClick={() => onShowDetail(date as SelectedDate)}
                 />
-                {isOpenDetail && <ScheduleDetail date={date} />}
-              </>
+                {isOpenDetail && (
+                  <>
+                    <Dimmed dependency={toggleIsOpenDetail}></Dimmed>
+                    <ScheduleDetail date={date} />
+                  </>
+                )}
+              </div>
             ))}
             <UtilityButton />
           </>

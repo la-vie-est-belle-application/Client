@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useRef } from "react";
 import { SelectedDate } from "./useCalendar";
 import { ScheduleList, Roles } from "src/interfaces/schedule";
 import { Role } from "@constants/role";
@@ -22,7 +22,6 @@ const initialScheduleList: ScheduleList = {
   },
 };
 
-// 스케줄 리스트 업데이트 리듀서 함수
 const scheduleListReducer = (
   state: ScheduleList,
   action: {
@@ -30,20 +29,39 @@ const scheduleListReducer = (
     payload?: {
       role: keyof typeof Role;
       userName?: string;
-      userNameToDelete?: string;
     };
   },
 ) => {
   switch (action.type) {
     case actionType.ADD_USER:
-      console.log("유저 추가됨");
+      if (!action.payload?.role || !action.payload?.userName) return state; // 조건 수정
+
+      // eslint-disable-next-line no-case-declarations
+      const currentUsers = state.role[action.payload.role] || [];
+
       return {
         ...state,
+        role: {
+          ...state.role,
+          [action.payload.role]: [...currentUsers, action.payload.userName],
+        },
       };
     case actionType.DELETE_USER:
-      console.log("유저 제거됨");
+      if (!action.payload?.role || !action.payload.userName) {
+        return state;
+      }
+      // eslint-disable-next-line no-case-declarations
+      const updatedUsers =
+        state.role[action.payload.role]?.filter(
+          (name) => name !== action.payload?.userName,
+        ) || [];
+
       return {
         ...state,
+        role: {
+          ...state.role,
+          [action.payload.role]: updatedUsers,
+        },
       };
     default:
       return state;
@@ -51,6 +69,7 @@ const scheduleListReducer = (
 };
 
 const useSchedule = () => {
+  const selectedRoleRef = useRef<Roles | null>(null);
   const [isOpenDetail, toggleIsOpenDetail] = useReducer(
     (state) => !state,
     false,
@@ -68,34 +87,44 @@ const useSchedule = () => {
     }
   }, [isOpenDetail]);
 
-  const onAddUserToScheduleList = (role: Roles, userName: string) => {
-    onUpdateScheduleList({
-      type: actionType.ADD_USER,
-      payload: { role, userName },
-    });
+  const onAddUserToScheduleList = (selectedRole: Roles, userName: string) => {
+    if (selectedRole) {
+      onUpdateScheduleList({
+        type: actionType.ADD_USER,
+        payload: { role: selectedRole, userName },
+      });
+    }
   };
 
   const onDeleteUserFromScheduleList = (
-    role: Roles,
-    userNameToDelete: string,
+    selectedRole: Roles,
+    userName: string,
   ) => {
-    onUpdateScheduleList({
-      type: actionType.DELETE_USER,
-      payload: { role, userNameToDelete },
-    });
+    if (selectedRole) {
+      onUpdateScheduleList({
+        type: actionType.DELETE_USER,
+        payload: { role: selectedRole, userName },
+      });
+    }
   };
 
-  // 상세 정보 패널 토글 핸들러
+  const onSelectRole = (role: Roles) => {
+    selectedRoleRef.current = role;
+  };
+
   const onShowDetail = (date: SelectedDate) => {
     return date && toggleIsOpenDetail();
   };
 
   return {
+    toggleIsOpenDetail,
     isOpenDetail,
     onShowDetail,
     onAddUserToScheduleList,
     onDeleteUserFromScheduleList,
     scheduleList,
+    onSelectRole,
+    selectedRoleRef,
   };
 };
 

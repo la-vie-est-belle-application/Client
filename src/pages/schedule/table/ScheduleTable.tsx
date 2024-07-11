@@ -7,10 +7,23 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
+import NameTagWithClose from "@components/NameTagWithClose/NameTagWithClose";
 import { Role } from "@constants/role";
 
-const ScheduleTable = () => {
-  const roles = Object.values(Role);
+import { Roles, ScheduleList } from "src/interfaces/schedule";
+
+interface Props {
+  scheduleList: ScheduleList;
+  onSelectRole: (role: Roles) => void;
+  onDeleteUserFromScheduleList: (selectedRole: Roles, userName: string) => void;
+}
+
+const ScheduleTable = ({
+  onSelectRole,
+  scheduleList,
+  onDeleteUserFromScheduleList,
+}: Props) => {
+  const roles = Object.values(Role) as Roles[];
 
   return (
     <TableContainer>
@@ -25,16 +38,25 @@ const ScheduleTable = () => {
           {roles.map((role, index) => (
             <Tr
               key={index}
-              onClick={() => {
-                console.log(role);
-              }}
+              onClick={() => onSelectRole(role)}
               cursor={"pointer"}
             >
               <Td fontSize={13} fontWeight={"bold"} padding={8}>
                 {role}
               </Td>
               <Td fontSize={13} padding={8}>
-                이름을 여기에 추가하세요
+                {scheduleList.role && scheduleList.role[role]!.length > 0
+                  ? scheduleList.role[role]!.map((name, idx) => (
+                      <NameTagWithClose
+                        key={idx}
+                        name={name}
+                        role={role}
+                        onDeleteUserFromScheduleList={
+                          onDeleteUserFromScheduleList
+                        }
+                      />
+                    ))
+                  : "없어요"}
               </Td>
             </Tr>
           ))}
