@@ -1,12 +1,16 @@
 import Typography from "@components/Typography/Typography";
 import styled from "styled-components";
 
-const NoScheduleItem = () => {
+interface Props {
+  text: string;
+}
+
+const NoScheduleItem = ({ text }: Props) => {
   return (
     <Container>
       <StyledImg src="/assets/schedule-red.svg" alt="달력"></StyledImg>
       <Typography type="subtitle6" color="gray700">
-        등록된 일정이 없습니다
+        {text}
       </Typography>
     </Container>
   );

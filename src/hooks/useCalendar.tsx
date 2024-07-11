@@ -2,7 +2,7 @@ import { useReducer } from "react";
 import { Value } from "react-calendar/dist/cjs/shared/types";
 
 export type SelectedDate = Value | null;
-export type SelectedDates = (Date | null)[];
+export type SelectedDates = Date[] | [];
 
 const checkDuplicateDatesReducer = (
   dates: SelectedDates,
@@ -24,11 +24,11 @@ const checkDuplicateDatesReducer = (
 const useCalendar = () => {
   const [selectedDates, dispatch] = useReducer(checkDuplicateDatesReducer, []);
 
-  const onSelectedDateChange = (date: SelectedDate) => {
+  const onChangeSelectedDate = (date: SelectedDate) => {
     dispatch(date as Date | null);
   };
 
-  return { selectedDates, onSelectedDateChange };
+  return { selectedDates, onChangeSelectedDate };
 };
 
 export default useCalendar;

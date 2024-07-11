@@ -1,32 +1,39 @@
 import Header from "@layout/Header";
 import ScheduleCalendar from "../calendar/ScheduleCalendar";
-import useCalendar from "@hooks/useCalendar";
+import useCalendar, { SelectedDate } from "@hooks/useCalendar";
 import ScheduleItem from "../scheduleItem/ScheduleItem";
 import NoScheduleItem from "@components/NoScheduleItem/NoScheduleItem";
 import { COLORS } from "@constants/color";
 import styled from "styled-components";
 import UtilityButton from "@components/Button/UtilityButton";
+import useSchedule from "@hooks/useSchedule";
+import ScheduleDetail from "../detail/ScheduleDetail";
 
 const ScheduleRegister = () => {
-  const { selectedDates, onSelectedDateChange } = useCalendar();
+  const { selectedDates, onChangeSelectedDate } = useCalendar();
+  const { onShowDetail, isOpenDetail } = useSchedule();
+
   return (
     <StyledContainer>
       <Header title="일정 등록" />
-      <ScheduleCalendar onSelectedDateChange={onSelectedDateChange} />
+      <ScheduleCalendar onChangeSelectedDate={onChangeSelectedDate} />
       <StyledSelectedScheduleItemWrap>
-        {selectedDates.length > 0 ? (
+        {selectedDates ? (
           <>
             {selectedDates.map((date, index) => (
-              <ScheduleItem
-                key={index}
-                date={date}
-                onSelectedDateChange={onSelectedDateChange}
-              />
+              <>
+                <ScheduleItem
+                  key={index}
+                  date={date}
+                  onClick={() => onShowDetail(date as SelectedDate)}
+                />
+                {isOpenDetail && <ScheduleDetail date={date} />}
+              </>
             ))}
             <UtilityButton />
           </>
         ) : (
-          <NoScheduleItem />
+          <NoScheduleItem text={"선택된 날짜가 없습니다."} />
         )}
       </StyledSelectedScheduleItemWrap>
     </StyledContainer>

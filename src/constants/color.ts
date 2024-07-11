@@ -37,3 +37,8 @@ export const RGB_COLORS = {
   white_09: "255 ,255 ,255, .9",
   purple400_03: "112 ,92, 252, .3",
 };
+
+export const DIMMED_COLORS = {
+  default: "rgba(255, 255, 255, 0.528)",
+  black: "rgba(0, 0, 0, 0.528)",
+};
