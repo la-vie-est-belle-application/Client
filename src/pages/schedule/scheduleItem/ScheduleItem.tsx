@@ -1,32 +1,25 @@
 import Typography from "@components/Typography/Typography";
 import { COLORS } from "@constants/color";
 import { SelectedDate } from "@hooks/useCalendar";
+import { formatDateWithDay } from "@utils/formatDate";
 import styled from "styled-components";
 
 interface Props {
-  date: SelectedDate;
-  onSelectedDateChange: (date: SelectedDate) => void;
+  date: SelectedDate | null;
+  onClick: (value: SelectedDate) => void;
 }
 
-const ScheduleItem = ({ date, onSelectedDateChange }: Props) => {
-  let dateString: string | undefined = undefined;
-
-  if (date instanceof Date) {
-    const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, "0");
-    const day = date.getDate().toString().padStart(2, "0");
-
-    const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
-    const dayOfWeekIndex = date.getDay();
-    const dayOfWeek = daysOfWeek[dayOfWeekIndex];
-
-    dateString = `${year}.${month}.${day} (${dayOfWeek})`;
-  }
+const ScheduleItem = ({ date, onClick }: Props) => {
+  const formattedDate = formatDateWithDay(date);
 
   return (
-    <StyledContainer onClick={() => onSelectedDateChange(date)}>
+    <StyledContainer
+      onClick={() => {
+        onClick(date);
+      }}
+    >
       <Typography type="subtitle6" color="white">
-        {dateString}
+        {formattedDate}
       </Typography>
     </StyledContainer>
   );

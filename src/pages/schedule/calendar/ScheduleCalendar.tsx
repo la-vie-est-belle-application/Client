@@ -5,15 +5,15 @@ import "react-calendar/dist/Calendar.css";
 import styled from "styled-components";
 
 interface Props {
-  onSelectedDateChange: (date: SelectedDate) => void;
+  onChangeSelectedDate: (date: SelectedDate) => void;
 }
 
-const ScheduleCalendar = ({ onSelectedDateChange }: Props) => {
+const ScheduleCalendar = ({ onChangeSelectedDate }: Props) => {
   return (
     <StyledCalendarWrapper>
       <Calendar
         onChange={(date) => {
-          onSelectedDateChange(date);
+          onChangeSelectedDate(date);
         }}
         calendarType="gregory" // 일요일 부터 시작
         showNeighboringMonth={false} // 전달, 다음달 날짜 숨기기

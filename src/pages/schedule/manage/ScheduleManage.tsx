@@ -8,12 +8,12 @@ import { COLORS } from "@constants/color";
 import NoScheduleItem from "@components/NoScheduleItem/NoScheduleItem";
 
 const ScheduleManage = () => {
-  const { selectedDates, onSelectedDateChange } = useCalendar();
+  const { selectedDates, onChangeSelectedDate } = useCalendar();
 
   return (
     <StyledContainer>
       <Header title="일정 관리" />
-      <ScheduleCalendar onSelectedDateChange={onSelectedDateChange} />
+      <ScheduleCalendar onChangeSelectedDate={onChangeSelectedDate} />
       <StyledSelectedScheduleItemWrap>
         {selectedDates.length > 0 ? (
           <>
@@ -21,13 +21,13 @@ const ScheduleManage = () => {
               <ScheduleItem
                 key={index}
                 date={date}
-                onSelectedDateChange={onSelectedDateChange}
+                onClick={onChangeSelectedDate}
               />
             ))}
             <ButtonGroup />
           </>
         ) : (
-          <NoScheduleItem />
+          <NoScheduleItem text={"등록된 스케줄이 없습니다."} />
         )}
       </StyledSelectedScheduleItemWrap>
     </StyledContainer>
