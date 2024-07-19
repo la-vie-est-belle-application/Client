@@ -1,6 +1,12 @@
 import { useEffect, useReducer, useRef } from "react";
 import { SelectedDate } from "./useCalendar";
-import { ScheduleList, Roles } from "src/interfaces/schedule";
+import {
+  ScheduleList,
+  Roles,
+  WorkTime,
+  WorkTimeTuple,
+  WorkTimeType,
+} from "src/interfaces/schedule";
 import { Role } from "@constants/role";
 
 const actionType = {
@@ -34,7 +40,7 @@ const scheduleListReducer = (
 ) => {
   switch (action.type) {
     case actionType.ADD_USER:
-      if (!action.payload?.role || !action.payload?.userName) return state; // 조건 수정
+      if (!action.payload?.role || !action.payload?.userName) return state;
 
       // eslint-disable-next-line no-case-declarations
       const currentUsers = state.role[action.payload.role] || [];
@@ -68,6 +74,25 @@ const scheduleListReducer = (
   }
 };
 
+const initialWorkTime: WorkTime = {
+  startTime: ["09", "00"],
+  endTime: ["18", "00"],
+};
+
+const workTimeReducer = (
+  times: WorkTime,
+  action: { type: WorkTimeType; payload: WorkTimeTuple },
+): WorkTime => {
+  switch (action.type) {
+    case WorkTimeType.START_TIME:
+      return { ...times, startTime: action.payload };
+    case WorkTimeType.END_TIME:
+      return { ...times, endTime: action.payload };
+    default:
+      return times;
+  }
+};
+
 const useSchedule = () => {
   const selectedRoleRef = useRef<Roles | null>(null);
   const [isOpenDetail, toggleIsOpenDetail] = useReducer(
@@ -77,6 +102,11 @@ const useSchedule = () => {
   const [scheduleList, onUpdateScheduleList] = useReducer(
     scheduleListReducer,
     initialScheduleList,
+  );
+
+  const [workTime, onUpdateWorkTime] = useReducer(
+    workTimeReducer,
+    initialWorkTime,
   );
 
   useEffect(() => {
@@ -116,6 +146,16 @@ const useSchedule = () => {
     return date && toggleIsOpenDetail();
   };
 
+  const onChangeStartWorkTime = (
+    times: WorkTimeTuple,
+    workTimeType: WorkTimeType,
+  ) => {
+    onUpdateWorkTime({
+      type: workTimeType,
+      payload: times,
+    });
+  };
+
   return {
     toggleIsOpenDetail,
     isOpenDetail,
@@ -125,6 +165,8 @@ const useSchedule = () => {
     scheduleList,
     onSelectRole,
     selectedRoleRef,
+    onChangeStartWorkTime,
+    workTime,
   };
 };
 

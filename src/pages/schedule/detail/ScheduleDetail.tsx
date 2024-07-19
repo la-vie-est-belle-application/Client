@@ -8,6 +8,7 @@ import ScheduleTable from "../table/ScheduleTable";
 import NameTag from "@components/NameTag/NameTag";
 import useSchedule from "@hooks/useSchedule";
 import { useEffect, useState } from "react";
+import ScheduleWorkTime from "./ScheduleWorkTime";
 
 interface Props {
   date: SelectedDate;
@@ -35,6 +36,7 @@ const ScheduleDetail = ({ date, isOpenDetail }: Props) => {
         <StyledDate>
           <Typography type="subtitle6">{formattedDate}</Typography>
         </StyledDate>
+        <ScheduleWorkTime />
         <ScheduleTable
           scheduleList={scheduleList}
           onSelectRole={onSelectRole}
@@ -72,8 +74,9 @@ const StyledContainer = styled.div<{ isOpen: boolean }>`
   justify-content: center;
   align-items: flex-end;
   width: 100%;
+  height: 100%;
   max-width: ${MAX_WIDTH};
-  bottom: 0;
+  top: 0;
   transform: translateY(${({ isOpen }) => (isOpen ? "0" : "100%")});
   transition: transform 0.5s ease-out;
   z-index: 100;
@@ -84,13 +87,15 @@ const StyledScheduleDetailItem = styled.div`
   flex-direction: column;
   gap: 1.2rem;
   width: 100%;
+  height: 100%;
   overflow-y: scroll;
   max-width: ${MAX_WIDTH};
-  border-top-right-radius: 8vw;
-  border-top-left-radius: 8vw;
-  box-shadow: 0px -4px 50px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.05);
   background-color: ${COLORS.white};
   padding: 2rem 1.2rem;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const StyledDate = styled.h2`
