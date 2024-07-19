@@ -23,6 +23,8 @@ const ScheduleDetail = ({ date, isOpenDetail }: Props) => {
     onSelectRole,
     onAddUserToScheduleList,
     onDeleteUserFromScheduleList,
+    workTime,
+    onUpdateWorkTime,
   } = useSchedule();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -36,7 +38,10 @@ const ScheduleDetail = ({ date, isOpenDetail }: Props) => {
         <StyledDate>
           <Typography type="subtitle6">{formattedDate}</Typography>
         </StyledDate>
-        <ScheduleWorkTime />
+        <ScheduleWorkTime
+          workTime={workTime}
+          onUpdateWorkTime={onUpdateWorkTime}
+        />
         <ScheduleTable
           scheduleList={scheduleList}
           onSelectRole={onSelectRole}

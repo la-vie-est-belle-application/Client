@@ -19,6 +19,8 @@ export default defineConfig({
       { find: "@tests", replacement: "/src/tests" },
       { find: "@utils", replacement: "/src/utils" },
       { find: "@datas", replacement: "/src/datas" },
+      { find: "@interfaces", replacement: "/src/interfaces" },
+      { find: "@reducers", replacement: "/src/reducers" },
     ],
   },
 });
