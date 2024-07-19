@@ -30,7 +30,7 @@ const ScheduleRegister = () => {
                 {isOpenDetail && (
                   <>
                     <Dimmed dependency={toggleIsOpenDetail}></Dimmed>
-                    <ScheduleDetail date={date} />
+                    <ScheduleDetail date={date} isOpenDetail={isOpenDetail} />
                   </>
                 )}
               </div>

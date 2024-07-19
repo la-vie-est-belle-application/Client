@@ -7,12 +7,14 @@ import styled from "styled-components";
 import ScheduleTable from "../table/ScheduleTable";
 import NameTag from "@components/NameTag/NameTag";
 import useSchedule from "@hooks/useSchedule";
+import { useEffect, useState } from "react";
 
 interface Props {
   date: SelectedDate;
+  isOpenDetail: boolean;
 }
 
-const ScheduleDetail = ({ date }: Props) => {
+const ScheduleDetail = ({ date, isOpenDetail }: Props) => {
   const formattedDate = formatDateWithDay(date);
   const {
     scheduleList,
@@ -22,8 +24,13 @@ const ScheduleDetail = ({ date }: Props) => {
     onDeleteUserFromScheduleList,
   } = useSchedule();
 
+  const [isOpen, setIsOpen] = useState(false);
+  useEffect(() => {
+    setIsOpen(isOpenDetail);
+  }, [isOpenDetail]);
+
   return (
-    <StyledContainer>
+    <StyledContainer isOpen={isOpen}>
       <StyledScheduleDetailItem>
         <StyledDate>
           <Typography type="subtitle6">{formattedDate}</Typography>
@@ -33,13 +40,25 @@ const ScheduleDetail = ({ date }: Props) => {
           onSelectRole={onSelectRole}
           onDeleteUserFromScheduleList={onDeleteUserFromScheduleList}
         />
-        {/* 지워야함 */}
+        {/* 예시 NameTag들 */}
+        <NameTag
+          name="옥진"
+          onClick={() => {
+            onAddUserToScheduleList(selectedRoleRef.current!, "옥진");
+          }}
+        />
         <NameTag
           name="태관"
           onClick={() => {
             onAddUserToScheduleList(selectedRoleRef.current!, "태관");
           }}
-        ></NameTag>
+        />
+        <NameTag
+          name="유정"
+          onClick={() => {
+            onAddUserToScheduleList(selectedRoleRef.current!, "유정");
+          }}
+        />
       </StyledScheduleDetailItem>
     </StyledContainer>
   );
@@ -47,14 +66,16 @@ const ScheduleDetail = ({ date }: Props) => {
 
 export default ScheduleDetail;
 
-const StyledContainer = styled.div`
-  position: fixed;
+const StyledContainer = styled.div<{ isOpen: boolean }>`
+  position: absolute;
   display: flex;
   justify-content: center;
-  align-items: end;
+  align-items: flex-end;
   width: 100%;
   max-width: ${MAX_WIDTH};
   bottom: 0;
+  transform: translateY(${({ isOpen }) => (isOpen ? "0" : "100%")});
+  transition: transform 0.5s ease-out;
   z-index: 100;
 `;
 
@@ -63,7 +84,8 @@ const StyledScheduleDetailItem = styled.div`
   flex-direction: column;
   gap: 1.2rem;
   width: 100%;
-  height: 90vh;
+  overflow-y: scroll;
+  max-width: ${MAX_WIDTH};
   border-top-right-radius: 8vw;
   border-top-left-radius: 8vw;
   box-shadow: 0px -4px 50px rgba(0, 0, 0, 0.25);
