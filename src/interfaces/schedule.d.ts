@@ -7,3 +7,20 @@ export interface ScheduleList {
 }
 
 export type SelectedUsers = string[];
+
+export type WorkTimeAction = {
+  type: WorkTimeType;
+  payload: WorkTimeTuple;
+};
+
+export type Hours = (typeof HOURS)[number];
+export type Minutes = (typeof MINUTES)[number];
+
+export type WorkTimeTuple = [Hours, Minutes];
+
+export interface WorkTime {
+  startTime: WorkTimeTuple;
+  endTime: WorkTimeTuple;
+}
+
+export type WorkTimeType = (typeof WorkTimeTypes)[keyof typeof WorkTimeTypes];

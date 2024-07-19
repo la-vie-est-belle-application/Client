@@ -13,7 +13,9 @@
       "@stories/*": ["./src/stories/*"],
       "@tests/*": ["./src/tests/*"],
       "@utils/*": ["./src/utils/*"],
-      "@datas/*": ["./src/datas/*"]
+      "@datas/*": ["./src/datas/*"],
+      "@interfaces/*": ["./src/interfaces/*"],
+      "@reducers/*": ["./src/reducers/*"]
     }
   }
 }
