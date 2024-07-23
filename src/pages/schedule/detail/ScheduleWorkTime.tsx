@@ -1,6 +1,7 @@
 import { Box, Stack } from "@chakra-ui/react";
 import Typography from "@components/Typography/Typography";
 import { COLORS } from "@constants/color";
+import { formatTimeWithColon } from "@utils/formatTime";
 import { WorkTime, WorkTimeTuple, WorkTimeType } from "src/interfaces/schedule";
 
 interface Props {
@@ -12,6 +13,7 @@ interface Props {
 }
 
 const ScheduleWorkTime = ({ workTime, onUpdateWorkTime }: Props) => {
+  const { startTime, endTime } = workTime;
   return (
     <Stack direction={"row"} border={`1px solid ${COLORS.gray400}`}>
       <Stack
@@ -27,7 +29,7 @@ const ScheduleWorkTime = ({ workTime, onUpdateWorkTime }: Props) => {
           <Typography type="body3">출근 시간</Typography>
         </Box>
         <Box>
-          <Typography type="body3">{workTime.startTime}</Typography>
+          <Typography type="body3">{formatTimeWithColon(startTime)}</Typography>
         </Box>
       </Stack>
       <Stack flex={"1 1 0"} padding={"0.6rem 1.2rem"} cursor={"pointer"}>
@@ -35,7 +37,7 @@ const ScheduleWorkTime = ({ workTime, onUpdateWorkTime }: Props) => {
           <Typography type="body3">퇴근 시간</Typography>
         </Box>
         <Box>
-          <Typography type="body3">{workTime.startTime}</Typography>
+          <Typography type="body3">{formatTimeWithColon(endTime)}</Typography>
         </Box>
       </Stack>
     </Stack>
