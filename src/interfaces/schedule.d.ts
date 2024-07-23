@@ -1,4 +1,6 @@
 import { Role } from "@constants/role";
+import { HOURS, MINUTES } from "@constants/time";
+import { WorkTimeActionTypes } from "@reducers/workTimeReducer";
 
 export type Roles = keyof typeof Role;
 
@@ -9,7 +11,7 @@ export interface ScheduleList {
 export type SelectedUsers = string[];
 
 export type WorkTimeAction = {
-  type: WorkTimeType;
+  type: WorkTimeTypes;
   payload: WorkTimeTuple;
 };
 
@@ -21,6 +23,8 @@ export type WorkTimeTuple = [Hours, Minutes];
 export interface WorkTime {
   startTime: WorkTimeTuple;
   endTime: WorkTimeTuple;
+  type: WorkTimeTypes;
 }
 
-export type WorkTimeType = (typeof WorkTimeTypes)[keyof typeof WorkTimeTypes];
+export type WorkTimeTypes =
+  (typeof WorkTimeActionTypes)[keyof typeof WorkTimeActionTypes];

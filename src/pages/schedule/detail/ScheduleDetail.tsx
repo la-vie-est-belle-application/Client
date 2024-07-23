@@ -8,7 +8,7 @@ import ScheduleTable from "../table/ScheduleTable";
 import NameTag from "@components/NameTag/NameTag";
 import useSchedule from "@hooks/useSchedule";
 import { useEffect, useState } from "react";
-import ScheduleWorkTime from "./ScheduleWorkTime";
+import ScheduleWorkTime from "./workTime/ScheduleWorkTime";
 
 interface Props {
   date: SelectedDate;
