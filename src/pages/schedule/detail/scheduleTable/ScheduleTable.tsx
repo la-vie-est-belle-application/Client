@@ -6,24 +6,29 @@ import {
   Th,
   Thead,
   Tr,
+  useDisclosure,
 } from "@chakra-ui/react";
 import NameTagWithClose from "@components/NameTagWithClose/NameTagWithClose";
 import { Role } from "@constants/role";
 
 import { Roles, ScheduleList } from "src/interfaces/schedule";
+import ScheduleTableModal from "./ScheduleTableModal";
 
 interface Props {
+  selectedRole: Roles | null;
   scheduleList: ScheduleList;
   onSelectRole: (role: Roles) => void;
   onDeleteUserFromScheduleList: (selectedRole: Roles, userName: string) => void;
 }
 
 const ScheduleTable = ({
+  selectedRole,
   onSelectRole,
   scheduleList,
   onDeleteUserFromScheduleList,
 }: Props) => {
   const roles = Object.values(Role) as Roles[];
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <TableContainer>
@@ -38,7 +43,10 @@ const ScheduleTable = ({
           {roles.map((role, index) => (
             <Tr
               key={index}
-              onClick={() => onSelectRole(role)}
+              onClick={() => {
+                onSelectRole(role);
+                onOpen();
+              }}
               cursor={"pointer"}
             >
               <Td fontSize={13} fontWeight={"bold"} padding={8}>
@@ -62,6 +70,13 @@ const ScheduleTable = ({
           ))}
         </Tbody>
       </Table>
+      {isOpen && (
+        <ScheduleTableModal
+          isOpen={isOpen}
+          onClose={onClose}
+          selectedRole={selectedRole}
+        />
+      )}
     </TableContainer>
   );
 };

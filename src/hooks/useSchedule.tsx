@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useRef } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { SelectedDate } from "./useCalendar";
 import { Roles } from "@interfaces/schedule";
 import { initialWorkTime, workTimeReducer } from "@reducers/workTimeReducer";
@@ -9,7 +9,7 @@ import {
 } from "@reducers/scheduleListReducer";
 
 const useSchedule = () => {
-  const selectedRoleRef = useRef<Roles | null>(null);
+  const [selectedRole, setSelectedRole] = useState<Roles | null>(null);
   const [isOpenDetail, toggleIsOpenDetail] = useReducer(
     (state) => !state,
     false,
@@ -54,7 +54,7 @@ const useSchedule = () => {
   };
 
   const onSelectRole = (role: Roles) => {
-    selectedRoleRef.current = role;
+    setSelectedRole(role);
   };
 
   const onShowDetail = (date: SelectedDate) => {
@@ -69,9 +69,9 @@ const useSchedule = () => {
     onDeleteUserFromScheduleList,
     scheduleList,
     onSelectRole,
-    selectedRoleRef,
     onUpdateWorkTime,
     workTime,
+    selectedRole,
   };
 };
 
