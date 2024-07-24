@@ -1,17 +1,12 @@
 import { HStack, Tag, TagCloseButton, TagLabel } from "@chakra-ui/react";
 import { COLORS } from "@constants/color";
-import { Roles } from "src/interfaces/schedule";
+import { Roles, User } from "src/interfaces/schedule";
 
-interface Props {
-  name: string;
+interface Props extends Pick<User, "userName"> {
   role: Roles;
-  onDeleteUserFromScheduleList: (selectedRole: Roles, name: string) => void;
+  onClick: () => void;
 }
-const NameTagWithClose = ({
-  name,
-  role,
-  onDeleteUserFromScheduleList,
-}: Props) => {
+const NameTagWithClose = ({ userName, onClick }: Props) => {
   return (
     <HStack spacing={4}>
       <Tag
@@ -20,9 +15,9 @@ const NameTagWithClose = ({
         variant="solid"
         backgroundColor={COLORS.purple400}
         cursor={"pointer"}
-        onClick={() => onDeleteUserFromScheduleList(role, name)}
+        onClick={onClick}
       >
-        <TagLabel fontSize={12}>{name}</TagLabel>
+        <TagLabel fontSize={12}>{userName}</TagLabel>
         <TagCloseButton />
       </Tag>
     </HStack>

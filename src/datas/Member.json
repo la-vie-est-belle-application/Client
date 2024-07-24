@@ -1,14 +1,22 @@
 [
   {
-    "name": "이준엽"
+    "userId": "1",
+    "userName": "이준엽",
+    "gender": "male"
   },
   {
-    "name": "윤태관"
+    "userId": "2",
+    "userName": "윤태관",
+    "gender": "male"
   },
   {
-    "name": "전옥진"
+    "userId": "3",
+    "userName": "전옥진",
+    "gender": "male"
   },
   {
-    "name": "안유정"
+    "userId": "4",
+    "userName": "안유정",
+    "gender": "female"
   }
 ]

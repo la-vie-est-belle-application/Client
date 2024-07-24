@@ -1,12 +1,11 @@
-import { Role } from "@constants/role";
-import { ScheduleList } from "@interfaces/schedule";
+import { Roles, ScheduleList, ScheduleListAction } from "@interfaces/schedule";
 
-export const scheduleListActionType = {
+export const SCHEDULE_LIST_ACTION_TYPE = {
   ADD_USER: "ADD_USER",
   DELETE_USER: "DELETE_USER",
 } as const;
 
-export const initialScheduleList: ScheduleList = {
+export const INITIAL_SCHEDULE_LIST: ScheduleList = {
   role: {
     팀장: [],
     스캔: [],
@@ -21,47 +20,35 @@ export const initialScheduleList: ScheduleList = {
 };
 
 export const scheduleListReducer = (
-  state: ScheduleList,
-  action: {
-    type: string;
-    payload?: {
-      role: keyof typeof Role;
-      userName?: string;
-    };
-  },
-) => {
+  data: ScheduleList,
+  action: ScheduleListAction,
+): ScheduleList => {
   switch (action.type) {
-    case scheduleListActionType.ADD_USER:
-      if (!action.payload?.role || !action.payload?.userName) return state;
-
-      // eslint-disable-next-line no-case-declarations
-      const currentUsers = state.role[action.payload.role] || [];
-
+    case SCHEDULE_LIST_ACTION_TYPE.ADD_USER: {
+      const { role, userName, userId } = action.payload;
+      const currentUsers = data.role[role as Roles] || [];
       return {
-        ...state,
+        ...data,
         role: {
-          ...state.role,
-          [action.payload.role]: [...currentUsers, action.payload.userName],
+          ...data.role,
+          [role]: [...currentUsers, { userName, userId }],
         },
       };
-    case scheduleListActionType.DELETE_USER:
-      if (!action.payload?.role || !action.payload.userName) {
-        return state;
-      }
-      // eslint-disable-next-line no-case-declarations
-      const updatedUsers =
-        state.role[action.payload.role]?.filter(
-          (name) => name !== action.payload?.userName,
-        ) || [];
-
+    }
+    case SCHEDULE_LIST_ACTION_TYPE.DELETE_USER: {
+      const { role, userId } = action.payload;
+      const updatedUsers = (data.role[role as Roles] || []).filter(
+        (user) => user.userId !== userId,
+      );
       return {
-        ...state,
+        ...data,
         role: {
-          ...state.role,
-          [action.payload.role]: updatedUsers,
+          ...data.role,
+          [role]: updatedUsers,
         },
       };
+    }
     default:
-      return state;
+      return data;
   }
 };

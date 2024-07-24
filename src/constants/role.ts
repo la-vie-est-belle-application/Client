@@ -1,4 +1,4 @@
-export const Role = {
+export const ROLES = {
   팀장: "팀장",
   스캔: "스캔",
   메인: "메인",

@@ -8,26 +8,40 @@ import {
   Tr,
   useDisclosure,
 } from "@chakra-ui/react";
-import NameTagWithClose from "@components/NameTagWithClose/NameTagWithClose";
-import { Role } from "@constants/role";
+import { ROLES } from "@constants/role";
 
-import { Roles, ScheduleList } from "src/interfaces/schedule";
+import {
+  Roles,
+  ScheduleList,
+  ScheduleListAction,
+  User,
+} from "src/interfaces/schedule";
 import ScheduleTableModal from "./ScheduleTableModal";
+import NameTag from "@components/NameTag/NameTag";
+import { ApplicantsAction } from "@reducers/applicantsReducer";
 
 interface Props {
-  selectedRole: Roles | null;
+  selectedRole: Roles | undefined;
   scheduleList: ScheduleList;
+  temporaryScheduleList: ScheduleList;
   onSelectRole: (role: Roles) => void;
-  onDeleteUserFromScheduleList: (selectedRole: Roles, userName: string) => void;
+  onUpdateUserInScheduleList: React.Dispatch<ScheduleListAction>;
+  onUpdateUserInTemporaryScheduleList: React.Dispatch<ScheduleListAction>;
+  applicants: User[];
+  onUpdateApplicants: React.Dispatch<ApplicantsAction>;
 }
 
 const ScheduleTable = ({
   selectedRole,
   onSelectRole,
   scheduleList,
-  onDeleteUserFromScheduleList,
+  temporaryScheduleList,
+  onUpdateUserInScheduleList,
+  onUpdateUserInTemporaryScheduleList,
+  applicants,
+  onUpdateApplicants,
 }: Props) => {
-  const roles = Object.values(Role) as Roles[];
+  const roles = Object.values(ROLES) as Roles[];
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -54,15 +68,8 @@ const ScheduleTable = ({
               </Td>
               <Td fontSize={13} padding={8}>
                 {scheduleList.role && scheduleList.role[role]!.length > 0
-                  ? scheduleList.role[role]!.map((name, idx) => (
-                      <NameTagWithClose
-                        key={idx}
-                        name={name}
-                        role={role}
-                        onDeleteUserFromScheduleList={
-                          onDeleteUserFromScheduleList
-                        }
-                      />
+                  ? scheduleList.role[role]!.map((user, idx) => (
+                      <NameTag key={idx} userName={user.userName} />
                     ))
                   : "없어요"}
               </Td>
@@ -75,6 +82,14 @@ const ScheduleTable = ({
           isOpen={isOpen}
           onClose={onClose}
           selectedRole={selectedRole}
+          scheduleList={scheduleList}
+          temporaryScheduleList={temporaryScheduleList}
+          onUpdateUserInScheduleList={onUpdateUserInScheduleList}
+          onUpdateUserInTemporaryScheduleList={
+            onUpdateUserInTemporaryScheduleList
+          }
+          applicants={applicants}
+          onUpdateApplicants={onUpdateApplicants}
         />
       )}
     </TableContainer>
