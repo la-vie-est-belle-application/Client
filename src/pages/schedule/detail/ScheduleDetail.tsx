@@ -23,10 +23,10 @@ const ScheduleDetail = ({ date, isOpenDetail }: Props) => {
     onUpdateWorkTime,
     selectedRole,
     temporaryScheduleList,
-    onUpdateUserInScheduleList,
-    onUpdateUserInTemporaryScheduleList,
     applicants,
-    onUpdateApplicants,
+    handleAddToPendingList,
+    handleRemoveFromPendingList,
+    saveScheduleChanges,
   } = useSchedule();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -49,12 +49,10 @@ const ScheduleDetail = ({ date, isOpenDetail }: Props) => {
           scheduleList={scheduleList}
           onSelectRole={onSelectRole}
           temporaryScheduleList={temporaryScheduleList}
-          onUpdateUserInScheduleList={onUpdateUserInScheduleList}
-          onUpdateUserInTemporaryScheduleList={
-            onUpdateUserInTemporaryScheduleList
-          }
           applicants={applicants}
-          onUpdateApplicants={onUpdateApplicants}
+          handleAddToPendingList={handleAddToPendingList}
+          handleRemoveFromPendingList={handleRemoveFromPendingList}
+          saveScheduleChanges={saveScheduleChanges}
         />
       </StyledScheduleDetailItem>
     </StyledContainer>

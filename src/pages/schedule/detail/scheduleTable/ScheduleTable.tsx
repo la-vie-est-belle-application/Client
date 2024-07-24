@@ -10,25 +10,19 @@ import {
 } from "@chakra-ui/react";
 import { ROLES } from "@constants/role";
 
-import {
-  Roles,
-  ScheduleList,
-  ScheduleListAction,
-  User,
-} from "src/interfaces/schedule";
+import { Roles, ScheduleList, User } from "src/interfaces/schedule";
 import ScheduleTableModal from "./ScheduleTableModal";
 import NameTag from "@components/NameTag/NameTag";
-import { ApplicantsAction } from "@reducers/applicantsReducer";
 
 interface Props {
   selectedRole: Roles | undefined;
   scheduleList: ScheduleList;
   temporaryScheduleList: ScheduleList;
   onSelectRole: (role: Roles) => void;
-  onUpdateUserInScheduleList: React.Dispatch<ScheduleListAction>;
-  onUpdateUserInTemporaryScheduleList: React.Dispatch<ScheduleListAction>;
   applicants: User[];
-  onUpdateApplicants: React.Dispatch<ApplicantsAction>;
+  handleAddToPendingList: (user: User) => void;
+  handleRemoveFromPendingList: (user: User) => void;
+  saveScheduleChanges: () => void;
 }
 
 const ScheduleTable = ({
@@ -36,10 +30,10 @@ const ScheduleTable = ({
   onSelectRole,
   scheduleList,
   temporaryScheduleList,
-  onUpdateUserInScheduleList,
-  onUpdateUserInTemporaryScheduleList,
   applicants,
-  onUpdateApplicants,
+  handleAddToPendingList,
+  handleRemoveFromPendingList,
+  saveScheduleChanges,
 }: Props) => {
   const roles = Object.values(ROLES) as Roles[];
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -66,7 +60,13 @@ const ScheduleTable = ({
               <Td fontSize={13} fontWeight={"bold"} padding={8}>
                 {role}
               </Td>
-              <Td fontSize={13} padding={8}>
+              <Td
+                fontSize={13}
+                padding={8}
+                display={"flex"}
+                flexDir={"row"}
+                gap={".5rem"}
+              >
                 {scheduleList.role && scheduleList.role[role]!.length > 0
                   ? scheduleList.role[role]!.map((user, idx) => (
                       <NameTag key={idx} userName={user.userName} />
@@ -84,12 +84,10 @@ const ScheduleTable = ({
           selectedRole={selectedRole}
           scheduleList={scheduleList}
           temporaryScheduleList={temporaryScheduleList}
-          onUpdateUserInScheduleList={onUpdateUserInScheduleList}
-          onUpdateUserInTemporaryScheduleList={
-            onUpdateUserInTemporaryScheduleList
-          }
           applicants={applicants}
-          onUpdateApplicants={onUpdateApplicants}
+          handleAddToPendingList={handleAddToPendingList}
+          handleRemoveFromPendingList={handleRemoveFromPendingList}
+          saveScheduleChanges={saveScheduleChanges}
         />
       )}
     </TableContainer>

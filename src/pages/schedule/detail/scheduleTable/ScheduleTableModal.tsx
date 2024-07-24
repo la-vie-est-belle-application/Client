@@ -14,103 +14,30 @@ import {
 import NameTag from "@components/NameTag/NameTag";
 import NameTagWithClose from "@components/NameTagWithClose/NameTagWithClose";
 import Typography from "@components/Typography/Typography";
-import {
-  Roles,
-  ScheduleList,
-  ScheduleListAction,
-  User,
-} from "@interfaces/schedule";
-import {
-  APPLICANTS_ACTION_TYPE,
-  ApplicantsAction,
-} from "@reducers/applicantsReducer";
-import { SCHEDULE_LIST_ACTION_TYPE } from "@reducers/scheduleListReducer";
-
+import { Roles, ScheduleList, User } from "@interfaces/schedule";
 interface Props extends Partial<UseDisclosureProps> {
   selectedRole: Roles | undefined;
   scheduleList: ScheduleList;
   temporaryScheduleList: ScheduleList;
-  onUpdateUserInScheduleList: React.Dispatch<ScheduleListAction>;
-  onUpdateUserInTemporaryScheduleList: React.Dispatch<ScheduleListAction>;
   applicants: User[];
-  onUpdateApplicants: React.Dispatch<ApplicantsAction>;
+  handleAddToPendingList: (user: User) => void;
+  handleRemoveFromPendingList: (user: User) => void;
+  saveScheduleChanges: () => void;
 }
 
 const ScheduleTableModal = ({
   isOpen,
   onClose,
   selectedRole,
-  scheduleList,
   temporaryScheduleList,
-  onUpdateUserInScheduleList,
-  onUpdateUserInTemporaryScheduleList,
   applicants,
-  onUpdateApplicants,
+  handleAddToPendingList,
+  handleRemoveFromPendingList,
+  saveScheduleChanges,
 }: Props) => {
   if (!selectedRole) {
     return null;
   }
-
-  const handleAddToTemporarySchedule = (user: User) => {
-    // Add user to temporaryScheduleList
-    onUpdateUserInTemporaryScheduleList({
-      type: SCHEDULE_LIST_ACTION_TYPE.ADD_USER,
-      payload: {
-        role: selectedRole,
-        userId: user.userId,
-        userName: user.userName,
-      },
-    });
-
-    // Remove user from applicants
-    onUpdateApplicants({
-      status: APPLICANTS_ACTION_TYPE.DONE,
-      payload: [user],
-    });
-  };
-
-  const handleRemoveFromTemporarySchedule = (user: User) => {
-    // Remove user from temporaryScheduleList
-    onUpdateUserInTemporaryScheduleList({
-      type: SCHEDULE_LIST_ACTION_TYPE.DELETE_USER,
-      payload: {
-        role: selectedRole,
-        userId: user.userId,
-        userName: user.userName,
-      },
-    });
-
-    // Add user back to applicants
-    onUpdateApplicants({
-      status: APPLICANTS_ACTION_TYPE.PENDING,
-      payload: [user],
-    });
-  };
-
-  const onHandleSave = () => {
-    if (!selectedRole) return;
-
-    const currentUsersInSchedule = scheduleList.role[selectedRole] || [];
-    const newTemporaryUsers = temporaryScheduleList.role[selectedRole] || [];
-
-    // Remove current users from scheduleList
-    currentUsersInSchedule.forEach(({ userName, userId }) => {
-      onUpdateUserInScheduleList({
-        type: SCHEDULE_LIST_ACTION_TYPE.DELETE_USER,
-        payload: { role: selectedRole, userName, userId },
-      });
-    });
-
-    // Add new users to scheduleList
-    newTemporaryUsers.forEach(({ userId, userName }) => {
-      onUpdateUserInScheduleList({
-        type: SCHEDULE_LIST_ACTION_TYPE.ADD_USER,
-        payload: { role: selectedRole, userName, userId },
-      });
-    });
-
-    onClose && onClose();
-  };
 
   return (
     <Modal isOpen={isOpen || false} onClose={onClose || (() => {})} isCentered>
@@ -131,7 +58,7 @@ const ScheduleTableModal = ({
                       key={user.userId}
                       userName={user.userName}
                       role={selectedRole}
-                      onClick={() => handleRemoveFromTemporarySchedule(user)}
+                      onClick={() => handleRemoveFromPendingList(user)}
                     />
                   ))
                 ) : (
@@ -146,7 +73,7 @@ const ScheduleTableModal = ({
                   <NameTag
                     key={user.userId}
                     userName={user.userName}
-                    onClick={() => handleAddToTemporarySchedule(user)}
+                    onClick={() => handleAddToPendingList(user)}
                   ></NameTag>
                 ))
               ) : (
@@ -156,7 +83,14 @@ const ScheduleTableModal = ({
           </Stack>
         </ModalBody>
         <ModalFooter>
-          <Button colorScheme="blue" mr={3} onClick={onHandleSave}>
+          <Button
+            colorScheme="blue"
+            mr={3}
+            onClick={() => {
+              saveScheduleChanges();
+              onClose && onClose();
+            }}
+          >
             저장
           </Button>
           <Button variant="ghost" onClick={onClose}>

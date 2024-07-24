@@ -55,7 +55,7 @@ const useSchedule = () => {
     return date && toggleIsOpenDetail();
   };
 
-  const onHandlePendingUserList = useCallback(
+  const handleAddToPendingList = useCallback(
     (user: User) => {
       if (!selectedRole) return;
 
@@ -76,7 +76,7 @@ const useSchedule = () => {
     [selectedRole],
   );
 
-  const onHandleDoneUserList = useCallback(
+  const handleRemoveFromPendingList = useCallback(
     (user: User) => {
       if (!selectedRole) return;
 
@@ -97,7 +97,7 @@ const useSchedule = () => {
     [selectedRole],
   );
 
-  const onSaveScheduleTableModal = useCallback(() => {
+  const saveScheduleChanges = useCallback(() => {
     if (!selectedRole) return;
 
     const currentUsersInSchedule = scheduleList.role[selectedRole] || [];
@@ -130,10 +130,10 @@ const useSchedule = () => {
     workTime,
     selectedRole,
     temporaryScheduleList,
-    onUpdateUserInScheduleList,
-    onUpdateUserInTemporaryScheduleList,
     applicants,
-    onUpdateApplicants,
+    handleAddToPendingList,
+    handleRemoveFromPendingList,
+    saveScheduleChanges,
   };
 };
 

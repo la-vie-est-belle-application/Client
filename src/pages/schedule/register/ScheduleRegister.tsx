@@ -8,11 +8,17 @@ import styled from "styled-components";
 import UtilityButton from "@components/Button/UtilityButton";
 import useSchedule from "@hooks/useSchedule";
 import ScheduleDetail from "../detail/ScheduleDetail";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
 
 const ScheduleRegister = () => {
+  const { date } = useParams();
   const { selectedDates, onChangeSelectedDate } = useCalendar();
   const { onShowDetail, isOpenDetail } = useSchedule();
 
+  useEffect(() => {
+    console.log("date :", date);
+  }, [date]);
   return (
     <StyledContainer>
       <Header title="일정 등록" />

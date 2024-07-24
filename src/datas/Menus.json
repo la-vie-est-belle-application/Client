@@ -36,7 +36,7 @@
     "imageUrl": "/assets/glass.svg"
   },
   {
-    "url": "schedule/register",
+    "url": "schedule/register/date",
     "title": "일정등록",
     "subTitle": "",
     "imageUrl": "/assets/clipboard.svg"
