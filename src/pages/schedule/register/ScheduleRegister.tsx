@@ -8,11 +8,11 @@ import styled from "styled-components";
 import UtilityButton from "@components/Button/UtilityButton";
 import useSchedule from "@hooks/useSchedule";
 import ScheduleDetail from "../detail/ScheduleDetail";
-import Dimmed from "@components/Dimmed/Dimmed";
 
 const ScheduleRegister = () => {
   const { selectedDates, onChangeSelectedDate } = useCalendar();
-  const { onShowDetail, isOpenDetail, toggleIsOpenDetail } = useSchedule();
+  const { onShowDetail, isOpenDetail, onHandleNavigate, selectedDate } =
+    useSchedule();
 
   return (
     <StyledContainer>
@@ -25,20 +25,20 @@ const ScheduleRegister = () => {
               <div key={index}>
                 <ScheduleItem
                   date={date}
-                  onClick={() => onShowDetail(date as SelectedDate)}
+                  onClick={() => {
+                    onShowDetail(date as SelectedDate);
+                    onHandleNavigate(date);
+                  }}
                 />
-                {isOpenDetail && (
-                  <>
-                    <Dimmed dependency={toggleIsOpenDetail}></Dimmed>
-                    <ScheduleDetail date={date} isOpenDetail={isOpenDetail} />
-                  </>
-                )}
               </div>
             ))}
             <UtilityButton />
           </>
         ) : (
           <NoScheduleItem text={"선택된 날짜가 없습니다."} />
+        )}
+        {isOpenDetail && (
+          <ScheduleDetail date={selectedDate} isOpenDetail={isOpenDetail} />
         )}
       </StyledSelectedScheduleItemWrap>
     </StyledContainer>

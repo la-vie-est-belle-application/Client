@@ -1,13 +1,14 @@
 import { WorkTime, WorkTimeAction } from "@interfaces/schedule";
 
 export const WorkTimeActionTypes = {
-  START_TIME: "START_TIME",
-  END_TIME: "END_TIME",
+  START_TIME: "출근 시간",
+  END_TIME: "퇴근 시간",
 } as const;
 
 export const initialWorkTime: WorkTime = {
   startTime: ["09", "00"],
   endTime: ["18", "00"],
+  type: "출근 시간",
 };
 
 export const workTimeReducer = (
@@ -16,9 +17,9 @@ export const workTimeReducer = (
 ): WorkTime => {
   switch (action.type) {
     case WorkTimeActionTypes.START_TIME:
-      return { ...times, startTime: action.payload };
+      return { ...times, startTime: action.payload, type: action.type };
     case WorkTimeActionTypes.END_TIME:
-      return { ...times, endTime: action.payload };
+      return { ...times, endTime: action.payload, type: action.type };
     default:
       return times;
   }

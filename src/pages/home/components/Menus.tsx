@@ -1,6 +1,6 @@
 import { Card, Flex, Grid, GridItem, Image } from "@chakra-ui/react";
 import Typography from "@components/Typography/Typography";
-import MenusData from "@datas/Menus.json";
+import { MENUS } from "@constants/menu";
 import { Link } from "react-router-dom";
 
 const Menus = () => {
@@ -10,10 +10,10 @@ const Menus = () => {
       templateColumns="repeat(3, 1fr)"
       gap={"1.6rem"}
     >
-      {MenusData.map((data, index) => {
+      {MENUS.map((data, index) => {
         return (
           <GridItem key={data.title} rowSpan={index === 0 ? 2 : 1}>
-            <Link to={`/${data.url}`}>
+            <Link to={data.url}>
               <Card height={"100%"} borderRadius={"1.5rem"} py={"1.2rem"}>
                 <Flex
                   height={"100%"}

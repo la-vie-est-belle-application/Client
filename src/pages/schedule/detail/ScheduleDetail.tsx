@@ -4,27 +4,28 @@ import { MAX_WIDTH } from "@constants/width";
 import { SelectedDate } from "@hooks/useCalendar";
 import { formatDateWithDay } from "@utils/formatDate";
 import styled from "styled-components";
-import ScheduleTable from "../table/ScheduleTable";
-import NameTag from "@components/NameTag/NameTag";
 import useSchedule from "@hooks/useSchedule";
 import { useEffect, useState } from "react";
-import ScheduleWorkTime from "./ScheduleWorkTime";
+import ScheduleWorkTime from "./workTime/ScheduleWorkTime";
+import ScheduleTable from "./scheduleTable/ScheduleTable";
 
 interface Props {
-  date: SelectedDate;
+  date: SelectedDate | undefined;
   isOpenDetail: boolean;
 }
 
 const ScheduleDetail = ({ date, isOpenDetail }: Props) => {
-  const formattedDate = formatDateWithDay(date);
   const {
     scheduleList,
-    selectedRoleRef,
     onSelectRole,
-    onAddUserToScheduleList,
-    onDeleteUserFromScheduleList,
     workTime,
     onUpdateWorkTime,
+    selectedRole,
+    temporaryScheduleList,
+    applicants,
+    handleAddToPendingList,
+    handleRemoveFromPendingList,
+    saveScheduleChanges,
   } = useSchedule();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -32,39 +33,27 @@ const ScheduleDetail = ({ date, isOpenDetail }: Props) => {
     setIsOpen(isOpenDetail);
   }, [isOpenDetail]);
 
+  if (!date) return;
+
   return (
     <StyledContainer isOpen={isOpen}>
       <StyledScheduleDetailItem>
         <StyledDate>
-          <Typography type="subtitle6">{formattedDate}</Typography>
+          <Typography type="subtitle6">{formatDateWithDay(date)}</Typography>
         </StyledDate>
         <ScheduleWorkTime
           workTime={workTime}
           onUpdateWorkTime={onUpdateWorkTime}
         />
         <ScheduleTable
+          selectedRole={selectedRole}
           scheduleList={scheduleList}
           onSelectRole={onSelectRole}
-          onDeleteUserFromScheduleList={onDeleteUserFromScheduleList}
-        />
-        {/* 예시 NameTag들 */}
-        <NameTag
-          name="옥진"
-          onClick={() => {
-            onAddUserToScheduleList(selectedRoleRef.current!, "옥진");
-          }}
-        />
-        <NameTag
-          name="태관"
-          onClick={() => {
-            onAddUserToScheduleList(selectedRoleRef.current!, "태관");
-          }}
-        />
-        <NameTag
-          name="유정"
-          onClick={() => {
-            onAddUserToScheduleList(selectedRoleRef.current!, "유정");
-          }}
+          temporaryScheduleList={temporaryScheduleList}
+          applicants={applicants}
+          handleAddToPendingList={handleAddToPendingList}
+          handleRemoveFromPendingList={handleRemoveFromPendingList}
+          saveScheduleChanges={saveScheduleChanges}
         />
       </StyledScheduleDetailItem>
     </StyledContainer>

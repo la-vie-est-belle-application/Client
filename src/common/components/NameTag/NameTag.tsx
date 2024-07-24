@@ -1,12 +1,12 @@
 import { HStack, Tag, TagLabel } from "@chakra-ui/react";
 import { COLORS } from "@constants/color";
+import { User } from "@interfaces/schedule";
 
-interface Props {
-  name: string;
-  onClick: () => void;
+interface Props extends Pick<User, "userName"> {
+  onClick?: () => void;
 }
 
-const NameTag = ({ name, onClick }: Props) => {
+const NameTag = ({ userName, onClick }: Props) => {
   return (
     <HStack spacing={4}>
       <Tag
@@ -18,7 +18,7 @@ const NameTag = ({ name, onClick }: Props) => {
         padding={".5rem 1.5rem"}
         onClick={onClick}
       >
-        <TagLabel fontSize={13}>{name}</TagLabel>
+        <TagLabel fontSize={12}>{userName}</TagLabel>
       </Tag>
     </HStack>
   );
