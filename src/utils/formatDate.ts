@@ -1,5 +1,5 @@
 import { SelectedDate } from "@hooks/useCalendar";
-import { format, parseISO } from "date-fns";
+import { format } from "date-fns";
 
 export const formatDateWithDay = (date: SelectedDate) => {
   if (date instanceof Date) {
@@ -16,6 +16,8 @@ export const formatDateWithDay = (date: SelectedDate) => {
 };
 
 export const formatDateToYYYYMMDD = (date: SelectedDate) => {
-  const formatDate = new Date(date);
-  return format(formatDate, "yyyyMMdd");
+  if (date instanceof Date) {
+    const formatDate = new Date(date);
+    return format(formatDate, "yyyyMMdd");
+  }
 };

@@ -10,12 +10,11 @@ import ScheduleWorkTime from "./workTime/ScheduleWorkTime";
 import ScheduleTable from "./scheduleTable/ScheduleTable";
 
 interface Props {
-  date: SelectedDate;
+  date: SelectedDate | undefined;
   isOpenDetail: boolean;
 }
 
 const ScheduleDetail = ({ date, isOpenDetail }: Props) => {
-  const formattedDate = formatDateWithDay(date);
   const {
     scheduleList,
     onSelectRole,
@@ -34,11 +33,13 @@ const ScheduleDetail = ({ date, isOpenDetail }: Props) => {
     setIsOpen(isOpenDetail);
   }, [isOpenDetail]);
 
+  if (!date) return;
+
   return (
     <StyledContainer isOpen={isOpen}>
       <StyledScheduleDetailItem>
         <StyledDate>
-          <Typography type="subtitle6">{formattedDate}</Typography>
+          <Typography type="subtitle6">{formatDateWithDay(date)}</Typography>
         </StyledDate>
         <ScheduleWorkTime
           workTime={workTime}

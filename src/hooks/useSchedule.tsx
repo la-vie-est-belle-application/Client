@@ -12,8 +12,25 @@ import {
   applicantsReducer,
   INITIAL_APPLICANTS,
 } from "@reducers/applicantsReducer";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { formatDateToYYYYMMDD } from "@utils/formatDate";
+import { ROUTES } from "@constants/routes";
 
 const useSchedule = () => {
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const dateParams = searchParams.get("date");
+
+  useEffect(() => {
+    if (!dateParams) {
+      toggleIsOpenDetail();
+    }
+  }, [dateParams]);
+
+  const [selectedDate, setSelectedDate] = useState<SelectedDate | undefined>(
+    undefined,
+  );
+
   const [selectedRole, setSelectedRole] = useState<Roles | undefined>(
     undefined,
   );
@@ -39,20 +56,18 @@ const useSchedule = () => {
     INITIAL_APPLICANTS,
   );
 
-  useEffect(() => {
-    if (isOpenDetail) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-  }, [isOpenDetail]);
-
   const onSelectRole = (role: Roles) => {
     setSelectedRole(role);
   };
 
   const onShowDetail = (date: SelectedDate) => {
     return date && toggleIsOpenDetail();
+  };
+
+  const onHandleNavigate = (date: SelectedDate) => {
+    const formatDate = formatDateToYYYYMMDD(date);
+    setSelectedDate(date);
+    navigate(`${ROUTES.REGISTER}?date=${formatDate}`);
   };
 
   const handleAddToPendingList = useCallback(
@@ -134,6 +149,8 @@ const useSchedule = () => {
     handleAddToPendingList,
     handleRemoveFromPendingList,
     saveScheduleChanges,
+    onHandleNavigate,
+    selectedDate,
   };
 };
 

@@ -2,7 +2,6 @@ import { COLORS } from "@constants/color.ts";
 import { SelectedDate } from "@hooks/useCalendar";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 interface Props {
@@ -10,18 +9,11 @@ interface Props {
 }
 
 const ScheduleCalendar = ({ onChangeSelectedDate }: Props) => {
-  const navigate = useNavigate();
-
-  const handleNavigate = (date: SelectedDate) => {
-    navigate(`/schedule/register?date=${date}`);
-  };
-
   return (
     <StyledCalendarWrapper>
       <Calendar
         onChange={(date) => {
           onChangeSelectedDate(date);
-          handleNavigate(date);
         }}
         calendarType="gregory" // 일요일 부터 시작
         showNeighboringMonth={false} // 전달, 다음달 날짜 숨기기

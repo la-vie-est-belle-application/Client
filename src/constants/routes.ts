@@ -1,5 +1,5 @@
 export const ROUTES = {
-  REGISTER: "/schedule/register/date",
+  REGISTER: "/schedule/register",
   SEARCH: "/schedule/search",
   ATTENDANCE: "/attendance",
   PROFILE: "/profile",
