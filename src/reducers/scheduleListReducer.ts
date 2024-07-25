@@ -3,6 +3,7 @@ import { Roles, ScheduleList, ScheduleListAction } from "@interfaces/schedule";
 export const SCHEDULE_LIST_ACTION_TYPE = {
   ADD_USER: "ADD_USER",
   DELETE_USER: "DELETE_USER",
+  CANCEL: "CANCEL",
 } as const;
 
 export const INITIAL_SCHEDULE_LIST: ScheduleList = {
@@ -47,6 +48,9 @@ export const scheduleListReducer = (
           [role]: updatedUsers,
         },
       };
+    }
+    case SCHEDULE_LIST_ACTION_TYPE.CANCEL: {
+      return action.payload;
     }
     default:
       return data;
