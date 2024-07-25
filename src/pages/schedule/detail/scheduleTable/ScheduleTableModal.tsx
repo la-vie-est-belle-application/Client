@@ -15,12 +15,13 @@ import NameTag from "@components/NameTag/NameTag";
 import NameTagWithClose from "@components/NameTagWithClose/NameTagWithClose";
 import Typography from "@components/Typography/Typography";
 import { Roles, ScheduleList, User } from "@interfaces/schedule";
+import { Applicants } from "@reducers/applicantsReducer";
 interface Props extends Partial<UseDisclosureProps> {
   selectedRole: Roles | undefined;
   scheduleList: ScheduleList;
   temporaryScheduleList: ScheduleList;
-  applicants: User[];
-  temporaryApplicants: User[];
+  applicants: Applicants;
+  temporaryApplicants: Applicants;
   handleAddToPendingList: (user: User) => void;
   handleRemoveFromPendingList: (user: User) => void;
   saveScheduleChanges: () => void;
@@ -33,7 +34,6 @@ const ScheduleTableModal = ({
   selectedRole,
   temporaryScheduleList,
   applicants,
-  temporaryApplicants,
   handleAddToPendingList,
   handleRemoveFromPendingList,
   saveScheduleChanges,
@@ -56,8 +56,8 @@ const ScheduleTableModal = ({
             <Stack>
               <Typography>현재 선택된 인원</Typography>
               <Stack flexDir={"row"} flexWrap={"wrap"}>
-                {temporaryScheduleList?.role[selectedRole]?.length ? (
-                  temporaryScheduleList?.role[selectedRole].map((user) => (
+                {temporaryScheduleList.role[selectedRole].length ? (
+                  temporaryScheduleList.role[selectedRole].map((user) => (
                     <NameTagWithClose
                       key={user.userId}
                       userName={user.userName}
@@ -73,8 +73,8 @@ const ScheduleTableModal = ({
             <Stack>
               <Typography>선택 가능한 인원</Typography>
               <Stack flexDir={"row"} flexWrap={"wrap"}>
-                {temporaryApplicants.length > 0 ? (
-                  temporaryApplicants?.map((user) => (
+                {applicants.applied.length > 0 ? (
+                  applicants.applied?.map((user) => (
                     <NameTag
                       key={user.userId}
                       userName={user.userName}

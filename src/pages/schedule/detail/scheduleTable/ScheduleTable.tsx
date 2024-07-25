@@ -13,14 +13,15 @@ import { ROLES } from "@constants/role";
 import { Roles, ScheduleList, User } from "src/interfaces/schedule";
 import ScheduleTableModal from "./ScheduleTableModal";
 import NameTag from "@components/NameTag/NameTag";
+import { Applicants } from "@reducers/applicantsReducer";
 
 interface Props {
   selectedRole: Roles | undefined;
   scheduleList: ScheduleList;
   temporaryScheduleList: ScheduleList;
   onSelectRole: (role: Roles) => void;
-  applicants: User[];
-  temporaryApplicants: User[];
+  applicants: Applicants;
+  temporaryApplicants: Applicants;
   handleAddToPendingList: (user: User) => void;
   handleRemoveFromPendingList: (user: User) => void;
   saveScheduleChanges: () => void;

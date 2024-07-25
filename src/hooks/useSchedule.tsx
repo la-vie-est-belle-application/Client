@@ -86,8 +86,8 @@ const useSchedule = () => {
         },
       });
 
-      onUpdateUserInTemporaryApplicants({
-        type: APPLICANTS_ACTION_TYPE.DELETE_USER,
+      onUpdateApplicants({
+        type: APPLICANTS_ACTION_TYPE.PENDING,
         payload: [user],
       });
     },
@@ -107,8 +107,8 @@ const useSchedule = () => {
         },
       });
 
-      onUpdateUserInTemporaryApplicants({
-        type: APPLICANTS_ACTION_TYPE.ADD_USER,
+      onUpdateApplicants({
+        type: APPLICANTS_ACTION_TYPE.RETURN_TO_APPLIED,
         payload: [user],
       });
     },
@@ -136,19 +136,22 @@ const useSchedule = () => {
     });
 
     onUpdateApplicants({
-      type: APPLICANTS_ACTION_TYPE.DELETE_USER,
-      payload: temporaryApplicants,
+      type: APPLICANTS_ACTION_TYPE.CONFIRMED,
+      payload: applicants.pending,
     });
 
-    setIsOpenDetail(true);
-  }, [selectedRole, scheduleList, temporaryScheduleList, temporaryApplicants]);
-
-  const handleOnClose = (onClose: () => void) => {
     onUpdateUserInTemporaryApplicants({
-      type: APPLICANTS_ACTION_TYPE.DELETE_USER,
+      type: APPLICANTS_ACTION_TYPE.UPDATE,
       payload: applicants,
     });
+    setIsOpenDetail(true);
+  }, [selectedRole, scheduleList, temporaryScheduleList, applicants]);
 
+  const handleOnClose = (onClose: () => void) => {
+    onUpdateApplicants({
+      type: APPLICANTS_ACTION_TYPE.CANCEL,
+      payload: temporaryApplicants,
+    });
     onClose && onClose();
   };
 
