@@ -152,6 +152,12 @@ const useSchedule = () => {
       type: APPLICANTS_ACTION_TYPE.CANCEL,
       payload: temporaryApplicants,
     });
+    onUpdateUserInTemporaryScheduleList({
+      type: SCHEDULE_LIST_ACTION_TYPE.CANCEL,
+      payload: scheduleList,
+    });
+    console.log("scheduleList", scheduleList);
+    console.log("temporaryScheduleList", temporaryScheduleList);
     onClose && onClose();
   };
 

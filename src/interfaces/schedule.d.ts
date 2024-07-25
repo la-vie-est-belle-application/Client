@@ -5,7 +5,10 @@ import { WorkTimeActionTypes } from "@reducers/workTimeReducer";
 
 export type Roles = keyof typeof ROLES;
 
-export type ScheduleListAction = AddUserAction | DeleteUserAction;
+export type ScheduleListAction =
+  | AddUserAction
+  | DeleteUserAction
+  | CancelUserAction;
 export interface AddUserAction {
   type: typeof SCHEDULE_LIST_ACTION_TYPE.ADD_USER;
   payload: {
@@ -22,6 +25,11 @@ export interface DeleteUserAction {
     userName: string;
     userId: string;
   };
+}
+
+export interface CancelUserAction {
+  type: typeof SCHEDULE_LIST_ACTION_TYPE.CANCEL;
+  payload: ScheduleList;
 }
 
 export interface ScheduleList {

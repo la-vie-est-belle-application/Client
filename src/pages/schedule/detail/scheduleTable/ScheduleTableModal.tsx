@@ -44,7 +44,11 @@ const ScheduleTableModal = ({
   }
 
   return (
-    <Modal isOpen={isOpen || false} onClose={onClose || (() => {})} isCentered>
+    <Modal
+      isOpen={isOpen || false}
+      onClose={() => handleOnClose(onClose as () => void)}
+      isCentered
+    >
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>

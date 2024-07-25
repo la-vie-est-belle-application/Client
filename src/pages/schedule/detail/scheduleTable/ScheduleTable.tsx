@@ -72,11 +72,11 @@ const ScheduleTable = ({
                 flexDir={"row"}
                 gap={".5rem"}
               >
-                {scheduleList.role && scheduleList.role[role]!.length > 0
-                  ? scheduleList.role[role]!.map((user, idx) => (
+                {scheduleList.role && scheduleList.role[role].length > 0
+                  ? scheduleList.role[role].map((user, idx) => (
                       <NameTag key={idx} userName={user.userName} />
                     ))
-                  : "없어요"}
+                  : "인원을 등록해주세요."}
               </Td>
             </Tr>
           ))}
