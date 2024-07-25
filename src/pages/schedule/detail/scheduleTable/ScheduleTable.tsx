@@ -13,16 +13,19 @@ import { ROLES } from "@constants/role";
 import { Roles, ScheduleList, User } from "src/interfaces/schedule";
 import ScheduleTableModal from "./ScheduleTableModal";
 import NameTag from "@components/NameTag/NameTag";
+import { Applicants } from "@reducers/applicantsReducer";
 
 interface Props {
   selectedRole: Roles | undefined;
   scheduleList: ScheduleList;
   temporaryScheduleList: ScheduleList;
   onSelectRole: (role: Roles) => void;
-  applicants: User[];
+  applicants: Applicants;
+  temporaryApplicants: Applicants;
   handleAddToPendingList: (user: User) => void;
   handleRemoveFromPendingList: (user: User) => void;
   saveScheduleChanges: () => void;
+  handleOnClose: (onClose: () => void) => void;
 }
 
 const ScheduleTable = ({
@@ -34,6 +37,8 @@ const ScheduleTable = ({
   handleAddToPendingList,
   handleRemoveFromPendingList,
   saveScheduleChanges,
+  temporaryApplicants,
+  handleOnClose,
 }: Props) => {
   const roles = Object.values(ROLES) as Roles[];
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -85,9 +90,11 @@ const ScheduleTable = ({
           scheduleList={scheduleList}
           temporaryScheduleList={temporaryScheduleList}
           applicants={applicants}
+          temporaryApplicants={temporaryApplicants}
           handleAddToPendingList={handleAddToPendingList}
           handleRemoveFromPendingList={handleRemoveFromPendingList}
           saveScheduleChanges={saveScheduleChanges}
+          handleOnClose={handleOnClose}
         />
       )}
     </TableContainer>

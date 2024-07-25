@@ -10,8 +10,6 @@ interface Props {
 }
 
 const ScheduleItem = ({ date, onClick }: Props) => {
-  const formattedDate = formatDateWithDay(date);
-
   return (
     <StyledContainer
       onClick={() => {
@@ -19,7 +17,7 @@ const ScheduleItem = ({ date, onClick }: Props) => {
       }}
     >
       <Typography type="subtitle6" color="white">
-        {formattedDate}
+        {formatDateWithDay(date)}
       </Typography>
     </StyledContainer>
   );

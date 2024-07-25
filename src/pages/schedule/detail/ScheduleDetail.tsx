@@ -8,6 +8,9 @@ import useSchedule from "@hooks/useSchedule";
 import { useEffect, useState } from "react";
 import ScheduleWorkTime from "./workTime/ScheduleWorkTime";
 import ScheduleTable from "./scheduleTable/ScheduleTable";
+import { Button, Stack } from "@chakra-ui/react";
+import { CloseIcon } from "@chakra-ui/icons";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   date: SelectedDate | undefined;
@@ -23,9 +26,11 @@ const ScheduleDetail = ({ date, isOpenDetail }: Props) => {
     selectedRole,
     temporaryScheduleList,
     applicants,
+    temporaryApplicants,
     handleAddToPendingList,
     handleRemoveFromPendingList,
     saveScheduleChanges,
+    handleOnClose,
   } = useSchedule();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -33,14 +38,32 @@ const ScheduleDetail = ({ date, isOpenDetail }: Props) => {
     setIsOpen(isOpenDetail);
   }, [isOpenDetail]);
 
+  const navigate = useNavigate();
+
   if (!date) return;
 
   return (
     <StyledContainer isOpen={isOpen}>
       <StyledScheduleDetailItem>
-        <StyledDate>
-          <Typography type="subtitle6">{formatDateWithDay(date)}</Typography>
-        </StyledDate>
+        <Stack alignItems={"center"} position={"relative"}>
+          <Button
+            position={"absolute"}
+            inset={"50% 0 0 0 "}
+            transform={"translateY(-50%)"}
+            display={"flex"}
+            w={"3rem"}
+            h={"3rem"}
+            background={"transparent"}
+            onClick={() => {
+              navigate(-1);
+            }}
+          >
+            <CloseIcon fontSize={12} cursor={"pointer"} />
+          </Button>
+          <StyledDate>
+            <Typography type="subtitle6">{formatDateWithDay(date)}</Typography>
+          </StyledDate>
+        </Stack>
         <ScheduleWorkTime
           workTime={workTime}
           onUpdateWorkTime={onUpdateWorkTime}
@@ -54,6 +77,8 @@ const ScheduleDetail = ({ date, isOpenDetail }: Props) => {
           handleAddToPendingList={handleAddToPendingList}
           handleRemoveFromPendingList={handleRemoveFromPendingList}
           saveScheduleChanges={saveScheduleChanges}
+          temporaryApplicants={temporaryApplicants}
+          handleOnClose={handleOnClose}
         />
       </StyledScheduleDetailItem>
     </StyledContainer>
@@ -71,6 +96,7 @@ const StyledContainer = styled.div<{ isOpen: boolean }>`
   height: 100%;
   max-width: ${MAX_WIDTH};
   top: 0;
+  left: 0;
   transform: translateY(${({ isOpen }) => (isOpen ? "0" : "100%")});
   transition: transform 0.5s ease-out;
   z-index: 100;

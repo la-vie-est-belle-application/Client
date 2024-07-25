@@ -1,9 +1,10 @@
 import styled from "styled-components";
-import { ArrowBackIcon, BellIcon, HamburgerIcon } from "@chakra-ui/icons";
+import { ArrowBackIcon, HamburgerIcon } from "@chakra-ui/icons";
 import Typography from "@components/Typography/Typography";
 import { COLORS } from "@constants/color";
 import { useLocation, useNavigate } from "react-router-dom";
 import useStore from "@stores/store.ts";
+import { ROUTES } from "@constants/routes";
 
 interface HeaderProps {
   title?: string;
@@ -25,7 +26,7 @@ const Header = ({ title }: HeaderProps) => {
   const $isHome = url === homeUrl;
 
   const onClickBackButton = () => {
-    navigate(-1);
+    navigate(ROUTES.HOME);
   };
 
   const renderTitle = () => {
@@ -65,7 +66,6 @@ const HeaderView = ({
       <TitleWrapper>{renderTitle && renderTitle()}</TitleWrapper>
 
       <IconWrapper>
-        <BellIcon color={iconColor} marginRight={0} />
         <HamburgerIcon
           color={iconColor}
           fontSize={20}
@@ -81,7 +81,7 @@ const HeaderView = ({
 const HeaderContainer = styled.header<Pick<HeaderViewProps, "$isHome">>`
   position: relative;
   flex: 0 0 auto;
-  z-index: 1;
+  z-index: 1s;
   height: 6rem;
   width: 100%;
   display: flex;
