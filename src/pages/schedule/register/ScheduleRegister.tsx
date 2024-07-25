@@ -8,12 +8,14 @@ import styled from "styled-components";
 import UtilityButton from "@components/Button/UtilityButton";
 import useSchedule from "@hooks/useSchedule";
 import ScheduleDetail from "../detail/ScheduleDetail";
+import useRefresh from "@hooks/useRefresh";
+import { ROUTES } from "@constants/routes";
 
 const ScheduleRegister = () => {
   const { selectedDates, onChangeSelectedDate } = useCalendar();
   const { setIsOpenDetail, isOpenDetail, onHandleNavigate, selectedDate } =
     useSchedule();
-
+  useRefresh(ROUTES.REGISTER);
   return (
     <StyledContainer>
       <Header title="일정 등록" />
