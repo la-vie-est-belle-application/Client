@@ -20,9 +20,11 @@ interface Props extends Partial<UseDisclosureProps> {
   scheduleList: ScheduleList;
   temporaryScheduleList: ScheduleList;
   applicants: User[];
+  temporaryApplicants: User[];
   handleAddToPendingList: (user: User) => void;
   handleRemoveFromPendingList: (user: User) => void;
   saveScheduleChanges: () => void;
+  handleOnClose: (onClose: () => void) => void;
 }
 
 const ScheduleTableModal = ({
@@ -31,9 +33,11 @@ const ScheduleTableModal = ({
   selectedRole,
   temporaryScheduleList,
   applicants,
+  temporaryApplicants,
   handleAddToPendingList,
   handleRemoveFromPendingList,
   saveScheduleChanges,
+  handleOnClose,
 }: Props) => {
   if (!selectedRole) {
     return null;
@@ -68,17 +72,19 @@ const ScheduleTableModal = ({
             </Stack>
             <Stack>
               <Typography>선택 가능한 인원</Typography>
-              {applicants.length > 0 ? (
-                applicants?.map((user) => (
-                  <NameTag
-                    key={user.userId}
-                    userName={user.userName}
-                    onClick={() => handleAddToPendingList(user)}
-                  ></NameTag>
-                ))
-              ) : (
-                <Text>선택 가능한 인원이 없습니다.</Text>
-              )}
+              <Stack flexDir={"row"} flexWrap={"wrap"}>
+                {temporaryApplicants.length > 0 ? (
+                  temporaryApplicants?.map((user) => (
+                    <NameTag
+                      key={user.userId}
+                      userName={user.userName}
+                      onClick={() => handleAddToPendingList(user)}
+                    ></NameTag>
+                  ))
+                ) : (
+                  <Text>선택 가능한 인원이 없습니다.</Text>
+                )}
+              </Stack>
             </Stack>
           </Stack>
         </ModalBody>
@@ -93,7 +99,10 @@ const ScheduleTableModal = ({
           >
             저장
           </Button>
-          <Button variant="ghost" onClick={onClose}>
+          <Button
+            variant="ghost"
+            onClick={() => handleOnClose(onClose as () => void)}
+          >
             닫기
           </Button>
         </ModalFooter>

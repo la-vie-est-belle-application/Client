@@ -1,6 +1,6 @@
 import Header from "@layout/Header";
 import ScheduleCalendar from "../calendar/ScheduleCalendar";
-import useCalendar, { SelectedDate } from "@hooks/useCalendar";
+import useCalendar from "@hooks/useCalendar";
 import ScheduleItem from "../scheduleItem/ScheduleItem";
 import NoScheduleItem from "@components/NoScheduleItem/NoScheduleItem";
 import { COLORS } from "@constants/color";
@@ -11,7 +11,7 @@ import ScheduleDetail from "../detail/ScheduleDetail";
 
 const ScheduleRegister = () => {
   const { selectedDates, onChangeSelectedDate } = useCalendar();
-  const { onShowDetail, isOpenDetail, onHandleNavigate, selectedDate } =
+  const { setIsOpenDetail, isOpenDetail, onHandleNavigate, selectedDate } =
     useSchedule();
 
   return (
@@ -19,18 +19,16 @@ const ScheduleRegister = () => {
       <Header title="일정 등록" />
       <ScheduleCalendar onChangeSelectedDate={onChangeSelectedDate} />
       <StyledSelectedScheduleItemWrap>
-        {selectedDates ? (
+        {selectedDates.length > 0 ? (
           <>
-            {selectedDates.map((date, index) => (
-              <div key={index}>
-                <ScheduleItem
-                  date={date}
-                  onClick={() => {
-                    onShowDetail(date as SelectedDate);
-                    onHandleNavigate(date);
-                  }}
-                />
-              </div>
+            {selectedDates.map((date) => (
+              <ScheduleItem
+                date={date}
+                onClick={() => {
+                  setIsOpenDetail(true);
+                  onHandleNavigate(date);
+                }}
+              />
             ))}
             <UtilityButton />
           </>
@@ -54,6 +52,7 @@ const StyledContainer = styled.div`
 const StyledSelectedScheduleItemWrap = styled.div`
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
   gap: 1.2rem;
   border-top: 0.1rem solid ${COLORS.gray300};
   padding: 1.2rem;

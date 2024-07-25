@@ -21,12 +21,6 @@ const useSchedule = () => {
   const navigate = useNavigate();
   const dateParams = searchParams.get("date");
 
-  useEffect(() => {
-    if (!dateParams) {
-      toggleIsOpenDetail();
-    }
-  }, [dateParams]);
-
   const [selectedDate, setSelectedDate] = useState<SelectedDate | undefined>(
     undefined,
   );
@@ -34,18 +28,14 @@ const useSchedule = () => {
   const [selectedRole, setSelectedRole] = useState<Roles | undefined>(
     undefined,
   );
-  const [isOpenDetail, toggleIsOpenDetail] = useReducer(
-    (state) => !state,
-    false,
-  );
-  const [scheduleList, onUpdateUserInScheduleList] = useReducer(
-    scheduleListReducer,
-    INITIAL_SCHEDULE_LIST,
-  );
-
   const [workTime, onUpdateWorkTime] = useReducer(
     workTimeReducer,
     initialWorkTime,
+  );
+  const [isOpenDetail, setIsOpenDetail] = useState(false);
+  const [scheduleList, onUpdateUserInScheduleList] = useReducer(
+    scheduleListReducer,
+    INITIAL_SCHEDULE_LIST,
   );
 
   const [temporaryScheduleList, onUpdateUserInTemporaryScheduleList] =
@@ -56,12 +46,25 @@ const useSchedule = () => {
     INITIAL_APPLICANTS,
   );
 
+  const [temporaryApplicants, onUpdateUserInTemporaryApplicants] = useReducer(
+    applicantsReducer,
+    INITIAL_APPLICANTS,
+  );
+
+  useEffect(() => {
+    if (dateParams) {
+      setIsOpenDetail(true);
+    } else {
+      setIsOpenDetail(false);
+    }
+  }, [dateParams]);
+
   const onSelectRole = (role: Roles) => {
     setSelectedRole(role);
   };
 
   const onShowDetail = (date: SelectedDate) => {
-    return date && toggleIsOpenDetail();
+    return date && setIsOpenDetail(true);
   };
 
   const onHandleNavigate = (date: SelectedDate) => {
@@ -83,8 +86,8 @@ const useSchedule = () => {
         },
       });
 
-      onUpdateApplicants({
-        status: APPLICANTS_ACTION_TYPE.DONE,
+      onUpdateUserInTemporaryApplicants({
+        type: APPLICANTS_ACTION_TYPE.DELETE_USER,
         payload: [user],
       });
     },
@@ -104,8 +107,8 @@ const useSchedule = () => {
         },
       });
 
-      onUpdateApplicants({
-        status: APPLICANTS_ACTION_TYPE.PENDING,
+      onUpdateUserInTemporaryApplicants({
+        type: APPLICANTS_ACTION_TYPE.ADD_USER,
         payload: [user],
       });
     },
@@ -132,11 +135,24 @@ const useSchedule = () => {
       });
     });
 
-    toggleIsOpenDetail();
-  }, [selectedRole, scheduleList, temporaryScheduleList]);
+    onUpdateApplicants({
+      type: APPLICANTS_ACTION_TYPE.DELETE_USER,
+      payload: temporaryApplicants,
+    });
+
+    setIsOpenDetail(true);
+  }, [selectedRole, scheduleList, temporaryScheduleList, temporaryApplicants]);
+
+  const handleOnClose = (onClose: () => void) => {
+    onUpdateUserInTemporaryApplicants({
+      type: APPLICANTS_ACTION_TYPE.DELETE_USER,
+      payload: applicants,
+    });
+
+    onClose && onClose();
+  };
 
   return {
-    toggleIsOpenDetail,
     isOpenDetail,
     onShowDetail,
     scheduleList,
@@ -151,6 +167,9 @@ const useSchedule = () => {
     saveScheduleChanges,
     onHandleNavigate,
     selectedDate,
+    setIsOpenDetail,
+    temporaryApplicants,
+    handleOnClose,
   };
 };
 
