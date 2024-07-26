@@ -12,13 +12,14 @@ import {
   applicantsReducer,
   INITIAL_APPLICANTS,
 } from "@reducers/applicantsReducer";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { formatDateToYYYYMMDD } from "@utils/formatDate";
 import { ROUTES } from "@constants/routes";
 
 const useSchedule = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const dateParams = searchParams.get("date");
 
   const [selectedDate, setSelectedDate] = useState<SelectedDate | undefined>(
@@ -70,7 +71,9 @@ const useSchedule = () => {
   const onHandleNavigate = (date: SelectedDate) => {
     const formatDate = formatDateToYYYYMMDD(date);
     setSelectedDate(date);
-    navigate(`${ROUTES.REGISTER}?date=${formatDate}`);
+    navigate(`${ROUTES.REGISTER}?date=${formatDate}`, {
+      state: { redirectFrom: location.pathname },
+    });
   };
 
   const handleAddToPendingList = useCallback(
@@ -156,8 +159,6 @@ const useSchedule = () => {
       type: SCHEDULE_LIST_ACTION_TYPE.CANCEL,
       payload: scheduleList,
     });
-    console.log("scheduleList", scheduleList);
-    console.log("temporaryScheduleList", temporaryScheduleList);
     onClose && onClose();
   };
 

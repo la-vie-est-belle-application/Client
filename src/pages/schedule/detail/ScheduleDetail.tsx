@@ -11,6 +11,7 @@ import ScheduleTable from "./scheduleTable/ScheduleTable";
 import { Button, Stack } from "@chakra-ui/react";
 import { CloseIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
+import { ROUTES } from "@constants/routes";
 
 interface Props {
   date: SelectedDate | undefined;
@@ -34,16 +35,16 @@ const ScheduleDetail = ({ date, isOpenDetail }: Props) => {
   } = useSchedule();
 
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+
   useEffect(() => {
     setIsOpen(isOpenDetail);
   }, [isOpenDetail]);
 
-  const navigate = useNavigate();
-
   if (!date) return;
 
   return (
-    <StyledContainer isOpen={isOpen}>
+    <StyledContainer $isOpen={isOpen}>
       <StyledScheduleDetailItem>
         <Stack alignItems={"center"} position={"relative"}>
           <Button
@@ -55,7 +56,7 @@ const ScheduleDetail = ({ date, isOpenDetail }: Props) => {
             h={"3rem"}
             background={"transparent"}
             onClick={() => {
-              navigate(-1);
+              navigate(ROUTES.REGISTER, { replace: true });
             }}
           >
             <CloseIcon fontSize={12} cursor={"pointer"} />
@@ -87,7 +88,7 @@ const ScheduleDetail = ({ date, isOpenDetail }: Props) => {
 
 export default ScheduleDetail;
 
-const StyledContainer = styled.div<{ isOpen: boolean }>`
+const StyledContainer = styled.div<{ $isOpen: boolean }>`
   position: absolute;
   display: flex;
   justify-content: center;
@@ -97,7 +98,7 @@ const StyledContainer = styled.div<{ isOpen: boolean }>`
   max-width: ${MAX_WIDTH};
   top: 0;
   left: 0;
-  transform: translateY(${({ isOpen }) => (isOpen ? "0" : "100%")});
+  transform: translateY(${({ $isOpen }) => ($isOpen ? "0" : "100%")});
   transition: transform 0.5s ease-out;
   z-index: 100;
 `;

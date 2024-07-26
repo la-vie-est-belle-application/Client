@@ -1,8 +1,6 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
-const useRefresh = (url: string) => {
-  const navigate = useNavigate();
+const useRefresh = () => {
   useEffect(() => {
     const handleBeforeUnload = (event: BeforeUnloadEvent) => {
       event.preventDefault();
@@ -11,10 +9,9 @@ const useRefresh = (url: string) => {
     window.addEventListener("beforeunload", handleBeforeUnload);
 
     return () => {
-      navigate(url);
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
-  }, [navigate, url]);
+  }, []);
 };
 
 export default useRefresh;
