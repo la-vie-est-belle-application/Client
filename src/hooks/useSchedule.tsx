@@ -23,10 +23,6 @@ const useSchedule = () => {
   const dateParams = searchParams.get("date");
   const activeMonthParams = searchParams.get("activeMonth");
 
-  const [selectedDate, setSelectedDate] = useState<SelectedDate | undefined>(
-    undefined,
-  );
-
   const [selectedRole, setSelectedRole] = useState<Roles | undefined>(
     undefined,
   );
@@ -71,7 +67,6 @@ const useSchedule = () => {
 
   const onHandleNavigate = (date: SelectedDate) => {
     const formatDate = formatDateToYYYYMMDD(date);
-    setSelectedDate(date);
     navigate(`${ROUTES.REGISTER}${location.search}&date=${formatDate}`);
   };
 
@@ -181,7 +176,6 @@ const useSchedule = () => {
     handleRemoveFromPendingList,
     saveScheduleChanges,
     onHandleNavigate,
-    selectedDate,
     setIsOpenDetail,
     temporaryApplicants,
     handleOnClose,
