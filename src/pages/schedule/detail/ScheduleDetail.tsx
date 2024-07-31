@@ -1,7 +1,6 @@
 import Typography from "@components/Typography/Typography";
 import { COLORS } from "@constants/color";
 import { MAX_WIDTH } from "@constants/width";
-import { SelectedDate } from "@hooks/useCalendar";
 import { formatDateWithDay } from "@utils/formatDate";
 import styled from "styled-components";
 import useSchedule from "@hooks/useSchedule";
@@ -10,11 +9,10 @@ import ScheduleWorkTime from "./workTime/ScheduleWorkTime";
 import ScheduleTable from "./scheduleTable/ScheduleTable";
 import { Button, Stack } from "@chakra-ui/react";
 import { CloseIcon } from "@chakra-ui/icons";
-import { useNavigate } from "react-router-dom";
-import { ROUTES } from "@constants/routes";
+import { SelectedDate } from "src/types/calendar";
 
 interface Props {
-  date: SelectedDate | undefined;
+  date: SelectedDate;
   isOpenDetail: boolean;
 }
 
@@ -32,15 +30,14 @@ const ScheduleDetail = ({ date, isOpenDetail }: Props) => {
     handleRemoveFromPendingList,
     saveScheduleChanges,
     handleOnClose,
+    handleCloseScheduleDetail,
   } = useSchedule();
 
   const [isOpen, setIsOpen] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     setIsOpen(isOpenDetail);
-    console.log("scheduleList:", scheduleList);
-  }, [isOpenDetail, scheduleList]);
+  }, [isOpenDetail]);
 
   if (!date) return;
 
@@ -56,9 +53,7 @@ const ScheduleDetail = ({ date, isOpenDetail }: Props) => {
             w={"3rem"}
             h={"3rem"}
             background={"transparent"}
-            onClick={() => {
-              navigate(ROUTES.REGISTER, { replace: true });
-            }}
+            onClick={handleCloseScheduleDetail}
           >
             <CloseIcon fontSize={12} cursor={"pointer"} />
           </Button>

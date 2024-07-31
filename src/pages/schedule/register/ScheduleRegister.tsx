@@ -16,6 +16,7 @@ const ScheduleRegister = () => {
     selectedDate,
     setSelectedDate,
     markSelectedDates,
+    getActiveMonth,
   } = useCalendar();
   const { setIsOpenDetail, isOpenDetail, onHandleNavigate } = useSchedule();
   return (
@@ -26,6 +27,7 @@ const ScheduleRegister = () => {
         selectedDates={selectedDates}
         setSelectedDate={setSelectedDate}
         markSelectedDates={markSelectedDates}
+        getActiveMonth={getActiveMonth}
       />
       <StyledSelectedScheduleItemWrap>
         {selectedDates.length > 0 ? (
