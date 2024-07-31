@@ -27,11 +27,10 @@ const ModalComponent = ({
   isForRegisterModal,
   setIsForRegisterModal,
 }: Partial<ModalViewProps>) => {
-  const { isModal, setIsModal, setModalType } = useStore();
+  const { isModal, setIsModal } = useStore();
 
   const onClickCloseModal = () => {
     setIsModal(!isModal);
-    setModalType("");
     if (setIsForRegisterModal) {
       setIsForRegisterModal(!isForRegisterModal);
     }

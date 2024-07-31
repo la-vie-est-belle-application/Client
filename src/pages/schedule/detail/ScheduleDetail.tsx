@@ -39,7 +39,8 @@ const ScheduleDetail = ({ date, isOpenDetail }: Props) => {
 
   useEffect(() => {
     setIsOpen(isOpenDetail);
-  }, [isOpenDetail]);
+    console.log("scheduleList:", scheduleList);
+  }, [isOpenDetail, scheduleList]);
 
   if (!date) return;
 

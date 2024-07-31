@@ -2,32 +2,33 @@ import { AddIcon, CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import Typography from "@components/Typography/Typography";
 import { COLORS } from "@constants/color";
 import useStore from "@stores/store";
-import { useState } from "react";
 import styled, { keyframes, css } from "styled-components";
 
 const UtilityButton = () => {
-  const [isExpanded, setIsExpanded] = useState(false);
   const { isModal, setIsModal } = useStore();
 
   const handleButtonClick = () => {
-    setIsExpanded(!isExpanded);
     setIsModal(!isModal);
   };
 
   return (
-    <Container>
+    <Container
+      onClick={() => {
+        console.log("##");
+      }}
+    >
       <StyledButtonWrap>
         <StyledButton onClick={handleButtonClick}>
-          {isExpanded ? (
+          {isModal ? (
             <CloseIcon color={"white"} fontSize={"1.4rem"}></CloseIcon>
           ) : (
             <AddIcon color={"white"} fontSize={"1.4rem"}></AddIcon>
           )}
         </StyledButton>
       </StyledButtonWrap>
-      {isExpanded && (
+      {isModal && (
         <>
-          <StyledButtonWrap isExpanded={isExpanded}>
+          <StyledButtonWrap $isModal={isModal}>
             <StyledButton>
               <EditIcon color={"white"} fontSize={"1.8rem"}></EditIcon>
             </StyledButton>
@@ -35,7 +36,7 @@ const UtilityButton = () => {
               스케줄 등록
             </Typography>
           </StyledButtonWrap>
-          <StyledButtonWrap isExpanded={isExpanded}>
+          <StyledButtonWrap $isModal={isModal}>
             <StyledButton>
               <DeleteIcon color={"white"} fontSize={"1.8rem"}></DeleteIcon>
             </StyledButton>
@@ -72,14 +73,14 @@ const Container = styled.div`
   z-index: 100;
 `;
 
-const StyledButtonWrap = styled.div<{ isExpanded?: boolean }>`
+const StyledButtonWrap = styled.div<{ $isModal?: boolean }>`
   display: flex;
   align-items: center;
   flex-direction: row-reverse;
   gap: 0.7rem;
 
-  ${({ isExpanded }) =>
-    isExpanded &&
+  ${({ $isModal }) =>
+    $isModal &&
     css`
       animation: ${slideUp} 0.5s ease-out forwards;
     `}

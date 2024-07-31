@@ -10,13 +10,23 @@ import useSchedule from "@hooks/useSchedule";
 import ScheduleDetail from "../detail/ScheduleDetail";
 
 const ScheduleRegister = () => {
-  const { selectedDates, onChangeSelectedDate } = useCalendar();
-  const { setIsOpenDetail, isOpenDetail, onHandleNavigate, selectedDate } =
-    useSchedule();
+  const {
+    selectedDates,
+    onChangeSelectedDates,
+    selectedDate,
+    setSelectedDate,
+    markSelectedDates,
+  } = useCalendar();
+  const { setIsOpenDetail, isOpenDetail, onHandleNavigate } = useSchedule();
   return (
     <StyledContainer>
       <Header title="일정 등록" />
-      <ScheduleCalendar onChangeSelectedDate={onChangeSelectedDate} />
+      <ScheduleCalendar
+        onChangeSelectedDates={onChangeSelectedDates}
+        selectedDates={selectedDates}
+        setSelectedDate={setSelectedDate}
+        markSelectedDates={markSelectedDates}
+      />
       <StyledSelectedScheduleItemWrap>
         {selectedDates.length > 0 ? (
           <>

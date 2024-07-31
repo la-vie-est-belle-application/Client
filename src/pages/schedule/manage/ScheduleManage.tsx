@@ -1,4 +1,3 @@
-import ButtonGroup from "@components/Button/ButtonGroup";
 import useCalendar from "@hooks/useCalendar";
 import Header from "@layout/Header";
 import styled from "styled-components";
@@ -6,6 +5,7 @@ import ScheduleCalendar from "../calendar/ScheduleCalendar";
 import ScheduleItem from "../scheduleItem/ScheduleItem";
 import { COLORS } from "@constants/color";
 import NoScheduleItem from "@components/NoScheduleItem/NoScheduleItem";
+import UtilityButton from "@components/Button/UtilityButton";
 
 const ScheduleManage = () => {
   const { selectedDates, onChangeSelectedDate } = useCalendar();
@@ -24,7 +24,7 @@ const ScheduleManage = () => {
                 onClick={onChangeSelectedDate}
               />
             ))}
-            <ButtonGroup />
+            <UtilityButton></UtilityButton>
           </>
         ) : (
           <NoScheduleItem text={"등록된 스케줄이 없습니다."} />

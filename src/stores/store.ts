@@ -1,11 +1,7 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 
-export type ModalType = "" | "modal" | "menu" | "register" | "toggle";
-
 interface Store {
-  modalType: ModalType;
-  setModalType: (state: ModalType) => void;
   isModal: boolean;
   setIsModal: (state: boolean) => void;
 }
@@ -13,8 +9,6 @@ interface Store {
 const useStore = create<Store>()(
   persist(
     (set) => ({
-      modalType: "",
-      setModalType: (state: ModalType) => set({ modalType: state }),
       isModal: false,
       setIsModal: (state: boolean) => set({ isModal: state }),
     }),
