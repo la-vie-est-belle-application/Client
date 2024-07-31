@@ -7,6 +7,8 @@ import Notice from "@pages/notice/Notice";
 import ScheduleRegister from "@pages/schedule/register/ScheduleRegister";
 import ScheduleView from "@pages/schedule/view/ScheduleView";
 import ScheduleManage from "@pages/schedule/manage/ScheduleManage";
+import SignInStep from "@pages/signIn/signInStep/SignInStep";
+import NotFound from "@pages/notfound/NotFound";
 
 function App() {
   return (
@@ -17,8 +19,10 @@ function App() {
         <Route path="/notice" element={<Notice />} />
         <Route path="/schedule/manage" element={<ScheduleManage />} />
         <Route path="/schedule/register" element={<ScheduleRegister />} />
-        <Route path="/schedule/search/:date" element={<ScheduleView />}></Route>
+        <Route path="/schedule/search" element={<ScheduleView />}></Route>
         <Route path="/signin" element={<SignIn />}></Route>
+        <Route path="/signin/next" element={<SignInStep />}></Route>
+        <Route path="/*" element={<NotFound />}></Route>
       </Routes>
     </>
   );

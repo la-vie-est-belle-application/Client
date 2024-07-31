@@ -1,6 +1,4 @@
 import { useCallback, useEffect, useReducer, useState } from "react";
-import { SelectedDate } from "./useCalendar";
-import { Roles, User } from "@interfaces/schedule";
 import { initialWorkTime, workTimeReducer } from "@reducers/workTimeReducer";
 import {
   INITIAL_SCHEDULE_LIST,
@@ -12,14 +10,18 @@ import {
   applicantsReducer,
   INITIAL_APPLICANTS,
 } from "@reducers/applicantsReducer";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { formatDateToYYYYMMDD } from "@utils/formatDate";
 import { ROUTES } from "@constants/routes";
+import { SelectedDate } from "src/types/calendar";
+import { Roles, User } from "src/types/schedule";
 
 const useSchedule = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const dateParams = searchParams.get("date");
+  const activeMonthParams = searchParams.get("activeMonth");
 
   const [selectedDate, setSelectedDate] = useState<SelectedDate | undefined>(
     undefined,
@@ -70,7 +72,13 @@ const useSchedule = () => {
   const onHandleNavigate = (date: SelectedDate) => {
     const formatDate = formatDateToYYYYMMDD(date);
     setSelectedDate(date);
-    navigate(`${ROUTES.REGISTER}?date=${formatDate}`);
+    navigate(`${ROUTES.REGISTER}${location.search}&date=${formatDate}`);
+  };
+
+  const handleCloseScheduleDetail = () => {
+    navigate(`${ROUTES.REGISTER}?activeMonth=${activeMonthParams}`, {
+      replace: true,
+    });
   };
 
   const handleAddToPendingList = useCallback(
@@ -121,14 +129,14 @@ const useSchedule = () => {
     const currentUsersInSchedule = scheduleList.role[selectedRole] || [];
     const newTemporaryUsers = temporaryScheduleList.role[selectedRole] || [];
 
-    currentUsersInSchedule.forEach(({ userName, userId }) => {
+    currentUsersInSchedule.forEach(({ userName, userId }: User) => {
       onUpdateUserInScheduleList({
         type: SCHEDULE_LIST_ACTION_TYPE.DELETE_USER,
         payload: { role: selectedRole, userName, userId },
       });
     });
 
-    newTemporaryUsers.forEach(({ userId, userName }) => {
+    newTemporaryUsers.forEach(({ userId, userName }: User) => {
       onUpdateUserInScheduleList({
         type: SCHEDULE_LIST_ACTION_TYPE.ADD_USER,
         payload: { role: selectedRole, userName, userId },
@@ -156,8 +164,6 @@ const useSchedule = () => {
       type: SCHEDULE_LIST_ACTION_TYPE.CANCEL,
       payload: scheduleList,
     });
-    console.log("scheduleList", scheduleList);
-    console.log("temporaryScheduleList", temporaryScheduleList);
     onClose && onClose();
   };
 
@@ -179,6 +185,7 @@ const useSchedule = () => {
     setIsOpenDetail,
     temporaryApplicants,
     handleOnClose,
+    handleCloseScheduleDetail,
   };
 };
 

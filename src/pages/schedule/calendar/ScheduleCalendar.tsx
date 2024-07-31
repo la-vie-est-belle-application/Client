@@ -1,25 +1,49 @@
 import { COLORS } from "@constants/color.ts";
-import { SelectedDate } from "@hooks/useCalendar";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import {
+  GetActiveMonth,
+  MarkSelectedDates,
+  OnChangeSelectedDate,
+  SelectedDates,
+  SetSelectedDate,
+} from "src/types/calendar";
 import styled from "styled-components";
 
 interface Props {
-  onChangeSelectedDate: (date: SelectedDate) => void;
+  onChangeSelectedDates: OnChangeSelectedDate;
+  selectedDates: SelectedDates;
+  setSelectedDate: SetSelectedDate;
+  markSelectedDates: MarkSelectedDates;
+  getActiveMonth: GetActiveMonth;
 }
 
-const ScheduleCalendar = ({ onChangeSelectedDate }: Props) => {
+const ScheduleCalendar = ({
+  onChangeSelectedDates,
+  selectedDates,
+  setSelectedDate,
+  markSelectedDates,
+  getActiveMonth,
+}: Props) => {
   return (
     <StyledCalendarWrapper>
       <Calendar
         onChange={(date) => {
-          onChangeSelectedDate(date);
+          onChangeSelectedDates(date);
+          setSelectedDate(date);
         }}
-        calendarType="gregory" // 일요일 부터 시작
-        showNeighboringMonth={false} // 전달, 다음달 날짜 숨기기
-        next2Label={null} // +1년 & +10년 이동 버튼 숨기기
-        prev2Label={null} // -1년 & -10년 이동 버튼 숨기기
-        minDetail="year" // 10년단위 년도 숨기기
+        calendarType="gregory"
+        showNeighboringMonth={false}
+        next2Label={null}
+        prev2Label={null}
+        minDetail="year"
+        formatDay={(locale = "en", date) => {
+          return date.toLocaleString(locale, { day: "numeric" });
+        }}
+        tileClassName={({ date }) => markSelectedDates(date, selectedDates)}
+        onActiveStartDateChange={({ activeStartDate }) =>
+          getActiveMonth(activeStartDate)
+        }
       />
     </StyledCalendarWrapper>
   );
@@ -108,6 +132,29 @@ export const StyledCalendarWrapper = styled.div`
     padding: 20px 6.6667px;
     font-size: 0.9rem;
     font-weight: 600;
+  }
+
+  .highlight {
+    position: relative;
+    z-index: 2;
+  }
+
+  .highlight abbr {
+    position: relative;
+    z-index: 3;
+  }
+
+  .highlight::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background-color: ${COLORS.gray400};
   }
 `;
 

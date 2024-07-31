@@ -19,7 +19,7 @@ interface HeaderViewProps {
 
 const Header = ({ title }: HeaderProps) => {
   const navigate = useNavigate();
-  const { isModal, setModalType, setIsModal } = useStore();
+  const { isModal, setIsModal } = useStore();
   const url = useLocation().pathname;
   const homeUrl = "/";
   const iconColor = url === homeUrl ? COLORS.white : COLORS.gray900;
@@ -42,7 +42,6 @@ const Header = ({ title }: HeaderProps) => {
 
   const onClickHamburger = () => {
     setIsModal(!isModal);
-    setModalType("menu");
   };
 
   const props: HeaderViewProps = {

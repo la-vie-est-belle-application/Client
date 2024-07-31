@@ -9,10 +9,9 @@ interface MenuHeaderViewProps {
 }
 
 const MenuHeader = () => {
-  const { setModalType, isModal, setIsModal } = useStore();
+  const { isModal, setIsModal } = useStore();
   const onClickCloseIcon = () => {
     setIsModal(!isModal);
-    setModalType("");
   };
 
   const props = {

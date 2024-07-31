@@ -1,7 +1,6 @@
 import Typography from "@components/Typography/Typography";
 import { COLORS } from "@constants/color";
 import { MAX_WIDTH } from "@constants/width";
-import { SelectedDate } from "@hooks/useCalendar";
 import { formatDateWithDay } from "@utils/formatDate";
 import styled from "styled-components";
 import useSchedule from "@hooks/useSchedule";
@@ -10,10 +9,10 @@ import ScheduleWorkTime from "./workTime/ScheduleWorkTime";
 import ScheduleTable from "./scheduleTable/ScheduleTable";
 import { Button, Stack } from "@chakra-ui/react";
 import { CloseIcon } from "@chakra-ui/icons";
-import { useNavigate } from "react-router-dom";
+import { SelectedDate } from "src/types/calendar";
 
 interface Props {
-  date: SelectedDate | undefined;
+  date: SelectedDate;
   isOpenDetail: boolean;
 }
 
@@ -31,19 +30,19 @@ const ScheduleDetail = ({ date, isOpenDetail }: Props) => {
     handleRemoveFromPendingList,
     saveScheduleChanges,
     handleOnClose,
+    handleCloseScheduleDetail,
   } = useSchedule();
 
   const [isOpen, setIsOpen] = useState(false);
+
   useEffect(() => {
     setIsOpen(isOpenDetail);
   }, [isOpenDetail]);
 
-  const navigate = useNavigate();
-
   if (!date) return;
 
   return (
-    <StyledContainer isOpen={isOpen}>
+    <StyledContainer $isOpen={isOpen}>
       <StyledScheduleDetailItem>
         <Stack alignItems={"center"} position={"relative"}>
           <Button
@@ -54,9 +53,7 @@ const ScheduleDetail = ({ date, isOpenDetail }: Props) => {
             w={"3rem"}
             h={"3rem"}
             background={"transparent"}
-            onClick={() => {
-              navigate(-1);
-            }}
+            onClick={handleCloseScheduleDetail}
           >
             <CloseIcon fontSize={12} cursor={"pointer"} />
           </Button>
@@ -87,7 +84,7 @@ const ScheduleDetail = ({ date, isOpenDetail }: Props) => {
 
 export default ScheduleDetail;
 
-const StyledContainer = styled.div<{ isOpen: boolean }>`
+const StyledContainer = styled.div<{ $isOpen: boolean }>`
   position: absolute;
   display: flex;
   justify-content: center;
@@ -97,7 +94,7 @@ const StyledContainer = styled.div<{ isOpen: boolean }>`
   max-width: ${MAX_WIDTH};
   top: 0;
   left: 0;
-  transform: translateY(${({ isOpen }) => (isOpen ? "0" : "100%")});
+  transform: translateY(${({ $isOpen }) => ($isOpen ? "0" : "100%")});
   transition: transform 0.5s ease-out;
   z-index: 100;
 `;
