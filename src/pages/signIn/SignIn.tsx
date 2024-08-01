@@ -6,7 +6,7 @@ import useKakaoAuth from "@hooks/useKakaoAuth";
 import styled from "styled-components";
 
 const SignIn = () => {
-  const { onSignIn } = useKakaoAuth();
+  const { handleKakaoSignin } = useKakaoAuth();
 
   return (
     <SignInContainer>
@@ -30,7 +30,7 @@ const SignIn = () => {
               </Typography>
             </SignInSubText>
           </SignInTexts>
-          <ButtonItem type="signIn" onClick={onSignIn}>
+          <ButtonItem type="signIn" onClick={handleKakaoSignin}>
             <SignInImg
               src="https://developers.kakao.com/tool/resource/static/img/button/login/full/ko/kakao_login_large_wide.png"
               alt="카카오 로그인"

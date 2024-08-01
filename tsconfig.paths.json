@@ -15,7 +15,8 @@
       "@utils/*": ["./src/utils/*"],
       "@datas/*": ["./src/datas/*"],
       "@interfaces/*": ["./src/interfaces/*"],
-      "@reducers/*": ["./src/reducers/*"]
+      "@reducers/*": ["./src/reducers/*"],
+      "@api/*": ["./src/api/*"]
     }
   }
 }

@@ -7,14 +7,16 @@ import ScheduleRegistrationCard from "./components/ScheduleRegistrationCard";
 import Header from "@layout/Header";
 import SwiperAdminsProfileCard from "./components/SwiperAdminsProfileCard";
 import Menus from "./components/Menus";
+import useKakaoAuth from "@hooks/useKakaoAuth";
 
 const Home = () => {
+  const { userInfo } = useKakaoAuth();
   return (
     <HomeWrap>
       <Header />
       <Container>
         <VStack align={"stretch"} gap={"1.2rem"}>
-          <UserProfile />
+          <UserProfile userInfo={userInfo} />
           <ScheduleRegistrationCard />
           <SwiperAdminsProfileCard />
           <Menus />

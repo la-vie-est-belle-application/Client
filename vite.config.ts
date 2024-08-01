@@ -21,6 +21,7 @@ export default defineConfig({
       { find: "@datas", replacement: "/src/datas" },
       { find: "@interfaces", replacement: "/src/interfaces" },
       { find: "@reducers", replacement: "/src/reducers" },
+      { find: "@api", replacement: "/src/api" },
     ],
   },
 });

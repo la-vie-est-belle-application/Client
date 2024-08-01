@@ -14,9 +14,10 @@ const queryClient: QueryClient = new QueryClient({
   },
 });
 
+const IS_DEVELOPMENT_MODE = import.meta.env.VITE_IS_DEVELOPMENT_MODE === "true";
+
 const enableMocking = async () => {
-  if (import.meta.env.VITE_NODE_ENV !== "development") {
-    console.log(import.meta.env.VITE_NODE_ENV);
+  if (!IS_DEVELOPMENT_MODE) {
     return;
   }
 
