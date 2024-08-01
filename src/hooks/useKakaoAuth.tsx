@@ -1,21 +1,25 @@
 import { api } from "@api/index";
-import { useEffect, useState } from "react";
+import useAuthStore from "@stores/auth";
+import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { User } from "src/types/schedule";
 
 const useKakaoAuth = () => {
   const [searchParams] = useSearchParams();
   const kakaoCodeParams = searchParams.get("code");
-  const [userInfo, setUserInfo] = useState<User | null>(null);
+  const setIsLoggedIn = useAuthStore((state) => state.setIsLoggedIn);
 
   useEffect(() => {
-    if (!kakaoCodeParams) return;
+    if (!kakaoCodeParams) {
+      return;
+    }
 
     const fetchData = async () => {
       try {
         const response = await api.get(`/signin/${kakaoCodeParams}`);
         const userData = response.data;
-        setUserInfo(userData);
+
+        setIsLoggedIn(userData);
+        sessionStorage.setItem("user", JSON.stringify(userData));
       } catch (e) {
         console.log(e);
       }
@@ -31,7 +35,7 @@ const useKakaoAuth = () => {
     window.location.href = KAKAO_REQUEST_URL;
   };
 
-  return { handleKakaoSignin, userInfo };
+  return { handleKakaoSignin };
 };
 
 export default useKakaoAuth;

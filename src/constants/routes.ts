@@ -7,4 +7,5 @@ export const ROUTES = {
   CALCULATOR: "/calculator",
   NOTICE: "/notice",
   MANAGE: "/schedule/manage",
+  SIGNIN: "/signin",
 };

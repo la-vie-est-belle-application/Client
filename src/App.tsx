@@ -9,6 +9,7 @@ import ScheduleView from "@pages/schedule/view/ScheduleView";
 import ScheduleManage from "@pages/schedule/manage/ScheduleManage";
 import SignInStep from "@pages/signIn/signInStep/SignInStep";
 import NotFound from "@pages/notfound/NotFound";
+import ProtectedRoute from "./routes/ProtectedRoute";
 
 function App() {
   return (
@@ -16,13 +17,15 @@ function App() {
       <BackGroundBlur />
       <Routes>
         <Route path="/" element={<Home />}></Route>
-        <Route path="/notice" element={<Notice />} />
-        <Route path="/schedule/manage" element={<ScheduleManage />} />
-        <Route path="/schedule/register" element={<ScheduleRegister />} />
-        <Route path="/schedule/search" element={<ScheduleView />}></Route>
         <Route path="/signin" element={<SignIn />}></Route>
         <Route path="/signin/next" element={<SignInStep />}></Route>
         <Route path="/*" element={<NotFound />}></Route>
+        <Route element={<ProtectedRoute />}>
+          <Route path="/notice" element={<Notice />} />
+          <Route path="/schedule/manage" element={<ScheduleManage />} />
+          <Route path="/schedule/register" element={<ScheduleRegister />} />
+          <Route path="/schedule/search" element={<ScheduleView />}></Route>
+        </Route>
       </Routes>
     </>
   );
