@@ -65,7 +65,7 @@
     "eslint-plugin-storybook": "^0.6.15",
     "husky": "8.0.3",
     "lint-staged": "^15.2.2",
-    "msw": "^2.2.0",
+    "msw": "^2.3.4",
     "prettier": "^3.2.5",
     "storybook": "^7.6.15",
     "typescript": "^5.2.2",
@@ -91,6 +91,11 @@
     ],
     "*.{md,json}": [
       "prettier --write"
+    ]
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
     ]
   }
 }
