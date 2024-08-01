@@ -60,7 +60,11 @@ export type WorkTimeTypes =
   (typeof WorkTimeActionTypes)[keyof typeof WorkTimeActionTypes];
 
 export interface User {
-  userId: string;
-  userName: string;
+  kakaoId: string;
+  name: string;
+  email: string;
   gender: "male" | "female";
+  pay: number;
+  roleType: boolean;
+  confirm: boolean;
 }

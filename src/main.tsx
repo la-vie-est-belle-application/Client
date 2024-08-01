@@ -14,16 +14,29 @@ const queryClient: QueryClient = new QueryClient({
   },
 });
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <ChakraProvider>
-      <BrowserRouter>
-        <QueryClientProvider client={queryClient}>
-          <ScrollToTop />
-          <App />
-          <ReactQueryDevtools initialIsOpen={true} />
-        </QueryClientProvider>
-      </BrowserRouter>
-    </ChakraProvider>
-  </React.StrictMode>,
-);
+const IS_DEVELOPMENT_MODE = import.meta.env.VITE_IS_DEVELOPMENT_MODE === "true";
+
+const enableMocking = async () => {
+  if (!IS_DEVELOPMENT_MODE) {
+    return;
+  }
+
+  const { worker } = await import("./mocks/browser.ts");
+  return worker.start();
+};
+
+enableMocking().then(() => {
+  ReactDOM.createRoot(document.getElementById("root")!).render(
+    <React.StrictMode>
+      <ChakraProvider>
+        <BrowserRouter>
+          <QueryClientProvider client={queryClient}>
+            <ScrollToTop />
+            <App />
+            <ReactQueryDevtools initialIsOpen={true} />
+          </QueryClientProvider>
+        </BrowserRouter>
+      </ChakraProvider>
+    </React.StrictMode>,
+  );
+});

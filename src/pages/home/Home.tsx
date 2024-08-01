@@ -2,19 +2,19 @@ import { VStack } from "@chakra-ui/react";
 import Container from "@components/Container/Container";
 import { COLORS } from "@constants/color";
 import styled from "styled-components";
-import UserProfile from "./components/UserProfile";
 import ScheduleRegistrationCard from "./components/ScheduleRegistrationCard";
 import Header from "@layout/Header";
 import SwiperAdminsProfileCard from "./components/SwiperAdminsProfileCard";
 import Menus from "./components/Menus";
+import useKakaoAuth from "@hooks/useKakaoAuth";
 
 const Home = () => {
+  useKakaoAuth();
   return (
     <HomeWrap>
       <Header />
       <Container>
         <VStack align={"stretch"} gap={"1.2rem"}>
-          <UserProfile />
           <ScheduleRegistrationCard />
           <SwiperAdminsProfileCard />
           <Menus />

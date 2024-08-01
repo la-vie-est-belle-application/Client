@@ -9,7 +9,7 @@ const UserProfile = () => {
       </WrapItem>
       <WrapItem>
         <Typography type="subtitle6" color="white">
-          전옥진
+          태관
         </Typography>
       </WrapItem>
     </Wrap>

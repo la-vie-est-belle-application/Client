@@ -5,11 +5,19 @@ interface Auth {
   setIsLoggedIn: (isLogin: boolean) => void;
 }
 
-const useAuthStore = create<Auth>(
-  (set): Auth => ({
+const useAuthStore = create<Auth>((set) => {
+  const initializeAuthState = () => {
+    const userSession = sessionStorage.getItem("user");
+    const isLoggedIn = !!userSession;
+    set({ isLoggedIn });
+  };
+
+  initializeAuthState();
+
+  return {
     isLoggedIn: false,
     setIsLoggedIn: (isLoggedIn) => set({ isLoggedIn }),
-  }),
-);
+  };
+});
 
 export default useAuthStore;
