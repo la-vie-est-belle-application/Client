@@ -1,8 +1,8 @@
 import { css } from "styled-components";
 
-export type FontDesignSystem = keyof typeof FONT_DESIGN_SYSTEM;
+export type Font = keyof typeof THEME_FONT;
 
-export const FONT_DESIGN_SYSTEM = {
+export const THEME_FONT = {
   subtitle1: css`
     font-size: 4rem;
     line-height: 1.5;

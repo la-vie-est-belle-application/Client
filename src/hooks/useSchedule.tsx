@@ -14,7 +14,7 @@ import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { formatDateToYYYYMMDD } from "@utils/formatDate";
 import { ROUTES } from "@constants/routes";
 import { SelectedDate } from "src/types/calendar";
-import { Roles, User } from "src/types/schedule";
+import { AppliedScheduleUser, Roles } from "src/types/schedule";
 
 const useSchedule = () => {
   const [searchParams] = useSearchParams();
@@ -77,15 +77,15 @@ const useSchedule = () => {
   };
 
   const handleAddToPendingList = useCallback(
-    (user: User) => {
+    (user: AppliedScheduleUser) => {
       if (!selectedRole) return;
 
       onUpdateUserInTemporaryScheduleList({
         type: SCHEDULE_LIST_ACTION_TYPE.ADD_USER,
         payload: {
           role: selectedRole,
-          userId: user.userId,
-          userName: user.userName,
+          kakaoId: user.kakaoId,
+          name: user.name,
         },
       });
 
@@ -98,15 +98,15 @@ const useSchedule = () => {
   );
 
   const handleRemoveFromPendingList = useCallback(
-    (user: User) => {
+    (user: AppliedScheduleUser) => {
       if (!selectedRole) return;
 
       onUpdateUserInTemporaryScheduleList({
         type: SCHEDULE_LIST_ACTION_TYPE.DELETE_USER,
         payload: {
           role: selectedRole,
-          userId: user.userId,
-          userName: user.userName,
+          kakaoId: user.kakaoId,
+          name: user.name,
         },
       });
 
@@ -124,17 +124,17 @@ const useSchedule = () => {
     const currentUsersInSchedule = scheduleList.role[selectedRole] || [];
     const newTemporaryUsers = temporaryScheduleList.role[selectedRole] || [];
 
-    currentUsersInSchedule.forEach(({ userName, userId }: User) => {
+    currentUsersInSchedule.forEach(({ kakaoId, name }: AppliedScheduleUser) => {
       onUpdateUserInScheduleList({
         type: SCHEDULE_LIST_ACTION_TYPE.DELETE_USER,
-        payload: { role: selectedRole, userName, userId },
+        payload: { role: selectedRole, kakaoId, name },
       });
     });
 
-    newTemporaryUsers.forEach(({ userId, userName }: User) => {
+    newTemporaryUsers.forEach(({ kakaoId, name }: AppliedScheduleUser) => {
       onUpdateUserInScheduleList({
         type: SCHEDULE_LIST_ACTION_TYPE.ADD_USER,
-        payload: { role: selectedRole, userName, userId },
+        payload: { role: selectedRole, kakaoId, name },
       });
     });
 
@@ -172,12 +172,12 @@ const useSchedule = () => {
     selectedRole,
     temporaryScheduleList,
     applicants,
+    temporaryApplicants,
     handleAddToPendingList,
     handleRemoveFromPendingList,
     saveScheduleChanges,
     onHandleNavigate,
     setIsOpenDetail,
-    temporaryApplicants,
     handleOnClose,
     handleCloseScheduleDetail,
   };

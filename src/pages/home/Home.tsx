@@ -1,12 +1,12 @@
 import { VStack } from "@chakra-ui/react";
 import Container from "@components/Container/Container";
-import { COLORS } from "@constants/color";
 import styled from "styled-components";
 import ScheduleRegistrationCard from "./components/ScheduleRegistrationCard";
 import Header from "@layout/Header";
 import SwiperAdminsProfileCard from "./components/SwiperAdminsProfileCard";
 import Menus from "./components/Menus";
 import useKakaoAuth from "@hooks/useKakaoAuth";
+import { THEME_COLORS } from "@constants/color";
 
 const Home = () => {
   useKakaoAuth();
@@ -39,9 +39,9 @@ const HomeWrap = styled.div`
     left: 0px;
     background: linear-gradient(
       180deg,
-      ${COLORS.purple700} 0%,
-      ${COLORS.purple400} 58%,
-      ${COLORS.purple300} 100%
+      ${THEME_COLORS.purple700} 0%,
+      ${THEME_COLORS.purple400} 58%,
+      ${THEME_COLORS.purple300} 100%
     );
   }
   &::after {
@@ -54,6 +54,6 @@ const HomeWrap = styled.div`
     height: 100%;
     min-height: 100vh;
     z-index: -1;
-    background-color: ${COLORS.purple100};
+    background-color: ${THEME_COLORS.purple100};
   }
 `;

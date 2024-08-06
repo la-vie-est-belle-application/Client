@@ -17,7 +17,8 @@ import {
 import Container from "@components/Container/Container";
 import ModalComponent from "@components/Modal/Modal";
 import Typography from "@components/Typography/Typography";
-import { COLORS } from "@constants/color";
+import { THEME_COLORS } from "@constants/color";
+
 import { MODAL_TEXT } from "@constants/modalText";
 import Header from "@layout/Header";
 import useStore from "@stores/store";
@@ -39,7 +40,7 @@ const Notice = () => {
               </Select>
             </Box>
             <Box>
-              <Button bg={COLORS.purple500}>
+              <Button bg={THEME_COLORS.purple500}>
                 <Typography type={"body4"} color="white">
                   글쓰기
                 </Typography>
@@ -47,7 +48,7 @@ const Notice = () => {
             </Box>
           </HStack>
           <TableContainer
-            border={`1px solid ${COLORS.gray300}`}
+            border={`1px solid ${THEME_COLORS.gray300}`}
             borderRadius={"1.2rem"}
             p={".5rem 0"}
           >
@@ -68,13 +69,13 @@ const Notice = () => {
                   <Td fontSize={13}>millimetres (mm)</Td>
                   <Td fontSize={13} isNumeric>
                     <Button
-                      bg={COLORS.purple500}
-                      _hover={{ background: COLORS.purple300 }}
+                      bg={THEME_COLORS.purple500}
+                      _hover={{ background: THEME_COLORS.purple300 }}
                       onClick={() => {
                         setIsModal(true);
                       }}
                     >
-                      <DeleteIcon color={COLORS.white} />
+                      <DeleteIcon color={THEME_COLORS.white} />
                     </Button>
                   </Td>
                 </Tr>

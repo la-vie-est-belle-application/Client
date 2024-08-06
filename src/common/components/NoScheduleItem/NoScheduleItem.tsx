@@ -1,20 +1,27 @@
 import Typography from "@components/Typography/Typography";
+import { THEME_COLORS } from "@constants/color";
+import { THEME_FONT } from "@constants/font";
+import { ReactNode } from "react";
 import styled from "styled-components";
 
 interface Props {
-  text: string;
+  type?: keyof typeof THEME_FONT;
+  color?: keyof typeof THEME_COLORS;
+  children: ReactNode;
 }
 
-const NoScheduleItem = ({ text }: Props) => {
-  return (
-    <Container>
-      <StyledImg src="/assets/schedule-red.svg" alt="달력"></StyledImg>
-      <Typography type="subtitle6" color="gray700">
-        {text}
-      </Typography>
-    </Container>
-  );
-};
+const NoScheduleItem = ({
+  type = "subtitle6",
+  color = "gray700",
+  children,
+}: Props) => (
+  <Container>
+    <StyledImg src="/assets/schedule-red.svg" alt="달력" />
+    <Typography type={type} color={color}>
+      {children}
+    </Typography>
+  </Container>
+);
 
 export default NoScheduleItem;
 

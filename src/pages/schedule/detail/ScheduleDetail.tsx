@@ -1,5 +1,4 @@
 import Typography from "@components/Typography/Typography";
-import { COLORS } from "@constants/color";
 import { MAX_WIDTH } from "@constants/width";
 import { formatDateWithDay } from "@utils/formatDate";
 import styled from "styled-components";
@@ -10,13 +9,14 @@ import ScheduleTable from "./scheduleTable/ScheduleTable";
 import { Button, Stack } from "@chakra-ui/react";
 import { CloseIcon } from "@chakra-ui/icons";
 import { SelectedDate } from "src/types/calendar";
+import { THEME_COLORS } from "@constants/color";
 
 interface Props {
-  date: SelectedDate;
+  selectedDate: SelectedDate;
   isOpenDetail: boolean;
 }
 
-const ScheduleDetail = ({ date, isOpenDetail }: Props) => {
+const ScheduleDetail = ({ selectedDate, isOpenDetail }: Props) => {
   const {
     scheduleList,
     onSelectRole,
@@ -39,7 +39,7 @@ const ScheduleDetail = ({ date, isOpenDetail }: Props) => {
     setIsOpen(isOpenDetail);
   }, [isOpenDetail]);
 
-  if (!date) return;
+  if (!selectedDate) return;
 
   return (
     <StyledContainer $isOpen={isOpen}>
@@ -58,7 +58,9 @@ const ScheduleDetail = ({ date, isOpenDetail }: Props) => {
             <CloseIcon fontSize={12} cursor={"pointer"} />
           </Button>
           <StyledDate>
-            <Typography type="subtitle6">{formatDateWithDay(date)}</Typography>
+            <Typography type="subtitle6">
+              {formatDateWithDay(selectedDate)}
+            </Typography>
           </StyledDate>
         </Stack>
         <ScheduleWorkTime
@@ -108,7 +110,7 @@ const StyledScheduleDetailItem = styled.div`
   overflow-y: scroll;
   max-width: ${MAX_WIDTH};
   box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.05);
-  background-color: ${COLORS.white};
+  background-color: ${THEME_COLORS.white};
   padding: 2rem 1.2rem;
   &::-webkit-scrollbar {
     display: none;

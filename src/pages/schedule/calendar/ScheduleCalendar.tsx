@@ -1,4 +1,4 @@
-import { COLORS } from "@constants/color.ts";
+import { THEME_COLORS } from "@constants/color.ts";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import {
@@ -53,7 +53,7 @@ export const StyledCalendarWrapper = styled.div`
   width: 100%;
   flex: 1;
   position: relative;
-  padding: 4rem 0;
+  padding: 0 0 4rem;
   .react-calendar {
     width: 100%;
     border: none;
@@ -80,15 +80,15 @@ export const StyledCalendarWrapper = styled.div`
     text-decoration: none;
     font-weight: 700;
     font-size: 1.3rem;
-    color: ${COLORS.gray500};
+    color: ${THEME_COLORS.gray500};
   }
 
   .react-calendar__month-view__weekdays__weekday--weekend abbr[title="일요일"] {
-    color: ${COLORS.error};
+    color: ${THEME_COLORS.error};
   }
 
   .react-calendar__month-view__weekdays__weekday--weekend abbr[title="토요일"] {
-    color: ${COLORS.blue};
+    color: ${THEME_COLORS.blue};
   }
 
   .react-calendar__month-view__days__day--weekend {
@@ -100,7 +100,7 @@ export const StyledCalendarWrapper = styled.div`
     text-align: center;
     font-size: 1.2rem;
     font-weight: 600;
-    color: ${COLORS.gray700};
+    color: ${THEME_COLORS.gray700};
     padding: 2rem 0;
   }
 
@@ -111,16 +111,16 @@ export const StyledCalendarWrapper = styled.div`
 
   /* 오늘의 날짜 색상 */
   .react-calendar__tile--now {
-    background-color: ${COLORS.white};
+    background-color: ${THEME_COLORS.white};
   }
   .react-calendar__tile--now:hover {
-    background-color: ${COLORS.gray300};
-    color: ${COLORS.gray700};
+    background-color: ${THEME_COLORS.gray300};
+    color: ${THEME_COLORS.gray700};
   }
 
   /* 일 선택시  */
   .react-calendar__tile--active {
-    background-color: ${COLORS.white} !important;
+    background-color: ${THEME_COLORS.white} !important;
   }
 
   /* 네비게이션 월 스타일 적용 */
@@ -154,7 +154,7 @@ export const StyledCalendarWrapper = styled.div`
     width: 2rem;
     height: 2rem;
     border-radius: 50%;
-    background-color: ${COLORS.gray400};
+    background-color: ${THEME_COLORS.gray400};
   }
 `;
 

@@ -1,37 +1,33 @@
+import { Stack } from "@chakra-ui/react";
 import Typography from "@components/Typography/Typography";
-import { COLORS } from "@constants/color";
-import { SelectedDate } from "@hooks/useCalendar";
+import { THEME_COLORS } from "@constants/color";
+import {} from "@hooks/useCalendar";
 import { formatDateWithDay } from "@utils/formatDate";
-import styled from "styled-components";
+import { SelectedDate } from "src/types/calendar";
 
 interface Props {
-  date: SelectedDate | null;
+  selectedDate: SelectedDate;
   onClick: (value: SelectedDate) => void;
 }
 
-const ScheduleItem = ({ date, onClick }: Props) => {
+const ScheduleItem = ({ selectedDate, onClick }: Props) => {
   return (
-    <StyledContainer
+    <Stack
+      w={"100%"}
+      p={"1.2rem"}
+      borderLeft={`.4rem solid ${THEME_COLORS.purple300}`}
+      backgroundColor={THEME_COLORS.white}
+      borderRadius={".2rem"}
+      cursor={"pointer"}
       onClick={() => {
-        onClick(date);
+        onClick(selectedDate);
       }}
     >
-      <Typography type="subtitle6" color="white">
-        {formatDateWithDay(date)}
+      <Typography type="caption1" color="gray900">
+        {formatDateWithDay(selectedDate)}
       </Typography>
-    </StyledContainer>
+    </Stack>
   );
 };
 
 export default ScheduleItem;
-
-const StyledContainer = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 0.8rem;
-  background-color: ${COLORS.purple300};
-  padding: 2rem 0;
-  cursor: pointer;
-`;

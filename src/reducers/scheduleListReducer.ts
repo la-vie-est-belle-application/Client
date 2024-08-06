@@ -1,4 +1,4 @@
-import { Roles, ScheduleList, ScheduleListAction } from "@interfaces/schedule";
+import { ScheduleList, ScheduleListAction } from "src/types/schedule";
 
 export const SCHEDULE_LIST_ACTION_TYPE = {
   ADD_USER: "ADD_USER",
@@ -26,20 +26,20 @@ export const scheduleListReducer = (
 ): ScheduleList => {
   switch (action.type) {
     case SCHEDULE_LIST_ACTION_TYPE.ADD_USER: {
-      const { role, userName, userId } = action.payload;
-      const currentUsers = data.role[role as Roles] || [];
+      const { role, kakaoId, name } = action.payload;
+      const currentUsers = data.role[role] || [];
       return {
         ...data,
         role: {
           ...data.role,
-          [role]: [...currentUsers, { userName, userId }],
+          [role]: [...currentUsers, { kakaoId, name }],
         },
       };
     }
     case SCHEDULE_LIST_ACTION_TYPE.DELETE_USER: {
-      const { role, userId } = action.payload;
-      const updatedUsers = (data.role[role as Roles] || []).filter(
-        (user) => user.userId !== userId,
+      const { role, kakaoId } = action.payload;
+      const updatedUsers = (data.role[role] || []).filter(
+        (user) => user.kakaoId !== kakaoId,
       );
       return {
         ...data,

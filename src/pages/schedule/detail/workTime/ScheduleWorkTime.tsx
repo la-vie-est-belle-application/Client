@@ -1,13 +1,9 @@
 import { Box, Stack, useDisclosure } from "@chakra-ui/react";
 import Typography from "@components/Typography/Typography";
-import { COLORS } from "@constants/color";
 import { formatTimeWithColon } from "@utils/formatTime";
-import {
-  WorkTime,
-  WorkTimeTuple,
-  WorkTimeTypes,
-} from "src/interfaces/schedule";
 import ScheduleWorkTimeModal from "./ScheduleWorkTimeModal";
+import { THEME_COLORS } from "@constants/color";
+import { WorkTime, WorkTimeTuple, WorkTimeTypes } from "src/types/schedule";
 
 interface Props {
   workTime: WorkTime;
@@ -21,10 +17,10 @@ const ScheduleWorkTime = ({ workTime, onUpdateWorkTime }: Props) => {
   const { startTime, endTime } = workTime;
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <Stack direction={"row"} border={`1px solid ${COLORS.gray400}`}>
+    <Stack direction={"row"} border={`1px solid ${THEME_COLORS.gray400}`}>
       <Stack
         flex={"1 1 0"}
-        borderRight={`1px solid ${COLORS.gray400}`}
+        borderRight={`1px solid ${THEME_COLORS.gray400}`}
         padding={"0.6rem 1.2rem"}
         cursor={"pointer"}
         onClick={() => {

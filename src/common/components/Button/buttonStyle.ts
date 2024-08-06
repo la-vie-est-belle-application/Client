@@ -1,4 +1,4 @@
-import { COLORS } from "@constants/color";
+import { THEME_COLORS } from "@constants/color";
 import { css } from "styled-components";
 
 export type ButtonDesignSystem = keyof typeof BUTTON_DESIGN_SYSTEM;
@@ -7,10 +7,10 @@ export type ButtonSizeSystem = keyof typeof BUTTON_SIZE_SYSTEM;
 export const BUTTON_DESIGN_SYSTEM = {
   signIn: css`
     border-radius: 10px;
-    background-color: ${COLORS.purple400};
+    background-color: ${THEME_COLORS.purple400};
     width: 100%;
     max-width: 35rem;
-    color: ${COLORS.white};
+    color: ${THEME_COLORS.white};
     box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
     align-self: center;
   `,
@@ -18,22 +18,22 @@ export const BUTTON_DESIGN_SYSTEM = {
     flex: 1 1 0;
     padding: 1.2rem;
     border-radius: 10px;
-    color: ${COLORS.purple600};
-    background-color: ${COLORS.purple200};
+    color: ${THEME_COLORS.purple600};
+    background-color: ${THEME_COLORS.purple200};
   `,
   headerIcon: css`
-    background-color: ${COLORS.purple400};
+    background-color: ${THEME_COLORS.purple400};
     width: 3rem;
     height: 3rem;
   `,
   icon: css`
-    background-color: ${COLORS.white};
+    background-color: ${THEME_COLORS.white};
     width: 3rem;
     height: 3rem;
   `,
   toggle: css`
     border-radius: 50%;
-    background-color: ${COLORS.purple400};
+    background-color: ${THEME_COLORS.purple400};
     width: 5rem;
     height: 5rem;
     position: fixed;
@@ -44,7 +44,7 @@ export const BUTTON_DESIGN_SYSTEM = {
   `,
   scheduleCancel: css`
     border-radius: 50%;
-    background-color: ${COLORS.white};
+    background-color: ${THEME_COLORS.white};
     width: 5rem;
     height: 5rem;
     position: absolute;
@@ -54,7 +54,7 @@ export const BUTTON_DESIGN_SYSTEM = {
     box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
   `,
   signOut: css`
-    background-color: ${COLORS.white};
+    background-color: ${THEME_COLORS.white};
     width: 8rem;
     height: 1.5rem;
   `,

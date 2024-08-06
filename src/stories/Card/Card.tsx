@@ -1,6 +1,6 @@
 import Typography from "@components/Typography/Typography";
 import { Colors } from "@constants/color";
-import { FontDesignSystem } from "@constants/typography";
+import { Font } from "@constants/font";
 import styled from "styled-components";
 
 interface CardProps {
@@ -10,7 +10,7 @@ interface CardProps {
   width: number;
   height: number;
   color: string;
-  fontType: FontDesignSystem;
+  fontType: Font;
 }
 
 interface CardStyleProps {

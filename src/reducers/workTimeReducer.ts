@@ -1,4 +1,4 @@
-import { WorkTime, WorkTimeAction } from "@interfaces/schedule";
+import { WorkTime, WorkTimeAction } from "src/types/schedule";
 
 export const WorkTimeActionTypes = {
   START_TIME: "출근 시간",

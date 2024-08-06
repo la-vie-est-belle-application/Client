@@ -8,24 +8,30 @@ import {
   ModalHeader,
   ModalOverlay,
   Stack,
-  Text,
   UseDisclosureProps,
 } from "@chakra-ui/react";
-import NameTag from "@components/NameTag/NameTag";
-import NameTagWithClose from "@components/NameTagWithClose/NameTagWithClose";
 import Typography from "@components/Typography/Typography";
-import { Roles, ScheduleList, User } from "@interfaces/schedule";
-import { Applicants } from "@reducers/applicantsReducer";
+import {
+  Applicants,
+  HandleAddToPendingList,
+  HandleOnClose,
+  HandleRemoveFromPendingList,
+  Roles,
+  ScheduleList,
+  TemporaryScheduleList,
+} from "src/types/schedule";
+import ScheduleTemporaryList from "./ScheduleTemporaryList/ScheduleTemporaryList";
+import ScheduleApplicants from "./ScheduleApplicants/ScheduleApplicants";
 interface Props extends Partial<UseDisclosureProps> {
   selectedRole: Roles | undefined;
   scheduleList: ScheduleList;
-  temporaryScheduleList: ScheduleList;
+  temporaryScheduleList: TemporaryScheduleList;
   applicants: Applicants;
   temporaryApplicants: Applicants;
-  handleAddToPendingList: (user: User) => void;
-  handleRemoveFromPendingList: (user: User) => void;
+  handleAddToPendingList: HandleAddToPendingList;
+  handleRemoveFromPendingList: HandleRemoveFromPendingList;
   saveScheduleChanges: () => void;
-  handleOnClose: (onClose: () => void) => void;
+  handleOnClose: HandleOnClose;
 }
 
 const ScheduleTableModal = ({
@@ -59,36 +65,18 @@ const ScheduleTableModal = ({
           <Stack spacing={4}>
             <Stack>
               <Typography>현재 선택된 인원</Typography>
-              <Stack flexDir={"row"} flexWrap={"wrap"}>
-                {temporaryScheduleList.role[selectedRole].length ? (
-                  temporaryScheduleList.role[selectedRole].map((user) => (
-                    <NameTagWithClose
-                      key={user.userId}
-                      userName={user.userName}
-                      role={selectedRole}
-                      onClick={() => handleRemoveFromPendingList(user)}
-                    />
-                  ))
-                ) : (
-                  <Text>선택된 인원이 없습니다.</Text>
-                )}
-              </Stack>
+              <ScheduleTemporaryList
+                temporaryScheduleList={temporaryScheduleList}
+                selectedRole={selectedRole}
+                handleRemoveFromPendingList={handleRemoveFromPendingList}
+              />
             </Stack>
             <Stack>
               <Typography>선택 가능한 인원</Typography>
-              <Stack flexDir={"row"} flexWrap={"wrap"}>
-                {applicants.applied.length > 0 ? (
-                  applicants.applied?.map((user) => (
-                    <NameTag
-                      key={user.userId}
-                      userName={user.userName}
-                      onClick={() => handleAddToPendingList(user)}
-                    ></NameTag>
-                  ))
-                ) : (
-                  <Text>선택 가능한 인원이 없습니다.</Text>
-                )}
-              </Stack>
+              <ScheduleApplicants
+                applicants={applicants}
+                handleAddToPendingList={handleAddToPendingList}
+              />
             </Stack>
           </Stack>
         </ModalBody>

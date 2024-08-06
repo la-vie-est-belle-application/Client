@@ -1,6 +1,6 @@
 import { AddIcon, CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import Typography from "@components/Typography/Typography";
-import { COLORS } from "@constants/color";
+import { THEME_COLORS } from "@constants/color";
 import useStore from "@stores/store";
 import styled, { keyframes, css } from "styled-components";
 
@@ -90,7 +90,7 @@ const StyledButton = styled.button`
   width: 4rem;
   height: 4rem;
   border-radius: 50%;
-  background-color: ${COLORS.purple400};
+  background-color: ${THEME_COLORS.purple400};
   border: none;
   cursor: pointer;
   box-shadow: 0.1rem 0.1rem 0.1rem rgba(0, 0, 0, 0.15);

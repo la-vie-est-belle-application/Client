@@ -1,6 +1,6 @@
-export type Colors = keyof typeof COLORS;
+export type Colors = keyof typeof THEME_COLORS;
 
-export const COLORS = {
+export const THEME_COLORS = {
   blue: "#1e90ff",
   white: "#FFFFFF",
   gray100: "#F9F9FA",
