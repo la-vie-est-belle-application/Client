@@ -45,10 +45,13 @@ const ScheduleRegister = () => {
             <UtilityButton />
           </>
         ) : (
-          <NoScheduleItem text={"선택된 날짜가 없습니다."} />
+          <NoScheduleItem>등록된 스케줄이 없습니다</NoScheduleItem>
         )}
         {isOpenDetail && (
-          <ScheduleDetail date={selectedDate} isOpenDetail={isOpenDetail} />
+          <ScheduleDetail
+            selectedDate={selectedDate}
+            isOpenDetail={isOpenDetail}
+          />
         )}
       </StyledSelectedScheduleItemWrap>
     </StyledContainer>

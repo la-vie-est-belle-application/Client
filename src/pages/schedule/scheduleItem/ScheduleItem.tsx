@@ -1,7 +1,8 @@
 import Typography from "@components/Typography/Typography";
 import { COLORS } from "@constants/color";
-import { SelectedDate } from "@hooks/useCalendar";
+import {} from "@hooks/useCalendar";
 import { formatDateWithDay } from "@utils/formatDate";
+import { SelectedDate } from "src/types/calendar";
 import styled from "styled-components";
 
 interface Props {

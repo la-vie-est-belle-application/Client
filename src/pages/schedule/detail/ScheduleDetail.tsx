@@ -12,11 +12,11 @@ import { CloseIcon } from "@chakra-ui/icons";
 import { SelectedDate } from "src/types/calendar";
 
 interface Props {
-  date: SelectedDate;
+  selectedDate: SelectedDate;
   isOpenDetail: boolean;
 }
 
-const ScheduleDetail = ({ date, isOpenDetail }: Props) => {
+const ScheduleDetail = ({ selectedDate, isOpenDetail }: Props) => {
   const {
     scheduleList,
     onSelectRole,
@@ -39,7 +39,7 @@ const ScheduleDetail = ({ date, isOpenDetail }: Props) => {
     setIsOpen(isOpenDetail);
   }, [isOpenDetail]);
 
-  if (!date) return;
+  if (!selectedDate) return;
 
   return (
     <StyledContainer $isOpen={isOpen}>
@@ -58,7 +58,9 @@ const ScheduleDetail = ({ date, isOpenDetail }: Props) => {
             <CloseIcon fontSize={12} cursor={"pointer"} />
           </Button>
           <StyledDate>
-            <Typography type="subtitle6">{formatDateWithDay(date)}</Typography>
+            <Typography type="subtitle6">
+              {formatDateWithDay(selectedDate)}
+            </Typography>
           </StyledDate>
         </Stack>
         <ScheduleWorkTime
