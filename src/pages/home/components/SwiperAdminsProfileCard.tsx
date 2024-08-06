@@ -5,8 +5,8 @@ import "swiper/css/autoplay";
 import { Pagination } from "swiper/modules";
 import AdminsProfileCard from "./AdminsProfileCard";
 import styled from "styled-components";
-import { COLORS } from "@constants/color";
 import adminsDatas from "@datas/Admins.json";
+import { THEME_COLORS } from "@constants/color";
 
 const SwiperAdminsProfileCard = () => {
   return (
@@ -41,6 +41,6 @@ const StyledSwiper = styled(Swiper)`
   .swiper-pagination-bullet {
     width: 1rem;
     height: 1rem;
-    background-color: ${COLORS.purple600};
+    background-color: ${THEME_COLORS.purple600};
   }
 `;

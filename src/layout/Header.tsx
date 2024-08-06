@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { ArrowBackIcon, HamburgerIcon } from "@chakra-ui/icons";
 import Typography from "@components/Typography/Typography";
-import { COLORS } from "@constants/color";
 import { useLocation, useNavigate } from "react-router-dom";
 import useStore from "@stores/store.ts";
 import { ROUTES } from "@constants/routes";
+import { THEME_COLORS } from "@constants/color";
 
 interface HeaderProps {
   title?: string;
@@ -22,7 +22,7 @@ const Header = ({ title }: HeaderProps) => {
   const { isModal, setIsModal } = useStore();
   const url = useLocation().pathname;
   const homeUrl = "/";
-  const iconColor = url === homeUrl ? COLORS.white : COLORS.gray900;
+  const iconColor = url === homeUrl ? THEME_COLORS.white : THEME_COLORS.gray900;
   const $isHome = url === homeUrl;
 
   const onClickBackButton = () => {
@@ -88,7 +88,7 @@ const HeaderContainer = styled.header<Pick<HeaderViewProps, "$isHome">>`
   justify-content: space-between;
   padding: 0 14px;
   border-bottom: ${(props) =>
-    props.$isHome ? "none" : `1px solid ${COLORS.gray300}`};
+    props.$isHome ? "none" : `1px solid ${THEME_COLORS.gray300}`};
 `;
 
 const TitleWrapper = styled.div`

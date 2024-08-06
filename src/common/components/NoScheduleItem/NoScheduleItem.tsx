@@ -1,12 +1,13 @@
 import Typography from "@components/Typography/Typography";
-import { COLORS } from "@constants/color";
-import { FONT_DESIGN_SYSTEM } from "@constants/typography";
+import { THEME_COLORS } from "@constants/color";
+import { THEME_FONT } from "@constants/font";
+import { ReactNode } from "react";
 import styled from "styled-components";
 
 interface Props {
-  type?: keyof typeof FONT_DESIGN_SYSTEM;
-  color?: keyof typeof COLORS;
-  children: string;
+  type?: keyof typeof THEME_FONT;
+  color?: keyof typeof THEME_COLORS;
+  children: ReactNode;
 }
 
 const NoScheduleItem = ({

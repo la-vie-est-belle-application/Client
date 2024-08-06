@@ -8,7 +8,7 @@ import {
   ModalCloseButton,
 } from "@chakra-ui/react";
 import Typography from "@components/Typography/Typography";
-import { COLORS } from "@constants/color";
+import { THEME_COLORS } from "@constants/color";
 import useStore from "@stores/store";
 import React from "react";
 
@@ -73,9 +73,9 @@ const ModalView = ({
           </Button>
           <Button
             size={"lg"}
-            backgroundColor={COLORS.purple400}
-            color={COLORS.white}
-            _hover={{ backgroundColor: COLORS.purple600 }}
+            backgroundColor={THEME_COLORS.purple400}
+            color={THEME_COLORS.white}
+            _hover={{ backgroundColor: THEME_COLORS.purple600 }}
           >
             등록
           </Button>

@@ -10,10 +10,14 @@ import {
 } from "@chakra-ui/react";
 import { ROLES } from "@constants/role";
 
-import { Roles, ScheduleList, User } from "src/interfaces/schedule";
 import ScheduleTableModal from "./ScheduleTableModal";
 import NameTag from "@components/NameTag/NameTag";
-import { Applicants } from "@reducers/applicantsReducer";
+import {
+  Applicants,
+  AppliedScheduleUser,
+  Roles,
+  ScheduleList,
+} from "src/types/schedule";
 
 interface Props {
   selectedRole: Roles | undefined;
@@ -22,8 +26,8 @@ interface Props {
   onSelectRole: (role: Roles) => void;
   applicants: Applicants;
   temporaryApplicants: Applicants;
-  handleAddToPendingList: (user: User) => void;
-  handleRemoveFromPendingList: (user: User) => void;
+  handleAddToPendingList: (user: AppliedScheduleUser) => void;
+  handleRemoveFromPendingList: (user: AppliedScheduleUser) => void;
   saveScheduleChanges: () => void;
   handleOnClose: (onClose: () => void) => void;
 }
@@ -74,7 +78,7 @@ const ScheduleTable = ({
               >
                 {scheduleList.role && scheduleList.role[role].length > 0
                   ? scheduleList.role[role].map((user, idx) => (
-                      <NameTag key={idx} userName={user.userName} />
+                      <NameTag key={idx} name={user.name} />
                     ))
                   : "인원을 등록해주세요."}
               </Td>

@@ -1,5 +1,4 @@
 import Typography from "@components/Typography/Typography";
-import { COLORS } from "@constants/color";
 import { MAX_WIDTH } from "@constants/width";
 import { formatDateWithDay } from "@utils/formatDate";
 import styled from "styled-components";
@@ -10,6 +9,7 @@ import ScheduleTable from "./scheduleTable/ScheduleTable";
 import { Button, Stack } from "@chakra-ui/react";
 import { CloseIcon } from "@chakra-ui/icons";
 import { SelectedDate } from "src/types/calendar";
+import { THEME_COLORS } from "@constants/color";
 
 interface Props {
   selectedDate: SelectedDate;
@@ -110,7 +110,7 @@ const StyledScheduleDetailItem = styled.div`
   overflow-y: scroll;
   max-width: ${MAX_WIDTH};
   box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.05);
-  background-color: ${COLORS.white};
+  background-color: ${THEME_COLORS.white};
   padding: 2rem 1.2rem;
   &::-webkit-scrollbar {
     display: none;

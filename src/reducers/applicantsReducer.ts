@@ -1,4 +1,4 @@
-import { User } from "@interfaces/schedule";
+import { Applicants, ApplicantsAction } from "src/types/schedule";
 
 export const APPLICANTS_ACTION_TYPE = {
   APPLIED: "APPLIED",
@@ -9,55 +9,11 @@ export const APPLICANTS_ACTION_TYPE = {
   UPDATE: "UPDATE",
 } as const;
 
-export type ApplicantsAction =
-  | ApplicantsAppliedAction
-  | ApplicantsPendingAction
-  | ApplicantsConfirmedAction
-  | ApplicantsReturnToAppliedAction
-  | ApplicantsCancelAction
-  | ApplicantsUpdateAction;
-
-export interface ApplicantsAppliedAction {
-  type: typeof APPLICANTS_ACTION_TYPE.APPLIED;
-  payload: User[];
-}
-
-export interface ApplicantsPendingAction {
-  type: typeof APPLICANTS_ACTION_TYPE.PENDING;
-  payload: User[];
-}
-
-export interface ApplicantsConfirmedAction {
-  type: typeof APPLICANTS_ACTION_TYPE.CONFIRMED;
-  payload: User[];
-}
-
-export interface ApplicantsReturnToAppliedAction {
-  type: typeof APPLICANTS_ACTION_TYPE.RETURN_TO_APPLIED;
-  payload: User[];
-}
-
-export interface ApplicantsCancelAction {
-  type: typeof APPLICANTS_ACTION_TYPE.CANCEL;
-  payload: Applicants;
-}
-
-export interface ApplicantsUpdateAction {
-  type: typeof APPLICANTS_ACTION_TYPE.UPDATE;
-  payload: Applicants;
-}
-
-export interface Applicants {
-  applied: User[] | [];
-  pending: User[] | [];
-  confirmed: User[] | [];
-}
-
 export const INITIAL_APPLICANTS: Applicants = {
   applied: [
-    { userId: "1", userName: "윤태관", gender: "male" },
-    { userId: "2", userName: "안유정", gender: "female" },
-    { userId: "3", userName: "전옥진", gender: "male" },
+    { kakaoId: "asdjdjasjdhjk", name: "윤태관", gender: "male" },
+    { kakaoId: "qweklqjeklqwje", name: "안유정", gender: "female" },
+    { kakaoId: "ajnbzxbczxc", name: "전옥진", gender: "male" },
   ],
   pending: [],
   confirmed: [],
@@ -76,12 +32,12 @@ export const applicantsReducer = (
       };
     }
     case APPLICANTS_ACTION_TYPE.PENDING: {
-      const userIdsToMove = new Set(action.payload.map((user) => user.userId));
+      const userIdsToMove = new Set(action.payload.map((user) => user.kakaoId));
       const newApplied = state.applied.filter(
-        (user) => !userIdsToMove.has(user.userId),
+        (user) => !userIdsToMove.has(user.kakaoId),
       );
       const newConfirmed = state.confirmed.filter(
-        (user) => !userIdsToMove.has(user.userId),
+        (user) => !userIdsToMove.has(user.kakaoId),
       );
       const newPending = [...state.pending, ...action.payload];
 
@@ -101,12 +57,12 @@ export const applicantsReducer = (
       };
     }
     case APPLICANTS_ACTION_TYPE.RETURN_TO_APPLIED: {
-      const userIdsToMove = new Set(action.payload.map((user) => user.userId));
+      const userIdsToMove = new Set(action.payload.map((user) => user.kakaoId));
       const newPending = state.pending.filter(
-        (user) => !userIdsToMove.has(user.userId),
+        (user) => !userIdsToMove.has(user.kakaoId),
       );
       const newConfirmed = state.confirmed.filter(
-        (user) => !userIdsToMove.has(user.userId),
+        (user) => !userIdsToMove.has(user.kakaoId),
       );
       const newApplied = [...state.applied, ...action.payload];
 
@@ -117,9 +73,7 @@ export const applicantsReducer = (
         confirmed: newConfirmed,
       };
     }
-    case APPLICANTS_ACTION_TYPE.CANCEL: {
-      return action.payload;
-    }
+    case APPLICANTS_ACTION_TYPE.CANCEL:
     case APPLICANTS_ACTION_TYPE.UPDATE: {
       return action.payload;
     }

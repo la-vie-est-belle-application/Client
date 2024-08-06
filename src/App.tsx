@@ -16,9 +16,9 @@ function App() {
     <>
       <BackGroundBlur />
       <Routes>
-        <Route path="/" element={<Home />}></Route>
-        <Route path="/signin" element={<SignIn />}></Route>
-        <Route path="/signin/next" element={<SignInStep />}></Route>
+        <Route path="/" element={<Home />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signin/next" element={<SignInStep />} />
         <Route path="/*" element={<NotFound />}></Route>
         <Route element={<ProtectedRoute />}>
           <Route path="/notice" element={<Notice />} />
