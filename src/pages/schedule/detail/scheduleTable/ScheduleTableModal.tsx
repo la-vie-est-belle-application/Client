@@ -57,9 +57,7 @@ const ScheduleTableModal = ({
     >
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>
-          {selectedRole ? `${selectedRole} 선택` : "역할 선택"}
-        </ModalHeader>
+        <ModalHeader>{selectedRole && `${selectedRole} 선택`}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <Stack spacing={4}>
