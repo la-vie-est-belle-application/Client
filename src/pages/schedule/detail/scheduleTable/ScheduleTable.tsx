@@ -75,6 +75,7 @@ const ScheduleTable = ({
                 display={"flex"}
                 flexDir={"row"}
                 gap={".5rem"}
+                flexWrap={"wrap"}
               >
                 {scheduleList.role && scheduleList.role[role].length > 0
                   ? scheduleList.role[role].map((user, idx) => (
