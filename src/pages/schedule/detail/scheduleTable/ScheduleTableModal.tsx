@@ -12,7 +12,6 @@ import {
 } from "@chakra-ui/react";
 import Typography from "@components/Typography/Typography";
 import {
-  Applicants,
   HandleAddToPendingList,
   HandleOnClose,
   HandleRemoveFromPendingList,
@@ -22,6 +21,7 @@ import {
 } from "src/types/schedule";
 import ScheduleTemporaryList from "./ScheduleTemporaryList/ScheduleTemporaryList";
 import ScheduleApplicants from "./ScheduleApplicants/ScheduleApplicants";
+import { Applicants } from "src/types/applicants";
 interface Props extends Partial<UseDisclosureProps> {
   selectedRole: Roles | undefined;
   scheduleList: ScheduleList;

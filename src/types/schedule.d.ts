@@ -1,6 +1,5 @@
 import { ROLES } from "@constants/role";
 import { HOURS, MINUTES } from "@constants/time";
-import { APPLICANTS_ACTION_TYPE } from "@reducers/applicantsReducer";
 import { SCHEDULE_LIST_ACTION_TYPE } from "@reducers/scheduleListReducer";
 import { WorkTimeActionTypes } from "@reducers/workTimeReducer";
 import { SelectedDate } from "./calendar";
@@ -22,11 +21,6 @@ export interface WorkTime {
 }
 export type SelectedRole = Roles | undefined;
 export type TemporaryScheduleList = ScheduleList;
-export interface Applicants {
-  applied: AppliedScheduleUser[] | [];
-  pending: AppliedScheduleUser[] | [];
-  confirmed: AppliedScheduleUser[] | [];
-}
 export type AppliedScheduleUser = Pick<User, "kakaoId" | "name" | "gender">;
 export type SetIsOpenDetail = React.Dispatch<React.SetStateAction<boolean>>;
 export type ScheduleListAction =
@@ -83,42 +77,4 @@ export interface User {
   pay: number;
   roleType: boolean;
   confirm: boolean;
-}
-
-export type ApplicantsAction =
-  | ApplicantsAppliedAction
-  | ApplicantsPendingAction
-  | ApplicantsConfirmedAction
-  | ApplicantsReturnToAppliedAction
-  | ApplicantsCancelAction
-  | ApplicantsUpdateAction;
-
-export interface ApplicantsAppliedAction {
-  type: typeof APPLICANTS_ACTION_TYPE.APPLIED;
-  payload: AppliedScheduleUser[];
-}
-
-export interface ApplicantsPendingAction {
-  type: typeof APPLICANTS_ACTION_TYPE.PENDING;
-  payload: AppliedScheduleUser[];
-}
-
-export interface ApplicantsConfirmedAction {
-  type: typeof APPLICANTS_ACTION_TYPE.CONFIRMED;
-  payload: AppliedScheduleUser[];
-}
-
-export interface ApplicantsReturnToAppliedAction {
-  type: typeof APPLICANTS_ACTION_TYPE.RETURN_TO_APPLIED;
-  payload: AppliedScheduleUser[];
-}
-
-export interface ApplicantsCancelAction {
-  type: typeof APPLICANTS_ACTION_TYPE.CANCEL;
-  payload: Applicants;
-}
-
-export interface ApplicantsUpdateAction {
-  type: typeof APPLICANTS_ACTION_TYPE.UPDATE;
-  payload: Applicants;
 }

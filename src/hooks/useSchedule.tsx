@@ -5,19 +5,22 @@ import {
   SCHEDULE_LIST_ACTION_TYPE,
   scheduleListReducer,
 } from "@reducers/scheduleListReducer";
-import {
-  APPLICANTS_ACTION_TYPE,
-  applicantsReducer,
-  INITIAL_APPLICANTS,
-} from "@reducers/applicantsReducer";
+import { APPLICANTS_ACTION_TYPE } from "@reducers/applicantsReducer";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { formatDateToYYYYMMDD } from "@utils/formatDate";
 import { ROUTES } from "@constants/routes";
 import { SelectedDate, SelectedDates } from "src/types/calendar";
 import { AppliedScheduleUser, Roles } from "src/types/schedule";
 import { SCHEDULE_API } from "@api/schedule/schedule";
+import useApplicants from "./useApplicants";
 
 const useSchedule = () => {
+  const {
+    applicants,
+    temporaryApplicants,
+    handleApplicants,
+    handleTemporaryApplicants,
+  } = useApplicants();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -39,16 +42,6 @@ const useSchedule = () => {
 
   const [temporaryScheduleList, onUpdateUserInTemporaryScheduleList] =
     useReducer(scheduleListReducer, INITIAL_SCHEDULE_LIST);
-
-  const [applicants, onUpdateApplicants] = useReducer(
-    applicantsReducer,
-    INITIAL_APPLICANTS,
-  );
-
-  const [temporaryApplicants, onUpdateUserInTemporaryApplicants] = useReducer(
-    applicantsReducer,
-    INITIAL_APPLICANTS,
-  );
 
   useEffect(() => {
     if (dateParams) {
@@ -90,7 +83,7 @@ const useSchedule = () => {
         },
       });
 
-      onUpdateApplicants({
+      handleApplicants({
         type: APPLICANTS_ACTION_TYPE.PENDING,
         payload: [user],
       });
@@ -111,7 +104,7 @@ const useSchedule = () => {
         },
       });
 
-      onUpdateApplicants({
+      handleApplicants({
         type: APPLICANTS_ACTION_TYPE.RETURN_TO_APPLIED,
         payload: [user],
       });
@@ -139,23 +132,25 @@ const useSchedule = () => {
       });
     });
 
-    onUpdateApplicants({
+    handleApplicants({
       type: APPLICANTS_ACTION_TYPE.CONFIRMED,
       payload: applicants.pending,
     });
 
-    onUpdateUserInTemporaryApplicants({
+    handleTemporaryApplicants({
       type: APPLICANTS_ACTION_TYPE.UPDATE,
       payload: applicants,
     });
+
     setIsOpenDetail(true);
-  }, [selectedRole, scheduleList, temporaryScheduleList, applicants]);
+  }, [selectedRole, scheduleList, temporaryScheduleList]);
 
   const handleOnClose = (onClose: () => void) => {
-    onUpdateApplicants({
+    handleApplicants({
       type: APPLICANTS_ACTION_TYPE.CANCEL,
       payload: temporaryApplicants,
     });
+
     onUpdateUserInTemporaryScheduleList({
       type: SCHEDULE_LIST_ACTION_TYPE.CANCEL,
       payload: scheduleList,

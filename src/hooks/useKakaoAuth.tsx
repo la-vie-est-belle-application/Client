@@ -1,5 +1,5 @@
 import { AUTH_API } from "@api/auth/siginIn";
-import useAuthStore from "@stores/auth";
+import useAuthStore from "@stores/useAuthStore";
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 

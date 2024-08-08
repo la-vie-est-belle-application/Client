@@ -1,4 +1,4 @@
-import { Applicants, ApplicantsAction } from "src/types/schedule";
+import { Applicants, ApplicantsAction } from "src/types/applicants";
 
 export const APPLICANTS_ACTION_TYPE = {
   APPLIED: "APPLIED",

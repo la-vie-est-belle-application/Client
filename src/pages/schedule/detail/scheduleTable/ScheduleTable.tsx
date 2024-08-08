@@ -12,12 +12,8 @@ import { ROLES } from "@constants/role";
 
 import ScheduleTableModal from "./ScheduleTableModal";
 import NameTag from "@components/NameTag/NameTag";
-import {
-  Applicants,
-  AppliedScheduleUser,
-  Roles,
-  ScheduleList,
-} from "src/types/schedule";
+import { AppliedScheduleUser, Roles, ScheduleList } from "src/types/schedule";
+import { Applicants } from "src/types/applicants";
 
 interface Props {
   selectedRole: Roles | undefined;
