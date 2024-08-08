@@ -13,8 +13,10 @@ import {
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { formatDateToYYYYMMDD } from "@utils/formatDate";
 import { ROUTES } from "@constants/routes";
-import { SelectedDate } from "src/types/calendar";
+import { SelectedDate, SelectedDates } from "src/types/calendar";
 import { AppliedScheduleUser, Roles } from "src/types/schedule";
+import { API } from "@api/index";
+import { AxiosResponse } from "axios";
 
 const useSchedule = () => {
   const [searchParams] = useSearchParams();
@@ -162,6 +164,21 @@ const useSchedule = () => {
     onClose && onClose();
   };
 
+  const createSchedule = async (
+    selectedDates: SelectedDates,
+  ): Promise<AxiosResponse<SelectedDates> | void> => {
+    try {
+      const response = await API.post<SelectedDates>(
+        import.meta.env.VITE_CREATE_SCHEDULE,
+        selectedDates,
+      );
+
+      return await response;
+    } catch {
+      console.error("@@@");
+    }
+  };
+
   return {
     isOpenDetail,
     onShowDetail,
@@ -180,6 +197,7 @@ const useSchedule = () => {
     setIsOpenDetail,
     handleOnClose,
     handleCloseScheduleDetail,
+    createSchedule,
   };
 };
 

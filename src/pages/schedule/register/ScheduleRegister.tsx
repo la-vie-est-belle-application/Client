@@ -16,12 +16,16 @@ const ScheduleRegister = () => {
     markSelectedDates,
     getActiveMonth,
   } = useCalendar();
-  const { setIsOpenDetail, isOpenDetail, onHandleNavigate } = useSchedule();
+  const { setIsOpenDetail, isOpenDetail, onHandleNavigate, createSchedule } =
+    useSchedule();
   return (
     <StyledContainer>
       <Header title="일정 등록" />
       <Container>
-        <ScheduleRegisterButton selectedDates={selectedDates} />
+        <ScheduleRegisterButton
+          selectedDates={selectedDates}
+          createSchedule={createSchedule}
+        />
         <ScheduleCalendar
           onChangeSelectedDates={onChangeSelectedDates}
           selectedDates={selectedDates}

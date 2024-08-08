@@ -4,15 +4,16 @@ import { SelectedDates } from "src/types/calendar";
 
 interface Props {
   selectedDates: SelectedDates;
+  createSchedule: (selectedDates: SelectedDates) => void;
 }
 
 const ScheduleRegisterButton = ({ selectedDates }: Props) => {
-  const [isClickable, setIsClickable] = useState<boolean>(true);
+  const [isNotClickable, setIsNotClickable] = useState<boolean>(true);
   useEffect(() => {
     if (selectedDates.length > 0) {
-      setIsClickable(false);
+      setIsNotClickable(false);
     } else {
-      setIsClickable(true);
+      setIsNotClickable(true);
     }
   }, [selectedDates]);
 
@@ -26,7 +27,7 @@ const ScheduleRegisterButton = ({ selectedDates }: Props) => {
       <Button
         size={"lg"}
         colorScheme="purple"
-        isDisabled={isClickable}
+        isDisabled={isNotClickable}
         onClick={() => {
           console.log(selectedDates.length);
         }}
