@@ -1,4 +1,4 @@
-import { API } from "@api/index";
+import { AUTH_API } from "@api/auth/siginIn";
 import useAuthStore from "@stores/auth";
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -16,10 +16,9 @@ const useKakaoAuth = () => {
 
     const fetchData = async () => {
       try {
-        const response = await API.get(`/signin/${kakaoCodeParams}`);
-        const userData = response.data;
+        const { data } = await AUTH_API.signIn(kakaoCodeParams);
+        const userData = data;
 
-        setIsLoggedIn(userData);
         sessionStorage.setItem("user", JSON.stringify(userData));
       } catch (e) {
         console.log(e);

@@ -15,8 +15,7 @@ import { formatDateToYYYYMMDD } from "@utils/formatDate";
 import { ROUTES } from "@constants/routes";
 import { SelectedDate, SelectedDates } from "src/types/calendar";
 import { AppliedScheduleUser, Roles } from "src/types/schedule";
-import { API } from "@api/index";
-import { AxiosResponse } from "axios";
+import { SCHEDULE_API } from "@api/schedule/schedule";
 
 const useSchedule = () => {
   const [searchParams] = useSearchParams();
@@ -164,16 +163,11 @@ const useSchedule = () => {
     onClose && onClose();
   };
 
-  const createSchedule = async (
-    selectedDates: SelectedDates,
-  ): Promise<AxiosResponse<SelectedDates> | void> => {
+  const createSchedule = async (selectedDates: SelectedDates) => {
     try {
-      const response = await API.post<SelectedDates>(
-        import.meta.env.VITE_CREATE_SCHEDULE,
-        selectedDates,
-      );
+      const response = await SCHEDULE_API.createSchedule(selectedDates);
 
-      return await response;
+      return response;
     } catch {
       console.error("@@@");
     }

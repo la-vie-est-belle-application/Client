@@ -8,11 +8,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ChakraProvider } from "@chakra-ui/react";
 import ScrollToTop from "@components/ScrollToTop/ScrollToTop.tsx";
 
-const queryClient: QueryClient = new QueryClient({
-  defaultOptions: {
-    queries: {},
-  },
-});
+const queryClient = new QueryClient();
 
 const IS_DEVELOPMENT_MODE = import.meta.env.VITE_IS_DEVELOPMENT_MODE === "true";
 
