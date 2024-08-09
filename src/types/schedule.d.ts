@@ -27,7 +27,7 @@ export type ScheduleListAction =
   | AddUserAction
   | DeleteUserAction
   | CancelUserAction;
-export type OnHandleNavigate = (date: SelectedDate) => void;
+export type HandleNavigateToScheduleDetail = (date: SelectedDate) => void;
 export type HandleAddToPendingList = (user: AppliedScheduleUser) => void;
 export type HandleRemoveFromPendingList = (user: AppliedScheduleUser) => void;
 export type HandleOnClose = (onClose: () => void) => void;

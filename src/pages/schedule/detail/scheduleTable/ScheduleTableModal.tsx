@@ -15,17 +15,12 @@ import {
   HandleAddToPendingList,
   HandleOnClose,
   HandleRemoveFromPendingList,
-  Roles,
-  ScheduleList,
-  TemporaryScheduleList,
 } from "src/types/schedule";
 import ScheduleTemporaryList from "./ScheduleTemporaryList/ScheduleTemporaryList";
 import ScheduleApplicants from "./ScheduleApplicants/ScheduleApplicants";
+import useSelectedRoleStore from "@stores/useSelectedRoleStore";
 
 interface Props extends Partial<UseDisclosureProps> {
-  selectedRole: Roles | undefined;
-  scheduleList: ScheduleList;
-  temporaryScheduleList: TemporaryScheduleList;
   handleAddToPendingList: HandleAddToPendingList;
   handleRemoveFromPendingList: HandleRemoveFromPendingList;
   saveScheduleChanges: () => void;
@@ -35,13 +30,13 @@ interface Props extends Partial<UseDisclosureProps> {
 const ScheduleTableModal = ({
   isOpen,
   onClose,
-  selectedRole,
-  temporaryScheduleList,
   handleAddToPendingList,
   handleRemoveFromPendingList,
   saveScheduleChanges,
   handleOnClose,
 }: Props) => {
+  const selectedRole = useSelectedRoleStore((state) => state.selectedRole);
+
   if (!selectedRole) {
     return null;
   }
@@ -61,8 +56,6 @@ const ScheduleTableModal = ({
             <Stack>
               <Typography>현재 선택된 인원</Typography>
               <ScheduleTemporaryList
-                temporaryScheduleList={temporaryScheduleList}
-                selectedRole={selectedRole}
                 handleRemoveFromPendingList={handleRemoveFromPendingList}
               />
             </Stack>

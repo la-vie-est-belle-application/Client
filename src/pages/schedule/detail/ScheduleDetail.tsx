@@ -10,19 +10,12 @@ import { Button, Stack } from "@chakra-ui/react";
 import { CloseIcon } from "@chakra-ui/icons";
 import { THEME_COLORS } from "@constants/color";
 import useSelectedDateStore from "@stores/useSelectedDateStore";
+import useIsOpenDetailStore from "@stores/useIsOpenDetailStore";
 
-interface Props {
-  isOpenDetail: boolean;
-}
-
-const ScheduleDetail = ({ isOpenDetail }: Props) => {
+const ScheduleDetail = () => {
   const {
-    scheduleList,
-    onSelectRole,
     workTime,
     onUpdateWorkTime,
-    selectedRole,
-    temporaryScheduleList,
     handleAddToPendingList,
     handleRemoveFromPendingList,
     saveScheduleChanges,
@@ -31,11 +24,16 @@ const ScheduleDetail = ({ isOpenDetail }: Props) => {
   } = useSchedule();
 
   const selectedDate = useSelectedDateStore();
+  const isOpenDetail = useIsOpenDetailStore((state) => state.isOpenDetail);
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     setIsOpen(isOpenDetail);
   }, [isOpenDetail]);
+
+  if (!isOpenDetail) {
+    return null;
+  }
 
   return (
     <StyledContainer $isOpen={isOpen}>
@@ -64,10 +62,6 @@ const ScheduleDetail = ({ isOpenDetail }: Props) => {
           onUpdateWorkTime={onUpdateWorkTime}
         />
         <ScheduleTable
-          selectedRole={selectedRole}
-          scheduleList={scheduleList}
-          onSelectRole={onSelectRole}
-          temporaryScheduleList={temporaryScheduleList}
           handleAddToPendingList={handleAddToPendingList}
           handleRemoveFromPendingList={handleRemoveFromPendingList}
           saveScheduleChanges={saveScheduleChanges}

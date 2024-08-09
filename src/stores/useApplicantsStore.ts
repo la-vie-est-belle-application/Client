@@ -6,23 +6,23 @@ import { Applicants, ApplicantsAction } from "src/types/applicants";
 import { create } from "zustand";
 
 export const useApplicantsStore = create<{
-  data: Applicants;
+  applicants: Applicants;
   dispatch: (action: ApplicantsAction) => void;
 }>((set) => ({
-  data: INITIAL_APPLICANTS,
+  applicants: INITIAL_APPLICANTS,
   dispatch: (action: ApplicantsAction) =>
     set((state) => ({
-      data: applicantsReducer(state.data, action),
+      applicants: applicantsReducer(state.applicants, action),
     })),
 }));
 
 export const useTemporaryApplicantsStore = create<{
-  data: Applicants;
+  temporaryApplicants: Applicants;
   dispatch: (action: ApplicantsAction) => void;
 }>((set) => ({
-  data: INITIAL_APPLICANTS,
+  temporaryApplicants: INITIAL_APPLICANTS,
   dispatch: (action: ApplicantsAction) =>
     set((state) => ({
-      data: applicantsReducer(state.data, action),
+      temporaryApplicants: applicantsReducer(state.temporaryApplicants, action),
     })),
 }));

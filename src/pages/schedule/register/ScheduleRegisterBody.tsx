@@ -1,24 +1,9 @@
 import { THEME_COLORS } from "@constants/color";
-import { SelectedDates } from "src/types/calendar";
-import ScheduleItem from "../scheduleItem/ScheduleItem";
-import { OnHandleNavigate, SetIsOpenDetail } from "src/types/schedule";
-import NoScheduleItem from "@components/NoScheduleItem/NoScheduleItem";
 import ScheduleDetail from "../detail/ScheduleDetail";
 import { Stack } from "@chakra-ui/react";
+import ScheduleRegisterItem from "./ScheduleRegisterItem";
 
-interface Props {
-  selectedDates: SelectedDates;
-  setIsOpenDetail: SetIsOpenDetail;
-  isOpenDetail: boolean;
-  onHandleNavigate: OnHandleNavigate;
-}
-
-const ScheduleRegisterBody = ({
-  selectedDates,
-  setIsOpenDetail,
-  isOpenDetail,
-  onHandleNavigate,
-}: Props) => {
+const ScheduleRegisterBody = () => {
   return (
     <Stack
       flexDirection={"column"}
@@ -29,23 +14,8 @@ const ScheduleRegisterBody = ({
       backgroundColor={THEME_COLORS.gray100}
       minHeight={"30rem"}
     >
-      {selectedDates.length > 0 ? (
-        <>
-          {selectedDates.map((date, idx) => (
-            <ScheduleItem
-              selectedDate={date}
-              key={idx}
-              onClick={() => {
-                setIsOpenDetail(true);
-                onHandleNavigate(date);
-              }}
-            />
-          ))}
-        </>
-      ) : (
-        <NoScheduleItem>등록된 스케줄이 없습니다</NoScheduleItem>
-      )}
-      {isOpenDetail && <ScheduleDetail isOpenDetail={isOpenDetail} />}
+      <ScheduleRegisterItem />
+      <ScheduleDetail />
     </Stack>
   );
 };

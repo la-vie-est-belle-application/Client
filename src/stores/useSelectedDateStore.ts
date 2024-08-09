@@ -1,15 +1,10 @@
 import { SelectedDate } from "src/types/calendar";
 import { create } from "zustand";
 
-type State = {
+const useSelectedDateStore = create<{
   selectedDate: SelectedDate;
-};
-
-type Action = {
   updateSelectedDate: (date: SelectedDate) => void;
-};
-
-const useSelectedDateStore = create<State & Action>((set) => ({
+}>((set) => ({
   selectedDate: null,
   updateSelectedDate: (selectedDate) => set(() => ({ selectedDate })),
 }));
