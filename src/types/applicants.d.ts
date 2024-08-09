@@ -1,5 +1,5 @@
 import { APPLICANTS_ACTION_TYPE } from "@reducers/applicantsReducer";
-import { AppliedScheduleUser } from "./schedule";
+import { User } from "./schedule";
 
 export interface ApplicantsState {
   data: Applicants;
@@ -7,9 +7,9 @@ export interface ApplicantsState {
 }
 
 export interface Applicants {
-  applied: AppliedScheduleUser[] | [];
-  pending: AppliedScheduleUser[] | [];
-  confirmed: AppliedScheduleUser[] | [];
+  applied: User[] | [];
+  pending: User[] | [];
+  confirmed: User[] | [];
 }
 
 export type ApplicantsAction =
@@ -22,22 +22,22 @@ export type ApplicantsAction =
 
 export interface ApplicantsAppliedAction {
   type: typeof APPLICANTS_ACTION_TYPE.APPLIED;
-  payload: AppliedScheduleUser[];
+  payload: User[] | [];
 }
 
 export interface ApplicantsPendingAction {
   type: typeof APPLICANTS_ACTION_TYPE.PENDING;
-  payload: AppliedScheduleUser[];
+  payload: User[] | [];
 }
 
 export interface ApplicantsConfirmedAction {
   type: typeof APPLICANTS_ACTION_TYPE.CONFIRMED;
-  payload: AppliedScheduleUser[];
+  payload: User[] | [];
 }
 
 export interface ApplicantsReturnToAppliedAction {
   type: typeof APPLICANTS_ACTION_TYPE.RETURN_TO_APPLIED;
-  payload: AppliedScheduleUser[];
+  payload: User[] | [];
 }
 
 export interface ApplicantsCancelAction {

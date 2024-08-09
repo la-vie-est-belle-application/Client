@@ -10,11 +10,7 @@ export const APPLICANTS_ACTION_TYPE = {
 } as const;
 
 export const INITIAL_APPLICANTS: Applicants = {
-  applied: [
-    { kakaoId: "asdjdjasjdhjk", name: "윤태관", gender: "male" },
-    { kakaoId: "qweklqjeklqwje", name: "안유정", gender: "female" },
-    { kakaoId: "ajnbzxbczxc", name: "전옥진", gender: "male" },
-  ],
+  applied: [],
   pending: [],
   confirmed: [],
 };

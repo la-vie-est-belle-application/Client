@@ -25,7 +25,6 @@ const useCalendar = () => {
   const navigate = useNavigate();
   const currentMonth = format(new Date(), "yyyyMM");
   const [selectedDates, dispatch] = useReducer(checkDuplicateDatesReducer, []);
-  const [selectedDate, setSelectedDate] = useState<SelectedDate>(null);
   const [activeMonth, setActiveMonth] = useState<string>(currentMonth);
 
   const onChangeSelectedDates = (date: SelectedDate) => {
@@ -57,8 +56,6 @@ const useCalendar = () => {
   return {
     selectedDates,
     onChangeSelectedDates,
-    selectedDate,
-    setSelectedDate,
     markSelectedDates,
     getActiveMonth,
   };

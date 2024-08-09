@@ -13,15 +13,12 @@ import { ROLES } from "@constants/role";
 import ScheduleTableModal from "./ScheduleTableModal";
 import NameTag from "@components/NameTag/NameTag";
 import { AppliedScheduleUser, Roles, ScheduleList } from "src/types/schedule";
-import { Applicants } from "src/types/applicants";
 
 interface Props {
   selectedRole: Roles | undefined;
   scheduleList: ScheduleList;
   temporaryScheduleList: ScheduleList;
   onSelectRole: (role: Roles) => void;
-  applicants: Applicants;
-  temporaryApplicants: Applicants;
   handleAddToPendingList: (user: AppliedScheduleUser) => void;
   handleRemoveFromPendingList: (user: AppliedScheduleUser) => void;
   saveScheduleChanges: () => void;
@@ -33,11 +30,9 @@ const ScheduleTable = ({
   onSelectRole,
   scheduleList,
   temporaryScheduleList,
-  applicants,
   handleAddToPendingList,
   handleRemoveFromPendingList,
   saveScheduleChanges,
-  temporaryApplicants,
   handleOnClose,
 }: Props) => {
   const roles = Object.values(ROLES) as Roles[];
@@ -90,8 +85,6 @@ const ScheduleTable = ({
           selectedRole={selectedRole}
           scheduleList={scheduleList}
           temporaryScheduleList={temporaryScheduleList}
-          applicants={applicants}
-          temporaryApplicants={temporaryApplicants}
           handleAddToPendingList={handleAddToPendingList}
           handleRemoveFromPendingList={handleRemoveFromPendingList}
           saveScheduleChanges={saveScheduleChanges}

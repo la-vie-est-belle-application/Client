@@ -21,7 +21,7 @@ export interface WorkTime {
 }
 export type SelectedRole = Roles | undefined;
 export type TemporaryScheduleList = ScheduleList;
-export type AppliedScheduleUser = Pick<User, "kakaoId" | "name" | "gender">;
+export type AppliedScheduleUser = User;
 export type SetIsOpenDetail = React.Dispatch<React.SetStateAction<boolean>>;
 export type ScheduleListAction =
   | AddUserAction

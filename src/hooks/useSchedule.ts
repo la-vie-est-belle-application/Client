@@ -13,19 +13,20 @@ import { SelectedDate, SelectedDates } from "src/types/calendar";
 import { AppliedScheduleUser, Roles } from "src/types/schedule";
 import { SCHEDULE_API } from "@api/schedule/schedule";
 import useApplicants from "./useApplicants";
+import {
+  useApplicantsStore,
+  useTemporaryApplicantsStore,
+} from "@stores/useApplicantsStore";
 
 const useSchedule = () => {
-  const {
-    applicants,
-    temporaryApplicants,
-    handleApplicants,
-    handleTemporaryApplicants,
-  } = useApplicants();
+  const { handleApplicants, handleTemporaryApplicants } = useApplicants();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const location = useLocation();
   const dateParams = searchParams.get("date");
   const activeMonthParams = searchParams.get("activeMonth");
+  const applicants = useApplicantsStore();
+  const temporaryApplicants = useTemporaryApplicantsStore();
 
   const [selectedRole, setSelectedRole] = useState<Roles | undefined>(
     undefined,
@@ -134,12 +135,12 @@ const useSchedule = () => {
 
     handleApplicants({
       type: APPLICANTS_ACTION_TYPE.CONFIRMED,
-      payload: applicants.pending,
+      payload: applicants.data.pending,
     });
 
     handleTemporaryApplicants({
       type: APPLICANTS_ACTION_TYPE.UPDATE,
-      payload: applicants,
+      payload: applicants.data,
     });
 
     setIsOpenDetail(true);
@@ -148,7 +149,7 @@ const useSchedule = () => {
   const handleOnClose = (onClose: () => void) => {
     handleApplicants({
       type: APPLICANTS_ACTION_TYPE.CANCEL,
-      payload: temporaryApplicants,
+      payload: temporaryApplicants.data,
     });
 
     onUpdateUserInTemporaryScheduleList({
@@ -177,8 +178,6 @@ const useSchedule = () => {
     workTime,
     selectedRole,
     temporaryScheduleList,
-    applicants,
-    temporaryApplicants,
     handleAddToPendingList,
     handleRemoveFromPendingList,
     saveScheduleChanges,

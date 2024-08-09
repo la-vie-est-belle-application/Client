@@ -1,0 +1,29 @@
+[
+  {
+    "kakaoId": "a1dr2222-dkcknfq-owk2d-ro123eodl",
+    "name": "윤태관",
+    "email": "tkyoun0421@nate.com",
+    "gender": "male",
+    "pay": 13000,
+    "roleType": true,
+    "confirm": true
+  },
+  {
+    "kakaoId": "a1dr-dkcknfq-owk2d-roe22odl",
+    "name": "안유정",
+    "email": "tkyoun0421@nate.com",
+    "gender": "female",
+    "pay": 13000,
+    "roleType": true,
+    "confirm": true
+  },
+  {
+    "kakaoId": "a1d553r-dkcknfq-owk2d-roeodl",
+    "name": "전옥진",
+    "email": "tkyoun0422@nate.com",
+    "gender": "male",
+    "pay": 13000,
+    "roleType": true,
+    "confirm": true
+  }
+]

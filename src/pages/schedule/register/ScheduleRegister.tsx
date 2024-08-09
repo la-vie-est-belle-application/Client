@@ -9,10 +9,8 @@ import ScheduleRegisterBody from "./ScheduleRegisterBody";
 
 const ScheduleRegister = () => {
   const {
-    selectedDate,
     selectedDates,
     onChangeSelectedDates,
-    setSelectedDate,
     markSelectedDates,
     getActiveMonth,
   } = useCalendar();
@@ -29,12 +27,10 @@ const ScheduleRegister = () => {
         <ScheduleCalendar
           onChangeSelectedDates={onChangeSelectedDates}
           selectedDates={selectedDates}
-          setSelectedDate={setSelectedDate}
           markSelectedDates={markSelectedDates}
           getActiveMonth={getActiveMonth}
         />
         <ScheduleRegisterBody
-          selectedDate={selectedDate}
           selectedDates={selectedDates}
           setIsOpenDetail={setIsOpenDetail}
           isOpenDetail={isOpenDetail}

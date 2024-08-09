@@ -1,5 +1,5 @@
 import { THEME_COLORS } from "@constants/color";
-import { SelectedDate, SelectedDates } from "src/types/calendar";
+import { SelectedDates } from "src/types/calendar";
 import ScheduleItem from "../scheduleItem/ScheduleItem";
 import { OnHandleNavigate, SetIsOpenDetail } from "src/types/schedule";
 import NoScheduleItem from "@components/NoScheduleItem/NoScheduleItem";
@@ -7,7 +7,6 @@ import ScheduleDetail from "../detail/ScheduleDetail";
 import { Stack } from "@chakra-ui/react";
 
 interface Props {
-  selectedDate: SelectedDate | null;
   selectedDates: SelectedDates;
   setIsOpenDetail: SetIsOpenDetail;
   isOpenDetail: boolean;
@@ -15,7 +14,6 @@ interface Props {
 }
 
 const ScheduleRegisterBody = ({
-  selectedDate,
   selectedDates,
   setIsOpenDetail,
   isOpenDetail,
@@ -47,12 +45,7 @@ const ScheduleRegisterBody = ({
       ) : (
         <NoScheduleItem>등록된 스케줄이 없습니다</NoScheduleItem>
       )}
-      {isOpenDetail && (
-        <ScheduleDetail
-          selectedDate={selectedDate}
-          isOpenDetail={isOpenDetail}
-        />
-      )}
+      {isOpenDetail && <ScheduleDetail isOpenDetail={isOpenDetail} />}
     </Stack>
   );
 };

@@ -21,13 +21,11 @@ import {
 } from "src/types/schedule";
 import ScheduleTemporaryList from "./ScheduleTemporaryList/ScheduleTemporaryList";
 import ScheduleApplicants from "./ScheduleApplicants/ScheduleApplicants";
-import { Applicants } from "src/types/applicants";
+
 interface Props extends Partial<UseDisclosureProps> {
   selectedRole: Roles | undefined;
   scheduleList: ScheduleList;
   temporaryScheduleList: TemporaryScheduleList;
-  applicants: Applicants;
-  temporaryApplicants: Applicants;
   handleAddToPendingList: HandleAddToPendingList;
   handleRemoveFromPendingList: HandleRemoveFromPendingList;
   saveScheduleChanges: () => void;
@@ -39,7 +37,6 @@ const ScheduleTableModal = ({
   onClose,
   selectedRole,
   temporaryScheduleList,
-  applicants,
   handleAddToPendingList,
   handleRemoveFromPendingList,
   saveScheduleChanges,
@@ -72,7 +69,6 @@ const ScheduleTableModal = ({
             <Stack>
               <Typography>선택 가능한 인원</Typography>
               <ScheduleApplicants
-                applicants={applicants}
                 handleAddToPendingList={handleAddToPendingList}
               />
             </Stack>
