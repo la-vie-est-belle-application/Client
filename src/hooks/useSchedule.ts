@@ -1,71 +1,64 @@
-import { useCallback, useEffect, useReducer, useState } from "react";
+import { useCallback, useEffect, useReducer } from "react";
 import { initialWorkTime, workTimeReducer } from "@reducers/workTimeReducer";
-import {
-  INITIAL_SCHEDULE_LIST,
-  SCHEDULE_LIST_ACTION_TYPE,
-  scheduleListReducer,
-} from "@reducers/scheduleListReducer";
-import {
-  APPLICANTS_ACTION_TYPE,
-  applicantsReducer,
-  INITIAL_APPLICANTS,
-} from "@reducers/applicantsReducer";
+import { SCHEDULE_LIST_ACTION_TYPE } from "@reducers/scheduleListReducer";
+import { APPLICANTS_ACTION_TYPE } from "@reducers/applicantsReducer";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { formatDateToYYYYMMDD } from "@utils/formatDate";
 import { ROUTES } from "@constants/routes";
-import { SelectedDate } from "src/types/calendar";
-import { AppliedScheduleUser, Roles } from "src/types/schedule";
+import { SelectedDate, SelectedDates } from "src/types/calendar";
+import { AppliedScheduleUser } from "src/types/schedule";
+import { SCHEDULE_API } from "@api/schedule/schedule";
+import useApplicants from "./useApplicants";
+import {
+  useApplicantsStore,
+  useTemporaryApplicantsStore,
+} from "@stores/useApplicantsStore";
+import useIsOpenDetailStore from "@stores/useIsOpenDetailStore";
+import useSelectedRoleStore from "@stores/useSelectedRoleStore";
+import useSelectedDateStore from "@stores/useSelectedDateStore";
+import {
+  useScheduleListStore,
+  useTemporaryScheduleListStore,
+} from "@stores/useScheduleListStore";
 
 const useSchedule = () => {
+  const { handleApplicants, handleTemporaryApplicants } = useApplicants();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const location = useLocation();
-  const dateParams = searchParams.get("date");
+  // const dateParams = searchParams.get("date");
   const activeMonthParams = searchParams.get("activeMonth");
-
-  const [selectedRole, setSelectedRole] = useState<Roles | undefined>(
-    undefined,
+  const applicants = useApplicantsStore((state) => state.applicants);
+  const temporaryApplicants = useTemporaryApplicantsStore(
+    (state) => state.temporaryApplicants,
   );
+  const updateIsOpenDetail = useIsOpenDetailStore(
+    (state) => state.updateIsOpenDetail,
+  );
+  const selectedRole = useSelectedRoleStore((state) => state.selectedRole);
+  const selectedDate = useSelectedDateStore((state) => state.selectedDate);
+
   const [workTime, onUpdateWorkTime] = useReducer(
     workTimeReducer,
     initialWorkTime,
   );
-  const [isOpenDetail, setIsOpenDetail] = useState(false);
-  const [scheduleList, onUpdateUserInScheduleList] = useReducer(
-    scheduleListReducer,
-    INITIAL_SCHEDULE_LIST,
+
+  const scheduleList = useScheduleListStore((state) => state.scheduleList);
+  const updateScheduleList = useScheduleListStore((state) => state.dispatch);
+  const temporaryScheduleList = useTemporaryScheduleListStore(
+    (state) => state.temporaryScheduleList,
   );
-
-  const [temporaryScheduleList, onUpdateUserInTemporaryScheduleList] =
-    useReducer(scheduleListReducer, INITIAL_SCHEDULE_LIST);
-
-  const [applicants, onUpdateApplicants] = useReducer(
-    applicantsReducer,
-    INITIAL_APPLICANTS,
-  );
-
-  const [temporaryApplicants, onUpdateUserInTemporaryApplicants] = useReducer(
-    applicantsReducer,
-    INITIAL_APPLICANTS,
+  const updateTemporaryScheduleList = useTemporaryScheduleListStore(
+    (state) => state.dispatch,
   );
 
   useEffect(() => {
-    if (dateParams) {
-      setIsOpenDetail(true);
-    } else {
-      setIsOpenDetail(false);
-    }
-  }, [dateParams]);
+    if (!selectedDate) return;
 
-  const onSelectRole = (role: Roles) => {
-    setSelectedRole(role);
-  };
+    handleNavigateToScheduleDetail(selectedDate);
+  }, [selectedDate]);
 
-  const onShowDetail = (date: SelectedDate) => {
-    return date && setIsOpenDetail(true);
-  };
-
-  const onHandleNavigate = (date: SelectedDate) => {
+  const handleNavigateToScheduleDetail = (date: SelectedDate) => {
     const formatDate = formatDateToYYYYMMDD(date);
     navigate(`${ROUTES.REGISTER}${location.search}&date=${formatDate}`);
   };
@@ -74,13 +67,15 @@ const useSchedule = () => {
     navigate(`${ROUTES.REGISTER}?activeMonth=${activeMonthParams}`, {
       replace: true,
     });
+
+    updateIsOpenDetail(false);
   };
 
   const handleAddToPendingList = useCallback(
     (user: AppliedScheduleUser) => {
       if (!selectedRole) return;
 
-      onUpdateUserInTemporaryScheduleList({
+      updateTemporaryScheduleList({
         type: SCHEDULE_LIST_ACTION_TYPE.ADD_USER,
         payload: {
           role: selectedRole,
@@ -89,7 +84,7 @@ const useSchedule = () => {
         },
       });
 
-      onUpdateApplicants({
+      handleApplicants({
         type: APPLICANTS_ACTION_TYPE.PENDING,
         payload: [user],
       });
@@ -101,7 +96,7 @@ const useSchedule = () => {
     (user: AppliedScheduleUser) => {
       if (!selectedRole) return;
 
-      onUpdateUserInTemporaryScheduleList({
+      updateTemporaryScheduleList({
         type: SCHEDULE_LIST_ACTION_TYPE.DELETE_USER,
         payload: {
           role: selectedRole,
@@ -110,7 +105,7 @@ const useSchedule = () => {
         },
       });
 
-      onUpdateApplicants({
+      handleApplicants({
         type: APPLICANTS_ACTION_TYPE.RETURN_TO_APPLIED,
         payload: [user],
       });
@@ -125,61 +120,65 @@ const useSchedule = () => {
     const newTemporaryUsers = temporaryScheduleList.role[selectedRole] || [];
 
     currentUsersInSchedule.forEach(({ kakaoId, name }: AppliedScheduleUser) => {
-      onUpdateUserInScheduleList({
+      updateScheduleList({
         type: SCHEDULE_LIST_ACTION_TYPE.DELETE_USER,
         payload: { role: selectedRole, kakaoId, name },
       });
     });
 
     newTemporaryUsers.forEach(({ kakaoId, name }: AppliedScheduleUser) => {
-      onUpdateUserInScheduleList({
+      updateScheduleList({
         type: SCHEDULE_LIST_ACTION_TYPE.ADD_USER,
         payload: { role: selectedRole, kakaoId, name },
       });
     });
 
-    onUpdateApplicants({
+    handleApplicants({
       type: APPLICANTS_ACTION_TYPE.CONFIRMED,
       payload: applicants.pending,
     });
 
-    onUpdateUserInTemporaryApplicants({
+    handleTemporaryApplicants({
       type: APPLICANTS_ACTION_TYPE.UPDATE,
       payload: applicants,
     });
-    setIsOpenDetail(true);
-  }, [selectedRole, scheduleList, temporaryScheduleList, applicants]);
+
+    updateIsOpenDetail(true);
+  }, [selectedRole, scheduleList, temporaryScheduleList]);
 
   const handleOnClose = (onClose: () => void) => {
-    onUpdateApplicants({
+    handleApplicants({
       type: APPLICANTS_ACTION_TYPE.CANCEL,
       payload: temporaryApplicants,
     });
-    onUpdateUserInTemporaryScheduleList({
+
+    updateTemporaryScheduleList({
       type: SCHEDULE_LIST_ACTION_TYPE.CANCEL,
       payload: scheduleList,
     });
     onClose && onClose();
   };
 
+  const createSchedule = async (selectedDates: SelectedDates) => {
+    try {
+      const response = await SCHEDULE_API.createSchedule(selectedDates);
+
+      return response;
+    } catch {
+      console.error("@@@");
+    }
+  };
+
   return {
-    isOpenDetail,
-    onShowDetail,
-    scheduleList,
-    onSelectRole,
     onUpdateWorkTime,
     workTime,
     selectedRole,
-    temporaryScheduleList,
-    applicants,
-    temporaryApplicants,
     handleAddToPendingList,
     handleRemoveFromPendingList,
     saveScheduleChanges,
-    onHandleNavigate,
-    setIsOpenDetail,
     handleOnClose,
     handleCloseScheduleDetail,
+    createSchedule,
   };
 };
 

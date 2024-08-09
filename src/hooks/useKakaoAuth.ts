@@ -1,11 +1,12 @@
-import { api } from "@api/index";
-import useAuthStore from "@stores/auth";
+import { AUTH_API } from "@api/auth/siginIn";
+import useAuthStore from "@stores/useAuthStore";
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 
 const useKakaoAuth = () => {
   const [searchParams] = useSearchParams();
   const kakaoCodeParams = searchParams.get("code");
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
   const setIsLoggedIn = useAuthStore((state) => state.setIsLoggedIn);
 
   useEffect(() => {
@@ -15,10 +16,9 @@ const useKakaoAuth = () => {
 
     const fetchData = async () => {
       try {
-        const response = await api.get(`/signin/${kakaoCodeParams}`);
-        const userData = response.data;
+        const { data } = await AUTH_API.signIn(kakaoCodeParams);
+        const userData = data;
 
-        setIsLoggedIn(userData);
         sessionStorage.setItem("user", JSON.stringify(userData));
       } catch (e) {
         console.log(e);
@@ -28,6 +28,11 @@ const useKakaoAuth = () => {
     fetchData();
   }, [kakaoCodeParams]);
 
+  useEffect(() => {
+    const userSession = sessionStorage.getItem("user");
+    setIsLoggedIn(!!userSession);
+  }, [isLoggedIn]);
+
   const handleKakaoSignin = () => {
     const REDIRECT_URI = import.meta.env.VITE_KAKAO_REDIRECT_URI;
     const REST_API_KEY = import.meta.env.VITE_KAKAO_REST_API_KEY;
@@ -35,7 +40,7 @@ const useKakaoAuth = () => {
     window.location.href = KAKAO_REQUEST_URL;
   };
 
-  return { handleKakaoSignin };
+  return { handleKakaoSignin, isLoggedIn };
 };
 
 export default useKakaoAuth;

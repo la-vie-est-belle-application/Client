@@ -8,24 +8,14 @@ import ScheduleWorkTime from "./workTime/ScheduleWorkTime";
 import ScheduleTable from "./scheduleTable/ScheduleTable";
 import { Button, Stack } from "@chakra-ui/react";
 import { CloseIcon } from "@chakra-ui/icons";
-import { SelectedDate } from "src/types/calendar";
 import { THEME_COLORS } from "@constants/color";
+import useSelectedDateStore from "@stores/useSelectedDateStore";
+import useIsOpenDetailStore from "@stores/useIsOpenDetailStore";
 
-interface Props {
-  selectedDate: SelectedDate;
-  isOpenDetail: boolean;
-}
-
-const ScheduleDetail = ({ selectedDate, isOpenDetail }: Props) => {
+const ScheduleDetail = () => {
   const {
-    scheduleList,
-    onSelectRole,
     workTime,
     onUpdateWorkTime,
-    selectedRole,
-    temporaryScheduleList,
-    applicants,
-    temporaryApplicants,
     handleAddToPendingList,
     handleRemoveFromPendingList,
     saveScheduleChanges,
@@ -33,13 +23,17 @@ const ScheduleDetail = ({ selectedDate, isOpenDetail }: Props) => {
     handleCloseScheduleDetail,
   } = useSchedule();
 
+  const selectedDate = useSelectedDateStore();
+  const isOpenDetail = useIsOpenDetailStore((state) => state.isOpenDetail);
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     setIsOpen(isOpenDetail);
   }, [isOpenDetail]);
 
-  if (!selectedDate) return;
+  if (!isOpenDetail) {
+    return null;
+  }
 
   return (
     <StyledContainer $isOpen={isOpen}>
@@ -68,15 +62,9 @@ const ScheduleDetail = ({ selectedDate, isOpenDetail }: Props) => {
           onUpdateWorkTime={onUpdateWorkTime}
         />
         <ScheduleTable
-          selectedRole={selectedRole}
-          scheduleList={scheduleList}
-          onSelectRole={onSelectRole}
-          temporaryScheduleList={temporaryScheduleList}
-          applicants={applicants}
           handleAddToPendingList={handleAddToPendingList}
           handleRemoveFromPendingList={handleRemoveFromPendingList}
           saveScheduleChanges={saveScheduleChanges}
-          temporaryApplicants={temporaryApplicants}
           handleOnClose={handleOnClose}
         />
       </StyledScheduleDetailItem>

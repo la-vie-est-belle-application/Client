@@ -1,36 +1,15 @@
 import { ROUTES } from "@constants/routes";
+import useSelectedDatesStore from "@stores/useSelectedDatesStore";
 import { format } from "date-fns";
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SelectedDate, SelectedDates } from "src/types/calendar";
-
-const checkDuplicateDatesReducer = (
-  dates: SelectedDates,
-  date: Date | null,
-) => {
-  if (!date) {
-    return dates;
-  }
-
-  const isDuplicate = dates.some((d) => d && d.getTime() === date.getTime());
-  if (isDuplicate) {
-    return dates.filter((d) => d && d.getTime() !== date.getTime());
-  } else {
-    const newDates = [...dates, date];
-    return newDates.sort((a, b) => (a && b ? a.getTime() - b.getTime() : 0));
-  }
-};
 
 const useCalendar = () => {
   const navigate = useNavigate();
   const currentMonth = format(new Date(), "yyyyMM");
-  const [selectedDates, dispatch] = useReducer(checkDuplicateDatesReducer, []);
-  const [selectedDate, setSelectedDate] = useState<SelectedDate>(null);
+  const selectedDates = useSelectedDatesStore((state) => state.selectedDates);
   const [activeMonth, setActiveMonth] = useState<string>(currentMonth);
-
-  const onChangeSelectedDates = (date: SelectedDate) => {
-    dispatch(date as Date | null);
-  };
 
   useEffect(() => {
     navigate(`${ROUTES.REGISTER}?activeMonth=${activeMonth}`, {
@@ -56,9 +35,6 @@ const useCalendar = () => {
 
   return {
     selectedDates,
-    onChangeSelectedDates,
-    selectedDate,
-    setSelectedDate,
     markSelectedDates,
     getActiveMonth,
   };

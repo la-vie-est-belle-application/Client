@@ -12,20 +12,11 @@ import { ROLES } from "@constants/role";
 
 import ScheduleTableModal from "./ScheduleTableModal";
 import NameTag from "@components/NameTag/NameTag";
-import {
-  Applicants,
-  AppliedScheduleUser,
-  Roles,
-  ScheduleList,
-} from "src/types/schedule";
+import { AppliedScheduleUser, Roles } from "src/types/schedule";
+import useSelectedRoleStore from "@stores/useSelectedRoleStore";
+import { useScheduleListStore } from "@stores/useScheduleListStore";
 
 interface Props {
-  selectedRole: Roles | undefined;
-  scheduleList: ScheduleList;
-  temporaryScheduleList: ScheduleList;
-  onSelectRole: (role: Roles) => void;
-  applicants: Applicants;
-  temporaryApplicants: Applicants;
   handleAddToPendingList: (user: AppliedScheduleUser) => void;
   handleRemoveFromPendingList: (user: AppliedScheduleUser) => void;
   saveScheduleChanges: () => void;
@@ -33,19 +24,17 @@ interface Props {
 }
 
 const ScheduleTable = ({
-  selectedRole,
-  onSelectRole,
-  scheduleList,
-  temporaryScheduleList,
-  applicants,
   handleAddToPendingList,
   handleRemoveFromPendingList,
   saveScheduleChanges,
-  temporaryApplicants,
   handleOnClose,
 }: Props) => {
   const roles = Object.values(ROLES) as Roles[];
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const updateSelectedRole = useSelectedRoleStore(
+    (state) => state.updateSelectedRole,
+  );
+  const scheduleList = useScheduleListStore((state) => state.scheduleList);
 
   return (
     <TableContainer>
@@ -61,7 +50,7 @@ const ScheduleTable = ({
             <Tr
               key={index}
               onClick={() => {
-                onSelectRole(role);
+                updateSelectedRole(role);
                 onOpen();
               }}
               cursor={"pointer"}
@@ -75,6 +64,7 @@ const ScheduleTable = ({
                 display={"flex"}
                 flexDir={"row"}
                 gap={".5rem"}
+                flexWrap={"wrap"}
               >
                 {scheduleList.role && scheduleList.role[role].length > 0
                   ? scheduleList.role[role].map((user, idx) => (
@@ -90,11 +80,6 @@ const ScheduleTable = ({
         <ScheduleTableModal
           isOpen={isOpen}
           onClose={onClose}
-          selectedRole={selectedRole}
-          scheduleList={scheduleList}
-          temporaryScheduleList={temporaryScheduleList}
-          applicants={applicants}
-          temporaryApplicants={temporaryApplicants}
           handleAddToPendingList={handleAddToPendingList}
           handleRemoveFromPendingList={handleRemoveFromPendingList}
           saveScheduleChanges={saveScheduleChanges}

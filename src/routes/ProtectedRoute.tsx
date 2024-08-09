@@ -1,17 +1,13 @@
 import { ROUTES } from "@constants/routes";
-import useAuthStore from "@stores/auth";
-import { useEffect } from "react";
+import useKakaoAuth from "@hooks/useKakaoAuth";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 
 const ProtectedRoute = () => {
-  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+  const { isLoggedIn } = useKakaoAuth();
   const currentLocation = useLocation();
 
-  useEffect(() => {
-    console.log("currentLocation : ", currentLocation);
-  }, [currentLocation]);
   return isLoggedIn ? (
-    <Outlet></Outlet>
+    <Outlet />
   ) : (
     <Navigate
       to={ROUTES.SIGNIN}

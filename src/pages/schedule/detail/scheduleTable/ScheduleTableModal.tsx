@@ -12,22 +12,15 @@ import {
 } from "@chakra-ui/react";
 import Typography from "@components/Typography/Typography";
 import {
-  Applicants,
   HandleAddToPendingList,
   HandleOnClose,
   HandleRemoveFromPendingList,
-  Roles,
-  ScheduleList,
-  TemporaryScheduleList,
 } from "src/types/schedule";
 import ScheduleTemporaryList from "./ScheduleTemporaryList/ScheduleTemporaryList";
 import ScheduleApplicants from "./ScheduleApplicants/ScheduleApplicants";
+import useSelectedRoleStore from "@stores/useSelectedRoleStore";
+
 interface Props extends Partial<UseDisclosureProps> {
-  selectedRole: Roles | undefined;
-  scheduleList: ScheduleList;
-  temporaryScheduleList: TemporaryScheduleList;
-  applicants: Applicants;
-  temporaryApplicants: Applicants;
   handleAddToPendingList: HandleAddToPendingList;
   handleRemoveFromPendingList: HandleRemoveFromPendingList;
   saveScheduleChanges: () => void;
@@ -37,14 +30,13 @@ interface Props extends Partial<UseDisclosureProps> {
 const ScheduleTableModal = ({
   isOpen,
   onClose,
-  selectedRole,
-  temporaryScheduleList,
-  applicants,
   handleAddToPendingList,
   handleRemoveFromPendingList,
   saveScheduleChanges,
   handleOnClose,
 }: Props) => {
+  const selectedRole = useSelectedRoleStore((state) => state.selectedRole);
+
   if (!selectedRole) {
     return null;
   }
@@ -57,24 +49,19 @@ const ScheduleTableModal = ({
     >
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>
-          {selectedRole ? `${selectedRole} 선택` : "역할 선택"}
-        </ModalHeader>
+        <ModalHeader>{selectedRole && `${selectedRole} 선택`}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <Stack spacing={4}>
             <Stack>
               <Typography>현재 선택된 인원</Typography>
               <ScheduleTemporaryList
-                temporaryScheduleList={temporaryScheduleList}
-                selectedRole={selectedRole}
                 handleRemoveFromPendingList={handleRemoveFromPendingList}
               />
             </Stack>
             <Stack>
               <Typography>선택 가능한 인원</Typography>
               <ScheduleApplicants
-                applicants={applicants}
                 handleAddToPendingList={handleAddToPendingList}
               />
             </Stack>
