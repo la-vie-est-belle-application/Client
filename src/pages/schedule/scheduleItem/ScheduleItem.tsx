@@ -7,7 +7,7 @@ import { SelectedDate } from "src/types/calendar";
 
 interface Props {
   selectedDate: SelectedDate;
-  onClick: (value: SelectedDate) => void;
+  onClick: () => void;
 }
 
 const ScheduleItem = ({ selectedDate, onClick }: Props) => {
@@ -19,9 +19,7 @@ const ScheduleItem = ({ selectedDate, onClick }: Props) => {
       backgroundColor={THEME_COLORS.white}
       borderRadius={".2rem"}
       cursor={"pointer"}
-      onClick={() => {
-        onClick(selectedDate);
-      }}
+      onClick={onClick}
     >
       <Typography type="caption1" color="gray900">
         {formatDateWithDay(selectedDate)}

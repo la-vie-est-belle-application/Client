@@ -31,10 +31,6 @@ const ScheduleDetail = () => {
     setIsOpen(isOpenDetail);
   }, [isOpenDetail]);
 
-  if (!isOpenDetail) {
-    return null;
-  }
-
   return (
     <StyledContainer $isOpen={isOpen}>
       <StyledScheduleDetailItem>

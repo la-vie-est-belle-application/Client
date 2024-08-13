@@ -16,12 +16,11 @@ const useKakaoAuth = () => {
 
     const fetchData = async () => {
       try {
-        const { data } = await AUTH_API.signIn(kakaoCodeParams);
-        const userData = data;
-
+        const response = await AUTH_API.signIn(kakaoCodeParams);
+        const userData = response?.data;
         sessionStorage.setItem("user", JSON.stringify(userData));
       } catch (e) {
-        console.log(e);
+        console.error(e);
       }
     };
 

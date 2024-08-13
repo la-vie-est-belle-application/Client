@@ -1,18 +1,11 @@
 import useSelectedDatesStore from "@stores/useSelectedDatesStore";
 import ScheduleItem from "../scheduleItem/ScheduleItem";
 import NoScheduleItem from "@components/NoScheduleItem/NoScheduleItem";
-import useSelectedDateStore from "@stores/useSelectedDateStore";
-import useIsOpenDetailStore from "@stores/useIsOpenDetailStore";
+import useSchedule from "@hooks/useSchedule";
 
 const ScheduleRegisterItem = () => {
   const selectedDates = useSelectedDatesStore((state) => state.selectedDates);
-  const updateSelectedDate = useSelectedDateStore(
-    (state) => state.updateSelectedDate,
-  );
-
-  const updateIsOpenDetail = useIsOpenDetailStore(
-    (state) => state.updateIsOpenDetail,
-  );
+  const { handleClickScheduleItem } = useSchedule();
 
   return (
     <>
@@ -21,10 +14,7 @@ const ScheduleRegisterItem = () => {
           <ScheduleItem
             selectedDate={date}
             key={idx}
-            onClick={() => {
-              updateIsOpenDetail(true);
-              updateSelectedDate(date);
-            }}
+            onClick={() => handleClickScheduleItem(date)}
           />
         ))
       ) : (
