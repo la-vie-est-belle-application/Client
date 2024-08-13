@@ -2,8 +2,10 @@ import { THEME_COLORS } from "@constants/color";
 import ScheduleDetail from "../detail/ScheduleDetail";
 import { Stack } from "@chakra-ui/react";
 import ScheduleRegisterItem from "./ScheduleRegisterItem";
+import useIsOpenDetailStore from "@stores/useIsOpenDetailStore";
 
 const ScheduleRegisterBody = () => {
+  const isOpenDetail = useIsOpenDetailStore((state) => state.isOpenDetail);
   return (
     <Stack
       flexDirection={"column"}
@@ -15,7 +17,7 @@ const ScheduleRegisterBody = () => {
       minHeight={"30rem"}
     >
       <ScheduleRegisterItem />
-      <ScheduleDetail />
+      {isOpenDetail && <ScheduleDetail />}
     </Stack>
   );
 };
