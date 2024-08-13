@@ -5,10 +5,7 @@ const useIsOpenDetailStore = create<{
   updateIsOpenDetail: (state: boolean) => void;
 }>((set) => ({
   isOpenDetail: false,
-  updateIsOpenDetail: () =>
-    set((state) => ({
-      isOpenDetail: !state.isOpenDetail,
-    })),
+  updateIsOpenDetail: (state: boolean) => set({ isOpenDetail: state }),
 }));
 
 export default useIsOpenDetailStore;

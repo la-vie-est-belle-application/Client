@@ -1,6 +1,5 @@
 import { User } from "src/types/schedule";
-import { API } from "..";
-import { AxiosError } from "axios";
+import { API, handleApiError } from "..";
 
 export const AUTH_API = {
   signIn: async (params: string) => {
@@ -10,11 +9,7 @@ export const AUTH_API = {
       );
       return response;
     } catch (error) {
-      if (error instanceof AxiosError) {
-        throw new Error(error.response ? error.response.data : error.message);
-      } else {
-        throw new Error(String(error));
-      }
+      handleApiError(error);
     }
   },
 };

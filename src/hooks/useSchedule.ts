@@ -26,8 +26,8 @@ const useSchedule = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const location = useLocation();
-  // const dateParams = searchParams.get("date");
   const activeMonthParams = searchParams.get("activeMonth");
+  const dateParams = searchParams.get("date");
   const applicants = useApplicantsStore((state) => state.applicants);
   const temporaryApplicants = useTemporaryApplicantsStore(
     (state) => state.temporaryApplicants,
@@ -36,8 +36,6 @@ const useSchedule = () => {
     (state) => state.updateIsOpenDetail,
   );
   const selectedRole = useSelectedRoleStore((state) => state.selectedRole);
-  const selectedDate = useSelectedDateStore((state) => state.selectedDate);
-
   const [workTime, onUpdateWorkTime] = useReducer(
     workTimeReducer,
     initialWorkTime,
@@ -51,12 +49,14 @@ const useSchedule = () => {
   const updateTemporaryScheduleList = useTemporaryScheduleListStore(
     (state) => state.dispatch,
   );
+  const updateSelectedDate = useSelectedDateStore(
+    (state) => state.updateSelectedDate,
+  );
 
   useEffect(() => {
-    if (!selectedDate) return;
-
-    handleNavigateToScheduleDetail(selectedDate);
-  }, [selectedDate]);
+    if (!dateParams) updateIsOpenDetail(false);
+    console.log(scheduleList);
+  }, [dateParams]);
 
   const handleNavigateToScheduleDetail = (date: SelectedDate) => {
     const formatDate = formatDateToYYYYMMDD(date);
@@ -156,6 +156,7 @@ const useSchedule = () => {
       type: SCHEDULE_LIST_ACTION_TYPE.CANCEL,
       payload: scheduleList,
     });
+
     onClose && onClose();
   };
 
@@ -169,6 +170,12 @@ const useSchedule = () => {
     }
   };
 
+  const handleClickScheduleItem = (date: SelectedDate) => {
+    handleNavigateToScheduleDetail(date);
+    updateIsOpenDetail(true);
+    updateSelectedDate(date);
+  };
+
   return {
     onUpdateWorkTime,
     workTime,
@@ -179,6 +186,7 @@ const useSchedule = () => {
     handleOnClose,
     handleCloseScheduleDetail,
     createSchedule,
+    handleClickScheduleItem,
   };
 };
 

@@ -17,7 +17,7 @@ const useKakaoAuth = () => {
     const fetchData = async () => {
       try {
         const response = await AUTH_API.signIn(kakaoCodeParams);
-        const userData = response.data;
+        const userData = response?.data;
         sessionStorage.setItem("user", JSON.stringify(userData));
       } catch (e) {
         console.error(e);
