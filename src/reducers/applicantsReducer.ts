@@ -16,54 +16,55 @@ export const INITIAL_APPLICANTS: Applicants = {
 };
 
 export const applicantsReducer = (
-  state: Applicants,
+  applicants: Applicants,
   action: ApplicantsAction,
 ): Applicants => {
-  switch (action.type) {
+  const { type, payload } = action;
+  switch (type) {
     case APPLICANTS_ACTION_TYPE.APPLIED: {
-      const newApplied = [...state.applied, ...action.payload];
+      const newApplied = [...applicants.applied, ...payload];
       return {
-        ...state,
+        ...applicants,
         applied: newApplied,
       };
     }
     case APPLICANTS_ACTION_TYPE.PENDING: {
-      const userIdsToMove = new Set(action.payload.map((user) => user.kakaoId));
-      const newApplied = state.applied.filter(
+      const userIdsToMove = new Set(payload.map((user) => user.kakaoId));
+      const newApplied = applicants.applied.filter(
         (user) => !userIdsToMove.has(user.kakaoId),
       );
-      const newConfirmed = state.confirmed.filter(
+      const newConfirmed = applicants.confirmed.filter(
         (user) => !userIdsToMove.has(user.kakaoId),
       );
-      const newPending = [...state.pending, ...action.payload];
+      const newPending = [...applicants.pending, ...payload];
 
       return {
-        ...state,
+        ...applicants,
         applied: newApplied,
         confirmed: newConfirmed,
         pending: newPending,
       };
     }
     case APPLICANTS_ACTION_TYPE.CONFIRMED: {
-      const newConfirmed = [...state.confirmed, ...action.payload];
+      const newConfirmed = [...applicants.confirmed, ...payload];
 
       return {
-        ...state,
+        ...applicants,
         confirmed: newConfirmed,
       };
     }
     case APPLICANTS_ACTION_TYPE.RETURN_TO_APPLIED: {
-      const userIdsToMove = new Set(action.payload.map((user) => user.kakaoId));
-      const newPending = state.pending.filter(
+      const userIdsToMove = new Set(payload.map((user) => user.kakaoId));
+      const newPending = applicants.pending.filter(
         (user) => !userIdsToMove.has(user.kakaoId),
       );
-      const newConfirmed = state.confirmed.filter(
+      const newConfirmed = applicants.confirmed.filter(
         (user) => !userIdsToMove.has(user.kakaoId),
       );
-      const newApplied = [...state.applied, ...action.payload];
+      const newApplied = [...applicants.applied, ...payload];
 
       return {
-        ...state,
+        ...applicants,
         applied: newApplied,
         pending: newPending,
         confirmed: newConfirmed,
@@ -74,6 +75,6 @@ export const applicantsReducer = (
       return action.payload;
     }
     default:
-      return state;
+      return applicants;
   }
 };

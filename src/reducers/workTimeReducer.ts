@@ -15,11 +15,12 @@ export const workTimeReducer = (
   times: WorkTime,
   action: WorkTimeAction,
 ): WorkTime => {
-  switch (action.type) {
+  const { type, payload } = action;
+  switch (type) {
     case WorkTimeActionTypes.START_TIME:
-      return { ...times, startTime: action.payload, type: action.type };
+      return { ...times, startTime: payload, type };
     case WorkTimeActionTypes.END_TIME:
-      return { ...times, endTime: action.payload, type: action.type };
+      return { ...times, endTime: payload, type };
     default:
       return times;
   }

@@ -21,38 +21,39 @@ export const INITIAL_SCHEDULE_LIST: ScheduleList = {
 };
 
 export const scheduleListReducer = (
-  data: ScheduleList,
+  scheduleList: ScheduleList,
   action: ScheduleListAction,
 ): ScheduleList => {
-  switch (action.type) {
+  const { type, payload } = action;
+  switch (type) {
     case SCHEDULE_LIST_ACTION_TYPE.ADD_USER: {
-      const { role, kakaoId, name } = action.payload;
-      const currentUsers = data.role[role] || [];
+      const { role, kakaoId, name } = payload;
+      const currentUsers = scheduleList.role[role] || [];
       return {
-        ...data,
+        ...scheduleList,
         role: {
-          ...data.role,
+          ...scheduleList.role,
           [role]: [...currentUsers, { kakaoId, name }],
         },
       };
     }
     case SCHEDULE_LIST_ACTION_TYPE.DELETE_USER: {
-      const { role, kakaoId } = action.payload;
-      const updatedUsers = (data.role[role] || []).filter(
+      const { role, kakaoId } = payload;
+      const updatedUsers = (scheduleList.role[role] || []).filter(
         (user) => user.kakaoId !== kakaoId,
       );
       return {
-        ...data,
+        ...scheduleList,
         role: {
-          ...data.role,
+          ...scheduleList.role,
           [role]: updatedUsers,
         },
       };
     }
     case SCHEDULE_LIST_ACTION_TYPE.CANCEL: {
-      return action.payload;
+      return payload;
     }
     default:
-      return data;
+      return scheduleList;
   }
 };
