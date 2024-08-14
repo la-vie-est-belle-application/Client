@@ -1,5 +1,4 @@
 import { ROUTES } from "@constants/routes";
-import useSelectedDatesStore from "@stores/useSelectedDatesStore";
 import { format } from "date-fns";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -8,7 +7,6 @@ import { SelectedDate, SelectedDates } from "src/types/calendar";
 const useCalendar = () => {
   const navigate = useNavigate();
   const currentMonth = format(new Date(), "yyyyMM");
-  const selectedDates = useSelectedDatesStore((state) => state.selectedDates);
   const [activeMonth, setActiveMonth] = useState<string>(currentMonth);
 
   useEffect(() => {
@@ -34,7 +32,6 @@ const useCalendar = () => {
   };
 
   return {
-    selectedDates,
     markSelectedDates,
     getActiveMonth,
   };

@@ -5,10 +5,10 @@ import { INITIAL_SCHEDULE_LIST } from "../reducers/scheduleListReducer";
 
 export const useScheduleListStore = create<{
   scheduleList: ScheduleList;
-  dispatch: (action: ScheduleListAction) => void;
+  updateScheduleList: (action: ScheduleListAction) => void;
 }>((set) => ({
   scheduleList: INITIAL_SCHEDULE_LIST,
-  dispatch: (action: ScheduleListAction) => {
+  updateScheduleList: (action: ScheduleListAction) => {
     set((state) => ({
       scheduleList: scheduleListReducer(state.scheduleList, action),
     }));
@@ -17,10 +17,10 @@ export const useScheduleListStore = create<{
 
 export const useTemporaryScheduleListStore = create<{
   temporaryScheduleList: ScheduleList;
-  dispatch: (action: ScheduleListAction) => void;
+  updateTemporaryScheduleList: (action: ScheduleListAction) => void;
 }>((set) => ({
   temporaryScheduleList: INITIAL_SCHEDULE_LIST,
-  dispatch: (action: ScheduleListAction) => {
+  updateTemporaryScheduleList: (action: ScheduleListAction) => {
     set((state) => ({
       temporaryScheduleList: scheduleListReducer(
         state.temporaryScheduleList,

@@ -8,7 +8,7 @@ export const WorkTimeActionTypes = {
 export const initialWorkTime: WorkTime = {
   startTime: ["09", "00"],
   endTime: ["18", "00"],
-  type: "출근 시간",
+  type: WorkTimeActionTypes.START_TIME,
 };
 
 export const workTimeReducer = (

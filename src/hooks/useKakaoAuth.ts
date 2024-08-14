@@ -6,8 +6,7 @@ import { useSearchParams } from "react-router-dom";
 const useKakaoAuth = () => {
   const [searchParams] = useSearchParams();
   const kakaoCodeParams = searchParams.get("code");
-  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
-  const setIsLoggedIn = useAuthStore((state) => state.setIsLoggedIn);
+  const { isLoggedIn, setIsLoggedIn } = useAuthStore();
 
   useEffect(() => {
     if (!kakaoCodeParams) {

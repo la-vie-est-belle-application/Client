@@ -1,7 +1,8 @@
+import { env } from "@constants/url";
 import axios, { AxiosError } from "axios";
 
 export const API = axios.create({
-  baseURL: import.meta.env.VITE_LOCALHOST,
+  baseURL: env.baseURL,
   timeout: 5000,
   headers: {
     "Content-Type": "application/json",

@@ -3,17 +3,10 @@ import Typography from "@components/Typography/Typography";
 import { formatTimeWithColon } from "@utils/formatTime";
 import ScheduleWorkTimeModal from "./ScheduleWorkTimeModal";
 import { THEME_COLORS } from "@constants/color";
-import { WorkTime, WorkTimeTuple, WorkTimeTypes } from "src/types/schedule";
+import { useWorkTimeStore } from "@stores/useWorktimeStore";
 
-interface Props {
-  workTime: WorkTime;
-  onUpdateWorkTime: React.Dispatch<{
-    type: WorkTimeTypes;
-    payload: WorkTimeTuple;
-  }>;
-}
-
-const ScheduleWorkTime = ({ workTime, onUpdateWorkTime }: Props) => {
+const ScheduleWorkTime = () => {
+  const { workTime, updateWorkTime } = useWorkTimeStore();
   const { startTime, endTime } = workTime;
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
@@ -25,7 +18,7 @@ const ScheduleWorkTime = ({ workTime, onUpdateWorkTime }: Props) => {
         cursor={"pointer"}
         onClick={() => {
           onOpen();
-          onUpdateWorkTime({
+          updateWorkTime({
             type: "출근 시간",
             payload: startTime,
           });
@@ -44,7 +37,7 @@ const ScheduleWorkTime = ({ workTime, onUpdateWorkTime }: Props) => {
         cursor={"pointer"}
         onClick={() => {
           onOpen();
-          onUpdateWorkTime({
+          updateWorkTime({
             type: "퇴근 시간",
             payload: endTime,
           });
@@ -59,8 +52,6 @@ const ScheduleWorkTime = ({ workTime, onUpdateWorkTime }: Props) => {
       </Stack>
       {isOpen && (
         <ScheduleWorkTimeModal
-          workTime={workTime}
-          onUpdateWorkTime={onUpdateWorkTime}
           isOpen={isOpen}
           onClose={onClose}
         ></ScheduleWorkTimeModal>
