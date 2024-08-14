@@ -14,8 +14,6 @@ import useIsOpenDetailStore from "@stores/useIsOpenDetailStore";
 
 const ScheduleDetail = () => {
   const {
-    workTime,
-    onUpdateWorkTime,
     handleAddToPendingList,
     handleRemoveFromPendingList,
     saveScheduleChanges,
@@ -53,10 +51,7 @@ const ScheduleDetail = () => {
             </Typography>
           </StyledDate>
         </Stack>
-        <ScheduleWorkTime
-          workTime={workTime}
-          onUpdateWorkTime={onUpdateWorkTime}
-        />
+        <ScheduleWorkTime />
         <ScheduleTable
           handleAddToPendingList={handleAddToPendingList}
           handleRemoveFromPendingList={handleRemoveFromPendingList}

@@ -33,7 +33,7 @@ const ScheduleCalendar = ({ markSelectedDates, getActiveMonth }: Props) => {
         }}
         tileClassName={({ date }) => markSelectedDates(date, selectedDates)}
         onActiveStartDateChange={({ activeStartDate }) =>
-          getActiveMonth(activeStartDate)
+          getActiveMonth(activeStartDate as Date)
         }
       />
     </StyledCalendarWrapper>

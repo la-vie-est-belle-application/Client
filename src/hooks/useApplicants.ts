@@ -9,27 +9,26 @@ import { APPLICANTS_ACTION_TYPE } from "@reducers/applicantsReducer";
 import useSelectedDateStore from "@stores/useSelectedDateStore";
 
 const useApplicants = () => {
-  const selectedDate = useSelectedDateStore((state) => state.selectedDate);
+  const { selectedDate } = useSelectedDateStore();
   const applicantsQuery = useGetApplicants(selectedDate);
-  const applicantsStore = useApplicantsStore();
-  const temporaryApplicantsStore = useTemporaryApplicantsStore();
+  const { updateApplicants } = useApplicantsStore();
+  const { updateTemporaryApplicants } = useTemporaryApplicantsStore();
 
   useEffect(() => {
-    if (!selectedDate) return;
-    if (!applicantsQuery.data) return;
+    if (!selectedDate || !applicantsQuery.data) return;
 
-    applicantsStore.dispatch({
+    updateApplicants({
       type: APPLICANTS_ACTION_TYPE.UPDATE,
       payload: applicantsQuery.data.data,
     });
   }, [selectedDate]);
 
   const handleApplicants = (action: ApplicantsAction) => {
-    applicantsStore.dispatch(action);
+    updateApplicants(action);
   };
 
   const handleTemporaryApplicants = (action: ApplicantsAction) => {
-    temporaryApplicantsStore.dispatch(action);
+    updateTemporaryApplicants(action);
   };
 
   return {

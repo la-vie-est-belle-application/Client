@@ -1,5 +1,4 @@
-import { useCallback, useEffect, useReducer } from "react";
-import { initialWorkTime, workTimeReducer } from "@reducers/workTimeReducer";
+import { useCallback, useEffect } from "react";
 import { SCHEDULE_LIST_ACTION_TYPE } from "@reducers/scheduleListReducer";
 import { APPLICANTS_ACTION_TYPE } from "@reducers/applicantsReducer";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
@@ -20,42 +19,36 @@ import {
   useScheduleListStore,
   useTemporaryScheduleListStore,
 } from "@stores/useScheduleListStore";
+import { useGetSchedule } from "./queries/queries";
+import { log } from "@utils/log";
 
 const useSchedule = () => {
-  const { handleApplicants, handleTemporaryApplicants } = useApplicants();
-  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const location = useLocation();
+  const [searchParams] = useSearchParams();
+  const { handleApplicants, handleTemporaryApplicants } = useApplicants();
   const activeMonthParams = searchParams.get("activeMonth");
   const dateParams = searchParams.get("date");
-  const applicants = useApplicantsStore((state) => state.applicants);
-  const temporaryApplicants = useTemporaryApplicantsStore(
-    (state) => state.temporaryApplicants,
-  );
-  const updateIsOpenDetail = useIsOpenDetailStore(
-    (state) => state.updateIsOpenDetail,
-  );
-  const selectedRole = useSelectedRoleStore((state) => state.selectedRole);
-  const [workTime, onUpdateWorkTime] = useReducer(
-    workTimeReducer,
-    initialWorkTime,
-  );
-
-  const scheduleList = useScheduleListStore((state) => state.scheduleList);
-  const updateScheduleList = useScheduleListStore((state) => state.dispatch);
-  const temporaryScheduleList = useTemporaryScheduleListStore(
-    (state) => state.temporaryScheduleList,
-  );
-  const updateTemporaryScheduleList = useTemporaryScheduleListStore(
-    (state) => state.dispatch,
-  );
-  const updateSelectedDate = useSelectedDateStore(
-    (state) => state.updateSelectedDate,
-  );
+  const { applicants } = useApplicantsStore();
+  const { selectedDate, updateSelectedDate } = useSelectedDateStore();
+  const { updateIsOpenDetail } = useIsOpenDetailStore();
+  const { selectedRole } = useSelectedRoleStore();
+  const { temporaryApplicants } = useTemporaryApplicantsStore();
+  const { temporaryScheduleList, updateTemporaryScheduleList } =
+    useTemporaryScheduleListStore();
+  const { scheduleList, updateScheduleList } = useScheduleListStore();
+  const getScheduleQuery = useGetSchedule(selectedDate);
 
   useEffect(() => {
-    if (!dateParams) updateIsOpenDetail(false);
-    console.log(scheduleList);
+    if (!selectedDate) return;
+    log(getScheduleQuery.data);
+  }, [selectedDate]);
+
+  useEffect(() => {
+    if (!dateParams) {
+      return updateIsOpenDetail(false);
+    }
+    log(scheduleList);
   }, [dateParams]);
 
   const handleNavigateToScheduleDetail = (date: SelectedDate) => {
@@ -160,6 +153,7 @@ const useSchedule = () => {
     onClose && onClose();
   };
 
+  // 테스트 중
   const createSchedule = async (selectedDates: SelectedDates) => {
     try {
       const response = await SCHEDULE_API.createSchedule(selectedDates);
@@ -177,9 +171,6 @@ const useSchedule = () => {
   };
 
   return {
-    onUpdateWorkTime,
-    workTime,
-    selectedRole,
     handleAddToPendingList,
     handleRemoveFromPendingList,
     saveScheduleChanges,

@@ -12,30 +12,15 @@ import {
   UseDisclosureProps,
 } from "@chakra-ui/react";
 import { HOURS, MINUTES } from "@constants/time";
-import {
-  Hours,
-  Minutes,
-  WorkTime,
-  WorkTimeTuple,
-  WorkTimeTypes,
-} from "@interfaces/schedule";
 import { WorkTimeActionTypes } from "@reducers/workTimeReducer";
+import { useWorkTimeStore } from "@stores/useWorktimeStore";
 import { useState } from "react";
+import { Hours, Minutes, WorkTimeTuple } from "src/types/schedule";
 
-interface Props extends Partial<UseDisclosureProps> {
-  workTime: WorkTime;
-  onUpdateWorkTime: (action: {
-    type: WorkTimeTypes;
-    payload: WorkTimeTuple;
-  }) => void;
-}
+interface Props extends Partial<UseDisclosureProps> {}
 
-const ScheduleWorkTimeModal = ({
-  isOpen,
-  onClose,
-  workTime,
-  onUpdateWorkTime,
-}: Props) => {
+const ScheduleWorkTimeModal = ({ isOpen, onClose }: Props) => {
+  const { workTime, updateWorkTime } = useWorkTimeStore();
   const { startTime, endTime, type } = workTime;
 
   const isStartTime = type === WorkTimeActionTypes.START_TIME;
@@ -58,7 +43,7 @@ const ScheduleWorkTimeModal = ({
   const onHandleSave = () => {
     const updatedTime: WorkTimeTuple = [selectedHour, selectedMinute];
 
-    onUpdateWorkTime({
+    updateWorkTime({
       type: isStartTime
         ? WorkTimeActionTypes.START_TIME
         : WorkTimeActionTypes.END_TIME,

@@ -7,10 +7,10 @@ import { create } from "zustand";
 
 export const useApplicantsStore = create<{
   applicants: Applicants;
-  dispatch: (action: ApplicantsAction) => void;
+  updateApplicants: (action: ApplicantsAction) => void;
 }>((set) => ({
   applicants: INITIAL_APPLICANTS,
-  dispatch: (action: ApplicantsAction) =>
+  updateApplicants: (action: ApplicantsAction) =>
     set((state) => ({
       applicants: applicantsReducer(state.applicants, action),
     })),
@@ -18,10 +18,10 @@ export const useApplicantsStore = create<{
 
 export const useTemporaryApplicantsStore = create<{
   temporaryApplicants: Applicants;
-  dispatch: (action: ApplicantsAction) => void;
+  updateTemporaryApplicants: (action: ApplicantsAction) => void;
 }>((set) => ({
   temporaryApplicants: INITIAL_APPLICANTS,
-  dispatch: (action: ApplicantsAction) =>
+  updateTemporaryApplicants: (action: ApplicantsAction) =>
     set((state) => ({
       temporaryApplicants: applicantsReducer(state.temporaryApplicants, action),
     })),
