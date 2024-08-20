@@ -37,12 +37,7 @@ const useSchedule = () => {
   const { temporaryScheduleList, updateTemporaryScheduleList } =
     useTemporaryScheduleListStore();
   const { scheduleList, updateScheduleList } = useScheduleListStore();
-  const getScheduleQuery = useGetSchedule(selectedDate);
-
-  useEffect(() => {
-    if (!selectedDate) return;
-    log(getScheduleQuery.data);
-  }, [selectedDate]);
+  const { data: scheduleData } = useGetSchedule(activeMonthParams);
 
   useEffect(() => {
     if (!dateParams) {

@@ -6,7 +6,7 @@ export const AUTH_API = {
   signIn: async (params: string) => {
     try {
       const response = await API.get<User>(`${env.signInURL}/${params}`);
-      return response;
+      return response.data;
     } catch (error) {
       handleApiError(error);
     }

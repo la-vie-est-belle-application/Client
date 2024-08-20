@@ -11,11 +11,7 @@ interface Props {
 }
 
 const ScheduleCalendar = ({ markSelectedDates, getActiveMonth }: Props) => {
-  const updateSelectedDates = useSelectedDatesStore(
-    (state) => state.updateSelectedDates,
-  );
-
-  const selectedDates = useSelectedDatesStore((state) => state.selectedDates);
+  const { selectedDates, updateSelectedDates } = useSelectedDatesStore();
 
   return (
     <StyledCalendarWrapper>
@@ -31,7 +27,9 @@ const ScheduleCalendar = ({ markSelectedDates, getActiveMonth }: Props) => {
         formatDay={(locale = "en", date) => {
           return date.toLocaleString(locale, { day: "numeric" });
         }}
-        tileClassName={({ date }) => markSelectedDates(date, selectedDates)}
+        tileClassName={({ date }) => {
+          return markSelectedDates(date, selectedDates);
+        }}
         onActiveStartDateChange={({ activeStartDate }) =>
           getActiveMonth(activeStartDate as Date)
         }
@@ -146,6 +144,10 @@ export const StyledCalendarWrapper = styled.div`
     height: 2rem;
     border-radius: 50%;
     background-color: ${THEME_COLORS.gray400};
+  }
+
+  .exist {
+    color: red;
   }
 `;
 

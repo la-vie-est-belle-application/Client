@@ -15,11 +15,12 @@ const useApplicants = () => {
   const { updateTemporaryApplicants } = useTemporaryApplicantsStore();
 
   useEffect(() => {
-    if (!selectedDate || !applicantsQuery.data) return;
+    if (!selectedDate) return;
+    if (!applicantsQuery.data) return;
 
     updateApplicants({
       type: APPLICANTS_ACTION_TYPE.UPDATE,
-      payload: applicantsQuery.data.data,
+      payload: applicantsQuery.data,
     });
   }, [selectedDate]);
 

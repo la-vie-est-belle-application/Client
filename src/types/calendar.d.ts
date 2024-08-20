@@ -9,5 +9,5 @@ export type SetSelectedDate = React.Dispatch<
 export type MarkSelectedDates = (
   date: Date,
   selectedDates: SelectedDates,
-) => "highlight" | "";
+) => "highlight" | "exist" | "";
 export type GetActiveMonth = (activeMonth: SelectedDate) => void;
