@@ -19,7 +19,7 @@ import {
   useScheduleListStore,
   useTemporaryScheduleListStore,
 } from "@stores/useScheduleListStore";
-import { useGetSchedule } from "./queries/queries";
+import { useGetSchedule } from "./queries";
 import { log } from "@utils/log";
 
 const useSchedule = () => {

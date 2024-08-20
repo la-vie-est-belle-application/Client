@@ -1,17 +1,13 @@
 import { THEME_COLORS } from "@constants/color.ts";
+import useCalendar from "@hooks/useCalendar";
 import useSelectedDatesStore from "@stores/useSelectedDatesStore";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import { GetActiveMonth, MarkSelectedDates } from "src/types/calendar";
 import styled from "styled-components";
 
-interface Props {
-  markSelectedDates: MarkSelectedDates;
-  getActiveMonth: GetActiveMonth;
-}
-
-const ScheduleCalendar = ({ markSelectedDates, getActiveMonth }: Props) => {
+const ScheduleCalendar = () => {
   const { selectedDates, updateSelectedDates } = useSelectedDatesStore();
+  const { markCalendarDates, getActiveMonth } = useCalendar();
 
   return (
     <StyledCalendarWrapper>
@@ -28,7 +24,7 @@ const ScheduleCalendar = ({ markSelectedDates, getActiveMonth }: Props) => {
           return date.toLocaleString(locale, { day: "numeric" });
         }}
         tileClassName={({ date }) => {
-          return markSelectedDates(date, selectedDates);
+          return markCalendarDates(date, selectedDates);
         }}
         onActiveStartDateChange={({ activeStartDate }) =>
           getActiveMonth(activeStartDate as Date)
@@ -148,6 +144,7 @@ export const StyledCalendarWrapper = styled.div`
 
   .exist {
     color: red;
+    width: 500px;
   }
 `;
 
