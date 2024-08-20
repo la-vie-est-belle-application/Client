@@ -1,23 +1,21 @@
 import { env } from "@constants/url";
 import { API, handleApiError } from "..";
-import { AxiosResponse } from "axios";
-import { SelectedDate, SelectedDates } from "src/types/calendar";
-import { ScheduleList } from "src/types/schedule";
+import { SelectedDates } from "src/types/calendar";
 
 export const SCHEDULE_API = {
-  createSchedule: async <ScheduleList>(dates: SelectedDates) => {
+  createSchedule: async (dates: SelectedDates) => {
     try {
-      const response: AxiosResponse<ScheduleList> =
-        await API.post<ScheduleList>(env.scheduleURL, dates);
-      return response;
+      await API.post(env.createScheduleURL, dates);
     } catch (error) {
       handleApiError(error);
     }
   },
-  getSchedule: async (date: SelectedDate) => {
+  getSchedule: async (activeMonth: string | null) => {
     try {
-      const response = API.get<ScheduleList>(env.scheduleURL, { params: date });
-      return response;
+      const response = await API.get<string[]>(env.scheduleURL, {
+        params: { activeMonth },
+      });
+      return response.data;
     } catch (error) {
       handleApiError(error);
     }

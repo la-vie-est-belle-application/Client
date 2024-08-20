@@ -6,9 +6,11 @@ import { env } from "@constants/url";
 export const APPLICANTS_API = {
   getApplicants: async (date: SelectedDate) => {
     try {
-      const response = API.get<Applicants>(`${env.applicantsURL}/${date}`);
+      const response = await API.get<Applicants>(
+        `${env.applicantsURL}/${date}`,
+      );
 
-      return response;
+      return response.data;
     } catch (error) {
       handleApiError(error);
     }

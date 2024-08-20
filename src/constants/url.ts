@@ -4,4 +4,5 @@ export const env = {
   signInURL: import.meta.env.VITE_SIGN_IN_URL,
   applicantsURL: import.meta.env.VITE_APPLICANTS_URL,
   scheduleURL: import.meta.env.VITE_SCHEDULE_URL,
+  createScheduleURL: import.meta.env.VITE_CREATE_SCHEDULE_URL,
 };

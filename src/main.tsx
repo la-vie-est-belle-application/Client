@@ -3,12 +3,11 @@ import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./main.css";
 import { BrowserRouter } from "react-router-dom";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ChakraProvider } from "@chakra-ui/react";
 import ScrollToTop from "@components/ScrollToTop/ScrollToTop.tsx";
-
-const queryClient = new QueryClient();
+import { queryClient } from "@constants/query.ts";
 
 const IS_DEVELOPMENT_MODE = import.meta.env.VITE_IS_DEVELOPMENT_MODE === "true";
 
