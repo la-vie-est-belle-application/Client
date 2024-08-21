@@ -1,26 +1,42 @@
-import { ROUTES } from "@constants/routes";
+import { useActiveMonthStore } from "@stores/useActiveMonthStore";
 import { format } from "date-fns";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { SelectedDate, SelectedDates } from "src/types/calendar";
 
 const useCalendar = () => {
-  const navigate = useNavigate();
-  const currentMonth = format(new Date(), "yyyyMM");
-  const [activeMonth, setActiveMonth] = useState<string>(currentMonth);
+  const { setActiveMonth } = useActiveMonthStore();
+  const [selectedDates, setSelectedDates] = useState<SelectedDates>([]);
 
-  useEffect(() => {
-    navigate(`${ROUTES.REGISTER}?activeMonth=${activeMonth}`, {
-      replace: true,
-    });
-  }, [activeMonth]);
+  const handleSelectedDates = (date: SelectedDate | null) => {
+    if (!date || !selectedDates) {
+      return selectedDates;
+    }
 
-  const markSelectedDates = (date: Date, selectedDates: SelectedDates) => {
+    const isDuplicate = selectedDates.some(
+      (d) => d && d.getTime() === date.getTime(),
+    );
+
+    const newDates = isDuplicate
+      ? selectedDates.filter((d) => d && d.getTime() !== date.getTime())
+      : [...selectedDates, date].sort((a, b) =>
+          a && b ? a.getTime() - b.getTime() : 0,
+        );
+
+    setSelectedDates(newDates);
+  };
+
+  const markCalendarDates = (
+    date: Date,
+    selectedDates: SelectedDates | null,
+  ) => {
+    if (!selectedDates) return;
+
     if (selectedDates.length > 0) {
       return selectedDates.some((d) => d && d.getTime() === date.getTime())
         ? "highlight"
         : "";
     }
+
     return "";
   };
 
@@ -32,8 +48,10 @@ const useCalendar = () => {
   };
 
   return {
-    markSelectedDates,
+    markCalendarDates,
     getActiveMonth,
+    selectedDates,
+    handleSelectedDates,
   };
 };
 

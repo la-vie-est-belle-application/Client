@@ -4,7 +4,7 @@ import {
 } from "@stores/useApplicantsStore";
 import { useEffect } from "react";
 import { ApplicantsAction } from "src/types/applicants";
-import { useGetApplicants } from "./queries/queries";
+import { useGetApplicants } from "./queries";
 import { APPLICANTS_ACTION_TYPE } from "@reducers/applicantsReducer";
 import useSelectedDateStore from "@stores/useSelectedDateStore";
 

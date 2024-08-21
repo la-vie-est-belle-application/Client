@@ -1,23 +1,36 @@
 import Header from "@layout/Header";
 import ScheduleCalendar from "../calendar/ScheduleCalendar";
-import useCalendar from "@hooks/useCalendar";
 import styled from "styled-components";
 import Container from "@components/Container/Container";
 import ScheduleRegisterButton from "./ScheduleRegisterButton";
 import ScheduleRegisterBody from "./ScheduleRegisterBody";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "@constants/routes";
+import { useActiveMonthStore } from "@stores/useActiveMonthStore";
+import useCalendar from "@hooks/useCalendar";
 
 const ScheduleRegister = () => {
-  const { markSelectedDates, getActiveMonth } = useCalendar();
+  const navigate = useNavigate();
+  const { activeMonth } = useActiveMonthStore();
+  const { selectedDates, handleSelectedDates } = useCalendar();
+
+  useEffect(() => {
+    navigate(`${ROUTES.REGISTER}?activeMonth=${activeMonth}`, {
+      replace: true,
+    });
+  }, [activeMonth, navigate]);
+
   return (
     <StyledContainer>
       <Header title="일정 등록" />
       <Container>
-        <ScheduleRegisterButton />
+        <ScheduleRegisterButton selectedDates={selectedDates} />
         <ScheduleCalendar
-          markSelectedDates={markSelectedDates}
-          getActiveMonth={getActiveMonth}
+          selectedDates={selectedDates}
+          handleSelectedDates={handleSelectedDates}
         />
-        <ScheduleRegisterBody />
+        <ScheduleRegisterBody selectedDates={selectedDates} />
       </Container>
     </StyledContainer>
   );

@@ -5,7 +5,7 @@ const useSelectedDateStore = create<{
   selectedDate: SelectedDate;
   updateSelectedDate: (date: SelectedDate) => void;
 }>((set) => ({
-  selectedDate: undefined,
+  selectedDate: null,
   updateSelectedDate: (selectedDate) => set(() => ({ selectedDate })),
 }));
 

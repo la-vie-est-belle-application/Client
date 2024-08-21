@@ -5,7 +5,6 @@ const allSchedules = new Map();
 
 export const getScheduleHandler = http.get(`${env.scheduleURL}`, () => {
   const schedulesArray = Array.from(allSchedules.values());
-
   return HttpResponse.json(schedulesArray, { status: 200 });
 });
 

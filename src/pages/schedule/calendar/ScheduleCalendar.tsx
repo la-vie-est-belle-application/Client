@@ -1,26 +1,26 @@
 import { THEME_COLORS } from "@constants/color.ts";
-import useSelectedDatesStore from "@stores/useSelectedDatesStore";
+import useCalendar from "@hooks/useCalendar";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import { GetActiveMonth, MarkSelectedDates } from "src/types/calendar";
+import { SelectedDates } from "src/types/calendar";
 import styled from "styled-components";
 
 interface Props {
-  markSelectedDates: MarkSelectedDates;
-  getActiveMonth: GetActiveMonth;
+  selectedDates: SelectedDates | null;
+  handleSelectedDates: (date: Date | null) => void;
 }
 
-const ScheduleCalendar = ({ markSelectedDates, getActiveMonth }: Props) => {
-  const { selectedDates, updateSelectedDates } = useSelectedDatesStore();
+const ScheduleCalendar = ({ selectedDates, handleSelectedDates }: Props) => {
+  const { markCalendarDates, getActiveMonth } = useCalendar();
 
   return (
     <StyledCalendarWrapper>
       <Calendar
         onChange={(date) => {
-          updateSelectedDates(date as Date);
+          handleSelectedDates(date as Date);
         }}
-        calendarType="gregory"
-        showNeighboringMonth={false}
+        calendarType="iso8601"
+        showNeighboringMonth={true}
         next2Label={null}
         prev2Label={null}
         minDetail="year"
@@ -28,7 +28,7 @@ const ScheduleCalendar = ({ markSelectedDates, getActiveMonth }: Props) => {
           return date.toLocaleString(locale, { day: "numeric" });
         }}
         tileClassName={({ date }) => {
-          return markSelectedDates(date, selectedDates);
+          return markCalendarDates(date, selectedDates);
         }}
         onActiveStartDateChange={({ activeStartDate }) =>
           getActiveMonth(activeStartDate as Date)
@@ -131,6 +131,7 @@ export const StyledCalendarWrapper = styled.div`
   .highlight abbr {
     position: relative;
     z-index: 3;
+    color: ${THEME_COLORS.white};
   }
 
   .highlight::after {
@@ -143,11 +144,16 @@ export const StyledCalendarWrapper = styled.div`
     width: 2rem;
     height: 2rem;
     border-radius: 50%;
-    background-color: ${THEME_COLORS.gray400};
+    background-color: ${THEME_COLORS.purple200};
   }
 
   .exist {
     color: red;
+    width: 500px;
+  }
+
+  .react-calendar__month-view__days__day--neighboringMonth {
+    opacity: 0.4;
   }
 `;
 
