@@ -1,19 +1,23 @@
 import { THEME_COLORS } from "@constants/color.ts";
 import useCalendar from "@hooks/useCalendar";
-import useSelectedDatesStore from "@stores/useSelectedDatesStore";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import { SelectedDates } from "src/types/calendar";
 import styled from "styled-components";
 
-const ScheduleCalendar = () => {
-  const { selectedDates, updateSelectedDates } = useSelectedDatesStore();
+interface Props {
+  selectedDates: SelectedDates | null;
+  handleSelectedDates: (date: Date | null) => void;
+}
+
+const ScheduleCalendar = ({ selectedDates, handleSelectedDates }: Props) => {
   const { markCalendarDates, getActiveMonth } = useCalendar();
 
   return (
     <StyledCalendarWrapper>
       <Calendar
         onChange={(date) => {
-          updateSelectedDates(date as Date);
+          handleSelectedDates(date as Date);
         }}
         calendarType="iso8601"
         showNeighboringMonth={true}

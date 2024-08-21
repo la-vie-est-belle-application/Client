@@ -1,14 +1,19 @@
 import { Button, Stack } from "@chakra-ui/react";
 import { useCreateSchedule } from "@hooks/mutations";
-import useSelectedDatesStore from "@stores/useSelectedDatesStore";
 import { useEffect, useState } from "react";
+import { SelectedDates } from "src/types/calendar";
 
-const ScheduleRegisterButton = () => {
+interface Props {
+  selectedDates: SelectedDates | null;
+}
+
+const ScheduleRegisterButton = ({ selectedDates }: Props) => {
   const [isNotClickable, setIsNotClickable] = useState(true);
-  const { selectedDates } = useSelectedDatesStore();
   const createScheduleMutation = useCreateSchedule();
 
   useEffect(() => {
+    if (!selectedDates) return;
+
     if (selectedDates.length > 0) {
       setIsNotClickable(false);
     } else {
@@ -28,7 +33,7 @@ const ScheduleRegisterButton = () => {
         colorScheme="purple"
         isDisabled={isNotClickable}
         onClick={() => {
-          createScheduleMutation.mutate(selectedDates);
+          selectedDates && createScheduleMutation.mutate(selectedDates);
         }}
       >
         등록

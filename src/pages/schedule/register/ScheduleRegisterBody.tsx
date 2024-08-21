@@ -3,9 +3,14 @@ import ScheduleDetail from "../detail/ScheduleDetail";
 import { Stack } from "@chakra-ui/react";
 import ScheduleRegisterItem from "./ScheduleRegisterItem";
 import useIsOpenDetailStore from "@stores/useIsOpenDetailStore";
+import { SelectedDates } from "src/types/calendar";
 
-const ScheduleRegisterBody = () => {
-  const isOpenDetail = useIsOpenDetailStore((state) => state.isOpenDetail);
+interface Props {
+  selectedDates: SelectedDates | null;
+}
+
+const ScheduleRegisterBody = ({ selectedDates }: Props) => {
+  const { isOpenDetail } = useIsOpenDetailStore();
   return (
     <Stack
       flexDirection={"column"}
@@ -16,7 +21,7 @@ const ScheduleRegisterBody = () => {
       backgroundColor={THEME_COLORS.gray100}
       minHeight={"30rem"}
     >
-      <ScheduleRegisterItem />
+      <ScheduleRegisterItem selectedDates={selectedDates} />
       {isOpenDetail && <ScheduleDetail />}
     </Stack>
   );

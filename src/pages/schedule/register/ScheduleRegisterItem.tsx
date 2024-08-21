@@ -1,15 +1,18 @@
-import useSelectedDatesStore from "@stores/useSelectedDatesStore";
 import ScheduleItem from "../scheduleItem/ScheduleItem";
 import NoScheduleItem from "@components/NoScheduleItem/NoScheduleItem";
 import useSchedule from "@hooks/useSchedule";
+import { SelectedDates } from "src/types/calendar";
 
-const ScheduleRegisterItem = () => {
-  const selectedDates = useSelectedDatesStore((state) => state.selectedDates);
+interface Props {
+  selectedDates: SelectedDates | null;
+}
+
+const ScheduleRegisterItem = ({ selectedDates }: Props) => {
   const { handleClickScheduleItem } = useSchedule();
 
   return (
     <>
-      {selectedDates.length > 0 ? (
+      {selectedDates && selectedDates.length > 0 ? (
         selectedDates.map((date, idx) => (
           <ScheduleItem
             selectedDate={date}

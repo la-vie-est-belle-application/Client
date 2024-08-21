@@ -8,10 +8,12 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@constants/routes";
 import { useActiveMonthStore } from "@stores/useActiveMonthStore";
+import useCalendar from "@hooks/useCalendar";
 
 const ScheduleRegister = () => {
   const navigate = useNavigate();
   const { activeMonth } = useActiveMonthStore();
+  const { selectedDates, handleSelectedDates } = useCalendar();
 
   useEffect(() => {
     navigate(`${ROUTES.REGISTER}?activeMonth=${activeMonth}`, {
@@ -23,9 +25,12 @@ const ScheduleRegister = () => {
     <StyledContainer>
       <Header title="일정 등록" />
       <Container>
-        <ScheduleRegisterButton />
-        <ScheduleCalendar />
-        <ScheduleRegisterBody />
+        <ScheduleRegisterButton selectedDates={selectedDates} />
+        <ScheduleCalendar
+          selectedDates={selectedDates}
+          handleSelectedDates={handleSelectedDates}
+        />
+        <ScheduleRegisterBody selectedDates={selectedDates} />
       </Container>
     </StyledContainer>
   );

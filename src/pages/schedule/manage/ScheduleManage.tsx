@@ -4,11 +4,11 @@ import ScheduleCalendar from "../calendar/ScheduleCalendar";
 import ScheduleItem from "../scheduleItem/ScheduleItem";
 import NoScheduleItem from "@components/NoScheduleItem/NoScheduleItem";
 import { THEME_COLORS } from "@constants/color";
-import useSelectedDatesStore from "@stores/useSelectedDatesStore";
 import Container from "@components/Container/Container";
+import useCalendar from "@hooks/useCalendar";
 
 const ScheduleManage = () => {
-  const { selectedDates } = useSelectedDatesStore();
+  const { selectedDates } = useCalendar();
 
   return (
     <StyledContainer>
@@ -16,7 +16,7 @@ const ScheduleManage = () => {
       <Container>
         <ScheduleCalendar />
         <StyledSelectedScheduleItemWrap>
-          {selectedDates.length > 0 ? (
+          {selectedDates && selectedDates.length > 0 ? (
             <>
               {selectedDates.map((date, index) => (
                 <ScheduleItem key={index} selectedDate={date} />
