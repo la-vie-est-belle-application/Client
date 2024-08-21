@@ -14,7 +14,7 @@ const ScheduleRegisterItem = () => {
           <ScheduleItem
             selectedDate={date}
             key={idx}
-            onClick={() => handleClickScheduleItem(date)}
+            onClick={handleClickScheduleItem}
           />
         ))
       ) : (

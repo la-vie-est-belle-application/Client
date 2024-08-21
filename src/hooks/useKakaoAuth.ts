@@ -6,7 +6,7 @@ import { useSearchParams } from "react-router-dom";
 const useKakaoAuth = () => {
   const [searchParams] = useSearchParams();
   const kakaoCodeParams = searchParams.get("code");
-  const { isLoggedIn, setIsLoggedIn } = useAuthStore();
+  const { isLoggedIn } = useAuthStore();
 
   useEffect(() => {
     if (!kakaoCodeParams) {
@@ -16,7 +16,7 @@ const useKakaoAuth = () => {
     const fetchData = async () => {
       try {
         const response = await AUTH_API.signIn(kakaoCodeParams);
-        const userData = response?.data;
+        const userData = response;
         sessionStorage.setItem("user", JSON.stringify(userData));
       } catch (e) {
         console.error(e);
@@ -25,11 +25,6 @@ const useKakaoAuth = () => {
 
     fetchData();
   }, [kakaoCodeParams]);
-
-  useEffect(() => {
-    const userSession = sessionStorage.getItem("user");
-    setIsLoggedIn(!!userSession);
-  }, [isLoggedIn]);
 
   const handleKakaoSignin = () => {
     const REDIRECT_URI = import.meta.env.VITE_KAKAO_REDIRECT_URI;

@@ -17,7 +17,7 @@ const ScheduleRegister = () => {
     navigate(`${ROUTES.REGISTER}?activeMonth=${activeMonth}`, {
       replace: true,
     });
-  }, [activeMonth]);
+  }, [activeMonth, navigate]);
 
   return (
     <StyledContainer>

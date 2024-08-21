@@ -5,6 +5,7 @@ import ScheduleItem from "../scheduleItem/ScheduleItem";
 import NoScheduleItem from "@components/NoScheduleItem/NoScheduleItem";
 import { THEME_COLORS } from "@constants/color";
 import useSelectedDatesStore from "@stores/useSelectedDatesStore";
+import Container from "@components/Container/Container";
 
 const ScheduleManage = () => {
   const { selectedDates } = useSelectedDatesStore();
@@ -12,18 +13,20 @@ const ScheduleManage = () => {
   return (
     <StyledContainer>
       <Header title="일정 관리" />
-      <ScheduleCalendar />
-      <StyledSelectedScheduleItemWrap>
-        {selectedDates.length > 0 ? (
-          <>
-            {selectedDates.map((date, index) => (
-              <ScheduleItem key={index} selectedDate={date} />
-            ))}
-          </>
-        ) : (
-          <NoScheduleItem>등록된 스케줄이 없습니다</NoScheduleItem>
-        )}
-      </StyledSelectedScheduleItemWrap>
+      <Container>
+        <ScheduleCalendar />
+        <StyledSelectedScheduleItemWrap>
+          {selectedDates.length > 0 ? (
+            <>
+              {selectedDates.map((date, index) => (
+                <ScheduleItem key={index} selectedDate={date} />
+              ))}
+            </>
+          ) : (
+            <NoScheduleItem>등록된 스케줄이 없습니다</NoScheduleItem>
+          )}
+        </StyledSelectedScheduleItemWrap>
+      </Container>
     </StyledContainer>
   );
 };
@@ -31,7 +34,7 @@ const ScheduleManage = () => {
 export default ScheduleManage;
 
 const StyledContainer = styled.div`
-  height: 100vh;
+  min-height: 100vh;
 `;
 
 const StyledSelectedScheduleItemWrap = styled.div`

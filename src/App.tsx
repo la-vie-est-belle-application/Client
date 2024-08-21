@@ -16,13 +16,13 @@ function App() {
       <BackGroundBlur />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/signin" element={<SignIn />} />
         <Route path="/*" element={<NotFound />}></Route>
+        <Route path="/signin" element={<SignIn />} />
         <Route element={<ProtectedRoute />}>
           <Route path="/notice" element={<Notice />} />
           <Route path="/schedule/manage" element={<ScheduleManage />} />
           <Route path="/schedule/register" element={<ScheduleRegister />} />
-          <Route path="/schedule/search" element={<ScheduleView />}></Route>
+          <Route path="/schedule/search" element={<ScheduleView />} />
         </Route>
       </Routes>
     </>
