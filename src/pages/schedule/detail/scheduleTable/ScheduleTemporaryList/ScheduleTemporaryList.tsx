@@ -1,18 +1,18 @@
 import { Stack, Text } from "@chakra-ui/react";
 import NameTagWithClose from "@components/NameTagWithClose/NameTagWithClose";
-import { useTemporaryScheduleListStore } from "@stores/useScheduleListStore";
 import useSelectedRoleStore from "@stores/useSelectedRoleStore";
-import { HandleRemoveFromPendingList } from "src/types/schedule";
+import { HandleRemoveFromPendingList, ScheduleList } from "src/types/schedule";
 
 interface Props {
+  temporaryScheduleList: ScheduleList;
   handleRemoveFromPendingList: HandleRemoveFromPendingList;
 }
 
-const ScheduleTemporaryList = ({ handleRemoveFromPendingList }: Props) => {
+const ScheduleTemporaryList = ({
+  handleRemoveFromPendingList,
+  temporaryScheduleList,
+}: Props) => {
   const selectedRole = useSelectedRoleStore((state) => state.selectedRole);
-  const temporaryScheduleList = useTemporaryScheduleListStore(
-    (state) => state.temporaryScheduleList,
-  );
 
   if (!selectedRole) return;
 

@@ -8,13 +8,16 @@ import Container from "@components/Container/Container";
 import useCalendar from "@hooks/useCalendar";
 
 const ScheduleManage = () => {
-  const { selectedDates } = useCalendar();
+  const { selectedDates, handleSelectedDates } = useCalendar();
 
   return (
     <StyledContainer>
       <Header title="일정 관리" />
       <Container>
-        <ScheduleCalendar />
+        <ScheduleCalendar
+          selectedDates={selectedDates}
+          handleSelectedDates={handleSelectedDates}
+        />
         <StyledSelectedScheduleItemWrap>
           {selectedDates && selectedDates.length > 0 ? (
             <>

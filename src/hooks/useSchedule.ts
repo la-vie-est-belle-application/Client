@@ -1,5 +1,9 @@
-import { useCallback, useEffect } from "react";
-import { SCHEDULE_LIST_ACTION_TYPE } from "@reducers/scheduleListReducer";
+import { useCallback, useEffect, useReducer } from "react";
+import {
+  INITIAL_SCHEDULE_LIST,
+  SCHEDULE_LIST_ACTION_TYPE,
+  scheduleListReducer,
+} from "@reducers/scheduleListReducer";
 import { APPLICANTS_ACTION_TYPE } from "@reducers/applicantsReducer";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { formatDateToYYYYMMDD } from "@utils/formatDate";
@@ -8,43 +12,50 @@ import { SelectedDate, SelectedDates } from "src/types/calendar";
 import { AppliedScheduleUser } from "src/types/schedule";
 import { SCHEDULE_API } from "@api/schedule/schedule";
 import useApplicants from "./useApplicants";
-import {
-  useApplicantsStore,
-  useTemporaryApplicantsStore,
-} from "@stores/useApplicantsStore";
 import useIsOpenDetailStore from "@stores/useIsOpenDetailStore";
 import useSelectedRoleStore from "@stores/useSelectedRoleStore";
 import useSelectedDateStore from "@stores/useSelectedDateStore";
-import {
-  useScheduleListStore,
-  useTemporaryScheduleListStore,
-} from "@stores/useScheduleListStore";
-import { useGetSchedule } from "./queries";
-import { log } from "@utils/log";
+// import { useGetSchedule } from "./queries";
 
 const useSchedule = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [searchParams] = useSearchParams();
-  const { handleApplicants, handleTemporaryApplicants } = useApplicants();
   const activeMonthParams = searchParams.get("activeMonth");
   const dateParams = searchParams.get("date");
-  const { applicants } = useApplicantsStore();
-  const { selectedDate, updateSelectedDate } = useSelectedDateStore();
+  const { updateSelectedDate } = useSelectedDateStore();
   const { updateIsOpenDetail } = useIsOpenDetailStore();
   const { selectedRole } = useSelectedRoleStore();
-  const { temporaryApplicants } = useTemporaryApplicantsStore();
-  const { temporaryScheduleList, updateTemporaryScheduleList } =
-    useTemporaryScheduleListStore();
-  const { scheduleList, updateScheduleList } = useScheduleListStore();
-  const { data: scheduleData } = useGetSchedule(activeMonthParams);
+  // const { temporaryScheduleList, updateTemporaryScheduleList } =
+  //   useTemporaryScheduleListStore();
+  // const { scheduleList, updateScheduleList } = useScheduleListStore();
+  // const { data: scheduleData } = useGetSchedule(activeMonthParams);
+  const {
+    applicants,
+    temporaryApplicants,
+    handleApplicants,
+    handleTemporaryApplicants,
+  } = useApplicants();
+  const [scheduleList, updateScheduleList] = useReducer(
+    scheduleListReducer,
+    INITIAL_SCHEDULE_LIST,
+  );
+
+  const [temporaryScheduleList, updateTemporaryScheduleList] = useReducer(
+    scheduleListReducer,
+    INITIAL_SCHEDULE_LIST,
+  );
 
   useEffect(() => {
     if (!dateParams) {
       return updateIsOpenDetail(false);
     }
-    log(scheduleList);
   }, [dateParams]);
+
+  // useEffect(() => {
+  //   // console.log("applicants :", applicants);
+  //   console.log("temporaryApplicants :", temporaryApplicants);
+  // }, [temporaryApplicants]);
 
   const handleNavigateToScheduleDetail = (date: SelectedDate) => {
     const formatDate = formatDateToYYYYMMDD(date);
@@ -71,6 +82,7 @@ const useSchedule = () => {
           name: user.name,
         },
       });
+      console.log("tempApplicants : ", temporaryApplicants);
 
       handleApplicants({
         type: APPLICANTS_ACTION_TYPE.PENDING,
@@ -173,6 +185,8 @@ const useSchedule = () => {
     handleCloseScheduleDetail,
     createSchedule,
     handleClickScheduleItem,
+    scheduleList,
+    temporaryScheduleList,
   };
 };
 

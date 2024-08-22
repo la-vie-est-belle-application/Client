@@ -11,6 +11,7 @@ import { CloseIcon } from "@chakra-ui/icons";
 import { THEME_COLORS } from "@constants/color";
 import useSelectedDateStore from "@stores/useSelectedDateStore";
 import useIsOpenDetailStore from "@stores/useIsOpenDetailStore";
+import useApplicants from "@hooks/useApplicants";
 
 const ScheduleDetail = () => {
   const {
@@ -19,7 +20,11 @@ const ScheduleDetail = () => {
     saveScheduleChanges,
     handleOnClose,
     handleCloseScheduleDetail,
+    temporaryScheduleList,
+    scheduleList,
   } = useSchedule();
+
+  const { applicants } = useApplicants();
 
   const selectedDate = useSelectedDateStore();
   const isOpenDetail = useIsOpenDetailStore((state) => state.isOpenDetail);
@@ -53,6 +58,9 @@ const ScheduleDetail = () => {
         </Stack>
         <ScheduleWorkTime />
         <ScheduleTable
+          applicants={applicants}
+          scheduleList={scheduleList}
+          temporaryScheduleList={temporaryScheduleList}
           handleAddToPendingList={handleAddToPendingList}
           handleRemoveFromPendingList={handleRemoveFromPendingList}
           saveScheduleChanges={saveScheduleChanges}

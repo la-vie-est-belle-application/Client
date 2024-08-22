@@ -12,11 +12,14 @@ import { ROLES } from "@constants/role";
 
 import ScheduleTableModal from "./ScheduleTableModal";
 import NameTag from "@components/NameTag/NameTag";
-import { AppliedScheduleUser, Roles } from "src/types/schedule";
+import { AppliedScheduleUser, Roles, ScheduleList } from "src/types/schedule";
 import useSelectedRoleStore from "@stores/useSelectedRoleStore";
-import { useScheduleListStore } from "@stores/useScheduleListStore";
+import { Applicants } from "src/types/applicants";
 
 interface Props {
+  applicants: Applicants;
+  scheduleList: ScheduleList;
+  temporaryScheduleList: ScheduleList;
   handleAddToPendingList: (user: AppliedScheduleUser) => void;
   handleRemoveFromPendingList: (user: AppliedScheduleUser) => void;
   saveScheduleChanges: () => void;
@@ -24,6 +27,9 @@ interface Props {
 }
 
 const ScheduleTable = ({
+  applicants,
+  scheduleList,
+  temporaryScheduleList,
   handleAddToPendingList,
   handleRemoveFromPendingList,
   saveScheduleChanges,
@@ -34,7 +40,6 @@ const ScheduleTable = ({
   const updateSelectedRole = useSelectedRoleStore(
     (state) => state.updateSelectedRole,
   );
-  const scheduleList = useScheduleListStore((state) => state.scheduleList);
 
   return (
     <TableContainer>
@@ -78,6 +83,8 @@ const ScheduleTable = ({
       </Table>
       {isOpen && (
         <ScheduleTableModal
+          applicants={applicants}
+          temporaryScheduleList={temporaryScheduleList}
           isOpen={isOpen}
           onClose={onClose}
           handleAddToPendingList={handleAddToPendingList}

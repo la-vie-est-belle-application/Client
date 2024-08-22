@@ -1,15 +1,14 @@
 import { Stack, Text } from "@chakra-ui/react";
 import NameTag from "@components/NameTag/NameTag";
-import { useApplicantsStore } from "@stores/useApplicantsStore";
+import { Applicants } from "src/types/applicants";
 import { HandleAddToPendingList } from "src/types/schedule";
 
 interface Props {
+  applicants: Applicants;
   handleAddToPendingList: HandleAddToPendingList;
 }
 
-const ScheduleApplicants = ({ handleAddToPendingList }: Props) => {
-  const applicants = useApplicantsStore((state) => state.applicants);
-
+const ScheduleApplicants = ({ applicants, handleAddToPendingList }: Props) => {
   return (
     <Stack flexDir={"row"} flexWrap={"wrap"}>
       {applicants.applied.length > 0 ? (
