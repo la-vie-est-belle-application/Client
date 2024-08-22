@@ -1,8 +1,17 @@
-import { defineConfig } from "vite";
+import { defineConfig, InlineConfig, UserConfig } from "vite";
+
 import react from "@vitejs/plugin-react-swc";
+
+interface VitestConfigExport extends UserConfig {
+  test: InlineConfig;
+}
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  test: {
+    global: true,
+    environment: "jsdom",
+  },
   plugins: [react()],
   resolve: {
     alias: [
@@ -14,4 +23,4 @@ export default defineConfig({
       { find: "@shared", replacement: "/src/shared" },
     ],
   },
-});
+} as VitestConfigExport);
