@@ -1,9 +1,9 @@
 import { userHandlers } from "@entities/user";
-import { setupWorker } from "msw/browser";
+import { setupServer } from "msw/node";
 
 const handlers = [
   // @entities layer handlers
   ...userHandlers,
 ];
 
-export const worker = setupWorker(...handlers);
+export const server = setupServer(...handlers);
