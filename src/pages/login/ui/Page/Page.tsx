@@ -1,11 +1,12 @@
-import { useUser } from "@entities/user/model/useUser";
+import { Button } from "@chakra-ui/react";
+import { useLogin } from "@entities/login/model/useLogin";
 
 export function LoginPage() {
-  const { handleKakaoLogin } = useUser();
+  const { handleKakaoLogin } = useLogin();
 
   return (
-    <div>
-      <button onClick={() => handleKakaoLogin()}>카카오로 로그인하기</button>
-    </div>
+    <>
+      <Button onClick={handleKakaoLogin}>카카오로 로그인하기</Button>
+    </>
   );
 }

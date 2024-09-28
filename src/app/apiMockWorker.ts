@@ -1,9 +1,4 @@
-import { userHandlers } from "@entities/user";
-import { setupServer } from "msw/node";
+import { setupWorker } from "msw/browser";
+import { handlers } from "./apiMock";
 
-const handlers = [
-  // @entities layer handlers
-  ...userHandlers,
-];
-
-export const server = setupServer(...handlers);
+export const worker = setupWorker(...handlers);

@@ -13,8 +13,8 @@ const userDummyData: User = {
   confirm: true,
 };
 
-export const userHandlers = [
-  http.get(`${env.loginUrl}/:params`, () => {
+export const loginHandlers = [
+  http.get(`${env.kakaoLoginUrl}`, () => {
     return HttpResponse.json(userDummyData, { status: 200 });
   }),
 ];

@@ -1,10 +1,8 @@
 import { env } from "@shared/constants/env";
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 
-export const baseApi = axios.create({
+const config: AxiosRequestConfig = {
   baseURL: env.baseUrl,
-  timeout: 5000,
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
+};
+
+export const axiosInstance = axios.create(config);
