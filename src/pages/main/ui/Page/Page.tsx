@@ -1,3 +1,10 @@
+import { useAuth } from "@entities/login/hooks/useAuth";
+
 export function MainPage() {
-  return <div>Home</div>;
+  const userData = useAuth();
+  return (
+    <>
+      <div>{userData?.name}</div>
+    </>
+  );
 }

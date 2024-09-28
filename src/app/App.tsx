@@ -17,7 +17,8 @@ type AuthGuardProps = {
 };
 
 function AuthGuard({ children }: AuthGuardProps) {
-  const isLogin = useLoginStore((state) => state.isLogin);
+  const userData = sessionStorage.getItem("userData");
+  const isLogin = !!userData;
 
   if (!isLogin) {
     return <Navigate to={"/login"} />;

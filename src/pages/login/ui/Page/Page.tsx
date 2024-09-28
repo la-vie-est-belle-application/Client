@@ -1,12 +1,11 @@
 import { Button } from "@chakra-ui/react";
-import { useLogin } from "@entities/login/model/useLogin";
+import { useKakaoAuth } from "@entities/login/hooks/useKakaoAuth";
 
 export function LoginPage() {
-  const { handleKakaoLogin } = useLogin();
-
+  const { getKakaoUserData } = useKakaoAuth();
   return (
     <>
-      <Button onClick={handleKakaoLogin}>카카오로 로그인하기</Button>
+      <Button onClick={() => getKakaoUserData()}>카카오로 로그인하기</Button>
     </>
   );
 }
