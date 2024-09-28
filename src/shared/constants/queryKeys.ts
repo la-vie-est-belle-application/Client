@@ -1,3 +1,3 @@
 export const queryKeys = {
-  kakaoAuth: "kakaoAuth",
+  auth: "auth-key",
 };

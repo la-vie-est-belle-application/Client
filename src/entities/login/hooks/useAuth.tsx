@@ -1,15 +1,34 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
-import { User } from "@shared/types/user";
-
-const userData = sessionStorage.getItem("userData");
+import { useToast } from "@chakra-ui/react";
+import { useQueryClient } from "@tanstack/react-query";
+import { queryKeys } from "@shared/constants/queryKeys";
+import { useNavigate } from "react-router-dom";
 
 export const useAuth = () => {
-  const [user, setUser] = useState<User | null>(null);
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+
+  const userData = queryClient.getQueryData([queryKeys.auth]);
+  const sessionData = sessionStorage.getItem("userData");
+
+  const toast = useToast();
+
+  const handleLogout = () => {
+    queryClient.removeQueries({ queryKey: [queryKeys.auth] });
+    toast({
+      title: "로그아웃 성공",
+      status: "success",
+    });
+    console.log(sessionData);
+  };
 
   useEffect(() => {
-    userData ? setUser(JSON.parse(userData)) : null;
-  }, []);
+    const stringifyUserData = JSON.stringify(userData);
+    userData
+      ? sessionStorage.setItem("userData", stringifyUserData)
+      : sessionStorage.removeItem("userData");
+  }, [userData]);
 
-  return user;
+  return { userData, handleLogout };
 };
