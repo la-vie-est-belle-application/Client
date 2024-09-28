@@ -8,16 +8,17 @@ import {
 
 import { MainPage } from "@pages/main";
 import { LoginPage } from "@pages/login";
-import { useUserStore } from "@entities/user";
+import { AdditionalInfo } from "@pages/additional-info";
 
-import "./App.css";
+import { path } from "@shared/constants/path";
 
 type AuthGuardProps = {
   children: ReactElement;
 };
 
 function AuthGuard({ children }: AuthGuardProps) {
-  const isLogin = useUserStore((state) => state.isLogin);
+  const userData = sessionStorage.getItem("userData");
+  const isLogin = !!userData;
 
   if (!isLogin) {
     return <Navigate to={"/login"} />;
@@ -28,7 +29,7 @@ function AuthGuard({ children }: AuthGuardProps) {
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: path.main,
     element: (
       <AuthGuard>
         <MainPage />
@@ -36,8 +37,16 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/login",
+    path: path.login,
     element: <LoginPage />,
+  },
+  {
+    path: path.additionalInfo,
+    element: (
+      <AuthGuard>
+        <AdditionalInfo />
+      </AuthGuard>
+    ),
   },
 ]);
 
