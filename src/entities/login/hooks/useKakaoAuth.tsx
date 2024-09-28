@@ -1,18 +1,46 @@
-import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+
+import { useToast } from "@chakra-ui/react";
+
+import { queryKeys } from "@shared/constants/queryKeys";
+import { env } from "@shared/constants/env";
 
 import { loginApi } from "../api";
+import { useNavigate } from "react-router-dom";
 
 export const useKakaoAuth = () => {
+  const [enabled, setEnabled] = useState(false);
   const navigate = useNavigate();
 
-  const { mutate: getKakaoUserData, data: kakaoUserData } = useMutation({
-    mutationFn: loginApi.loginWithKakao,
-    onSuccess: (data) => {
-      sessionStorage.setItem("userData", JSON.stringify(data));
-      navigate("/");
-    },
+  const queryClient = useQueryClient();
+
+  const toast = useToast();
+
+  const { data: kakaoUserData } = useQuery({
+    queryKey: [queryKeys.auth],
+    queryFn: () => loginApi.login(env.kakaoLoginUrl),
+    enabled: enabled,
+    staleTime: Infinity,
+    gcTime: Infinity,
   });
 
-  return { getKakaoUserData, kakaoUserData };
+  const handleKakaoLogin = () => {
+    setEnabled(true);
+  };
+
+  const userData = queryClient.getQueryData([queryKeys.auth]);
+
+  useEffect(() => {
+    if (!userData) return;
+
+    toast({
+      title: "로그인 성공",
+      status: "success",
+    });
+
+    navigate("/");
+  }, [userData]);
+
+  return { kakaoUserData, handleKakaoLogin };
 };

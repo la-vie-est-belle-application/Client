@@ -11,13 +11,15 @@ import { LoginPage } from "@pages/login";
 import { AdditionalInfo } from "@pages/additional-info";
 
 import { path } from "@shared/constants/path";
+import { useAuth } from "@entities/login/hooks/useAuth";
 
 type AuthGuardProps = {
   children: ReactElement;
 };
 
 function AuthGuard({ children }: AuthGuardProps) {
-  const userData = sessionStorage.getItem("userData");
+  const { userData } = useAuth();
+
   const isLogin = !!userData;
 
   if (!isLogin) {
