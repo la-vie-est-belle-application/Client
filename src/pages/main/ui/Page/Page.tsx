@@ -1,7 +1,7 @@
 import { Button } from "@chakra-ui/react";
 import { useAuth } from "@entities/login/hooks/useAuth";
 
-export function MainPage() {
+export const Page = () => {
   const { user, handleLogout } = useAuth();
   return (
     <>
@@ -9,4 +9,4 @@ export function MainPage() {
       <Button onClick={handleLogout}>로그아웃</Button>
     </>
   );
-}
+};

@@ -20,7 +20,6 @@ export const useAuth = () => {
       title: "로그아웃 성공",
       status: "success",
     });
-    console.log(sessionData);
   };
 
   useEffect(() => {
