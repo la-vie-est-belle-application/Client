@@ -1,3 +1,3 @@
-export function AdditionalInfo() {
+export const AdditionalInfo = () => {
   return <>추가 정보</>;
-}
+};
