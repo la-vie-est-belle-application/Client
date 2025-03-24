@@ -1,37 +1,36 @@
-# 라비에벨 애플리케이션
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## 폴더구조
+## Getting Started
 
-### FSD 구조
+First, run the development server:
 
-프로젝트의 규모가 커질수록 어떤 기능과 연관된 코드를 탐색하는 과정에 소비하는 시간이 커집니다. 의존하는 코드가 어디에 있는지 찾는 것은 생각보다 시간이 많이 들고 코드간 의존성 관리를 하는 것이 어려웠고 이를 해결하기 위해 찾다가 FSD 폴더 구조란 것을 알게되어 선택하였습니다. FSD 폴더구조는 의존성 관리에 강점이 있습니다.
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-상위 레벨에 있는 레이어는 하위 레벨 레이어에 의존성을 가질 수 있지만 그 반대는 성립될 수 없습니다. 하위 레이어로 갈수록 추상화가 심화되며 상위 레이어로 갈수록 비지니스 로직이 심화됩니다.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-##### 참고 사이트
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-> - https://velog.io/@jay/fsd
-> - https://emewjin.github.io/feature-sliced-design/?utm_source=substack&utm_medium=email
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-#### FSD의 구성 요소
+## Learn More
 
-![image](https://velog.velcdn.com/images/jay/post/503e3c45-0f8b-4753-9aa9-a6754a5efb47/image.jpg)
+To learn more about Next.js, take a look at the following resources:
 
-FSD 폴더구조의 기본 구조는 위 이미지와 같지만 현 프로젝트에서 필요한 부분만 선택하여 사용할 예정입니다.
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-### 기능 요구사항
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-#### 메인
+## Deploy on Vercel
 
-- [ x ] 사용자가 로그인하지 않으면 로그인/회원가입 페이지로 이동하여 로그인 과정을 진행한다.
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-#### 로그인/회원가입
-
-- [ x ] 카카오 로그인을 진행하고 완료하면 메인 페이지로 이동한다.
-- [ x ] 로그인을 성공적으로 마치면 정보를 session storage에 저장한다.
-
-#### 일정관리
-
-- [ ] 사용자는 일정관리 페이지에 진입하였을 때 해당 달에 일정의 상태를 확인할 수 있다.
-- [ ] 사용자는 일정관리 페이지에서 날짜를 선택하여서 신청할 수 있다.
-- [ ] 중복된 날짜는 필터링이 되어야한다.
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
