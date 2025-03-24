@@ -1,0 +1,17 @@
+#!/bin/sh
+
+BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
+
+ISSUE_NUMBER=$(echo $BRANCH_NAME | grep -o '#[0-9]*')
+
+if [ -z "$ISSUE_NUMBER" ]; then
+    exit 0
+fi
+
+echo "$1" | cat "$1" - > temp && mv temp "$1"
+
+echo " $ISSUE_NUMBER" >> "$1"
+
+if ! grep -q '\n' "$1"; then
+  echo "" >> "$1"
+fi
