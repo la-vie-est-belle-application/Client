@@ -1,10 +1,3 @@
----
-name: 기능 구현 template
-title: feat: 내용[#이슈번호]
-labels: Feat
-assignees: tkyoun0421
----
-
 ## #️⃣ Issue Number
 
 <!--- ex) #이슈번호, #이슈번호 -->
