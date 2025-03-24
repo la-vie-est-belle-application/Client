@@ -1,4 +1,7 @@
-import Image from "next/image";
+import { Test } from './components/test';
+import { test1 } from './test1';
+
+import Image from 'next/image';
 
 export default function Home() {
   return (
@@ -12,9 +15,10 @@ export default function Home() {
           height={38}
           priority
         />
+        <Test />
         <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
           <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
+            Get started by editing{' '}
             <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
               src/app/page.tsx
             </code>
@@ -79,6 +83,7 @@ export default function Home() {
             alt="Window icon"
             width={16}
             height={16}
+            onClick={test1}
           />
           Examples
         </a>
