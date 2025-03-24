@@ -1,11 +1,11 @@
 module.exports = {
-  parserPreset: "conventional-changelog-conventionalcommits",
+  extends: ["@commitlint/config-conventional"],
   rules: {
-    "body-leading-blank": [1, "always"],
-    "body-max-line-length": [2, "always", 100],
-    "footer-leading-blank": [1, "always"],
-    "footer-max-line-length": [2, "always", 100],
-    "header-max-length": [2, "always", 100],
-    "subject-case": [2, "never", "lower-case"],
+    "type-enum": [
+      2,
+      "always",
+      ["feat", "fix", "docs", "style", "refactor", "test", "chore", "perf"],
+    ],
+    "scope-case": [2, "always", "lower-case"],
   },
 };

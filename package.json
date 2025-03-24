@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "test": "vitest",
-    "prepare": "husky"
+    "prepare": "husky install"
   },
   "dependencies": {
     "eslint": "^8.57.1",
