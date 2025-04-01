@@ -1,5 +1,6 @@
 "use client";
 
+import { FaCalendarAlt, FaList, FaPlus } from "react-icons/fa";
 import {
   Sidebar,
   SidebarContent,
@@ -10,17 +11,25 @@ import {
   SidebarMenuItem,
   SidebarProvider,
 } from "@/components/ui/sidebar";
+import Link from "next/link";
 import { SideBarItem } from "./type";
 
 export const SideBar = () => {
   const sideBarItems: SideBarItem[] = [
     {
+      icon: <FaPlus />,
       title: "스케줄 등록",
       url: "/schedule",
     },
     {
+      icon: <FaCalendarAlt />,
       title: "스케줄 관리",
-      url: "#",
+      url: "/schedule",
+    },
+    {
+      icon: <FaList />,
+      title: "리스트로 보기",
+      url: "/schedule",
     },
   ];
   return (
@@ -33,7 +42,10 @@ export const SideBar = () => {
                 {sideBarItems.map((item) => (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild>
-                      <span className="text-sm font-bold">{item.title}</span>
+                      <Link href={item.url} className="flex items-center gap-2">
+                        {item.icon}
+                        <span className="text-sm font-bold">{item.title}</span>
+                      </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
