@@ -12,7 +12,8 @@ import {
   SidebarProvider,
 } from "@/components/ui/sidebar";
 import Link from "next/link";
-import { SideBarItem } from "./type";
+import { SideBarItem } from "../type";
+import { SchedulePanel } from "./schedule-panel";
 
 export const SideBar = () => {
   const sideBarItems: SideBarItem[] = [
@@ -37,7 +38,7 @@ export const SideBar = () => {
       <Sidebar className="z-1 pt-20">
         <SidebarContent>
           <SidebarGroup>
-            <SidebarGroupContent>
+            <SidebarGroupContent className="pr-1 pl-1">
               <SidebarMenu>
                 {sideBarItems.map((item) => (
                   <SidebarMenuItem key={item.title}>
@@ -50,6 +51,7 @@ export const SideBar = () => {
                   </SidebarMenuItem>
                 ))}
               </SidebarMenu>
+              <SchedulePanel />
             </SidebarGroupContent>
           </SidebarGroup>
         </SidebarContent>

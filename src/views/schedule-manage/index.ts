@@ -1,1 +1,1 @@
-export { ScheduleManage } from "./schedule-manage";
+export { ScheduleManagePage } from "./schedule-manage";

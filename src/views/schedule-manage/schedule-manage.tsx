@@ -1,5 +1,5 @@
 import React from "react";
 
-export const ScheduleManage = () => {
+export const ScheduleManagePage = () => {
   return <div>hello world</div>;
 };
