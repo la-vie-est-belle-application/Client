@@ -1,6 +1,7 @@
 import React from "react";
 import { FilterSchedule } from "@/src/feature/schedule-manage";
 import { CreateSchedule } from "@/src/feature/schedule-manage";
+import { ScheduleCalender } from "@/src/views/schedule-manage/ui/schedule-calender";
 import { SideBar } from "@/src/widgets/side-bar";
 
 export const ScheduleManagePage = () => {
@@ -21,6 +22,8 @@ export const ScheduleManagePage = () => {
             <CreateSchedule />
           </div>
         </div>
+
+        <ScheduleCalender />
       </section>
     </main>
   );
