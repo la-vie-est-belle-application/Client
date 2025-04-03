@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { MdOutlineArrowBackIos } from "react-icons/md";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import FullCalendar from "@fullcalendar/react";
 import "./calender.css";

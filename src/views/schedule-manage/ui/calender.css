@@ -34,15 +34,10 @@
 
 .fc-toolbar-title {
   text-align: center;
-  padding-right: 5rem;
-}
-
-.fc-toolbar-chunk {
-  width: 25%;
 }
 
 .fc-toolbar-chunk:last-child {
-  width: 25%;
+  width: 23%;
   display: flex;
   justify-content: flex-end;
 }
