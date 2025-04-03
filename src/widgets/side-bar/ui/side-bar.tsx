@@ -10,10 +10,10 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarProvider,
-} from "@/components/ui/sidebar";
+} from "@/components/ui/index";
+import { SideBarItem } from "@/src/widgets/side-bar/type";
+import { SchedulePanel } from "@/src/widgets/side-bar/ui/schedule-panel";
 import Link from "next/link";
-import { SideBarItem } from "../type";
-import { SchedulePanel } from "./schedule-panel";
 
 export const SideBar = () => {
   const sideBarItems: SideBarItem[] = [
@@ -34,8 +34,8 @@ export const SideBar = () => {
     },
   ];
   return (
-    <SidebarProvider>
-      <Sidebar className="z-1 pt-20">
+    <SidebarProvider className="w-65">
+      <Sidebar className="pt-17">
         <SidebarContent>
           <SidebarGroup>
             <SidebarGroupContent className="pr-1 pl-1">
