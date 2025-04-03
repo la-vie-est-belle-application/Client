@@ -10,10 +10,10 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarProvider,
-} from "@/components/ui/sidebar";
+} from "@/components/ui/index";
+import { SideBarItem } from "@/src/widgets/side-bar/type";
+import { SchedulePanel } from "@/src/widgets/side-bar/ui/schedule-panel";
 import Link from "next/link";
-import { SideBarItem } from "../type";
-import { SchedulePanel } from "./schedule-panel";
 
 export const SideBar = () => {
   const sideBarItems: SideBarItem[] = [

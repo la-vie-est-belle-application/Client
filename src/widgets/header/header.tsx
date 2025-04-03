@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/index";
 import Link from "next/link";
 
 export const Header = () => {
