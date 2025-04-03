@@ -34,8 +34,8 @@ export const SideBar = () => {
     },
   ];
   return (
-    <SidebarProvider>
-      <Sidebar className="z-1 pt-20">
+    <SidebarProvider className="w-65">
+      <Sidebar className="pt-17">
         <SidebarContent>
           <SidebarGroup>
             <SidebarGroupContent className="pr-1 pl-1">
