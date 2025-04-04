@@ -1,7 +1,7 @@
-import { ScheduleManagePage } from "@/src/views/schedule-manage";
+import { ScheduleRegisterPage } from "@/src/views/schedule-manage";
 
 const page = () => {
-  return <ScheduleManagePage />;
+  return <ScheduleRegisterPage />;
 };
 
 export default page;

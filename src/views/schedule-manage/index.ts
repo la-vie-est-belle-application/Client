@@ -1,1 +1,1 @@
-export { ScheduleManagePage } from "./ui/Page/schedule-manage";
+export { ScheduleRegisterPage } from "./ui/Page/schedule-register";
