@@ -1,5 +1,4 @@
 import React from "react";
-import { FaRegCalendar } from "react-icons/fa";
 import {
   Select,
   SelectContent,

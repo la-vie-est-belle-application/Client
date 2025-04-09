@@ -3,7 +3,7 @@ import { FaMagnifyingGlass, FaRegCalendar } from "react-icons/fa6";
 import { Button } from "@/components/ui/index";
 import { SelectOption } from "@/src/feature/schedule-manage/index";
 import { ScheduleModal } from "@/src/feature/schedule-manage/index";
-import { PositionTable } from "../position-table";
+import { PositionTable } from "@/src/views/schedule-manage/ui/position-table";
 
 export const ScheduleManagePage = () => {
   return (

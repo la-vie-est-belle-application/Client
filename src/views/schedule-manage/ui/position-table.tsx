@@ -1,15 +1,15 @@
 "use client";
 
 import React from "react";
-import { Button } from "@/components/ui";
 import {
+  Button,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@/components/ui/index";
 
 export const PositionTable = () => {
   return (
