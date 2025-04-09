@@ -9,6 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
 import { SelectOption } from "./select";
 
 export const ScheduleModal = () => {
@@ -24,12 +25,26 @@ export const ScheduleModal = () => {
           <SelectOption icon={<FaUser />} />
         </div>
 
-        <div>
-          <p className="text-xs font-medium font-gray-500 mb-2">인원</p>
-          <SelectOption icon={<FaUser />} />
+        <div className="flex flex-col">
+          <div>
+            <p className="text-xs font-medium font-gray-500 mb-2">이름</p>
+          </div>
+
+          <div className="items-top flex space-x-2 items-center mb-4">
+            <SelectOption icon={<FaUser />} />
+            <Checkbox id="terms1" />
+            <div className="grid gap-1.5 leading-none">
+              <label
+                htmlFor="terms1"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                교육 여부
+              </label>
+            </div>
+          </div>
         </div>
 
-        <Button variant="ghost">
+        <Button variant="primary">
           <FaPlus />
           인원 추가
         </Button>

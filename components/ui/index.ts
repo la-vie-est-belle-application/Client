@@ -10,3 +10,6 @@ export * from "./skeleton";
 export * from "./tooltip";
 export * from "./calendar";
 export * from "./select";
+export * from "./table";
+export * from "./card";
+export * from "./checkbox";
