@@ -2,7 +2,6 @@
 
 import React from "react";
 import {
-  Button,
   Table,
   TableBody,
   TableCell,
@@ -10,6 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/index";
+import { ScheduleModal } from "@/src/feature/schedule-manage/index";
 
 export const PositionTable = () => {
   return (
@@ -27,7 +27,7 @@ export const PositionTable = () => {
           <TableCell className="text-left">팀장</TableCell>
           <TableCell>윤태관</TableCell>
           <TableCell className="text-right pr-4">
-            <Button variant="primary">수정</Button>
+            <ScheduleModal />
           </TableCell>
         </TableRow>
       </TableBody>

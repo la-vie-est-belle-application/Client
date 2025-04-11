@@ -14,18 +14,20 @@ import {
 import { SideBarItem } from "@/src/widgets/side-bar/type";
 import { SchedulePanel } from "@/src/widgets/side-bar/ui/schedule-panel";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export const SideBar = () => {
+  const pathname = usePathname();
   const sideBarItems: SideBarItem[] = [
     {
       icon: <FaPlus />,
       title: "스케줄 등록",
-      url: "/schedule",
+      url: "/schedule-dashboard/register",
     },
     {
       icon: <FaCalendarAlt />,
       title: "스케줄 관리",
-      url: "/schedule",
+      url: "/schedule-dashboard/manage",
     },
     {
       icon: <FaList />,
@@ -42,7 +44,12 @@ export const SideBar = () => {
               <SidebarMenu>
                 {sideBarItems.map((item) => (
                   <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild>
+                    <SidebarMenuButton
+                      asChild
+                      className={
+                        pathname === item.url ? "bg-gray-100" : "bg-white"
+                      }
+                    >
                       <Link href={item.url} className="flex items-center gap-2">
                         {item.icon}
                         <span className="text-sm font-bold">{item.title}</span>
