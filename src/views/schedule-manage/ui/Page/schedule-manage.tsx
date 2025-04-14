@@ -1,30 +1,33 @@
 import React from "react";
-import { FilterSchedule } from "@/src/feature/schedule-manage";
-import { CreateSchedule } from "@/src/feature/schedule-manage";
-import { ScheduleCalender } from "@/src/views/schedule-manage/ui/schedule-calender";
-import { SideBar } from "@/src/widgets/side-bar";
+import { FaMagnifyingGlass, FaRegCalendar } from "react-icons/fa6";
+import { Button } from "@/components/ui/index";
+import { SelectOption } from "@/src/feature/schedule-manage/index";
+import { PositionTable } from "@/src/views/schedule-manage/ui/position-table";
 
 export const ScheduleManagePage = () => {
   return (
-    <main className="flex h-screen pt-17 bg-gray-100 overflow-scroll">
-      <SideBar />
-      <section className="w-full h-full p-6">
-        <div className="flex justify-between items-center">
-          <div>
-            <h1 className="text-2xl font-bold mb-4">스케줄 관리</h1>
-            <p className="text-sm text-gray-500">
-              웨딩홀 스케줄 일정을 손쉽게 관리해 보세요
-            </p>
-          </div>
+    <section className="w-full p-6">
+      <div className="w-full h-full p-6 bg-white rounded-lg shadow-2xs">
+        <h1 className="text-2xl font-bold mb-4">스케줄 관리</h1>
 
-          <div>
-            <FilterSchedule />
-            <CreateSchedule />
-          </div>
+        <div className="flex justify-start items-center gap-4 max-w-[1000px] mb-6">
+          <SelectOption className="w-full" icon={<FaRegCalendar />} />
+          <SelectOption className="w-full" icon={<FaRegCalendar />} />
+
+          <Button variant="primary">
+            <FaMagnifyingGlass />
+            조회
+          </Button>
         </div>
 
-        <ScheduleCalender />
-      </section>
-    </main>
+        <PositionTable />
+      </div>
+
+      <div className="flex justify-center items-center  mt-4">
+        <Button variant="primary" className="w-[100px]">
+          확정
+        </Button>
+      </div>
+    </section>
   );
 };
