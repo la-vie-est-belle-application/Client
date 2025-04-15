@@ -3,4 +3,4 @@
 
 echo "🔧 Prettier formatting..."
 
-npx prettier --write .
+npx prettier --write ./src ./app
