@@ -3,15 +3,10 @@
 import { redirect } from "next/navigation";
 import { createServer } from "@shared/supabase";
 
-interface SignUpData {
-  email: string;
-  password: string;
-}
-
 interface SignUpResponse {
   success: boolean;
   message: string;
-  filed?: "email" | "password" | "passwordConfirm";
+  field?: "email" | "password";
 }
 
 export default async function handleSignUp(
@@ -19,9 +14,10 @@ export default async function handleSignUp(
 ): Promise<SignUpResponse> {
   const supabase = await createServer();
 
-  const userData: SignUpData = {
+  const userData = {
     email: formData.get("email") as string,
     password: formData.get("password") as string,
+    passwordConfirm: formData.get("passwordConfirm") as string,
   };
 
   const { error: signUpError } = await supabase.auth.signUp({
@@ -30,7 +26,10 @@ export default async function handleSignUp(
   });
 
   if (signUpError) {
-    throw new Error(signUpError.message);
+    return {
+      success: false,
+      message: signUpError.message,
+    };
   }
 
   redirect("/login");

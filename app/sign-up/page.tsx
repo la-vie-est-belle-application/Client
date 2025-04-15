@@ -2,6 +2,7 @@
 
 import { useActionState } from "react";
 import { InputField, handleSignUp } from "@/src/entities/auth";
+import useAuthValidation from "@/src/entities/auth/model/use-auth-validation";
 
 export default function SignUpPage() {
   const [formState, formAction] = useActionState(
@@ -14,6 +15,16 @@ export default function SignUpPage() {
     { success: true, message: "" },
   );
 
+  const emailField = useAuthValidation({
+    type: "email",
+    placeholder: "이메일을 입력해주세요",
+  });
+
+  const passwordField = useAuthValidation({
+    type: "password",
+    placeholder: "비밀번호를 입력해주세요.",
+  });
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="max-w-md w-full space-y-8 p-8">
@@ -23,34 +34,10 @@ export default function SignUpPage() {
         <form action={formAction} className="mt-8 space-y-6">
           <div>
             <div>
-              <InputField
-                type="email"
-                title="이메일"
-                isValid={true}
-                required={true}
-                errorMessage="오류가 발생"
-                placeholder="이메일 주소를 입력해주세요."
-              />
+              <InputField {...emailField} />
             </div>
             <div className="mt-5">
-              <InputField
-                type="password"
-                title="비밀번호"
-                isValid={true}
-                required={true}
-                errorMessage="오류가 발생"
-                placeholder="비밀번호를 입력해주세요."
-              />
-            </div>
-            <div className="mt-5">
-              <InputField
-                type="password"
-                title="비밀번호 확인"
-                isValid={true}
-                required={true}
-                errorMessage="오류가 발생"
-                placeholder="비밀번호를 확인해주세요."
-              />
+              <InputField {...passwordField} />
             </div>
           </div>
 
