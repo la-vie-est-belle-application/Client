@@ -44,6 +44,12 @@ export default function useAuthInputValidator({
   const [text, setText] = useState("");
   const [error, setError] = useState<string | null>(null);
 
+  useEffect(() => {
+    if (id === "passwordConfirm" && text) {
+      validate(text);
+    }
+  }, [compareTarget]);
+
   const validate = (value: string) => {
     const result = handleAuthValidate(
       value,
@@ -53,12 +59,6 @@ export default function useAuthInputValidator({
     );
     setError(result && result.message);
   };
-
-  useEffect(() => {
-    if (id === "passwordConfirm" && text) {
-      validate(text);
-    }
-  }, [compareTarget]);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
