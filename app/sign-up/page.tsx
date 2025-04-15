@@ -1,89 +1,75 @@
 "use client";
 
-import { useState } from "react";
-import { handleSignUp } from "@/src/entities/auth";
+import { useActionState } from "react";
+import { InputField, handleSignUp } from "@/src/entities/auth";
 
 export default function SignUpPage() {
-  const [activeTab, setActiveTab] = useState<"signup" | "login">("signup");
+  const [formState, formAction] = useActionState(
+    async (
+      state: { success: boolean; message: string },
+      formData: FormData,
+    ) => {
+      return handleSignUp(formData);
+    },
+    { success: true, message: "" },
+  );
 
   return (
-    <div className="auth-container">
-      <div className="tabs">
-        <button
-          className={activeTab === "signup" ? "active" : ""}
-          onClick={() => setActiveTab("signup")}
-        >
+    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="max-w-md w-full space-y-8 p-8">
+        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
           회원가입
-        </button>
-        <button
-          className={activeTab === "login" ? "active" : ""}
-          onClick={() => setActiveTab("login")}
-        >
-          로그인
-        </button>
-      </div>
-
-      {activeTab === "signup" ? (
-        <form action={handleSignUp} className="signup-form">
-          <div className="form-group">
-            <label htmlFor="email">이메일</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              required
-              placeholder="이메일을 입력하세요"
-            />
+        </h2>
+        <form action={formAction} className="mt-8 space-y-6">
+          <div>
+            <div>
+              <InputField
+                type="email"
+                title="이메일"
+                isValid={true}
+                required={true}
+                errorMessage="오류가 발생"
+                placeholder="이메일 주소를 입력해주세요."
+              />
+            </div>
+            <div className="mt-5">
+              <InputField
+                type="password"
+                title="비밀번호"
+                isValid={true}
+                required={true}
+                errorMessage="오류가 발생"
+                placeholder="비밀번호를 입력해주세요."
+              />
+            </div>
+            <div className="mt-5">
+              <InputField
+                type="password"
+                title="비밀번호 확인"
+                isValid={true}
+                required={true}
+                errorMessage="오류가 발생"
+                placeholder="비밀번호를 확인해주세요."
+              />
+            </div>
           </div>
 
-          <div className="form-group">
-            <label htmlFor="name">이름</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              required
-              placeholder="이름을 입력하세요"
-            />
-          </div>
+          {formState?.success === false && (
+            <div className="text-red-600 text-sm text-center">
+              <p>{formState.message}</p>
+            </div>
+          )}
 
-          <div className="form-group">
-            <label htmlFor="password">비밀번호</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              required
-              placeholder="비밀번호를 입력하세요"
-            />
+          <div>
+            <button
+              type="submit"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              회원가입
+            </button>
           </div>
-
-          <div className="form-group">
-            <label htmlFor="gender">성별</label>
-            <select id="gender" name="gender" required>
-              <option value="">성별을 선택하세요</option>
-              <option value="male">남성</option>
-              <option value="female">여성</option>
-              <option value="other">기타</option>
-            </select>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="phone">휴대폰 번호</label>
-            <input
-              type="tel"
-              id="phone"
-              name="phone"
-              required
-              placeholder="휴대폰 번호를 입력하세요"
-            />
-          </div>
-
-          <button type="submit">회원가입</button>
         </form>
-      ) : (
-        <form className="login-form">{/* 로그인 폼 구현 */}</form>
-      )}
+      </div>
     </div>
   );
 }
