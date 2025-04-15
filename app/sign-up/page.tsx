@@ -12,7 +12,7 @@ export default function SignUpPage() {
     async (_prevState: any, formData: FormData) => {
       return handleSignUp(formData);
     },
-    null, // 상태 필요 없으니 null
+    null,
   );
 
   const emailField = useAuthInputValidator({
