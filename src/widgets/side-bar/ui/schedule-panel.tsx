@@ -1,5 +1,5 @@
 import React from "react";
-import { ShowScheduleCard } from "@/src/feature/schedule-manage/index";
+import { ShowScheduleCard } from "@/src/entities/schedule-card/index";
 
 export const SchedulePanel = () => {
   return (
