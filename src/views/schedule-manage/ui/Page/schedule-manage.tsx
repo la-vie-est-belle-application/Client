@@ -1,7 +1,7 @@
 import React from "react";
 import { FaMagnifyingGlass, FaRegCalendar } from "react-icons/fa6";
 import { Button } from "@/components/ui/index";
-import { SelectOption } from "@/src/feature/schedule-manage/index";
+import { SelectOption } from "@/src/features/schedule-manage/index";
 import { PositionTable } from "@/src/views/schedule-manage/ui/position-table";
 
 export const ScheduleManagePage = () => {

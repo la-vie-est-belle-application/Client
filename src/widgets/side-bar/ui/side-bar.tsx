@@ -1,6 +1,8 @@
 "use client";
 
 import { FaCalendarAlt, FaList, FaPlus } from "react-icons/fa";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   Sidebar,
   SidebarContent,
@@ -13,8 +15,6 @@ import {
 } from "@/components/ui/index";
 import { SideBarItem } from "@/src/widgets/side-bar/type";
 import { SchedulePanel } from "@/src/widgets/side-bar/ui/schedule-panel";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 
 export const SideBar = () => {
   const pathname = usePathname();

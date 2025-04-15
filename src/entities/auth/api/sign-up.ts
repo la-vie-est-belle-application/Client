@@ -17,7 +17,6 @@ export default async function handleSignUp(
   const userData = {
     email: formData.get("email") as string,
     password: formData.get("password") as string,
-    passwordConfirm: formData.get("passwordConfirm") as string,
   };
 
   const { error: signUpError } = await supabase.auth.signUp({

@@ -1,29 +1,46 @@
 "use client";
 
 import { useActionState } from "react";
-import { InputField, handleSignUp } from "@/src/entities/auth";
-import useAuthValidation from "@/src/entities/auth/model/use-auth-validation";
+import {
+  InputField,
+  handleSignUp,
+  useAuthInputValidator,
+} from "@/src/entities/auth";
 
 export default function SignUpPage() {
-  const [formState, formAction] = useActionState(
-    async (
-      state: { success: boolean; message: string },
-      formData: FormData,
-    ) => {
+  const [, formAction] = useActionState(
+    async (_prevState: any, formData: FormData) => {
       return handleSignUp(formData);
     },
-    { success: true, message: "" },
+    null, // 상태 필요 없으니 null
   );
 
-  const emailField = useAuthValidation({
+  const emailField = useAuthInputValidator({
+    id: "email",
     type: "email",
-    placeholder: "이메일을 입력해주세요",
+    placeholder: "이메일을 입력해주세요.",
+    isRequired: true,
   });
 
-  const passwordField = useAuthValidation({
+  const passwordField = useAuthInputValidator({
+    id: "password",
     type: "password",
     placeholder: "비밀번호를 입력해주세요.",
+    isRequired: true,
   });
+
+  const passwordConfirmField = useAuthInputValidator({
+    id: "passwordConfirm",
+    type: "password",
+    placeholder: "비밀번호를 다시 입력해주세요.",
+    isRequired: true,
+    compareTarget: passwordField.text,
+  });
+
+  const isFormValid =
+    !emailField.isInValid &&
+    !passwordField.isInValid &&
+    !passwordConfirmField.isInValid;
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -39,18 +56,16 @@ export default function SignUpPage() {
             <div className="mt-5">
               <InputField {...passwordField} />
             </div>
-          </div>
-
-          {formState?.success === false && (
-            <div className="text-red-600 text-sm text-center">
-              <p>{formState.message}</p>
+            <div className="mt-5">
+              <InputField {...passwordConfirmField} />
             </div>
-          )}
+          </div>
 
           <div>
             <button
               type="submit"
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              disabled={!isFormValid}
             >
               회원가입
             </button>

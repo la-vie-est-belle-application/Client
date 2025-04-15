@@ -1,35 +1,38 @@
 interface Props {
+  id: string;
   type: string;
-  title: string;
-  required: boolean;
+  isRequired: boolean;
   placeholder: string;
-  isValid: boolean;
+  isInValid: boolean;
   errorMessage: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
 }
 
-export default function InputField({
+export default function PasswordField({
   type,
-  title,
-  required,
+  id,
+  isRequired,
   placeholder,
-  isValid,
+  isInValid,
   errorMessage,
   onChange,
+  onBlur,
 }: Props) {
   return (
     <>
-      <label htmlFor={title}>{title}</label>
+      <label htmlFor={id}>{id}</label>
       <input
-        id={title}
-        name={title}
+        id={id}
+        name={id}
         type={type}
-        required={required}
+        required={isRequired}
         className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
         placeholder={placeholder}
         onChange={onChange}
+        onBlur={onBlur}
       />
-      {!isValid && <p>{errorMessage}</p>}
+      {isInValid && <p>{errorMessage}</p>}
     </>
   );
 }

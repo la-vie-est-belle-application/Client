@@ -1,30 +1,24 @@
-interface AuthPayload {
-  type: "email" | "password" | "passwordConfirm";
-  value: string;
-}
+import { AuthInputType, ValidateRule } from "../types/type";
 
-export function handleAuthValidate(payload: AuthPayload) {
-  const { type, value } = payload;
+type RuleMap = Record<
+  AuthInputType,
+  (compareTarget?: string) => ValidateRule[]
+>;
 
-  if (!value.trim()) {
-    return {
-      success: false,
-      message: "필수 입력 요소입니다.",
-    };
-  }
+export function handleAuthValidate(
+  value: string,
+  type: AuthInputType,
+  ruleMap: RuleMap,
+  compareTarget?: string,
+) {
+  const target = value ? value.trim() : "";
 
-  switch (type) {
-    case "email":
-      if (value.length > 1) {
-        return {
-          success: false,
-          message: "이메일 길이가 한글자 이상임",
-        };
-      }
-  }
+  const rules =
+    type === "passwordConfirm" ? ruleMap[type](compareTarget) : ruleMap[type]();
 
-  return {
-    success: true,
-    message: "",
-  };
+  const invalidateRule = rules.find(
+    (rule) => rule.rule.test(target) !== rule.match,
+  );
+
+  return invalidateRule ?? null;
 }
