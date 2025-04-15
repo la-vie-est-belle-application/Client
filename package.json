@@ -6,7 +6,7 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint app src",
     "test": "vitest",
     "prepare": "husky install",
     "format": "npx prettier --write \"src/**/*.{js,ts,tsx}\" \"app/**/*.{js,ts,tsx}\""
@@ -25,7 +25,6 @@
     "@supabase/supabase-js": "^2.49.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "eslint": "^8.57.1",
     "lucide-react": "^0.486.0",
     "next": "15.2.3",
     "react": "^19.0.0",
@@ -36,6 +35,7 @@
   "devDependencies": {
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-conventional": "^19.8.0",
+    "@eslint/eslintrc": "^3.3.1",
     "@next/eslint-plugin-next": "^15.2.3",
     "@tailwindcss/postcss": "^4",
     "@testing-library/dom": "^10.4.0",
@@ -46,6 +46,8 @@
     "@types/react-dom": "^19",
     "@typescript-eslint/parser": "^8.27.0",
     "@vitejs/plugin-react": "^4.3.4",
+    "eslint": "^9.24.0",
+    "eslint-config-next": "^15.3.0",
     "eslint-config-prettier": "^10.1.1",
     "eslint-plugin-prettier": "^5.2.4",
     "husky": "^9.1.7",

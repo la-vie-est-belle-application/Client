@@ -48,7 +48,7 @@ export default function useAuthInputValidator({
     if (id === "passwordConfirm" && text) {
       validate(text);
     }
-  }, [compareTarget]);
+  }, [compareTarget]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const validate = (value: string) => {
     const result = handleAuthValidate(

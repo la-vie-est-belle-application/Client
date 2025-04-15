@@ -1,10 +1,10 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { createServer } from "@shared/supabase";
+import createClient from "../../supabase/config/server";
 
 export default async function handleLogin(formData: FormData) {
-  const supabase = await createServer();
+  const supabase = await createClient();
 
   const userData = {
     email: formData.get("email") as string,

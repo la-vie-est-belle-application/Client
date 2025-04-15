@@ -9,8 +9,20 @@ const compat = new FlatCompat({
   baseDirectory: __dirname,
 });
 
-const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
-];
+export default [
+  ...compat.extends("next", "next/core-web-vitals"),
 
-export default eslintConfig;
+  {
+    files: ["app/**/*.{js,jsx,ts,tsx}", "src/**/*.{js,jsx,ts,tsx}"],
+    ignores: ["node_modules/**"],
+    languageOptions: {
+      parserOptions: {
+        ecmaVersion: "latest",
+        sourceType: "module",
+      },
+    },
+    linterOptions: {
+      reportUnusedDisableDirectives: true,
+    },
+  },
+];

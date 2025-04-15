@@ -1,7 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { createServer } from "../../supabase";
+import createClient from "../../supabase/config/server";
 
 interface SignUpResponse {
   success: boolean;
@@ -12,7 +12,7 @@ interface SignUpResponse {
 export default async function handleSignUp(
   formData: FormData,
 ): Promise<SignUpResponse> {
-  const supabase = await createServer();
+  const supabase = await createClient();
 
   const userData = {
     email: formData.get("email") as string,
