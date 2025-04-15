@@ -1,9 +1,4 @@
-import { AuthInputType, ValidateRule } from "../types/type";
-
-type RuleMap = Record<
-  AuthInputType,
-  (compareTarget?: string) => ValidateRule[]
->;
+import { AuthInputType, RuleMap } from "../types/type";
 
 export function handleAuthValidate(
   value: string,
