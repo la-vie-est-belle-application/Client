@@ -1,5 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
-import { supabaseKey, supabaseUrl } from ".";
+import { supabaseKey, supabaseUrl } from "../index";
 
 export const supabase = createClient(supabaseUrl, supabaseKey, {
   auth: {
