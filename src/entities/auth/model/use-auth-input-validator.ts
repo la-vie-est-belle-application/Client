@@ -1,6 +1,13 @@
 "use client";
 
-import { ChangeEvent, FocusEvent, useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  FocusEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import {
   CantContainWhitespace,
   CantStartNumber,
@@ -18,6 +25,11 @@ interface Props {
   placeholder: string;
   isRequired: boolean;
   compareTarget?: string;
+}
+
+interface InputState {
+  value: string;
+  error: string | null;
 }
 
 const getValidationRules: Record<
@@ -41,43 +53,68 @@ export default function useAuthInputValidator({
   isRequired,
   compareTarget,
 }: Props) {
-  const [text, setText] = useState("");
-  const [error, setError] = useState<string | null>(null);
+  const [inputState, setInputState] = useState<InputState>({
+    value: "",
+    error: null,
+  });
+
+  const valueRef = useRef("");
 
   useEffect(() => {
-    if (id === "passwordConfirm" && text) {
-      validate(text);
-    }
-  }, [compareTarget]); // eslint-disable-line react-hooks/exhaustive-deps
+    valueRef.current = inputState.value;
+  }, [inputState.value]);
 
-  const validate = (value: string) => {
-    const result = handleAuthValidate(
-      value,
-      id,
-      getValidationRules,
-      compareTarget,
-    );
-    setError(result && result.message);
-  };
+  const validate = useCallback(
+    (value: string) => {
+      const result = handleAuthValidate(
+        value,
+        id,
+        getValidationRules,
+        compareTarget,
+      );
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+      return result ? result.message : null;
+    },
+    [id, compareTarget],
+  );
+
+  const onChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setText(value);
-    if (error) setError(null);
-  };
+    setInputState((prev) => ({
+      value,
+      error: null,
+    }));
+  }, []);
 
-  const onBlur = (_e: FocusEvent<HTMLInputElement>) => {
-    validate(text);
-  };
+  const onBlur = useCallback(
+    (_e: FocusEvent<HTMLInputElement>) => {
+      const errorMessage = validate(valueRef.current);
+      setInputState((prev) => ({
+        ...prev,
+        error: errorMessage,
+      }));
+    },
+    [validate],
+  );
+
+  useEffect(() => {
+    if (id === "passwordConfirm" && valueRef.current) {
+      const errorMessage = validate(valueRef.current);
+      setInputState((prev) => ({
+        ...prev,
+        error: errorMessage,
+      }));
+    }
+  }, [compareTarget, id, validate]);
 
   return {
     id,
-    text,
+    text: inputState.value,
     type,
     placeholder,
     isRequired,
-    isInValid: !!error,
-    errorMessage: error ?? "",
+    isInValid: !!inputState.error,
+    errorMessage: inputState.error ?? "",
     onChange,
     onBlur,
   };
