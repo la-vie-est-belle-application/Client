@@ -1,7 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { createServer } from "@shared/supabase";
+import { createServer } from "../../supabase";
 
 interface SignUpResponse {
   success: boolean;
