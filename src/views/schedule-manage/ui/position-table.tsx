@@ -9,7 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/index";
-import { ScheduleModal } from "@/src/feature/schedule-manage/index";
+import { ScheduleModal } from "@/src/features/schedule-manage/index";
 
 export const PositionTable = () => {
   return (
