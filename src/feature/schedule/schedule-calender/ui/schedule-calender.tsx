@@ -1,23 +1,28 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useMemo } from "react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
+import { useShallow } from "zustand/react/shallow";
+import { useScheduleCalenderStore } from "../model/store";
 import "./calender.css";
 
 export const ScheduleCalender = () => {
-  const [selectedDate, setSelectedDate] = useState<string[]>([]);
+  const { selectedDateList, setSelectedDateList } = useScheduleCalenderStore(
+    useShallow((state) => ({
+      selectedDateList: state.selectedDateList,
+      setSelectedDateList: state.setSelectedDateList,
+    })),
+  );
+
+  const selectedDateArray = useMemo(
+    () => Array.from(selectedDateList),
+    [selectedDateList],
+  );
 
   const handleClickDate = (arg: DateClickArg) => {
-    if (selectedDate.includes(arg.dateStr)) {
-      const filterDate = selectedDate.filter((date) => date !== arg.dateStr);
-
-      setSelectedDate(filterDate);
-      return;
-    }
-
-    setSelectedDate([...selectedDate, arg.dateStr]);
+    setSelectedDateList(arg.dateStr);
   };
 
   return (
@@ -41,10 +46,10 @@ export const ScheduleCalender = () => {
           day: "일",
         }}
         dateClick={handleClickDate}
-        events={selectedDate.map((date) => ({
+        events={selectedDateArray.map((date: string) => ({
           start: date,
           display: "background",
-          backgroundColor: "#facc15", // 원하는 색상으로 변경 가능
+          backgroundColor: "#159efa",
         }))}
       />
     </div>
