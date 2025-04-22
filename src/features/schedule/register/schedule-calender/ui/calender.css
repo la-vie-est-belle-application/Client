@@ -6,6 +6,12 @@
   overflow: hidden; /* 내부 요소도 radius 적용 */
 }
 
+/* 클릭 이벤트 배경  */
+.fc-bg-event {
+  height: 100%;
+  border-radius: 0 !important;
+}
+
 /* 일요일 날짜: 빨간색 */
 .fc .fc-day-sun a {
   font-weight: 500 !important;

@@ -1,17 +1,31 @@
 "use client";
 
 import React from "react";
+import { useScheduleCalenderStore } from "@/src/features/schedule/register/schedule-calender/model/store";
 import dayGridPlugin from "@fullcalendar/daygrid";
+import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
+import { useShallow } from "zustand/react/shallow";
 import "./calender.css";
 
 export const ScheduleCalender = () => {
+  const { selectedDateList, setSelectedDate } = useScheduleCalenderStore(
+    useShallow((state) => ({
+      selectedDateList: state.selectedDateList,
+      setSelectedDate: state.setSelectedDate,
+    })),
+  );
+
+  const handleClickDate = (arg: DateClickArg) => {
+    setSelectedDate(arg.dateStr);
+  };
+
   return (
     <div className="pt-8 pb-10">
       <FullCalendar
         height="auto"
         initialView="dayGridMonth"
-        plugins={[dayGridPlugin]}
+        plugins={[dayGridPlugin, interactionPlugin]}
         locale="ko"
         headerToolbar={{
           left: "prev,next today",
@@ -26,7 +40,12 @@ export const ScheduleCalender = () => {
           week: "주",
           day: "일",
         }}
-        events={[]}
+        dateClick={handleClickDate}
+        events={selectedDateList.map((date) => ({
+          start: date,
+          display: "background",
+          backgroundColor: "#159efa",
+        }))}
       />
     </div>
   );
