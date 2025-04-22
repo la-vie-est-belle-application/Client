@@ -7,21 +7,24 @@ enableMapSet();
 
 export const scheduleCalenderStore = create(
   immer<ScheduleCalenderStore>((set) => ({
-    selectedDateList: new Set<string>(),
+    selectedDate: new Set<string>(),
+    selectedDateList: [],
 
-    setSelectedDateList: (date: string) =>
+    setSelectedDate: (date: string) =>
       set((state) => {
-        if (state.selectedDateList.has(date)) {
-          state.selectedDateList.delete(date);
+        if (state.selectedDate.has(date)) {
+          state.selectedDate.delete(date);
         } else {
-          state.selectedDateList.add(date);
+          state.selectedDate.add(date);
         }
+
+        state.selectedDateList = Array.from(state.selectedDate);
       }),
   })),
 );
 
 export const useScheduleCalenderStore: SelectorHook<
   ScheduleCalenderStore,
-  "selectedDateList"
-> = (selector = (state: ScheduleCalenderStore) => state.selectedDateList) =>
+  "selectedDate"
+> = (selector = (state: ScheduleCalenderStore) => state.selectedDate) =>
   scheduleCalenderStore(selector);

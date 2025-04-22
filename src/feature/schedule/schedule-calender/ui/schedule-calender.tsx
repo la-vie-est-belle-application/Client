@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React from "react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
@@ -9,20 +9,15 @@ import { useScheduleCalenderStore } from "../model/store";
 import "./calender.css";
 
 export const ScheduleCalender = () => {
-  const { selectedDateList, setSelectedDateList } = useScheduleCalenderStore(
+  const { selectedDateList, setSelectedDate } = useScheduleCalenderStore(
     useShallow((state) => ({
       selectedDateList: state.selectedDateList,
-      setSelectedDateList: state.setSelectedDateList,
+      setSelectedDate: state.setSelectedDate,
     })),
   );
 
-  const selectedDateArray = useMemo(
-    () => Array.from(selectedDateList),
-    [selectedDateList],
-  );
-
   const handleClickDate = (arg: DateClickArg) => {
-    setSelectedDateList(arg.dateStr);
+    setSelectedDate(arg.dateStr);
   };
 
   return (
@@ -46,7 +41,7 @@ export const ScheduleCalender = () => {
           day: "일",
         }}
         dateClick={handleClickDate}
-        events={selectedDateArray.map((date: string) => ({
+        events={selectedDateList.map((date: string) => ({
           start: date,
           display: "background",
           backgroundColor: "#159efa",

@@ -11,8 +11,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/index";
+import { useScheduleCalenderStore } from "@/src/feature/schedule/schedule-calender/model/store";
+import { useShallow } from "zustand/react/shallow";
+import { postCreateSchedule } from "../api/post-create-schedule";
 
 export const CreateSchedule = () => {
+  const selectedDateList = useScheduleCalenderStore(
+    useShallow((state) => state.selectedDateList),
+  );
+
   return (
     <Dialog>
       <DialogTrigger>
@@ -37,7 +44,12 @@ export const CreateSchedule = () => {
           </DialogClose>
 
           <DialogClose asChild>
-            <Button variant="primary" className="flex-1" size="lg">
+            <Button
+              variant="primary"
+              className="flex-1"
+              size="lg"
+              onClick={() => postCreateSchedule(selectedDateList)}
+            >
               등록
             </Button>
           </DialogClose>

@@ -7,8 +7,8 @@ export type SelectorHook<S, K extends keyof S> = {
   (): S[K];
 };
 
-/* 스토어 */
 export interface ScheduleCalenderStore {
-  selectedDateList: Set<string>;
-  setSelectedDateList: (date: string) => void;
+  selectedDate: Set<string>;
+  selectedDateList: string[];
+  setSelectedDate: (date: string) => void;
 }

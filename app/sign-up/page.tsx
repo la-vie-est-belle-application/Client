@@ -1,4 +1,4 @@
-import { supabase } from "@/src/entities/supabase";
+import { supabase } from "@/src/shared/config/supabase";
 
 export default async function SignUpPage() {
   const { data, error } = await supabase.auth.getUser();
