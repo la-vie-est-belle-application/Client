@@ -22,7 +22,7 @@ export const CreateSchedule = () => {
 
   return (
     <Dialog>
-      <DialogTrigger>
+      <DialogTrigger asChild>
         <Button variant="primary">
           <FaPlus />
           스케줄 등록
