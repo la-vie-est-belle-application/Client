@@ -3,6 +3,7 @@ import { FaPlus } from "react-icons/fa";
 import {
   Button,
   Dialog,
+  DialogClose,
   DialogContent,
   DialogHeader,
   DialogTitle,
@@ -27,12 +28,17 @@ export const CreateSchedule = () => {
         </DialogHeader>
 
         <div className="flex gap-2 pt-15">
-          <Button variant="ghost" className="flex-1" size="lg">
-            취소
-          </Button>
-          <Button variant="primary" className="flex-1" size="lg">
-            등록
-          </Button>
+          <DialogClose asChild>
+            <Button variant="ghost" className="flex-1" size="lg">
+              취소
+            </Button>
+          </DialogClose>
+
+          <DialogClose asChild>
+            <Button variant="primary" className="flex-1" size="lg">
+              등록
+            </Button>
+          </DialogClose>
         </div>
       </DialogContent>
     </Dialog>
