@@ -6,12 +6,13 @@ import {
   Button,
   Checkbox,
   Dialog,
+  DialogClose,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/index";
-import { SelectOption } from "../../../../select-option/ui/select-option";
+import { SelectOption } from "@/src/features/select-option/ui/select-option";
 
 export const ScheduleManageModal = () => {
   return (
@@ -61,12 +62,17 @@ export const ScheduleManageModal = () => {
         </Button>
 
         <div className="flex gap-2">
-          <Button variant="ghost" className="flex-1">
-            취소
-          </Button>
-          <Button variant="primary" className="flex-1">
-            저장
-          </Button>
+          <DialogClose asChild>
+            <Button variant="ghost" className="flex-1">
+              취소
+            </Button>
+          </DialogClose>
+
+          <DialogClose asChild>
+            <Button variant="primary" className="flex-1">
+              저장
+            </Button>
+          </DialogClose>
         </div>
       </DialogContent>
     </Dialog>
