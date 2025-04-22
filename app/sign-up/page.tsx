@@ -1,77 +1,176 @@
 "use client";
 
-import { useActionState } from "react";
+import useSignUp from "@/src/entities/auth/model/use-sign-up";
 import {
-  InputField,
-  handleSignUp,
-  useAuthInputValidator,
-} from "@/src/entities/auth";
+  Button,
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  Input,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/src/shared/shadcn-ui/components";
 
 export default function SignUpPage() {
-  const [, formAction] = useActionState(
-    async (_prevState: any, formData: FormData) => {
-      return handleSignUp(formData);
-    },
-    null,
-  );
-
-  const emailField = useAuthInputValidator({
-    id: "email",
-    type: "email",
-    placeholder: "이메일을 입력해주세요.",
-    isRequired: true,
-  });
-
-  const passwordField = useAuthInputValidator({
-    id: "password",
-    type: "password",
-    placeholder: "비밀번호를 입력해주세요.",
-    isRequired: true,
-  });
-
-  const passwordConfirmField = useAuthInputValidator({
-    id: "passwordConfirm",
-    type: "password",
-    placeholder: "비밀번호를 다시 입력해주세요.",
-    isRequired: true,
-    compareTarget: passwordField.text,
-  });
-
-  const isFormValid =
-    !emailField.isInValid &&
-    !passwordField.isInValid &&
-    !passwordConfirmField.isInValid;
-
+  const { form, onSubmit } = useSignUp();
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="max-w-md w-full space-y-8 p-8">
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          회원가입
-        </h2>
-        <form action={formAction} className="mt-8 space-y-6">
-          <div>
-            <div>
-              <InputField {...emailField} />
-            </div>
-            <div className="mt-5">
-              <InputField {...passwordField} />
-            </div>
-            <div className="mt-5">
-              <InputField {...passwordConfirmField} />
-            </div>
+    <>
+      <section className="flex flex-col">
+        <h2 className="text-3xl font-black">회원가입</h2>
+        <p>모든 항목은 필수 입력사항입니다.</p>
+      </section>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <FormField
+            control={form.control}
+            name="userId"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>UserId</FormLabel>
+                <FormControl>
+                  <Input placeholder="shadcn" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>비밀번호</FormLabel>
+                <FormControl>
+                  <Input placeholder="shadcn" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="confirmPassword"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>비밀번호 확인</FormLabel>
+                <FormControl>
+                  <Input placeholder="shadcn" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="userName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>이름</FormLabel>
+                <FormControl>
+                  <Input placeholder="shadcn" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="userPhoneNumber"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>휴대폰 번호</FormLabel>
+                <FormControl>
+                  <Input placeholder="shadcn" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <div className="flex gap-1.5">
+            <FormField
+              control={form.control}
+              name="userBirth"
+              render={({ field }) => (
+                <>
+                  <FormItem>
+                    <FormLabel>생년월일</FormLabel>
+                    <div className="flex gap-2">
+                      <Select
+                        onValueChange={(value) =>
+                          field.onChange({ ...field.value, year: value })
+                        }
+                        value={field.value.year}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="년도" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {Array.from({ length: 100 }, (_, i) => {
+                            const year = new Date().getFullYear() - i;
+                            return (
+                              <SelectItem key={year} value={String(year)}>
+                                {year}
+                              </SelectItem>
+                            );
+                          })}
+                        </SelectContent>
+                      </Select>
+                      <Select
+                        onValueChange={(value) =>
+                          field.onChange({ ...field.value, month: value })
+                        }
+                        value={field.value.month}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="월" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {Array.from({ length: 12 }, (_, i) => (
+                            <SelectItem key={i + 1} value={String(i + 1)}>
+                              {i + 1}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <Select
+                        onValueChange={(value) =>
+                          field.onChange({ ...field.value, day: value })
+                        }
+                        value={field.value.day}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="일" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {Array.from({ length: 31 }, (_, i) => (
+                            <SelectItem key={i + 1} value={String(i + 1)}>
+                              {i + 1}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <FormMessage />
+                  </FormItem>
+                </>
+              )}
+            />
           </div>
-
-          <div>
-            <button
-              type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              disabled={!isFormValid}
-            >
-              회원가입
-            </button>
-          </div>
+          <Button type="submit">회원가입</Button>
         </form>
-      </div>
-    </div>
+      </Form>
+    </>
   );
 }
