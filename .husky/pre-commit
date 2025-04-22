@@ -1,0 +1,7 @@
+#!/bin/sh
+
+echo "🔧 Prettier formatting..."
+npm run format
+
+echo "⚙️ Running ESLint..."
+npm run lint

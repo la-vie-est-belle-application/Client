@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import { Button } from "@/components/ui/index";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Button } from "@/components/ui/index";
 
 export const Header = () => {
   const pathname = usePathname();

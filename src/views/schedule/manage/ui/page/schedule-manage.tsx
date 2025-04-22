@@ -1,12 +1,14 @@
 import React from "react";
 import { FaMagnifyingGlass, FaRegCalendar } from "react-icons/fa6";
 import { Button } from "@/components/ui/index";
+import { ScheduleManageModal } from "@/src/feature/schedule/schedule-manage-modal/index";
 import { SelectOption } from "@/src/feature/select-option/index";
 import { PositionTable } from "@/src/views/schedule/manage/ui/position-table/position-table";
 
 export const ScheduleManagePage = () => {
   return (
     <section className="w-full p-6">
+      <ScheduleManageModal />
       <div className="w-full h-full p-6 bg-white rounded-lg shadow-2xs">
         <h1 className="text-2xl font-bold mb-4">스케줄 관리</h1>
 
