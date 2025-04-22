@@ -1,5 +1,7 @@
 {
   "name": "la-vie-est-belle",
+  "repository": "https://github.com/la-vie-est-belle-application/Client",
+  "author": "tkyoun0421, dv-yeop920",
   "version": "0.1.0",
   "private": true,
   "scripts": {
