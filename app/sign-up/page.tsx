@@ -32,9 +32,9 @@ export default function SignUpPage() {
             name="userId"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>UserId</FormLabel>
+                <FormLabel>아이디</FormLabel>
                 <FormControl>
-                  <Input placeholder="shadcn" {...field} />
+                  <Input placeholder="아이디 입력" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
