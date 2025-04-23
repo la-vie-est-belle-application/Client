@@ -1,5 +1,3 @@
-"use client";
-
 import { SignUpForm } from "@/src/entities/auth/ui/sign-up-form";
 
 export default function SignUpPage() {
