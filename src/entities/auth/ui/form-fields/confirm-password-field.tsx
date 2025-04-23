@@ -1,4 +1,4 @@
-import { Control } from "react-hook-form";
+import { Control, useFormContext } from "react-hook-form";
 import { UserSchema } from "../../model/types";
 import { BaseField } from "./base-field";
 
@@ -7,6 +7,8 @@ interface ConfirmPasswordFieldProps {
 }
 
 export function ConfirmPasswordField({ control }: ConfirmPasswordFieldProps) {
+  const { trigger } = useFormContext<UserSchema>();
+
   return (
     <BaseField
       control={control}
@@ -14,6 +16,9 @@ export function ConfirmPasswordField({ control }: ConfirmPasswordFieldProps) {
       label="비밀번호 확인"
       placeholder="비밀번호를 다시 입력해주세요"
       type="password"
+      onChange={() => {
+        trigger("confirmPassword");
+      }}
     />
   );
 }
