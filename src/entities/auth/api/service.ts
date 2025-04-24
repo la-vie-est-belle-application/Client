@@ -55,7 +55,6 @@ class AuthService {
     });
 
     if (insertError) {
-      console.error("프로필 삽입 에러:", insertError.message);
       redirect("/error");
     }
 
