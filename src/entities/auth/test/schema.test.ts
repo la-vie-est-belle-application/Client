@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { userSchema } from "../model/schema";
+import { userSchema } from "@entities/auth/model/schema";
 
 const validUserData = {
   userEmail: "testuser@example.com",

@@ -1,9 +1,9 @@
 import { Control } from "react-hook-form";
-import { UserSchema } from "@entities/auth/model/types";
+import { AuthProfile } from "@entities/auth/hooks/use-auth-action";
 import { BaseField } from "@entities/auth/ui";
 
 interface UserNameFieldProps {
-  control: Control<UserSchema>;
+  control: Control<AuthProfile>;
 }
 
 export function UserNameField({ control }: UserNameFieldProps) {

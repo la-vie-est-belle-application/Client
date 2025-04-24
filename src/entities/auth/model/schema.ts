@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { isValidDate } from "@entities/auth/lib/validate-date";
 
 export const userSchema = z
   .object({
@@ -48,23 +49,16 @@ export const userSchema = z
     userBirth: z
       .string()
       .regex(/^\d{8}$/, "YYYYMMDD 형식으로 입력해주세요")
-      .refine((val) => {
-        const year = parseInt(val.slice(0, 4));
-        const month = parseInt(val.slice(4, 6));
-        const day = parseInt(val.slice(6, 8));
-
-        if (month < 1 || month > 12) return false;
-        if (day < 1 || day > 31) return false;
-
-        const date = new Date(year, month - 1, day);
-        return (
-          date.getFullYear() === year &&
-          date.getMonth() === month - 1 &&
-          date.getDate() === day
-        );
-      }, "올바른 날짜를 입력해주세요"),
+      .refine((val) => isValidDate(val), {
+        message: "올바른 날짜를 입력해주세요",
+      }),
   })
   .refine((data) => data.password === data.confirmPassword, {
     path: ["confirmPassword"],
     message: "비밀번호와 일치하지 않습니다.",
   });
+
+export const loginSchema = z.object({
+  userEmail: z.string(),
+  password: z.string(),
+});
