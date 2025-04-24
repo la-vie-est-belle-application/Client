@@ -14,7 +14,6 @@ export const isValidDate = (val: string): boolean => {
     date.getFullYear() === year &&
     date.getMonth() === month - 1 &&
     date.getDate() === day;
-  console.log(isValid);
 
   return isValid;
 };
