@@ -1,3 +1,5 @@
+"use client";
+
 import { Control } from "react-hook-form";
 import { CheckCircle2 } from "lucide-react";
 import { z } from "zod";

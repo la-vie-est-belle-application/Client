@@ -1,3 +1,5 @@
+"use client";
+
 import { Control, useFormContext } from "react-hook-form";
 import { UserSchema } from "../../model/types";
 import { BaseField } from "./base-field";

@@ -1,3 +1,5 @@
+"use client";
+
 import { Control } from "react-hook-form";
 import { UserSchema } from "@entities/auth/model/types";
 import { BaseField } from "@entities/auth/ui";
