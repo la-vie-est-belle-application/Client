@@ -1,4 +1,4 @@
-import { handleLogin } from "@/src/entities/auth";
+import { handleLogin } from "@entities/auth";
 
 export default function LoginPage() {
   return (

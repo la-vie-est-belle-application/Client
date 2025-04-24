@@ -1,1 +1,1 @@
-export { ScheduleRegisterPage } from "@/src/views/schedule/register/page/schedule-register";
+export { ScheduleRegisterPage } from "@views/schedule/register/page/schedule-register";

@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Button } from "@/components/ui/index";
+import { Button } from "@shared/shadcn-ui/components";
 
 export const Header = () => {
   const pathname = usePathname();

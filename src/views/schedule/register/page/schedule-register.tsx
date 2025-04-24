@@ -1,7 +1,7 @@
 import React from "react";
-import { CreateSchedule } from "@/src/features/schedule/register/create-schedule/index";
-import { FilterSchedule } from "@/src/features/schedule/register/filter-schedule/index";
-import { ScheduleCalender } from "@/src/features/schedule/register/schedule-calender/ui/schedule-calender";
+import { CreateSchedule } from "@features/schedule/register/create-schedule";
+import { FilterSchedule } from "@features/schedule/register/filter-schedule";
+import { ScheduleCalender } from "@features/schedule/register/schedule-calender/ui/schedule-calender";
 
 export const ScheduleRegisterPage = () => {
   return (

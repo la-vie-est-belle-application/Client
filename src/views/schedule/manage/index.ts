@@ -1,1 +1,1 @@
-export { ScheduleManagePage } from "@/src/views/schedule/manage/page/schedule-manage";
+export { ScheduleManagePage } from "@views/schedule/manage/page/schedule-manage";

@@ -1,11 +1,11 @@
 "use client";
 
 import React from "react";
-import { useScheduleCalenderStore } from "@/src/features/schedule/register/schedule-calender/model/store";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
 import { useShallow } from "zustand/react/shallow";
+import { useScheduleCalenderStore } from "@features/schedule/register/schedule-calender/model/store";
 import "./calender.css";
 
 export const ScheduleCalender = () => {

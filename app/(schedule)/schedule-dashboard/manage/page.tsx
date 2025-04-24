@@ -1,5 +1,4 @@
-import React from "react";
-import { ScheduleManagePage } from "@/src/views/schedule/manage/index";
+import { ScheduleManagePage } from "@views/schedule/manage/page/schedule-manage";
 
 const page = () => {
   return <ScheduleManagePage />;

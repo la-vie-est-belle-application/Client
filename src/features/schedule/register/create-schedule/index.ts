@@ -1,1 +1,1 @@
-export { CreateSchedule } from "@/src/features/schedule/register/create-schedule/ui/create-schedule";
+export { CreateSchedule } from "@features/schedule/register/create-schedule/ui/create-schedule";

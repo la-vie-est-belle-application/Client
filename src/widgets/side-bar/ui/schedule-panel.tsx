@@ -1,5 +1,5 @@
 import React from "react";
-import { SchedulePreviewCard } from "@/src/entities/schedule-preview-card/index";
+import { SchedulePreviewCard } from "@entities/schedule-preview-card/ui/schedule-preview-card";
 
 export const SchedulePanel = () => {
   return (

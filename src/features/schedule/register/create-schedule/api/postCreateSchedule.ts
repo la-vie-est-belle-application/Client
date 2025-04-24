@@ -1,4 +1,4 @@
-import createClient from "@/src/entities/supabase/config/server";
+import createClient from "@entities/supabase/config/server";
 
 export const postCreateSchedule = async (selectedDateList: string[]) => {
   const supabase = await createClient();

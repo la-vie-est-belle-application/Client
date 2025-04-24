@@ -2,6 +2,7 @@
 
 import React from "react";
 import { FaPlus, FaUser } from "react-icons/fa";
+import { SelectOption } from "@features/select-option";
 import {
   Button,
   Checkbox,
@@ -11,8 +12,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/index";
-import { SelectOption } from "@/src/features/select-option/ui/select-option";
+} from "@shared/shadcn-ui/components";
 
 export const ScheduleManageModal = () => {
   return (

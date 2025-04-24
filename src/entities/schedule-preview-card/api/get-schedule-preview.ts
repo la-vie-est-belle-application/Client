@@ -1,4 +1,4 @@
-import { SchedulePreview } from "@/src/entities/schedule-preview-card/api/types";
+import { SchedulePreview } from "@entities/schedule-preview-card/api/types";
 
 export async function getSchedulePreview(): Promise<SchedulePreview[]> {
   const res = await fetch("/api/schedules");
