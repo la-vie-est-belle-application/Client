@@ -1,5 +1,8 @@
+"use client";
+
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { auth } from "@entities/auth/model/auth";
 import { userSchema } from "@entities/auth/model/schema";
 import { UserSchema } from "@entities/auth/model/types";
 
@@ -8,7 +11,7 @@ export default function useSignUp() {
     resolver: zodResolver(userSchema),
     mode: "onTouched",
     defaultValues: {
-      userId: "",
+      userEmail: "",
       password: "",
       confirmPassword: "",
       userName: "",
@@ -17,9 +20,9 @@ export default function useSignUp() {
     },
   });
 
-  function onSubmit(values: UserSchema) {
-    console.log(values);
+  async function handleSubmit(values: UserSchema) {
+    await auth.signUp(values);
   }
 
-  return { form, onSubmit };
+  return { form, handleSubmit };
 }

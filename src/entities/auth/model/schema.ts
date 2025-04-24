@@ -2,15 +2,10 @@ import { z } from "zod";
 
 export const userSchema = z
   .object({
-    userId: z
+    userEmail: z
       .string()
-      .nonempty("아이디를 입력해주세요")
-      .min(6, "아이디를 6글자, 18글자 이내로 입력해주세요.")
-      .max(18, "아이디를 6글자, 18글자 이내로 입력해주세요.")
-      .regex(
-        /^[a-zA-Z][a-zA-Z0-9]*$/,
-        "영문으로 시작하고 영문과 숫자만 사용할 수 있습니다",
-      ),
+      .nonempty("이메일을 입력해주세요")
+      .email("올바른 이메일 형식이 아닙니다"),
     password: z
       .string()
       .min(

@@ -1,7 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import createClient from "../../supabase/config/server";
+import createClient from "@entities/supabase/config/server";
 
 interface SignUpResponse {
   success: boolean;

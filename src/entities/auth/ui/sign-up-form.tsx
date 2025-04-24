@@ -1,40 +1,25 @@
 "use client";
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { userSchema } from "@entities/auth/model/schema";
-import { UserSchema } from "@entities/auth/model/types";
+import useSignUp from "@entities/auth/model/use-sign-up";
 import { ConfirmPasswordField } from "@entities/auth/ui/form-fields/confirm-password-field";
 import { PasswordField } from "@entities/auth/ui/form-fields/password-field";
 import { PhoneNumberField } from "@entities/auth/ui/form-fields/phone-number-field";
 import { UserBirthField } from "@entities/auth/ui/form-fields/user-birth-field";
-import { UserIdField } from "@entities/auth/ui/form-fields/user-id-field";
+import { UserEmailField } from "@entities/auth/ui/form-fields/user-email-field";
 import { UserNameField } from "@entities/auth/ui/form-fields/user-name-field";
 import { Form } from "@shared/shadcn-ui/components";
 
 export function SignUpForm() {
-  const form = useForm<UserSchema>({
-    resolver: zodResolver(userSchema),
-    mode: "onBlur",
-    defaultValues: {
-      userId: "",
-      password: "",
-      confirmPassword: "",
-      userName: "",
-      userPhoneNumber: "",
-      userBirth: "",
-    },
-  });
-
-  const onSubmit = (data: UserSchema) => {
-    console.log(data);
-  };
+  const { form, handleSubmit } = useSignUp();
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full max-w-md">
+      <form
+        onSubmit={form.handleSubmit(handleSubmit)}
+        className="w-full max-w-md"
+      >
         <div className="space-y-4">
-          <UserIdField control={form.control} />
+          <UserEmailField control={form.control} />
           <PasswordField control={form.control} />
           <ConfirmPasswordField control={form.control} />
           <UserNameField control={form.control} />

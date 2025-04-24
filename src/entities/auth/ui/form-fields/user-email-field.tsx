@@ -6,13 +6,13 @@ interface UserIdFieldProps {
   control: Control<UserSchema>;
 }
 
-export function UserIdField({ control }: UserIdFieldProps) {
+export function UserEmailField({ control }: UserIdFieldProps) {
   return (
     <BaseField
       control={control}
-      name="userId"
-      label="아이디"
-      placeholder="영문 + 숫자"
+      name="userEmail"
+      label="이메일"
+      placeholder="이메일 입력"
     />
   );
 }

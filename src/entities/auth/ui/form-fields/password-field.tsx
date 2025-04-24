@@ -1,6 +1,8 @@
+"use client";
+
 import { Control, useFormContext } from "react-hook-form";
-import { UserSchema } from "../../model/types";
-import { BaseField } from "./base-field";
+import { UserSchema } from "@entities/auth/model/types";
+import { BaseField } from "@entities/auth/ui/form-fields/base-field";
 
 interface PasswordFieldProps {
   control: Control<UserSchema>;
