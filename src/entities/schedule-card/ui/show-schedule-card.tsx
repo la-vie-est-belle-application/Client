@@ -1,4 +1,4 @@
-import { Badge } from "@/components/ui/index";
+import { Badge } from "@shared/shadcn-ui/components";
 
 export const ShowScheduleCard = () => {
   return (

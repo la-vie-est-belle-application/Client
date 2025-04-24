@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { userSchema } from "./schema";
-import { UserSchema } from "./types";
+import { userSchema } from "@entities/auth/model/schema";
+import { UserSchema } from "@entities/auth/model/types";
 
 export default function useSignUp() {
   const form = useForm<UserSchema>({

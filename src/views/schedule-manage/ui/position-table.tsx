@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import { ScheduleModal } from "@features/schedule-manage";
 import {
   Table,
   TableBody,
@@ -8,8 +8,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/index";
-import { ScheduleModal } from "@/src/features/schedule-manage/index";
+} from "@shared/shadcn-ui/components";
 
 export const PositionTable = () => {
   return (

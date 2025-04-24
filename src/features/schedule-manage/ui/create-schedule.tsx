@@ -1,11 +1,11 @@
 import React from "react";
-import { FaPlus } from "react-icons/fa";
-import { Button } from "@/components/ui/index";
+import { CircleFadingPlus } from "lucide-react";
+import { Button } from "@shared/shadcn-ui/components/button";
 
 export const CreateSchedule = () => {
   return (
-    <Button variant="primary">
-      <FaPlus />
+    <Button variant="default">
+      <CircleFadingPlus />
       스케줄 등록
     </Button>
   );

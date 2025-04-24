@@ -3,6 +3,8 @@
 import { FaCalendarAlt, FaList, FaPlus } from "react-icons/fa";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { SideBarItem } from "@widgets/side-bar/type";
+import { SchedulePanel } from "@widgets/side-bar/ui/schedule-panel";
 import {
   Sidebar,
   SidebarContent,
@@ -12,9 +14,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarProvider,
-} from "@/components/ui/index";
-import { SideBarItem } from "@/src/widgets/side-bar/type";
-import { SchedulePanel } from "@/src/widgets/side-bar/ui/schedule-panel";
+} from "@shared/shadcn-ui/components";
 
 export const SideBar = () => {
   const pathname = usePathname();

@@ -1,4 +1,5 @@
 import { FlatCompat } from "@eslint/eslintrc";
+import importPlugin from "eslint-plugin-import";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -23,6 +24,20 @@ export default [
     },
     linterOptions: {
       reportUnusedDisableDirectives: true,
+    },
+    plugins: {
+      import: importPlugin,
+    },
+    rules: {
+      "import/no-unresolved": "error",
+      "import/order": "warn",
+    },
+    settings: {
+      "import/resolver": {
+        typescript: {
+          project: "./tsconfig.json",
+        },
+      },
     },
   },
 ];

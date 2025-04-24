@@ -1,4 +1,7 @@
 import { Control } from "react-hook-form";
+import { CheckCircle2 } from "lucide-react";
+import { z } from "zod";
+import { userSchema } from "@entities/auth/model/schema";
 import {
   FormControl,
   FormField,
@@ -6,11 +9,8 @@ import {
   FormLabel,
   FormMessage,
   Input,
-} from "@/src/shared/shadcn-ui/components";
-import { cn } from "@/src/shared/shadcn-ui/lib/utils";
-import { CheckCircle2 } from "lucide-react";
-import { z } from "zod";
-import { userSchema } from "../../model/schema";
+} from "@shared/shadcn-ui/components";
+import { cn } from "@shared/shadcn-ui/lib/utils";
 
 type UserSchema = z.infer<typeof userSchema>;
 

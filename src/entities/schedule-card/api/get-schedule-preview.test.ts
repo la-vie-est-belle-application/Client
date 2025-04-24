@@ -1,6 +1,6 @@
-import { SchedulePreview } from "@/src/entities/schedule-card/api/types";
 import { beforeEach, describe, expect, it, test, vi } from "vitest";
-import { getSchedulePreview } from "./get-schedule-preview";
+import { getSchedulePreview } from "@entities/schedule-card/api/get-schedule-preview";
+import { SchedulePreview } from "@entities/schedule-card/api/types";
 
 global.fetch = vi.fn();
 

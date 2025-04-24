@@ -1,6 +1,6 @@
 import React from "react";
 import { FaFilter } from "react-icons/fa";
-import { Button } from "@/components/ui/index";
+import { Button } from "@shared/shadcn-ui/components";
 
 export const FilterSchedule = () => {
   return (

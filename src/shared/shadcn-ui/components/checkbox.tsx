@@ -1,7 +1,7 @@
 import * as React from "react";
-import { cn } from "@/src/shared/shadcn-ui/lib/utils";
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
 import { CheckIcon } from "lucide-react";
+import { cn } from "@shared/shadcn-ui/lib/utils";
 
 function Checkbox({
   className,

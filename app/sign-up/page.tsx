@@ -1,4 +1,4 @@
-import { SignUpForm } from "@/src/entities/auth/ui/sign-up-form";
+import { SignUpForm } from "@entities/auth/ui";
 
 export default function SignUpPage() {
   return (

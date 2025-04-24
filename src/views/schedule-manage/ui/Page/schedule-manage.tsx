@@ -1,8 +1,8 @@
 import React from "react";
 import { FaMagnifyingGlass, FaRegCalendar } from "react-icons/fa6";
-import { Button } from "@/components/ui/index";
-import { SelectOption } from "@/src/features/schedule-manage/index";
-import { PositionTable } from "@/src/views/schedule-manage/ui/position-table";
+import { PositionTable } from "@views/schedule-manage/ui/position-table";
+import { SelectOption } from "@features/schedule-manage";
+import { Button } from "@shared/shadcn-ui/components";
 
 export const ScheduleManagePage = () => {
   return (

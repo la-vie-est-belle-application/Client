@@ -1,7 +1,5 @@
-import React from "react";
-import { FilterSchedule } from "@/src/features/schedule-manage";
-import { CreateSchedule } from "@/src/features/schedule-manage";
-import { ScheduleCalender } from "@/src/views/schedule-manage/ui/schedule-calender";
+import { ScheduleCalender } from "@views/schedule-manage/ui/schedule-calender";
+import { CreateSchedule, FilterSchedule } from "@features/schedule-manage";
 
 export const ScheduleRegisterPage = () => {
   return (

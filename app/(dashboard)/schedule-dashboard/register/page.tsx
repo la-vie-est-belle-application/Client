@@ -1,4 +1,4 @@
-import { ScheduleRegisterPage } from "@/src/views/schedule-manage";
+import { ScheduleRegisterPage } from "@views/schedule-manage";
 
 const page = () => {
   return <ScheduleRegisterPage />;

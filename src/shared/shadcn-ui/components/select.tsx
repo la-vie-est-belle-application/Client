@@ -1,7 +1,7 @@
 import * as React from "react";
-import { cn } from "@/src/shared/shadcn-ui/lib/utils";
 import * as SelectPrimitive from "@radix-ui/react-select";
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from "lucide-react";
+import { cn } from "@shared/shadcn-ui/lib/utils";
 
 function Select({
   ...props
@@ -24,10 +24,12 @@ function SelectValue({
 function SelectTrigger({
   className,
   size = "default",
+  icon,
   children,
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Trigger> & {
   size?: "sm" | "default";
+  icon?: React.ReactNode;
 }) {
   return (
     <SelectPrimitive.Trigger
@@ -41,7 +43,7 @@ function SelectTrigger({
     >
       {children}
       <SelectPrimitive.Icon asChild>
-        <ChevronDownIcon className="size-4 opacity-50" />
+        {icon ? icon : <ChevronDownIcon className="size-4 opacity-50" />}
       </SelectPrimitive.Icon>
     </SelectPrimitive.Trigger>
   );

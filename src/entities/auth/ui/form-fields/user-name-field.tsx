@@ -1,6 +1,6 @@
 import { Control } from "react-hook-form";
-import { UserSchema } from "../../model/types";
-import { BaseField } from "./base-field";
+import { UserSchema } from "@entities/auth/model/types";
+import { BaseField } from "@entities/auth/ui";
 
 interface UserNameFieldProps {
   control: Control<UserSchema>;

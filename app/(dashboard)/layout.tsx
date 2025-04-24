@@ -1,7 +1,6 @@
-import React from "react";
-import { Container } from "@/src/widgets/container/index";
-import { Header } from "@/src/widgets/header/index";
-import { SideBar } from "@/src/widgets/side-bar/index";
+import { Container } from "@widgets/container";
+import { Header } from "@widgets/header";
+import { SideBar } from "@widgets/side-bar";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (

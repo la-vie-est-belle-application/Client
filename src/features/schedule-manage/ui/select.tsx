@@ -1,12 +1,11 @@
-import React from "react";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/index";
-import { cn } from "@/lib/utils";
+} from "@shared/shadcn-ui/components";
+import { cn } from "@shared/shadcn-ui/lib/utils";
 
 interface SelectOptionProps {
   className?: string;

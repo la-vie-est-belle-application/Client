@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server";
-import createClient from "../../supabase/config/server";
+import createClient from "@entities/supabase/config/server";
 
 export default async function updateSession(request: NextRequest) {
   const supabase = await createClient();
