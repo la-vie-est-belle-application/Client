@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
@@ -11,7 +11,7 @@ import { useScheduleCalenderStore } from "@features/schedule/register/schedule-c
 import "./calender.css";
 
 export const ScheduleCalender = () => {
-  const [scheduleData, setScheduleData] = useState<ScheduleData[]>([]);
+  const calendarRef = useRef<FullCalendar | null>(null);
 
   const { selectedDateList, setSelectedDate } = useScheduleCalenderStore(
     useShallow((state) => ({
@@ -24,24 +24,67 @@ export const ScheduleCalender = () => {
     setSelectedDate(arg.dateStr);
   };
 
-  const getScheduleData = async () => {
-    const scheduleData = await fetchScheduleData();
+  const renderScheduleEvents = (data: ScheduleData[]) => {
+    const calendarApi = calendarRef.current?.getApi();
 
-    if (!scheduleData) {
+    if (!calendarApi) return;
+
+    calendarApi.removeAllEvents();
+
+    data.forEach((schedule) => {
+      calendarApi.addEvent({
+        id: `schedule-${schedule.date}`,
+        start: schedule.date,
+        end: schedule.date,
+        color: schedule.is_confirmed ? "var(--color-primary)" : "#FEF9C3",
+      });
+    });
+  };
+
+  const renderSelectedDateEvents = (dates: string[]) => {
+    const calendarApi = calendarRef.current?.getApi();
+
+    if (!calendarApi) return;
+
+    calendarApi.getEvents().forEach((event) => {
+      if (event.display === "background") {
+        event.remove();
+      }
+    });
+
+    dates.forEach((date) => {
+      calendarApi.addEvent({
+        id: `bg-${date}`,
+        start: date,
+        display: "background",
+        backgroundColor: "#159efa",
+      });
+    });
+  };
+
+  const getScheduleData = async () => {
+    const data = await fetchScheduleData();
+
+    if (!data) {
       alert("스케줄 데이터를 가져오는데 실패했습니다.");
       return;
     }
 
-    setScheduleData(scheduleData);
+    renderScheduleEvents(data);
   };
 
   useEffect(() => {
     getScheduleData();
   }, []);
 
+  useEffect(() => {
+    renderSelectedDateEvents(selectedDateList);
+  }, [selectedDateList]);
+
   return (
     <div className="pt-8 pb-10">
       <FullCalendar
+        ref={calendarRef}
         height="auto"
         initialView="dayGridMonth"
         plugins={[dayGridPlugin, interactionPlugin]}
@@ -60,18 +103,6 @@ export const ScheduleCalender = () => {
           day: "일",
         }}
         dateClick={handleClickDate}
-        events={[
-          ...selectedDateList.map((date) => ({
-            start: date,
-            display: "background",
-            backgroundColor: "#159efa",
-          })),
-          ...scheduleData.map((schedule) => ({
-            start: schedule.date,
-            end: schedule.date,
-            color: `${schedule.is_confirmed ? "var(--color-primary)" : "#FEF9C3"}`,
-          })),
-        ]}
       />
     </div>
   );
