@@ -8,13 +8,15 @@ import {
 } from "@entities/auth/hooks/use-auth-action";
 import { BaseField } from "@entities/auth/ui/form-fields/base-field";
 
+interface EmailFieldProps<T extends AuthProfile | AuthCredentials> {
+  control: Control<T>;
+  name: Path<T>;
+}
+
 export default function EmailField<T extends AuthProfile | AuthCredentials>({
   control,
   name,
-}: {
-  control: Control<T>;
-  name: Path<T>;
-}) {
+}: EmailFieldProps<T>) {
   const pathname = usePathname();
   const isLoginPage = pathname === "/login";
 

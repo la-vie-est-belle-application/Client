@@ -1,6 +1,6 @@
 "use client";
 
-import { Control, Path } from "react-hook-form";
+import { Control, FieldValues, Path } from "react-hook-form";
 import { usePathname } from "next/navigation";
 import {
   AuthCredentials,
@@ -8,13 +8,15 @@ import {
 } from "@entities/auth/hooks/use-auth-action";
 import { BaseField } from "@entities/auth/ui/form-fields/base-field";
 
+interface PasswordFieldProps<T extends AuthProfile | AuthCredentials> {
+  control: Control<T>;
+  name: Path<T>;
+}
+
 export default function PasswordField<T extends AuthProfile | AuthCredentials>({
   control,
   name,
-}: {
-  control: Control<T>;
-  name: Path<T>;
-}) {
+}: PasswordFieldProps<T>) {
   const pathname = usePathname();
   const isLoginPage = pathname === "/login";
 
