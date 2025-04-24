@@ -12,6 +12,7 @@ import "./calender.css";
 
 export const ScheduleCalender = () => {
   const [scheduleData, setScheduleData] = useState<ScheduleData[]>([]);
+
   const { selectedDateList, setSelectedDate } = useScheduleCalenderStore(
     useShallow((state) => ({
       selectedDateList: state.selectedDateList,
@@ -67,7 +68,8 @@ export const ScheduleCalender = () => {
           })),
           ...scheduleData.map((schedule) => ({
             start: schedule.date,
-            color: "#159efa",
+            end: schedule.date,
+            color: `${schedule.is_confirmed ? "var(--color-primary)" : "#FEF9C3"}`,
           })),
         ]}
       />
