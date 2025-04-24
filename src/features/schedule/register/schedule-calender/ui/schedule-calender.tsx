@@ -1,14 +1,17 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
 import { useShallow } from "zustand/react/shallow";
+import { ScheduleData } from "@features/schedule/register/create-schedule/index";
+import { fetchScheduleData } from "@features/schedule/register/schedule-calender/api/fetch-schedule-data";
 import { useScheduleCalenderStore } from "@features/schedule/register/schedule-calender/model/store";
 import "./calender.css";
 
 export const ScheduleCalender = () => {
+  const [scheduleData, setScheduleData] = useState<ScheduleData[]>([]);
   const { selectedDateList, setSelectedDate } = useScheduleCalenderStore(
     useShallow((state) => ({
       selectedDateList: state.selectedDateList,
@@ -19,6 +22,21 @@ export const ScheduleCalender = () => {
   const handleClickDate = (arg: DateClickArg) => {
     setSelectedDate(arg.dateStr);
   };
+
+  const getScheduleData = async () => {
+    const scheduleData = await fetchScheduleData();
+
+    if (!scheduleData) {
+      alert("스케줄 데이터를 가져오는데 실패했습니다.");
+      return;
+    }
+
+    setScheduleData(scheduleData);
+  };
+
+  useEffect(() => {
+    getScheduleData();
+  }, []);
 
   return (
     <div className="pt-8 pb-10">
@@ -41,11 +59,17 @@ export const ScheduleCalender = () => {
           day: "일",
         }}
         dateClick={handleClickDate}
-        events={selectedDateList.map((date) => ({
-          start: date,
-          display: "background",
-          backgroundColor: "#159efa",
-        }))}
+        events={[
+          ...selectedDateList.map((date) => ({
+            start: date,
+            display: "background",
+            backgroundColor: "#159efa",
+          })),
+          ...scheduleData.map((schedule) => ({
+            start: schedule.date,
+            color: "#159efa",
+          })),
+        ]}
       />
     </div>
   );

@@ -1,12 +1,12 @@
 import { createClient } from "@supabase/supabase-js";
 
-interface ScheduleData {
+export interface ScheduleData {
   date: string;
   is_open: boolean;
   is_confirmed: boolean;
 }
 
-const supabase = createClient(
+export const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ARON_KEY!,
 );
