@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import useAuthAction from "@entities/auth/hooks/use-auth-action";
 import EmailField from "@entities/auth/ui/form-fields/email-field";
 import PasswordField from "@entities/auth/ui/form-fields/password-field";
@@ -8,11 +8,6 @@ import { Form, FormMessage } from "@shared/shadcn-ui/components";
 
 export function LoginForm() {
   const { loginForm, handleLogin } = useAuthAction();
-  const router = useRouter();
-
-  const goToSignUp = () => {
-    router.push("/sign-up");
-  };
 
   return (
     <Form {...loginForm}>
@@ -40,13 +35,14 @@ export function LoginForm() {
         <div className="mt-4 text-center">
           <span className="text-sm text-gray-500">
             아직 회원이 아니신가요?{" "}
-            <button
-              type="button"
-              onClick={goToSignUp}
-              className="text-[#0064FF] hover:text-[#0050CC] font-semibold cursor-pointer"
-            >
-              회원가입
-            </button>
+            <Link href={"/sign-up"}>
+              <button
+                type="button"
+                className="text-[#0064FF] hover:text-[#0050CC] font-semibold cursor-pointer"
+              >
+                회원가입
+              </button>
+            </Link>
           </span>
         </div>
       </form>
