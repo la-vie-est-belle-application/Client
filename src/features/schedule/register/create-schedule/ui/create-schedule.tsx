@@ -5,15 +5,7 @@ import { FaPlus } from "react-icons/fa";
 import { useShallow } from "zustand/react/shallow";
 import { postCreateSchedule } from "@features/schedule/register/create-schedule/api/postCreateSchedule";
 import { useScheduleCalenderStore } from "@features/schedule/register/schedule-calender/model/store";
-import {
-  Button,
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@shared/shadcn-ui/components";
+import { Button } from "@shared/shadcn-ui/components";
 
 export const CreateSchedule = () => {
   const selectedDateList = useScheduleCalenderStore(
@@ -21,40 +13,12 @@ export const CreateSchedule = () => {
   );
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="primary">
-          <FaPlus />
-          스케줄 등록
-        </Button>
-      </DialogTrigger>
-
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle className="text-xl">
-            스케줄 등록 하시겠습니까?
-          </DialogTitle>
-        </DialogHeader>
-
-        <div className="flex gap-2 pt-15">
-          <DialogClose asChild>
-            <Button variant="ghost" className="flex-1" size="lg">
-              취소
-            </Button>
-          </DialogClose>
-
-          <DialogClose asChild>
-            <Button
-              variant="primary"
-              className="flex-1"
-              size="lg"
-              onClick={() => postCreateSchedule(selectedDateList)}
-            >
-              등록
-            </Button>
-          </DialogClose>
-        </div>
-      </DialogContent>
-    </Dialog>
+    <Button
+      variant="primary"
+      onClick={() => postCreateSchedule(selectedDateList)}
+    >
+      <FaPlus />
+      스케줄 등록
+    </Button>
   );
 };
