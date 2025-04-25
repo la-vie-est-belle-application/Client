@@ -24,14 +24,14 @@ export const ScheduleCalender = () => {
     setSelectedDate(arg.dateStr);
   };
 
-  const renderScheduleEvents = (data: ScheduleData[]) => {
+  const renderScheduleEvents = async (data: Promise<ScheduleData[]>) => {
     const calendarApi = calendarRef.current?.getApi();
 
     if (!calendarApi) return;
 
     calendarApi.removeAllEvents();
 
-    data.forEach((schedule) => {
+    (await data).forEach((schedule) => {
       calendarApi.addEvent({
         id: `schedule-${schedule.date}`,
         start: schedule.date,
@@ -62,19 +62,20 @@ export const ScheduleCalender = () => {
     });
   };
 
-  const getScheduleData = async () => {
+  const getScheduleData = async (): Promise<ScheduleData[]> => {
     const data = await fetchScheduleData();
 
     if (!data) {
       alert("스케줄 데이터를 가져오는데 실패했습니다.");
-      return;
+      return [];
     }
 
-    renderScheduleEvents(data);
+    return data;
   };
 
   useEffect(() => {
-    getScheduleData();
+    const data = getScheduleData();
+    renderScheduleEvents(data);
   }, []);
 
   useEffect(() => {
