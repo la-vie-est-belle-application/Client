@@ -1,13 +1,15 @@
+"use client";
+
 import { Control, useFormContext } from "react-hook-form";
-import { UserSchema } from "@entities/auth/model/types";
+import { AuthProfile } from "@entities/auth/hooks/use-auth-action";
 import { BaseField } from "@entities/auth/ui/form-fields/base-field";
 
 interface ConfirmPasswordFieldProps {
-  control: Control<UserSchema>;
+  control: Control<AuthProfile>;
 }
 
 export function ConfirmPasswordField({ control }: ConfirmPasswordFieldProps) {
-  const { trigger } = useFormContext<UserSchema>();
+  const { trigger } = useFormContext<AuthProfile>();
 
   return (
     <BaseField

@@ -1,6 +1,6 @@
 "use client";
 
-import { Control, FieldValues, Path } from "react-hook-form";
+import { Control, Path } from "react-hook-form";
 import { usePathname } from "next/navigation";
 import {
   AuthCredentials,
@@ -8,15 +8,15 @@ import {
 } from "@entities/auth/hooks/use-auth-action";
 import { BaseField } from "@entities/auth/ui/form-fields/base-field";
 
-interface PasswordFieldProps<T extends AuthProfile | AuthCredentials> {
+interface EmailFieldProps<T extends AuthProfile | AuthCredentials> {
   control: Control<T>;
   name: Path<T>;
 }
 
-export default function PasswordField<T extends AuthProfile | AuthCredentials>({
+export default function EmailField<T extends AuthProfile | AuthCredentials>({
   control,
   name,
-}: PasswordFieldProps<T>) {
+}: EmailFieldProps<T>) {
   const pathname = usePathname();
   const isLoginPage = pathname === "/login";
 
@@ -24,9 +24,9 @@ export default function PasswordField<T extends AuthProfile | AuthCredentials>({
     <BaseField<T>
       control={control}
       name={name}
-      label="비밀번호"
-      placeholder="비밀번호를 입력해주세요."
-      type="password"
+      label="이메일"
+      placeholder="이메일을 입력해주세요."
+      type="email"
       isSkipValidation={isLoginPage}
     />
   );

@@ -1,13 +1,14 @@
-import { handleLogin } from "@entities/auth";
+import { LoginForm } from "@entities/auth/ui/login-form";
 
 export default function LoginPage() {
   return (
-    <form action={handleLogin}>
-      <label htmlFor="email">Email</label>
-      <input id="email" name="email" type="email" required />
-      <label htmlFor="password">Password:</label>
-      <input id="password" name="password" type="password" required />
-      <button>Log in</button>
-    </form>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-8 bg-white p-8">
+        <div className="text-center">
+          <h2 className="text-3xl font-extrabold text-gray-900">로그인</h2>
+        </div>
+        <LoginForm />
+      </div>
+    </div>
   );
 }
