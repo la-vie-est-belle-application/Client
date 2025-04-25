@@ -13,3 +13,4 @@ export * from "./skeleton";
 export * from "./table";
 export * from "./tooltip";
 export * from "./form";
+export * from "./sonner";
