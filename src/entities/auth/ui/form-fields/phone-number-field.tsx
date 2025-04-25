@@ -1,11 +1,11 @@
 "use client";
 
 import { Control } from "react-hook-form";
-import { UserSchema } from "../../model/types";
-import { BaseField } from "./base-field";
+import { AuthProfile } from "@entities/auth/hooks/use-auth-action";
+import { BaseField } from "@entities/auth/ui/form-fields/base-field";
 
 interface PhoneNumberFieldProps {
-  control: Control<UserSchema>;
+  control: Control<AuthProfile>;
 }
 
 export function PhoneNumberField({ control }: PhoneNumberFieldProps) {

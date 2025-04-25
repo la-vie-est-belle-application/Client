@@ -2,12 +2,12 @@
 
 import { cookies } from "next/headers";
 import { createServerClient } from "@supabase/ssr";
-import { supabaseKey, supabaseUrl } from "../index";
+import { supabaseKey, supabaseUrl } from "@entities/supabase";
 
-export default async function createClient() {
+export async function createServer() {
   const cookieStore = await cookies();
 
-  return createServerClient(supabaseUrl, supabaseKey, {
+  return createServerClient(supabaseUrl!, supabaseKey!, {
     cookies: {
       getAll() {
         return cookieStore.getAll();
