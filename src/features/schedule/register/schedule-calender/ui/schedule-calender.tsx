@@ -5,8 +5,9 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
 import { useShallow } from "zustand/react/shallow";
-import { ScheduleData } from "@features/schedule/register/create-schedule/index";
-import { fetchScheduleData } from "@features/schedule/register/schedule-calender/api/fetch-schedule-data";
+import { getScheduleData } from "@features/schedule/register/schedule-calender/lib/get-schedule-data";
+import { renderScheduleEvents } from "@features/schedule/register/schedule-calender/lib/render-schedule-events";
+import { renderSelectedDateEvents } from "@features/schedule/register/schedule-calender/lib/render-selected-date-event";
 import { useScheduleCalenderStore } from "@features/schedule/register/schedule-calender/model/store";
 import "./calender.css";
 
@@ -24,62 +25,13 @@ export const ScheduleCalender = () => {
     setSelectedDate(arg.dateStr);
   };
 
-  const renderScheduleEvents = async (data: Promise<ScheduleData[]>) => {
-    const calendarApi = calendarRef.current?.getApi();
-
-    if (!calendarApi) return;
-
-    calendarApi.removeAllEvents();
-
-    (await data).forEach((schedule) => {
-      calendarApi.addEvent({
-        id: `schedule-${schedule.date}`,
-        start: schedule.date,
-        end: schedule.date,
-        color: schedule.is_confirmed ? "var(--color-primary)" : "#FEF9C3",
-      });
-    });
-  };
-
-  const renderSelectedDateEvents = (dates: string[]) => {
-    const calendarApi = calendarRef.current?.getApi();
-
-    if (!calendarApi) return;
-
-    calendarApi.getEvents().forEach((event) => {
-      if (event.display === "background") {
-        event.remove();
-      }
-    });
-
-    dates.forEach((date) => {
-      calendarApi.addEvent({
-        id: `bg-${date}`,
-        start: date,
-        display: "background",
-        backgroundColor: "#159efa",
-      });
-    });
-  };
-
-  const getScheduleData = async (): Promise<ScheduleData[]> => {
-    const data = await fetchScheduleData();
-
-    if (!data) {
-      alert("스케줄 데이터를 가져오는데 실패했습니다.");
-      return [];
-    }
-
-    return data;
-  };
-
   useEffect(() => {
     const data = getScheduleData();
-    renderScheduleEvents(data);
+    renderScheduleEvents(data, calendarRef);
   }, []);
 
   useEffect(() => {
-    renderSelectedDateEvents(selectedDateList);
+    renderSelectedDateEvents(selectedDateList, calendarRef);
   }, [selectedDateList]);
 
   return (
