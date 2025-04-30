@@ -42,6 +42,7 @@ class AuthService {
     }
 
     const user = signUpData.user;
+
     if (!user) {
       console.error("회원 정보가 없습니다.");
       redirect("/error");

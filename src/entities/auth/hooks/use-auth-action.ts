@@ -1,8 +1,8 @@
 "use client";
 
+import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { loginAction, signupAction } from "@entities/auth/api/service";
 import { loginSchema, userSchema } from "@entities/auth/model/schema";
 

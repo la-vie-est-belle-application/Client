@@ -49,7 +49,7 @@ export const userSchema = z
     userBirth: z
       .string()
       .regex(/^\d{8}$/, "YYYYMMDD 형식으로 입력해주세요")
-      .refine((val) => isValidDate(val), {
+      .refine((date) => isValidDate(date), {
         message: "올바른 날짜를 입력해주세요",
       }),
   })
