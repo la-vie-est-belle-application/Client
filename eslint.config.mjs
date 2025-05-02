@@ -59,7 +59,7 @@ const settings = [
             },
             { from: "features", allow: ["features", "entities", "shared"] },
             { from: "entities", allow: ["entities", "shared"] },
-            { from: "shared", allow: [] },
+            { from: "shared", allow: ["shared"] },
           ],
         },
       ],
