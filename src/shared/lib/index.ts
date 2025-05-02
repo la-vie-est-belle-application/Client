@@ -4,7 +4,7 @@ export const pipe =
     return fns.reduce((value, func) => func(value), arg);
   };
 
-export const rest = (list: IArguments, num: number) => {
+export const rest = (list: ArrayLike<any>, num?: number) => {
   return Array.prototype.slice.call(list, num || 1);
 };
 
