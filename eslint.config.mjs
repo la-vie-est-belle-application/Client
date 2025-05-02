@@ -1,4 +1,5 @@
 import { FlatCompat } from "@eslint/eslintrc";
+import boundariesPlugin from "eslint-plugin-boundaries";
 import importPlugin from "eslint-plugin-import";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
@@ -10,7 +11,7 @@ const compat = new FlatCompat({
   baseDirectory: __dirname,
 });
 
-export default [
+const settings = [
   ...compat.extends("next", "next/core-web-vitals"),
 
   {
@@ -27,10 +28,41 @@ export default [
     },
     plugins: {
       import: importPlugin,
+      boundaries: boundariesPlugin,
     },
     rules: {
       "import/no-unresolved": "error",
       "import/order": "warn",
+      "boundaries/element-types": [
+        "error",
+        {
+          default: "disallow",
+          rules: [
+            {
+              from: "app",
+              allow: [
+                "app",
+                "views",
+                "widgets",
+                "features",
+                "entities",
+                "shared",
+              ],
+            },
+            {
+              from: "views",
+              allow: ["widgets", "features", "entities", "shared"],
+            },
+            {
+              from: "widgets",
+              allow: ["widgets", "features", "entities", "shared"],
+            },
+            { from: "features", allow: ["features", "entities", "shared"] },
+            { from: "entities", allow: ["entities", "shared"] },
+            { from: "shared", allow: [] },
+          ],
+        },
+      ],
     },
     settings: {
       "import/resolver": {
@@ -38,6 +70,16 @@ export default [
           project: "./tsconfig.json",
         },
       },
+      "boundaries/elements": [
+        { type: "app", pattern: "app/*" },
+        { type: "views", pattern: "views/*" },
+        { type: "widgets", pattern: "widgets/*" },
+        { type: "features", pattern: "features/*" },
+        { type: "entities", pattern: "entities/*" },
+        { type: "shared", pattern: "shared/*" },
+      ],
     },
   },
 ];
+
+export default settings;
