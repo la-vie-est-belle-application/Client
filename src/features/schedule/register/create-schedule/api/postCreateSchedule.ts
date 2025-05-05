@@ -1,4 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
+import { toast } from "sonner";
 
 export interface ScheduleData {
   date: string;
@@ -54,10 +55,10 @@ export const postCreateSchedule = async (selectedDateList: string[]) => {
         throw error;
       }
 
-      alert("새로운 스케줄이 성공적으로 등록되었습니다.");
+      toast("새로운 스케줄이 성공적으로 등록되었습니다.");
     }
   } catch (error) {
     console.error("Error inserting schedules:", error);
-    alert("스케줄 등록 중 오류가 발생했습니다.");
+    toast("스케줄 등록 중 오류가 발생했습니다.");
   }
 };

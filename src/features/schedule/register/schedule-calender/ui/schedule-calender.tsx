@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
@@ -12,14 +12,14 @@ import { useScheduleCalenderStore } from "@features/schedule/register/schedule-c
 import "./calender.css";
 
 export const ScheduleCalender = () => {
-  const calendarRef = useRef<FullCalendar | null>(null);
-
-  const { selectedDateList, setSelectedDate } = useScheduleCalenderStore(
-    useShallow((state) => ({
-      selectedDateList: state.selectedDateList,
-      setSelectedDate: state.setSelectedDate,
-    })),
-  );
+  const { calendarRef, selectedDateList, setSelectedDate } =
+    useScheduleCalenderStore(
+      useShallow((state) => ({
+        calendarRef: state.calendarRef,
+        selectedDateList: state.selectedDateList,
+        setSelectedDate: state.setSelectedDate,
+      })),
+    );
 
   const handleClickDate = (arg: DateClickArg) => {
     setSelectedDate(arg.dateStr);
@@ -28,11 +28,11 @@ export const ScheduleCalender = () => {
   useEffect(() => {
     const data = getScheduleData();
     renderScheduleEvents(data, calendarRef);
-  }, []);
+  }, [calendarRef]);
 
   useEffect(() => {
     renderSelectedDateEvents(selectedDateList, calendarRef);
-  }, [selectedDateList]);
+  }, [selectedDateList, calendarRef]);
 
   return (
     <div className="pt-8 pb-10">

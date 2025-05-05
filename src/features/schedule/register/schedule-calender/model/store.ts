@@ -1,3 +1,5 @@
+import { createRef } from "react";
+import FullCalendar from "@fullcalendar/react";
 import { enableMapSet } from "immer";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
@@ -9,6 +11,7 @@ export const scheduleCalenderStore = create(
   immer<ScheduleCalenderStore>((set) => ({
     selectedDate: new Set<string>(),
     selectedDateList: [],
+    calendarRef: createRef<FullCalendar | null>(),
 
     setSelectedDate: (date: string) =>
       set((state) => {
@@ -19,6 +22,10 @@ export const scheduleCalenderStore = create(
         }
 
         state.selectedDateList = Array.from(state.selectedDate);
+      }),
+    clearSelectedDate: () =>
+      set((state) => {
+        state.selectedDate.clear();
       }),
   })),
 );
