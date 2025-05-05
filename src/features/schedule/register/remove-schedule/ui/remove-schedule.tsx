@@ -29,7 +29,7 @@ export const RemoveSchedule = () => {
           <DialogTitle>스케줄을 정말 삭제하시겠습니까?</DialogTitle>
         </DialogHeader>
 
-        <div className="flex gap-2">
+        <div className="flex gap-2 mt-10">
           <DialogClose asChild>
             <Button variant="ghost" className="flex-1">
               취소
@@ -37,7 +37,7 @@ export const RemoveSchedule = () => {
           </DialogClose>
 
           <DialogClose asChild>
-            <Button variant="primary" className="flex-1">
+            <Button variant="remove" className="flex-1">
               삭제
             </Button>
           </DialogClose>
