@@ -1,5 +1,10 @@
+"use client";
+
 import React from "react";
 import { FaTrash } from "react-icons/fa";
+import { useShallow } from "zustand/react/shallow";
+import { deleteSchedule } from "@features/schedule/register/remove-schedule/api/delete-schedule";
+import { useScheduleCalenderStore } from "@features/schedule/register/schedule-calender";
 import {
   Button,
   Dialog,
@@ -11,6 +16,9 @@ import {
 } from "@shared/shadcn-ui/components";
 
 export const RemoveSchedule = () => {
+  const selectedDateList = useScheduleCalenderStore(
+    useShallow((state) => state.selectedDateList),
+  );
   return (
     <Dialog>
       <DialogTrigger
@@ -37,7 +45,13 @@ export const RemoveSchedule = () => {
           </DialogClose>
 
           <DialogClose asChild>
-            <Button variant="remove" className="flex-1">
+            <Button
+              variant="remove"
+              className="flex-1"
+              onClick={() => {
+                deleteSchedule(selectedDateList);
+              }}
+            >
               삭제
             </Button>
           </DialogClose>
