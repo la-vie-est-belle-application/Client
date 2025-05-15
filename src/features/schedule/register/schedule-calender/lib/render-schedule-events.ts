@@ -2,7 +2,7 @@ import FullCalendar from "@fullcalendar/react";
 import { ScheduleData } from "@features/schedule/register/create-schedule";
 
 export const renderScheduleEvents = async (
-  data: Promise<ScheduleData[]>,
+  data: ScheduleData[],
   calendarRef: React.RefObject<FullCalendar | null>,
 ) => {
   const calendarApi = calendarRef.current?.getApi();

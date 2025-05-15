@@ -1,5 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import { toast } from "sonner";
+import { fetchExistingDateList } from "@shared/api/index";
 
 export interface ScheduleData {
   date: string;
@@ -27,17 +28,9 @@ export const postCreateSchedule = async (selectedDateList: string[]) => {
     }));
 
     // supabase에서 기존 스케줄 조회
-    const { data: existingScheduleData } = await supabase
-      .from("schedules")
-      .select("date")
-      .in("date", selectedDateList);
+    const existingDateList = await fetchExistingDateList(selectedDateList);
 
-    if (existingScheduleData) {
-      // 날짜만 추출
-      const existingDateList = existingScheduleData.map(
-        (schedule) => schedule.date,
-      );
-
+    if (existingDateList) {
       // 기존 스케줄과 선택된 날짜 중 중복되는 날짜가 있는지 확인
       const filteredDateList = selectedDateList.filter((date) =>
         existingDateList.includes(date),

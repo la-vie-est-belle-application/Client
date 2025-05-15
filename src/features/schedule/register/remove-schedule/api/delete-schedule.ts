@@ -1,5 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import { toast } from "sonner";
+import { fetchExistingDateList } from "@shared/api/index";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -9,6 +10,16 @@ const supabase = createClient(
 export const deleteSchedule = async (selectedDateList: string[]) => {
   if (selectedDateList.length === 0) {
     toast("삭제할 스케줄이 없습니다");
+    return;
+  }
+
+  const existingScheduleList = await fetchExistingDateList(selectedDateList);
+  const nonExistingDates = selectedDateList.filter(
+    (date) => !existingScheduleList.includes(date),
+  );
+
+  if (nonExistingDates.length > 0) {
+    toast("선택한 날짜 중 스케줄이 등록되어 있지 않습니다");
     return;
   }
 

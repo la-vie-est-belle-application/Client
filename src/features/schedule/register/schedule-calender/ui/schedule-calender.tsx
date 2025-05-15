@@ -5,7 +5,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
 import { useShallow } from "zustand/react/shallow";
-import { getScheduleData } from "@features/schedule/register/schedule-calender/lib/get-schedule-data";
+import { fetchScheduleData } from "@features/schedule/register/schedule-calender/api/fetch-schedule-data";
 import { renderScheduleEvents } from "@features/schedule/register/schedule-calender/lib/render-schedule-events";
 import { renderSelectedDateEvents } from "@features/schedule/register/schedule-calender/lib/render-selected-date-event";
 import { useScheduleCalenderStore } from "@features/schedule/register/schedule-calender/model/store";
@@ -26,8 +26,12 @@ export const ScheduleCalender = () => {
   };
 
   useEffect(() => {
-    const data = getScheduleData();
-    renderScheduleEvents(data, calendarRef);
+    const fetchData = async () => {
+      const data = await fetchScheduleData();
+      renderScheduleEvents(data, calendarRef);
+    };
+
+    fetchData();
   }, [calendarRef]);
 
   useEffect(() => {

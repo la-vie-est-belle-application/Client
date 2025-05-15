@@ -5,6 +5,9 @@ import { FaTrash } from "react-icons/fa";
 import { useShallow } from "zustand/react/shallow";
 import { deleteSchedule } from "@features/schedule/register/remove-schedule/api/delete-schedule";
 import { useScheduleCalenderStore } from "@features/schedule/register/schedule-calender";
+import { fetchScheduleData } from "@features/schedule/register/schedule-calender/api/fetch-schedule-data";
+import { renderScheduleEvents } from "@features/schedule/register/schedule-calender/lib/render-schedule-events";
+import { renderSelectedDateEvents } from "@features/schedule/register/schedule-calender/lib/render-selected-date-event";
 import {
   Button,
   Dialog,
@@ -16,9 +19,23 @@ import {
 } from "@shared/shadcn-ui/components";
 
 export const RemoveSchedule = () => {
-  const selectedDateList = useScheduleCalenderStore(
-    useShallow((state) => state.selectedDateList),
-  );
+  const { calendarRef, selectedDateList, clearSelectedDate } =
+    useScheduleCalenderStore(
+      useShallow((state) => ({
+        calendarRef: state.calendarRef,
+        selectedDateList: state.selectedDateList,
+        clearSelectedDate: state.clearSelectedDate,
+      })),
+    );
+
+  const handleClickRemoveSchedule = async () => {
+    await deleteSchedule(selectedDateList);
+
+    const data = await fetchScheduleData();
+    clearSelectedDate();
+    renderSelectedDateEvents(selectedDateList, calendarRef);
+    renderScheduleEvents(data, calendarRef);
+  };
   return (
     <Dialog>
       <DialogTrigger
@@ -48,9 +65,7 @@ export const RemoveSchedule = () => {
             <Button
               variant="remove"
               className="flex-1"
-              onClick={() => {
-                deleteSchedule(selectedDateList);
-              }}
+              onClick={handleClickRemoveSchedule}
             >
               삭제
             </Button>
