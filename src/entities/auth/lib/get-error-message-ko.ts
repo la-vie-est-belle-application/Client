@@ -1,6 +1,6 @@
-import { errorMessagesKo } from "@entities/auth/consts/error-messages";
+import { AUTH_ERROR_MESSAGE } from "@entities/auth/consts/error-messages";
 
-type ErrorMessagesKoWithIndex = typeof errorMessagesKo & {
+type ErrorMessagesKoWithIndex = typeof AUTH_ERROR_MESSAGE & {
   [key: string]: string | undefined;
 };
 
@@ -8,7 +8,7 @@ export function getErrorMessageKo(error: string | undefined) {
   if (!error) return;
 
   const code = toSnakeCase(error);
-  const messages: ErrorMessagesKoWithIndex = errorMessagesKo;
+  const messages: ErrorMessagesKoWithIndex = AUTH_ERROR_MESSAGE;
   console.log(code);
   return (
     messages[code] ||

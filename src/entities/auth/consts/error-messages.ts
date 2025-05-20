@@ -1,4 +1,4 @@
-export const errorMessagesKo = {
+export const AUTH_ERROR_MESSAGE = {
   unexpected_failure: "예상치 못한 오류가 발생했습니다.",
   validation_failed: "입력 값이 유효하지 않습니다.",
   bad_json: "잘못된 요청 형식입니다.",
