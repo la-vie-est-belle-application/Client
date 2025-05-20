@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { go } from "@shared/lib";
+import { go } from "@shared/lib/compose";
 
 describe("go 유틸 테스트", () => {
   const add1 = (x: number) => x + 1;

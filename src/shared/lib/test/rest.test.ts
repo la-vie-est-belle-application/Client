@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { rest } from "@shared/lib";
+import { rest } from "@shared/lib/compose";
 
 describe("rest 유틸 테스트", () => {
   const data = [1, "a", "b"];

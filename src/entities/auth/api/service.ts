@@ -7,69 +7,84 @@ import {
   AuthProfile,
 } from "@entities/auth/hooks/use-auth-action";
 import { createServer } from "@entities/supabase";
+import { Result, withErrorHandling } from "@shared/error-handling";
 
-class AuthService {
-  async loginAction(data: AuthCredentials) {
-    const supabase = await createServer();
-    const { userEmail: email, password } = data;
+export const loginAction = async (
+  data: AuthCredentials,
+): Promise<Result<void>> => {
+  const result = await withErrorHandling(
+    async () => {
+      const supabase = await createServer();
+      const { error } = await supabase.auth.signInWithPassword({
+        email: data.userEmail,
+        password: data.password,
+      });
 
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+      if (error) {
+        throw error;
+      }
+    },
+    (error) => {
+      console.error("로그인 에러:", error);
+    },
+  );
 
-    if (error) {
-      return { error: "로그인 정보가 유효하지 않습니다." };
-    }
-
+  if (result.success) {
     revalidatePath("/", "layout");
     redirect("/");
   }
 
-  async signupAction(data: AuthProfile) {
-    const { userEmail, password, userName, userPhoneNumber, userBirth } = data;
+  return result;
+};
 
-    const supabase = await createServer();
-    const { data: signUpData, error: signUpError } = await supabase.auth.signUp(
-      {
-        email: userEmail,
-        password,
-      },
-    );
+export const signupAction = async (
+  data: AuthProfile,
+): Promise<Result<void>> => {
+  console.log("회원가입 액션 실행:", data);
+  const result = await withErrorHandling(
+    async () => {
+      const supabase = await createServer();
 
-    if (signUpError) {
-      redirect("/error");
-    }
+      const { data: authData, error: signUpError } = await supabase.auth.signUp(
+        {
+          email: data.userEmail,
+          password: data.password,
+        },
+      );
 
-    const user = signUpData.user;
+      if (signUpError) {
+        console.error("회원가입 에러:", signUpError);
+        throw signUpError;
+      }
 
-    if (!user) {
-      console.error("회원 정보가 없습니다.");
-      redirect("/error");
-    }
+      const user = authData.user;
+      if (!user) {
+        throw new Error("회원 정보가 없습니다.");
+      }
 
-    const { error: insertError } = await supabase.from("user_profiles").insert({
-      id: user.id,
-      user_name: userName,
-      user_phone_number: userPhoneNumber,
-      user_birth: userBirth,
-    });
+      const { error: insertError } = await supabase
+        .from("user_profiles")
+        .insert({
+          id: user.id,
+          user_name: data.userName,
+          user_phone_number: data.userPhoneNumber,
+          user_birth: data.userBirth,
+        });
 
-    if (insertError) {
-      redirect("/error");
-    }
+      if (insertError) {
+        console.error("프로필 저장 에러:", insertError);
+        throw insertError;
+      }
+    },
+    (error) => {
+      console.error("회원가입 에러:", error);
+    },
+  );
 
+  if (result.success) {
     revalidatePath("/", "layout");
     redirect("/login");
   }
-}
 
-const authService = new AuthService();
-
-export async function loginAction(data: AuthCredentials) {
-  return authService.loginAction(data);
-}
-
-export async function signupAction(data: AuthProfile) {
-  return authService.signupAction(data);
-}
+  return result;
+};
