@@ -1,7 +1,8 @@
 import React from "react";
 import { CreateSchedule } from "@features/schedule/register/create-schedule";
 import { FilterSchedule } from "@features/schedule/register/filter-schedule";
-import { ScheduleCalender } from "@features/schedule/register/schedule-calender/ui/schedule-calender";
+import { RemoveSchedule } from "@features/schedule/register/remove-schedule";
+import { ScheduleCalender } from "@features/schedule/register/schedule-calender";
 
 export const ScheduleRegisterPage = () => {
   return (
@@ -17,6 +18,7 @@ export const ScheduleRegisterPage = () => {
         <div>
           <FilterSchedule />
           <CreateSchedule />
+          <RemoveSchedule />
         </div>
       </div>
 
