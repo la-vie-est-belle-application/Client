@@ -1,3 +1,5 @@
+import { useShallow } from "zustand/react/shallow";
+import { useDateStore } from "@views/schedule/manage/schedule-control-bar/model/useDateStore";
 import {
   Select,
   SelectContent,
@@ -18,10 +20,17 @@ export const SelectOption = ({
   icon,
   selectItem,
 }: SelectOptionProps) => {
+  const { selectedDate, setDate } = useDateStore(
+    useShallow((state) => ({
+      selectedDate: state.date,
+      setDate: state.setDate,
+    })),
+  );
+
   return (
-    <Select>
+    <Select onValueChange={setDate}>
       <SelectTrigger className={cn("w-[180px]", className)} icon={icon}>
-        <SelectValue placeholder="날짜 선택" />
+        <SelectValue placeholder={selectedDate || "날짜 선택"} />
       </SelectTrigger>
 
       <SelectContent>

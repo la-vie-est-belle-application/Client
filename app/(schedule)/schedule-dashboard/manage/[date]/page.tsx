@@ -1,5 +1,7 @@
 import { ScheduleManagePage } from "@views/schedule/manage/page/schedule-manage";
 
-export const page = () => {
+const page = () => {
   return <ScheduleManagePage />;
 };
+
+export default page;
