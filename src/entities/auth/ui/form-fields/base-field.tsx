@@ -26,7 +26,6 @@ export function BaseField<T extends FieldValues>({
   placeholder,
   type = "text",
   onChange,
-  ...rest
 }: BaseFieldProps<T>) {
   return (
     <FormField
@@ -58,7 +57,6 @@ export function BaseField<T extends FieldValues>({
                   "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-4 py-2 h-auto",
                   error && "border-red-500",
                 )}
-                {...rest}
               />
             </FormControl>
             <FormMessage className="text-xs text-red-600 mt-1" />

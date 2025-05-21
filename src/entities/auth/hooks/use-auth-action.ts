@@ -3,7 +3,11 @@
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { loginAction, signupAction } from "@entities/auth/api/service";
+import {
+  isDuplicatedEmail,
+  loginAction,
+  signupAction,
+} from "@entities/auth/api/action";
 import { getErrorMessageKo } from "@entities/auth/lib/get-error-message-ko";
 import { loginSchema, userSchema } from "@entities/auth/model/schema";
 
@@ -57,10 +61,28 @@ export default function useAuthAction() {
     }
   };
 
+  const handleDuplicatedEmail = async (
+    data: Pick<AuthCredentials, "userEmail">,
+  ): Promise<{ isDuplicated: boolean; message?: string }> => {
+    const result = await isDuplicatedEmail(data);
+
+    if (!result.success) {
+      return {
+        isDuplicated: true,
+        message: "중복된 이메일입니다.",
+      };
+    }
+
+    return {
+      isDuplicated: false,
+    };
+  };
+
   return {
     signupForm,
     loginForm,
     handleSignup,
     handleLogin,
+    handleDuplicatedEmail,
   };
 }

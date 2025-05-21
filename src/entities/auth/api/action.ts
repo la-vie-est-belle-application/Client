@@ -88,3 +88,23 @@ export const signupAction = async (
 
   return result;
 };
+
+export const isDuplicatedEmail = async (
+  data: Pick<AuthCredentials, "userEmail">,
+): Promise<Result<void>> => {
+  return await withErrorHandling(async () => {
+    const supabase = await createServer();
+
+    const { data: existingUser } = await supabase
+      .from("user_profiles")
+      .select("user_email")
+      .eq("user_email", data.userEmail) // user_email로 수정
+      .maybeSingle();
+
+    const isDuplicated = !!existingUser;
+
+    if (isDuplicated) {
+      throw new Error("이미 사용 중인 이메일입니다.");
+    }
+  });
+};
