@@ -1,7 +1,6 @@
 import React from "react";
-import { FaMagnifyingGlass, FaRegCalendar } from "react-icons/fa6";
 import { PositionTable } from "@views/schedule/manage/position-table/position-table";
-import { SelectOption } from "@features/select-option";
+import { ScheduleControlBar } from "@views/schedule/manage/schedule-control-bar/ui/schedule-control-bar";
 import { Button } from "@shared/shadcn-ui/components";
 
 export const ScheduleManagePage = () => {
@@ -9,17 +8,7 @@ export const ScheduleManagePage = () => {
     <section className="w-full p-6">
       <div className="w-full h-full p-6 bg-white rounded-lg shadow-2xs">
         <h1 className="text-2xl font-bold mb-4">스케줄 관리</h1>
-
-        <div className="flex justify-start items-center gap-4 max-w-[1000px] mb-6">
-          <SelectOption className="w-full" icon={<FaRegCalendar />} />
-          <SelectOption className="w-full" icon={<FaRegCalendar />} />
-
-          <Button variant="primary">
-            <FaMagnifyingGlass />
-            조회
-          </Button>
-        </div>
-
+        <ScheduleControlBar />
         <PositionTable />
       </div>
 

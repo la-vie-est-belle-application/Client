@@ -21,13 +21,15 @@ export const SelectOption = ({
   return (
     <Select>
       <SelectTrigger className={cn("w-[180px]", className)} icon={icon}>
-        <SelectValue placeholder="Theme" />
+        <SelectValue placeholder="날짜 선택" />
       </SelectTrigger>
 
       <SelectContent>
-        <SelectItem value="light">Light</SelectItem>
-        <SelectItem value="dark">Dark</SelectItem>
-        <SelectItem value="system">System</SelectItem>
+        {selectItem?.map((item) => (
+          <SelectItem key={item} value={item}>
+            {item}
+          </SelectItem>
+        ))}
       </SelectContent>
     </Select>
   );

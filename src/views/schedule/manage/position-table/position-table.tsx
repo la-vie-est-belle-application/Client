@@ -26,7 +26,7 @@ export const PositionTable = () => {
           <TableCell className="text-left">팀장</TableCell>
           <TableCell>윤태관</TableCell>
           <TableCell className="text-right pr-4">
-            <ScheduleManageModal />
+            <ScheduleManageModal label={"수정"} />
           </TableCell>
         </TableRow>
       </TableBody>

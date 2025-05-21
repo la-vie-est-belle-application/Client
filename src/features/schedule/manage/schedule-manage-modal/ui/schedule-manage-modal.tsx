@@ -14,16 +14,24 @@ import {
   DialogTrigger,
 } from "@shared/shadcn-ui/components";
 
-export const ScheduleManageModal = () => {
+interface ScheduleManageModalProps {
+  label: string;
+  icon?: React.ReactNode;
+}
+
+export const ScheduleManageModal = ({
+  label,
+  icon,
+}: ScheduleManageModalProps) => {
   return (
     <Dialog>
-      <DialogTrigger
-        className="bg-primary hover:bg-primary-foreground 
-        text-primary text-white
-        cursor-pointer px-4 py-2 rounded-md h-9"
-      >
-        수정
+      <DialogTrigger asChild>
+        <Button variant="primary">
+          {icon}
+          {label}
+        </Button>
       </DialogTrigger>
+
       <DialogContent>
         <DialogHeader>
           <DialogTitle>포지션 인원 수정</DialogTitle>
