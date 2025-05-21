@@ -3,7 +3,7 @@
 import React from "react";
 import { FaPlus } from "react-icons/fa";
 import { useShallow } from "zustand/react/shallow";
-import { postCreateSchedule } from "@features/schedule/register/create-schedule/api/postCreateSchedule";
+import { postCreateSchedule } from "@features/schedule/register/create-schedule/api/post-create-schedule";
 import { fetchScheduleData } from "@features/schedule/register/schedule-calender/api/fetch-schedule-data";
 import { renderScheduleEvents } from "@features/schedule/register/schedule-calender/lib/render-schedule-events";
 import { renderSelectedDateEvents } from "@features/schedule/register/schedule-calender/lib/render-selected-date-event";
