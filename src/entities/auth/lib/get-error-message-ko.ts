@@ -4,10 +4,10 @@ type ErrorMessagesKoWithIndex = typeof errorMessagesKo & {
   [key: string]: string | undefined;
 };
 
-export function getErrorMessageKo(error: string | undefined) {
-  if (!error) return;
+export function getErrorMessageKo(errorCode: string | undefined) {
+  if (!errorCode) return;
 
-  const code = toSnakeCase(error);
+  const code = toSnakeCase(errorCode);
   const messages: ErrorMessagesKoWithIndex = errorMessagesKo;
   console.log(code);
   return (
