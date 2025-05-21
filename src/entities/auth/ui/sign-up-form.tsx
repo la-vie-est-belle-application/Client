@@ -7,7 +7,7 @@ import PasswordField from "@entities/auth/ui/form-fields/password-field";
 import { PhoneNumberField } from "@entities/auth/ui/form-fields/phone-number-field";
 import { UserBirthField } from "@entities/auth/ui/form-fields/user-birth-field";
 import { UserNameField } from "@entities/auth/ui/form-fields/user-name-field";
-import { Form, FormMessage } from "@shared/shadcn-ui/components";
+import { Button, Form, FormMessage } from "@shared/shadcn-ui/components";
 
 export function SignUpForm() {
   const { signupForm, handleSignup } = useAuthAction();
@@ -19,7 +19,12 @@ export function SignUpForm() {
         className="w-full max-w-md"
       >
         <div className="space-y-4">
-          <EmailField control={signupForm.control} name={"userEmail"} />
+          <div className="flex items-end gap-1">
+            <EmailField control={signupForm.control} name={"userEmail"} />
+            <Button type="button" variant={"primary"}>
+              중복확인
+            </Button>
+          </div>
           <PasswordField control={signupForm.control} name={"password"} />
           <ConfirmPasswordField control={signupForm.control} />
           <UserNameField control={signupForm.control} />

@@ -26,15 +26,19 @@ export function BaseField<T extends FieldValues>({
   placeholder,
   type = "text",
   onChange,
+  ...rest
 }: BaseFieldProps<T>) {
   return (
     <FormField
       control={control}
       name={name}
       render={({ field, fieldState: { error } }) => (
-        <FormItem className="space-y-1 gap-0">
+        <FormItem className="space-y-1 gap-0 w-full">
           <div className="flex items-center justify-between">
-            <FormLabel className="text-sm leading-none font-medium text-gray-700">
+            <FormLabel
+              htmlFor={name}
+              className="text-sm leading-none font-medium text-gray-700"
+            >
               {label}
             </FormLabel>
           </div>
@@ -42,6 +46,8 @@ export function BaseField<T extends FieldValues>({
             <FormControl>
               <Input
                 {...field}
+                id={name}
+                name={name}
                 placeholder={placeholder}
                 type={type}
                 onChange={(e) => {
@@ -50,8 +56,9 @@ export function BaseField<T extends FieldValues>({
                 }}
                 className={cn(
                   "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-4 py-2 h-auto",
-                  error ? "border-red-500" : null,
+                  error && "border-red-500",
                 )}
+                {...rest}
               />
             </FormControl>
             <FormMessage className="text-xs text-red-600 mt-1" />
