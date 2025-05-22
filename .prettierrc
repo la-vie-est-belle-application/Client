@@ -6,6 +6,7 @@
   "semi": true,
   "plugins": ["@trivago/prettier-plugin-sort-imports"],
   "importOrder": [
+    "^zod",
     "^react",
     "^next",
     "^supabase",

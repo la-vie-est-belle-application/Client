@@ -1,16 +1,14 @@
 "use client";
 
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { loginAction, signupAction } from "@entities/auth/api/service";
+import { loginAction, signupAction } from "@entities/auth/api/actions";
 import { loginSchema, userSchema } from "@entities/auth/model/schema";
-
-export type AuthProfile = z.infer<typeof userSchema>;
-export type AuthCredentials = z.infer<typeof loginSchema>;
+import { AuthCredentials, AuthProfile } from "@entities/auth/types";
+import { getErrorMessageKo } from "@shared/lib/get-error-message-ko";
 
 export default function useAuthAction() {
-  const signUpForm = useForm<AuthProfile>({
+  const signupForm = useForm<AuthProfile>({
     resolver: zodResolver(userSchema),
     mode: "onTouched",
     defaultValues: {
@@ -31,28 +29,32 @@ export default function useAuthAction() {
     },
   });
 
-  const handleSignUp = async (data: AuthProfile) => {
-    return await signupAction(data);
-  };
-
-  const handleLogin: SubmitHandler<AuthCredentials> = async (
-    data: AuthCredentials,
-  ) => {
+  const handleLogin = async (data: AuthCredentials) => {
     const result = await loginAction(data);
-
-    if (result?.error) {
+    if (!result.success) {
+      console.error("로그인 실패:", result.error);
       loginForm.setError("root.serverError", {
         type: "server",
-        message: result.error,
+        message: getErrorMessageKo(result.error?.code),
       });
-      return;
+    }
+  };
+
+  const handleSignup = async (data: AuthProfile) => {
+    const result = await signupAction(data);
+    if (!result.success) {
+      console.error("회원가입 실패:", result.error);
+      signupForm.setError("root.serverError", {
+        type: "server",
+        message: getErrorMessageKo(result.error?.code),
+      });
     }
   };
 
   return {
-    signUpForm,
+    signupForm,
     loginForm,
-    handleSignUp,
+    handleSignup,
     handleLogin,
   };
 }
