@@ -1,4 +1,4 @@
-import { Control, FieldValues, Path } from "react-hook-form";
+import { FieldValues } from "react-hook-form";
 import { BaseFieldProps } from "@entities/auth/types";
 import {
   FormControl,
@@ -26,9 +26,12 @@ export function BaseField<T extends FieldValues>({
       control={control}
       name={name}
       render={({ field, fieldState: { error } }) => (
-        <FormItem className="space-y-1 gap-0">
+        <FormItem className="space-y-1 gap-0 w-full">
           <div className="flex items-center justify-between">
-            <FormLabel className="text-sm leading-none font-medium text-gray-700">
+            <FormLabel
+              htmlFor={name}
+              className="text-sm leading-none font-medium text-gray-700"
+            >
               {label}
             </FormLabel>
           </div>
