@@ -1,4 +1,5 @@
-// src/entities/auth/ui/form-fields/password-field.tsx
+'use client'
+
 import { useState } from "react";
 import { FieldValues } from "react-hook-form";
 import { EyeIcon, EyeOffIcon } from "lucide-react";

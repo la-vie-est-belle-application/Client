@@ -1,17 +1,11 @@
 "use client";
 
-import * as React from "react";
-import { Control, Path } from "react-hook-form";
-import { useAuthEmail } from "@entities/auth/hooks/use-auth-email";
+import { Control, Path, PathValue, useFormContext } from "react-hook-form";
+
+import { EmailCheckField } from "./email-check-field";
 import { AuthCredentials, AuthProfile } from "@entities/auth/types";
 import { BaseField } from "@entities/auth/ui/form-fields/base-field";
-import { EmailCheckField } from "@entities/auth/ui/form-fields/email-check-field";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogTitle,
-} from "@shared/shadcn-ui/components/dialog";
+import { useEmailDuplicationCheckDialog } from '@entities/auth/hooks/use-email-duplication-check-dialog';
 
 interface EmailFieldProps<T extends AuthProfile | AuthCredentials> {
   control: Control<T>;
@@ -22,19 +16,23 @@ export default function EmailField<T extends AuthProfile | AuthCredentials>({
   control,
   name,
 }: EmailFieldProps<T>): React.ReactElement {
+  const { getValues, setValue } = useFormContext<T>();
+  const currentFormEmail = getValues(name);
+
   const {
-    dialogOpen,
-    openDialog,
-    closeDialog,
-    dialogEmail,
-    setDialogEmail,
-    checkResult,
-    loading,
-    inputRef,
-    error,
+    isOpen,
+    tempEmail,
+    setTempEmail,
+    isLoading,
+    isDuplicated,
+    errorMessage,
+    validationError,
+    isValid,
     handleCheck,
     handleConfirm,
-  } = useAuthEmail<T>(name);
+    openDialog,
+    closeDialog,
+  } = useEmailDuplicationCheckDialog();
 
   return (
     <>
@@ -44,37 +42,26 @@ export default function EmailField<T extends AuthProfile | AuthCredentials>({
         label="이메일"
         placeholder="이메일을 입력해주세요."
         type="email"
-        rightElement={null}
-        showMessage={true}
-        onFocus={openDialog}
+        onFocus={() => openDialog(currentFormEmail, (confirmedEmail) => {
+          setValue(name, confirmedEmail as PathValue<T, Path<T>>, { shouldValidate: true });
+        })}
       />
-      <Dialog open={dialogOpen} onOpenChange={closeDialog}>
-        <DialogContent className="rounded-xl shadow-2xl p-8 max-w-xs w-full flex flex-col gap-4 items-center">
-          <DialogTitle className="text-lg font-bold mb-2 text-center">
-            이메일 중복확인
-          </DialogTitle>
-          <DialogDescription>
-            사용할 이메일을 입력하고 중복확인을 진행하세요.
-          </DialogDescription>
-          <EmailCheckField
-            value={dialogEmail}
-            onChange={setDialogEmail}
-            inputRef={inputRef}
-            loading={loading}
-            onCheck={handleCheck}
-            error={error}
-            checkResult={checkResult}
-          />
-          <button
-            type="button"
-            className="w-full py-2 rounded-lg bg-blue-600 text-white font-semibold text-base mt-2 disabled:bg-gray-300 disabled:text-gray-500 transition"
-            disabled={checkResult !== "ok"}
-            onClick={handleConfirm}
-          >
-            이 이메일로 사용하기
-          </button>
-        </DialogContent>
-      </Dialog>
+
+      {isOpen && (
+        <EmailCheckField
+          isOpen={isOpen}
+          tempEmail={tempEmail}
+          setTempEmail={setTempEmail}
+          isLoading={isLoading}
+          isDuplicated={isDuplicated}
+          errorMessage={errorMessage}
+          validationError={validationError}
+          isValid={isValid}
+          handleCheck={handleCheck}
+          handleConfirm={handleConfirm}
+          onClose={closeDialog}
+        />
+      )}
     </>
   );
 }

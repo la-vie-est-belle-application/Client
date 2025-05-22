@@ -4,11 +4,11 @@ import Link from "next/link";
 import useAuthAction from "@entities/auth/hooks/use-auth-action";
 import { BaseField } from "@entities/auth/ui/form-fields/base-field";
 import { Form, FormMessage } from "@shared/shadcn-ui/components";
-import Spinner  from "@shared/ui/spinner";
+import Spinner from "@shared/ui/spinner";
 
 export function LoginForm() {
   const { loginForm, handleLogin } = useAuthAction();
-  
+
   return (
     <Form {...loginForm}>
       <form
