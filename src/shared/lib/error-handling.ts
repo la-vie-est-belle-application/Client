@@ -1,14 +1,4 @@
-export type ErrorType = {
-  message: string;
-  code?: string;
-  status?: number;
-};
-
-export type Result<T> = {
-  success: boolean;
-  data?: T;
-  error?: ErrorType;
-};
+import { ErrorType, Result } from "@shared/types";
 
 const mapError = (error: unknown): ErrorType => {
   if (error instanceof Error) {

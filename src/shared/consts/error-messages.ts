@@ -1,3 +1,10 @@
+/**
+ * Supabase 인증 관련 에러 코드와 메시지를 매핑한 객체입니다.
+ * 프론트엔드에서 사용자에게 보여줄 수 있는 에러 메시지를 제공합니다.
+ *
+ * 예시:
+ * const message = AUTH_ERROR_MESSAGE["bad_jwt"]; // "인증 정보가 유효하지 않습니다."
+ */
 export const AUTH_ERROR_MESSAGE = {
   unexpected_failure: "예상치 못한 오류가 발생했습니다.",
   validation_failed: "입력 값이 유효하지 않습니다.",

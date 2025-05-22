@@ -2,12 +2,10 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import {
-  AuthCredentials,
-  AuthProfile,
-} from "@entities/auth/hooks/use-auth-action";
+import { AuthCredentials, AuthProfile } from "@entities/auth/types";
 import { createServer } from "@entities/supabase";
-import { Result, withErrorHandling } from "@shared/error-handling";
+import { withErrorHandling } from "@shared/lib/error-handling";
+import { Result } from "@shared/types";
 
 export const loginAction = async (
   data: AuthCredentials,
@@ -88,3 +86,13 @@ export const signupAction = async (
 
   return result;
 };
+
+export async function emailDuplicateAction(email: string): Promise<boolean> {
+  const supabase = await createServer();
+  const { data } = await supabase
+    .from("user_profiles")
+    .select("user_email")
+    .eq("user_email", email)
+    .single();
+  return !!data;
+}

@@ -1,5 +1,12 @@
 import { z } from "zod";
-import { isValidDate } from "@entities/auth/lib/validate-date";
+import { isValidDate } from "@shared/lib/validate-date";
+
+export const emailOnlySchema = z.object({
+  email: z
+    .string()
+    .nonempty("이메일을 입력해주세요")
+    .email("올바른 이메일 형식이 아닙니다"),
+});
 
 export const userSchema = z
   .object({
