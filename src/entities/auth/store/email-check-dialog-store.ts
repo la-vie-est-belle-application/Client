@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import {  CheckResult } from '@entities/auth/types';
+import { CheckResult } from "@entities/auth/types";
 
 interface CheckEmailDialog {
   isOpen: boolean;
@@ -17,7 +17,7 @@ export const useCheckEmailDialogStore = create<CheckEmailDialog>((set) => ({
   isOpen: false,
   isLoading: false,
   isDuplicated: null,
-  errorMessage: '',
+  errorMessage: "",
   setIsOpen: (isOpen) => set({ isOpen }),
   setIsLoading: (isLoading) => set({ isLoading }),
   setIsDuplicated: (isDuplicated) => set({ isDuplicated }),
@@ -27,6 +27,6 @@ export const useCheckEmailDialogStore = create<CheckEmailDialog>((set) => ({
       isOpen: false,
       isLoading: false,
       isDuplicated: null,
-      errorMessage: '',
+      errorMessage: "",
     }),
 }));

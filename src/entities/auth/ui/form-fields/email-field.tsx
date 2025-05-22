@@ -1,11 +1,10 @@
 "use client";
 
 import { Control, Path, PathValue, useFormContext } from "react-hook-form";
-
 import { EmailCheckField } from "./email-check-field";
+import { useEmailDuplicationCheckDialog } from "@entities/auth/hooks/use-email-duplication-check-dialog";
 import { AuthCredentials, AuthProfile } from "@entities/auth/types";
 import { BaseField } from "@entities/auth/ui/form-fields/base-field";
-import { useEmailDuplicationCheckDialog } from '@entities/auth/hooks/use-email-duplication-check-dialog';
 
 interface EmailFieldProps<T extends AuthProfile | AuthCredentials> {
   control: Control<T>;
@@ -42,9 +41,13 @@ export default function EmailField<T extends AuthProfile | AuthCredentials>({
         label="이메일"
         placeholder="이메일을 입력해주세요."
         type="email"
-        onFocus={() => openDialog(currentFormEmail, (confirmedEmail) => {
-          setValue(name, confirmedEmail as PathValue<T, Path<T>>, { shouldValidate: true });
-        })}
+        onFocus={() =>
+          openDialog(currentFormEmail, (confirmedEmail) => {
+            setValue(name, confirmedEmail as PathValue<T, Path<T>>, {
+              shouldValidate: true,
+            });
+          })
+        }
       />
 
       {isOpen && (
