@@ -87,6 +87,27 @@ export const signupAction = async (
   return result;
 };
 
+export const signOut = async (): Promise<Result<void>> => {
+  const result = await withErrorHandling(
+    async () => {
+      const supabase = await createServer();
+      const { error } = await supabase.auth.signOut();
+
+      if(error) {
+        console.error("Sign out error:", error);
+        throw error;
+      }
+    }
+  );
+
+  if (result.success) {
+    revalidatePath("/", "layout");
+    redirect("/login");
+  }
+  
+  return result;
+};
+
 export async function emailDuplicateAction(email: string): Promise<boolean> {
   const supabase = await createServer();
   const { data } = await supabase
