@@ -1,4 +1,4 @@
-import { AUTH_ERROR_MESSAGE } from '@shared/consts/error-messages';
+import { AUTH_ERROR_MESSAGE } from "@shared/consts/error-messages";
 
 export type ErrorType = {
   message: string;

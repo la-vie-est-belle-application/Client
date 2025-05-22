@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { Spinner } from "@shared/ui/spinner";
+import Spinner from "@shared/ui/spinner";
 
 interface EmailCheckFieldProps {
   value: string;

@@ -6,7 +6,7 @@ import { BaseField } from "@entities/auth/ui/form-fields/base-field";
 import EmailField from "@entities/auth/ui/form-fields/email-field";
 import { PasswordField } from "@entities/auth/ui/form-fields/password-field";
 import { Form, FormMessage } from "@shared/shadcn-ui/components";
-import { Spinner } from "@shared/ui/spinner";
+import Spinner from "@shared/ui/spinner";
 
 export function SignUpForm() {
   const { signupForm, handleSignup } = useAuthAction();

@@ -1,6 +1,5 @@
-
 import { AUTH_ERROR_MESSAGE } from "@shared/consts/error-messages";
-import { ErrorMessagesKoWithIndex } from '@shared/types';
+import { ErrorMessagesKoWithIndex } from "@shared/types";
 
 /**
  * 주어진 에러 메시지를 snake_case로 변환한 뒤,
