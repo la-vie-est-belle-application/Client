@@ -87,24 +87,22 @@ export const signupAction = async (
   return result;
 };
 
-export const signOut = async (): Promise<Result<void>> => {
-  const result = await withErrorHandling(
-    async () => {
-      const supabase = await createServer();
-      const { error } = await supabase.auth.signOut();
+export const signOutAction = async (): Promise<Result<void>> => {
+  const result = await withErrorHandling(async () => {
+    const supabase = await createServer();
+    const { error } = await supabase.auth.signOut();
 
-      if(error) {
-        console.error("Sign out error:", error);
-        throw error;
-      }
+    if (error) {
+      console.error("Sign out error:", error);
+      throw error;
     }
-  );
+  });
 
   if (result.success) {
     revalidatePath("/", "layout");
     redirect("/login");
   }
-  
+
   return result;
 };
 
