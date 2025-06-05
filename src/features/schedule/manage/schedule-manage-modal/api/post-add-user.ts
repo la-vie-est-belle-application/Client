@@ -1,13 +1,13 @@
 import { toast } from "sonner";
 import { fetchUserList } from "@features/schedule/manage/schedule-manage-modal/api/fetch-user-list";
-import { User } from "@features/schedule/manage/schedule-manage-modal/ui/schedule-manage-modal";
+import { User } from "@features/schedule/manage/schedule-manage-modal/ui/add-user-modal";
 import { supabase } from "@features/schedule/register/create-schedule";
 
 export const postAddUser = async (newUser: User, selectedDate: string) => {
   const existingData = await fetchUserList(selectedDate);
 
-  const isDuplicateName = existingData.some(
-    (user: User) => user.name === newUser.name,
+  const isDuplicateName = existingData.some((user: User) =>
+    user.name.some((existingName) => newUser.name.includes(existingName)),
   );
 
   const isDuplicatePosition = existingData.some(

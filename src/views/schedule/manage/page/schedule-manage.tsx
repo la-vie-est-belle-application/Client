@@ -1,7 +1,5 @@
-import React from "react";
 import { PositionTable } from "@views/schedule/manage/position-table/position-table";
 import { ScheduleControlBar } from "@views/schedule/manage/schedule-control-bar/ui/schedule-control-bar";
-import { Button } from "@shared/shadcn-ui/components";
 
 export const ScheduleManagePage = () => {
   return (

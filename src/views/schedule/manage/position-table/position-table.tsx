@@ -5,7 +5,7 @@ import { useDateStore } from "@views/schedule/manage/schedule-control-bar/model/
 import {
   ScheduleManageModal,
   User,
-} from "@features/schedule/manage/schedule-manage-modal/ui/schedule-manage-modal";
+} from "@features/schedule/manage/schedule-manage-modal/ui/add-user-modal";
 import { supabase } from "@features/schedule/register/create-schedule/api/post-create-schedule";
 import {
   Table,
@@ -73,7 +73,7 @@ export const PositionTable = () => {
               {renderUserName(user)}
             </TableCell>
             <TableCell className="text-right pr-4">
-              <ScheduleManageModal label={"수정"} type="edit" />
+              <ScheduleManageModal label={"수정"} />
             </TableCell>
           </TableRow>
         ))}

@@ -1,12 +1,13 @@
 "use client";
 
-import React, { useCallback, useEffect, useState } from "react";
+import React from "react";
 import { FaMinus, FaPlus, FaUser } from "react-icons/fa";
-import { toast } from "sonner";
-import { useDateStore } from "@views/schedule/manage/schedule-control-bar/model/useDateStore";
-import { fetchApplicantList } from "@features/schedule/manage/schedule-manage-modal/api/fetch-applicant-list";
+import {
+  useApplicantHook,
+  useSelectOptionHook,
+  useUserPositionHook,
+} from "@features/schedule/lib/use-schedule-manage-modal-hook";
 import { postAddUser } from "@features/schedule/manage/schedule-manage-modal/api/post-add-user";
-import { putEditUser } from "@features/schedule/manage/schedule-manage-modal/api/put-edit-user";
 import { SelectOption } from "@features/select-option";
 import {
   Button,
@@ -22,10 +23,10 @@ import {
 interface ScheduleManageModalProps {
   label: string;
   icon?: React.ReactNode;
-  type: "add" | "edit";
 }
 
 export interface User {
+  id: number;
   name: string[];
   position: string;
   is_trained: boolean;
@@ -34,60 +35,29 @@ export interface User {
 export const ScheduleManageModal = ({
   label,
   icon,
-  type,
 }: ScheduleManageModalProps) => {
-  const selectedDate = useDateStore((state) => state.date);
-  const positionList = [
-    "팀장",
-    "스캔",
-    "메인",
-    "드레스",
-    "축가",
-    "대기실",
-    "매니저",
-    "안내",
-    "드레스실",
-  ];
-  const [position, setPosition] = useState<string>("");
-  const [name, setName] = useState<string[]>([]);
-  const [isTrained, setIsTrained] = useState<boolean>(false);
-  const [nameList, setNameList] = useState<string[]>([]);
-  const [selectCount, setSelectCount] = useState<number[]>([0]);
+  const {
+    userId,
+    positionList,
+    position,
+    name,
+    isTrained,
+    setPosition,
+    setName,
+    setIsTrained,
+  } = useUserPositionHook();
+
+  const { selectCount, addSelectOption, removeSelectOption } =
+    useSelectOptionHook();
+
+  const { nameList, selectedDate } = useApplicantHook();
 
   const newUser: User = {
+    id: userId,
     position,
     name,
     is_trained: isTrained,
   };
-
-  const addSelectOption = () => {
-    if (selectCount.length >= 3) {
-      toast("최대 3명까지만 가능합니다");
-      return;
-    }
-    setSelectCount((prev) => [...prev, prev.length]);
-  };
-
-  const removeSelectOption = () => {
-    setSelectCount((prev) => (prev.length > 1 ? prev.slice(0, -1) : prev));
-  };
-
-  const getApplicantList = useCallback(async () => {
-    const data = await fetchApplicantList(selectedDate);
-    setNameList(data);
-  }, [selectedDate]);
-
-  const handleUser = () => {
-    if (type === "add") {
-      postAddUser(newUser, selectedDate);
-    } else {
-      putEditUser(newUser, selectedDate);
-    }
-  };
-
-  useEffect(() => {
-    getApplicantList();
-  }, [getApplicantList]);
 
   return (
     <Dialog>
@@ -100,7 +70,7 @@ export const ScheduleManageModal = ({
 
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>포지션 인원 수정</DialogTitle>
+          <DialogTitle>포지션 인원 등록</DialogTitle>
         </DialogHeader>
 
         <div className="mb-2 mt-4">
@@ -172,7 +142,11 @@ export const ScheduleManageModal = ({
 
         <div className="flex gap-2">
           <DialogClose asChild>
-            <Button variant="ghost" className="flex-1">
+            <Button
+              variant="ghost"
+              className="flex-1"
+              onClick={() => setName([])}
+            >
               취소
             </Button>
           </DialogClose>
@@ -181,7 +155,7 @@ export const ScheduleManageModal = ({
             <Button
               variant="primary"
               className="flex-1"
-              onClick={() => handleUser()}
+              onClick={() => postAddUser(newUser, selectedDate)}
             >
               저장
             </Button>
