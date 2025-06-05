@@ -1,7 +1,5 @@
 import React from "react";
-import { useShallow } from "zustand/react/shallow";
 import { PositionTable } from "@views/schedule/manage/position-table/position-table";
-import { useDateStore } from "@views/schedule/manage/schedule-control-bar/model/useDateStore";
 import { ScheduleControlBar } from "@views/schedule/manage/schedule-control-bar/ui/schedule-control-bar";
 import { Button } from "@shared/shadcn-ui/components";
 
@@ -12,12 +10,6 @@ export const ScheduleManagePage = () => {
         <h1 className="text-2xl font-bold mb-4">스케줄 관리</h1>
         <ScheduleControlBar />
         <PositionTable />
-      </div>
-
-      <div className="flex justify-center items-center  mt-4">
-        <Button variant="primary" className="w-[100px]">
-          확정
-        </Button>
       </div>
     </section>
   );

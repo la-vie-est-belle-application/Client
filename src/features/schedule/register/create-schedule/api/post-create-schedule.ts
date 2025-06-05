@@ -26,9 +26,13 @@ export const postCreateSchedule = async (selectedDateList: string[]) => {
     return;
   }
 
-  const { error } = await supabase
-    .from("schedules")
-    .insert(selectedDateList.map((date) => ({ date })));
+  const formattedDateList = selectedDateList.map((date) => ({
+    is_open: true,
+    is_confirmed: false,
+    date: date,
+  }));
+
+  const { error } = await supabase.from("schedules").insert(formattedDateList);
 
   if (error) {
     toast("스케줄 등록 중 오류가 발생했습니다.");

@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { FaUserPlus } from "react-icons/fa";
-import { FaMagnifyingGlass, FaRegCalendar } from "react-icons/fa6";
-import Link from "next/link";
+import { FaCheck, FaUserPlus } from "react-icons/fa";
+import { FaRegCalendar } from "react-icons/fa6";
+import { useShallow } from "zustand/react/shallow";
 import { useDateStore } from "@views/schedule/manage/schedule-control-bar/model/useDateStore";
 import { ScheduleManageModal } from "@features/schedule/manage/schedule-manage-modal/index";
 import { fetchScheduleData } from "@features/schedule/register/schedule-calender/api/fetch-schedule-data";
@@ -12,10 +12,17 @@ import { Button } from "@shared/shadcn-ui/components";
 
 export const ScheduleControlBar = () => {
   const [dateList, setDateList] = useState<string[]>([]);
-  const selectedDate = useDateStore((state) => state.date);
+
+  const { selectedDate, setDate } = useDateStore(
+    useShallow((state) => ({
+      selectedDate: state.date,
+      setDate: state.setDate,
+    })),
+  );
 
   const getDateList = async () => {
     const data = await fetchScheduleData();
+
     const dateList = data.map((item) => item.date);
     setDateList(dateList);
   };
@@ -30,17 +37,21 @@ export const ScheduleControlBar = () => {
         className="w-full"
         icon={<FaRegCalendar />}
         selectItem={dateList}
+        placeholder={selectedDate}
+        onValueChange={setDate}
       />
 
       <div className="flex justify-end items-center gap-2">
-        <Link href={`/schedule-dashboard/manage/${selectedDate}`}>
-          <Button variant="primary">
-            <FaMagnifyingGlass />
-            조회
-          </Button>
-        </Link>
+        <ScheduleManageModal
+          label={"인원 등록"}
+          icon={<FaUserPlus />}
+          type="add"
+        />
 
-        <ScheduleManageModal label={"인원 등록"} icon={<FaUserPlus />} />
+        <Button variant="primary" className="w-[100px]">
+          <FaCheck />
+          확정
+        </Button>
       </div>
     </div>
   );
