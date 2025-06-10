@@ -3,13 +3,16 @@
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useDateStore } from "@views/schedule/manage/schedule-control-bar/model/useDateStore";
-import { fetchApplicantList } from "@features/schedule/manage/schedule-manage-modal/api/fetch-applicant-list";
+import { fetchApplicantList } from "@features/schedule/manage/add-user-modal/api/fetch-applicant-list";
 
 export const useUserPositionHook = () => {
-  const userId = Math.floor(Math.random());
+  const userId = Math.floor(Math.random() * 10000);
   const [position, setPosition] = useState<string>("");
   const [name, setName] = useState<string[]>([]);
   const [isTrained, setIsTrained] = useState<boolean>(false);
+  const [selectedNameIndex, setSelectedNameIndex] = useState<number | null>(
+    null,
+  );
 
   const positionList = [
     "팀장",
@@ -29,9 +32,11 @@ export const useUserPositionHook = () => {
     position,
     name,
     isTrained,
+    selectedNameIndex,
     setPosition,
     setName,
     setIsTrained,
+    setSelectedNameIndex,
   };
 };
 
@@ -50,7 +55,7 @@ export const useSelectOptionHook = () => {
     setSelectCount((prev) => (prev.length > 1 ? prev.slice(0, -1) : prev));
   };
 
-  return { selectCount, addSelectOption, removeSelectOption };
+  return { selectCount, setSelectCount, addSelectOption, removeSelectOption };
 };
 
 export const useApplicantHook = () => {

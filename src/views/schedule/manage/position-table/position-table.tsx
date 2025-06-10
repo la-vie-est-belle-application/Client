@@ -2,10 +2,8 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { useDateStore } from "@views/schedule/manage/schedule-control-bar/model/useDateStore";
-import {
-  ScheduleManageModal,
-  User,
-} from "@features/schedule/manage/schedule-manage-modal/ui/add-user-modal";
+import { User } from "@features/schedule/manage/add-user-modal/ui/add-user-modal";
+import { EditUserModal } from "@features/schedule/manage/edit-modal/index";
 import { supabase } from "@features/schedule/register/create-schedule/api/post-create-schedule";
 import {
   Table,
@@ -73,7 +71,7 @@ export const PositionTable = () => {
               {renderUserName(user)}
             </TableCell>
             <TableCell className="text-right pr-4">
-              <ScheduleManageModal label={"수정"} />
+              <EditUserModal />
             </TableCell>
           </TableRow>
         ))}

@@ -18,7 +18,7 @@ import {
   DialogTrigger,
 } from "@shared/shadcn-ui/components";
 
-export const EditModal = () => {
+export const EditUserModal = () => {
   const { positionList, isTrained, setPosition, setName, setIsTrained } =
     useUserPositionHook();
 

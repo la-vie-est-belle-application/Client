@@ -1,6 +1,6 @@
 import { toast } from "sonner";
-import { fetchUserList } from "@features/schedule/manage/schedule-manage-modal/api/fetch-user-list";
-import { User } from "@features/schedule/manage/schedule-manage-modal/ui/add-user-modal";
+import { fetchUserList } from "@features/schedule/manage/add-user-modal/api/fetch-user-list";
+import { User } from "@features/schedule/manage/add-user-modal/ui/add-user-modal";
 import { supabase } from "@features/schedule/register/create-schedule";
 
 export const postAddUser = async (newUser: User, selectedDate: string) => {

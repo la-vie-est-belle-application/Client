@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { FaCheck, FaUserPlus } from "react-icons/fa";
+import { FaCheck } from "react-icons/fa";
 import { FaRegCalendar } from "react-icons/fa6";
 import { useShallow } from "zustand/react/shallow";
 import { useDateStore } from "@views/schedule/manage/schedule-control-bar/model/useDateStore";
-import { ScheduleManageModal } from "@features/schedule/manage/schedule-manage-modal/index";
+import { AddUserModal } from "@features/schedule/manage/add-user-modal/index";
 import { fetchScheduleData } from "@features/schedule/register/schedule-calender/api/fetch-schedule-data";
 import { SelectOption } from "@features/select-option/index";
 import { Button } from "@shared/shadcn-ui/components";
@@ -42,11 +42,7 @@ export const ScheduleControlBar = () => {
       />
 
       <div className="flex justify-end items-center gap-2">
-        <ScheduleManageModal
-          label={"인원 등록"}
-          icon={<FaUserPlus />}
-          type="add"
-        />
+        <AddUserModal />
 
         <Button variant="primary" className="w-[100px]">
           <FaCheck />
