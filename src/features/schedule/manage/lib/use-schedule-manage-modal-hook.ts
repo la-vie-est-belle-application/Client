@@ -2,8 +2,8 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
-import { useDateStore } from "@views/schedule/manage/schedule-control-bar/model/useDateStore";
 import { fetchApplicantList } from "@features/schedule/manage/api/fetch-applicant-list";
+import { useDateStore } from "@features/schedule/manage/model/useDateStore";
 
 export const useUserPositionHook = () => {
   const userId = Math.floor(Math.random() * 10000);
