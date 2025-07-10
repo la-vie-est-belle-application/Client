@@ -11,23 +11,31 @@ interface SelectOptionProps {
   className?: string;
   icon: React.ReactNode;
   selectItem?: string[];
+  placeholder?: string;
+  onValueChange?: (value: string) => void;
 }
 
 export const SelectOption = ({
   className,
   icon,
   selectItem,
+  placeholder,
+  onValueChange,
 }: SelectOptionProps) => {
   return (
-    <Select>
+    <Select onValueChange={onValueChange}>
       <SelectTrigger className={cn("w-[180px]", className)} icon={icon}>
-        <SelectValue placeholder="Theme" />
+        <SelectValue placeholder={placeholder || "선택"} />
       </SelectTrigger>
 
-      <SelectContent>
-        <SelectItem value="light">Light</SelectItem>
-        <SelectItem value="dark">Dark</SelectItem>
-        <SelectItem value="system">System</SelectItem>
+      <SelectContent className={"max-h-[280px]"}>
+        {selectItem?.map((item, index) => {
+          return (
+            <SelectItem key={`${item}-${index}`} value={item}>
+              {item}
+            </SelectItem>
+          );
+        })}
       </SelectContent>
     </Select>
   );
