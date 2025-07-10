@@ -53,7 +53,7 @@ export const AddUserModal = ({ position }: { position: string }) => {
       <DialogTrigger asChild>
         <Button variant="primary">
           <FaUserPlus />
-          등록
+          추가
         </Button>
       </DialogTrigger>
 

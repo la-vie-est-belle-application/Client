@@ -52,6 +52,7 @@ export const PositionTable = () => {
     const userName = userPositionData?.filter(
       (user) => user.position === position,
     );
+
     return userName?.map((user) => user.name).join(", ");
   };
 
@@ -63,27 +64,33 @@ export const PositionTable = () => {
     <Table className="bg-white w-full">
       <TableHeader>
         <TableRow className="bg-gray-100">
-          <TableHead className="w-1/3">포지션</TableHead>
-          <TableHead className="text-center">이름</TableHead>
-          <TableHead className="text-center w-1.5/3"></TableHead>
+          <TableHead>포지션</TableHead>
+          <TableHead className="text-center w-2/2">이름</TableHead>
+          <TableHead className="text-center w-1/4"></TableHead>
         </TableRow>
       </TableHeader>
 
       <TableBody>
-        {positionList.map((position) => (
-          <TableRow key={position}>
-            <TableCell className="text-left">{position}</TableCell>
-            <TableCell className="text-center">
-              {filteredUserName(position)}
-            </TableCell>
-            <TableCell className="text-right pr-4">
-              <div className="flex justify-end gap-2">
-                <AddUserModal position={position} />
-                <RemoveUserName position={position} />
-              </div>
-            </TableCell>
-          </TableRow>
-        ))}
+        {positionList.map((position) => {
+          const userName = filteredUserName(position);
+
+          return (
+            <TableRow key={position}>
+              <TableCell className="text-left">{position}</TableCell>
+              <TableCell className="text-center">{userName}</TableCell>
+
+              <TableCell className="text-right pr-4">
+                <div className="flex justify-end gap-2">
+                  <AddUserModal position={position} />
+                  <RemoveUserName
+                    position={position}
+                    name={userName as string}
+                  />
+                </div>
+              </TableCell>
+            </TableRow>
+          );
+        })}
       </TableBody>
     </Table>
   );

@@ -3,15 +3,26 @@ import { useDateStore } from "@features/schedule/manage/model/useDateStore";
 import { deleteUserName } from "@features/schedule/manage/remove-user-name/api/delete-user-name";
 import { Button } from "@shared/shadcn-ui/components";
 
-export const RemoveUserName = ({ position }: { position: string }) => {
+export const RemoveUserName = ({
+  position,
+  name,
+}: {
+  position: string;
+  name: string;
+}) => {
   const date = useDateStore((state) => state.date);
 
   const handleRemoveUserName = async () => {
-    await deleteUserName(position, date);
+    await deleteUserName({ position, date });
   };
 
   return (
-    <Button variant="remove" className="p-2" onClick={handleRemoveUserName}>
+    <Button
+      variant="remove"
+      className="p-2"
+      onClick={handleRemoveUserName}
+      disabled={!name}
+    >
       <FaTrash />
     </Button>
   );

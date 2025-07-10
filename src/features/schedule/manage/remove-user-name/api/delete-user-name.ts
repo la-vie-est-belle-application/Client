@@ -1,9 +1,13 @@
 import { toast } from "sonner";
-import { User } from "@features/schedule/manage/add-user-modal/ui/add-user-modal";
 import { fetchUserList } from "@features/schedule/manage/api/fetch-user-list";
 import { supabase } from "@features/schedule/register/create-schedule/api/post-create-schedule";
 
-export const deleteUserName = async (position: string, date: string) => {
+interface Params {
+  position: string;
+  date: string;
+}
+
+export const deleteUserName = async ({ position, date }: Params) => {
   try {
     const userList = await fetchUserList(date);
 
