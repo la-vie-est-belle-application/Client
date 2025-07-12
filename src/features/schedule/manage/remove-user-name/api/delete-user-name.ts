@@ -6,9 +6,10 @@ import { supabase } from "@features/schedule/register/create-schedule/api/post-c
 interface Params {
   position: string;
   date: string;
+  onChange: () => void;
 }
 
-export const deleteUserName = async ({ position, date }: Params) => {
+export const deleteUserName = async ({ position, date, onChange }: Params) => {
   try {
     const userList = await fetchUserList(date);
 
@@ -31,11 +32,8 @@ export const deleteUserName = async ({ position, date }: Params) => {
       }
     }
 
-    /*const updatedUserList = userList.filter(
-      (user: User) => user.position !== position,
-    );*/
-
     toast("사용자 삭제 완료!");
+    onChange();
   } catch (error) {
     console.error("사용자 삭제 중 예상치 못한 에러가 발생했습니다:", error);
     toast("사용자 삭제에 실패했습니다.");

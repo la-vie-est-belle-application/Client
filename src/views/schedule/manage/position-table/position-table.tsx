@@ -6,7 +6,6 @@ import {
   AddUserModal,
   User,
 } from "@features/schedule/manage/add-user-modal/ui/add-user-modal";
-import { EditUserModal } from "@features/schedule/manage/edit-modal/index";
 import { useDateStore } from "@features/schedule/manage/model/useDateStore";
 import { RemoveUserName } from "@features/schedule/manage/remove-user-name";
 import { supabase } from "@features/schedule/register/create-schedule/api/post-create-schedule";
@@ -48,17 +47,23 @@ export const PositionTable = () => {
     }
   }, [selectedDate]);
 
-  const filteredUserName = (position: string) => {
-    const userName = userPositionData?.filter(
-      (user) => user.position === position,
-    );
+  const filteredUserInfo = useCallback(
+    (position: string) => {
+      const userData = userPositionData?.filter(
+        (user) => user.position === position,
+      );
 
-    return userName?.map((user) => user.name).join(", ");
-  };
+      const userName = userData?.flatMap((user) => user.name).join(", ") || "";
+      const isTrained = userData?.some((user) => user.is_trained);
+
+      return { userName, isTrained };
+    },
+    [userPositionData],
+  );
 
   useEffect(() => {
     fetchPositionData();
-  }, [fetchPositionData, userPositionData]);
+  }, [fetchPositionData]);
 
   return (
     <Table className="bg-white w-full">
@@ -72,20 +77,27 @@ export const PositionTable = () => {
 
       <TableBody>
         {positionList.map((position) => {
-          const userName = filteredUserName(position);
+          const { userName, isTrained } = filteredUserInfo(position);
+          const trained = isTrained ? "(교육)" : "";
 
           return (
             <TableRow key={position}>
               <TableCell className="text-left">{position}</TableCell>
-              <TableCell className="text-center">{userName}</TableCell>
+              <TableCell className="text-center">
+                {`${userName}${userName && trained}`}
+              </TableCell>
 
               <TableCell className="text-right pr-4">
                 <div className="flex justify-end gap-2">
-                  <AddUserModal position={position} />
+                  <AddUserModal
+                    position={position}
+                    onChange={fetchPositionData}
+                  />
 
                   <RemoveUserName
                     position={position}
                     name={userName as string}
+                    onChange={fetchPositionData}
                   />
                 </div>
               </TableCell>

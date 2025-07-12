@@ -3,7 +3,11 @@ import { fetchUserList } from "@features/schedule/manage/add-user-modal/api/fetc
 import { User } from "@features/schedule/manage/add-user-modal/ui/add-user-modal";
 import { supabase } from "@features/schedule/register/create-schedule";
 
-export const postAddUser = async (newUser: User, selectedDate: string) => {
+export const postAddUser = async (
+  newUser: User,
+  selectedDate: string,
+  onChange: () => void,
+) => {
   const existingData = await fetchUserList(selectedDate);
 
   // 같은 포지션의 기존 사용자가 있는지 확인
@@ -53,4 +57,5 @@ export const postAddUser = async (newUser: User, selectedDate: string) => {
   }
 
   toast("등록되었습니다.");
+  onChange();
 };

@@ -26,7 +26,13 @@ export interface User {
   is_trained: boolean;
 }
 
-export const AddUserModal = ({ position }: { position: string }) => {
+export const AddUserModal = ({
+  position,
+  onChange,
+}: {
+  position: string;
+  onChange: () => void;
+}) => {
   const {
     userId,
     name,
@@ -150,7 +156,7 @@ export const AddUserModal = ({ position }: { position: string }) => {
               variant="primary"
               className="flex-1"
               onClick={() => {
-                postAddUser(newUser, selectedDate);
+                postAddUser(newUser, selectedDate, onChange);
                 setName([]);
                 setSelectCount([0]);
               }}

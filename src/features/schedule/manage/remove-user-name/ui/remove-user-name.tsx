@@ -6,14 +6,16 @@ import { Button } from "@shared/shadcn-ui/components";
 export const RemoveUserName = ({
   position,
   name,
+  onChange,
 }: {
   position: string;
   name: string;
+  onChange: () => void;
 }) => {
   const date = useDateStore((state) => state.date);
 
   const handleRemoveUserName = async () => {
-    await deleteUserName({ position, date });
+    await deleteUserName({ position, date, onChange });
   };
 
   return (
