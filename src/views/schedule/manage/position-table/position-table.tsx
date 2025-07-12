@@ -81,7 +81,11 @@ export const PositionTable = () => {
 
               <TableCell className="text-right pr-4">
                 <div className="flex justify-end gap-2">
-                  <AddUserModal position={position} />
+                  <AddUserModal
+                    position={position}
+                    userName={userName as string}
+                  />
+
                   <RemoveUserName
                     position={position}
                     name={userName as string}

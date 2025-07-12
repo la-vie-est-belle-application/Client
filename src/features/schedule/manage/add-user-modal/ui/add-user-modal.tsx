@@ -26,7 +26,13 @@ export interface User {
   is_trained: boolean;
 }
 
-export const AddUserModal = ({ position }: { position: string }) => {
+export const AddUserModal = ({
+  position,
+  userName,
+}: {
+  position: string;
+  userName: string;
+}) => {
   const {
     userId,
     name,

@@ -1,4 +1,5 @@
 import { toast } from "sonner";
+import { User } from "@features/schedule/manage/add-user-modal/ui/add-user-modal";
 import { fetchUserList } from "@features/schedule/manage/api/fetch-user-list";
 import { supabase } from "@features/schedule/register/create-schedule/api/post-create-schedule";
 
@@ -11,19 +12,28 @@ export const deleteUserName = async ({ position, date }: Params) => {
   try {
     const userList = await fetchUserList(date);
 
-    const updatedUserList = userList.filter(
-      (user: any) => user.position !== position,
+    const existingUserIndex = userList.findIndex(
+      (user: User) => user.position === position,
     );
 
-    const { error: updateError } = await supabase
-      .from("schedules")
-      .update({ user_list: updatedUserList })
-      .eq("date", date);
+    if (existingUserIndex !== -1) {
+      // 같은 포지션이 존재하는 경우, 이름 배열에 새 이름들을 추가
+      userList[existingUserIndex].name.pop();
 
-    if (updateError) {
-      console.error("사용자 삭제 중 에러가 발생했습니다:", updateError);
-      throw updateError;
+      const { error: updateError } = await supabase
+        .from("schedules")
+        .update({ user_list: userList })
+        .eq("date", date);
+
+      if (updateError) {
+        console.error("사용자 삭제 중 에러가 발생했습니다:", updateError);
+        throw updateError;
+      }
     }
+
+    /*const updatedUserList = userList.filter(
+      (user: User) => user.position !== position,
+    );*/
 
     toast("사용자 삭제 완료!");
   } catch (error) {
