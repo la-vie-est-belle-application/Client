@@ -26,13 +26,7 @@ export interface User {
   is_trained: boolean;
 }
 
-export const AddUserModal = ({
-  position,
-  userName,
-}: {
-  position: string;
-  userName: string;
-}) => {
+export const AddUserModal = ({ position }: { position: string }) => {
   const {
     userId,
     name,
@@ -80,6 +74,7 @@ export const AddUserModal = ({
                   className="w-full"
                   icon={<FaUser />}
                   selectItem={nameList}
+                  disabledItems={name}
                   onValueChange={(selectedName) => {
                     setSelectedNameIndex(count);
                     setName((prev) => {
