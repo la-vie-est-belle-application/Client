@@ -25,14 +25,14 @@ const createErrorResult = (error: unknown): Result<never> => ({
 });
 
 const isServerError = (error: ErrorType): boolean => {
-  return (error.status !== undefined && error.status >= 500);
+  return error.status !== undefined && error.status >= 500;
 };
 
 export const withErrorHandling = async <T>(
   fn: () => Promise<T>,
   errorHandler?: (error: ErrorType) => void,
-  retryCount = 3, 
-  retryDelayMs = 500, 
+  retryCount = 3,
+  retryDelayMs = 500,
 ): Promise<Result<T>> => {
   let attempt = 0;
 
@@ -59,7 +59,6 @@ export const withErrorHandling = async <T>(
       }
     }
   }
-  
+
   return createErrorResult(new Error("최대 재시도 횟수 초과"));
 };
-

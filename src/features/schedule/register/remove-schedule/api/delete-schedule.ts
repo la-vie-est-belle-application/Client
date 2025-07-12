@@ -4,7 +4,7 @@ import { fetchExistingDateList } from "@shared/api/index";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ARON_KEY!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
 );
 
 export const deleteSchedule = async (selectedDateList: string[]) => {

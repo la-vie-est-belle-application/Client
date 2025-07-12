@@ -12,6 +12,7 @@ interface SelectOptionProps {
   icon: React.ReactNode;
   selectItem?: string[];
   placeholder?: string;
+  disabledItems?: string[];
   onValueChange?: (value: string) => void;
 }
 
@@ -20,6 +21,7 @@ export const SelectOption = ({
   icon,
   selectItem,
   placeholder,
+  disabledItems = [],
   onValueChange,
 }: SelectOptionProps) => {
   return (
@@ -30,8 +32,13 @@ export const SelectOption = ({
 
       <SelectContent className={"max-h-[280px]"}>
         {selectItem?.map((item, index) => {
+          const isItemDisabled = disabledItems.includes(item);
           return (
-            <SelectItem key={`${item}-${index}`} value={item}>
+            <SelectItem
+              key={`${item}-${index}`}
+              value={item}
+              disabled={isItemDisabled}
+            >
               {item}
             </SelectItem>
           );

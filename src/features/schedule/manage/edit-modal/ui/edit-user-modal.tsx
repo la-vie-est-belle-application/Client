@@ -1,5 +1,5 @@
 import React from "react";
-import { FaMinus, FaPlus, FaUser } from "react-icons/fa";
+import { FaEdit, FaMinus, FaPlus, FaUser } from "react-icons/fa";
 import {
   useApplicantHook,
   useSelectOptionHook,
@@ -19,8 +19,7 @@ import {
 } from "@shared/shadcn-ui/components";
 
 export const EditUserModal = () => {
-  const { positionList, isTrained, setPosition, setName, setIsTrained } =
-    useUserPositionHook();
+  const { isTrained, setName, setIsTrained } = useUserPositionHook();
 
   const { selectCount, addSelectOption, removeSelectOption } =
     useSelectOptionHook();
@@ -29,23 +28,17 @@ export const EditUserModal = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="primary">수정</Button>
+        <Button variant="primary" className="p-2">
+          <FaEdit />
+        </Button>
       </DialogTrigger>
 
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>포지션 인원 수정</DialogTitle>
+          <DialogTitle className="text-lg font-bold mb-4">
+            포지션 인원 수정
+          </DialogTitle>
         </DialogHeader>
-
-        <div className="mb-2 mt-4">
-          <p className="text-xs font-medium font-gray-500 mb-2">포지션</p>
-          <SelectOption
-            className="w-full"
-            icon={<FaUser />}
-            selectItem={positionList}
-            onValueChange={setPosition}
-          />
-        </div>
 
         <div className="overflow-y-scroll max-h-[200px]">
           {selectCount.map((count) => (
@@ -56,32 +49,33 @@ export const EditUserModal = () => {
 
               <div className="items-top flex space-x-2 items-center mb-2">
                 <SelectOption
-                  className="w-4/5"
+                  className="w-full"
                   icon={<FaUser />}
                   selectItem={nameList}
                   onValueChange={(name) => setName((prev) => [...prev, name])}
                 />
-
-                <div className="flex items-center gap-2 w-1/5">
-                  <Checkbox
-                    id="terms1"
-                    checked={isTrained}
-                    onCheckedChange={(checked: boolean) =>
-                      setIsTrained(checked)
-                    }
-                  />
-                  <div className="grid gap-1 leading-none">
-                    <label
-                      htmlFor="terms1"
-                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                      교육 여부
-                    </label>
-                  </div>
-                </div>
               </div>
             </div>
           ))}
+        </div>
+
+        <div className="flex justify-end">
+          <div className="flex items-center gap-2 ">
+            <div className="grid gap-1 leading-none">
+              <label
+                htmlFor="terms1"
+                className="text-xs font-medium font-gray-500 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                교육 여부
+              </label>
+            </div>
+
+            <Checkbox
+              id="terms1"
+              checked={isTrained}
+              onCheckedChange={(checked: boolean) => setIsTrained(checked)}
+            />
+          </div>
         </div>
 
         <div className="flex gap-2">

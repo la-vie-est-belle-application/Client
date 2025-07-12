@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import { FaCheck } from "react-icons/fa";
 import { FaRegCalendar } from "react-icons/fa6";
 import { useShallow } from "zustand/react/shallow";
-import { useDateStore } from "@views/schedule/manage/schedule-control-bar/model/useDateStore";
 import { AddUserModal } from "@features/schedule/manage/add-user-modal/index";
+import { useDateStore } from "@features/schedule/manage/model/useDateStore";
 import { fetchScheduleData } from "@features/schedule/register/schedule-calender/api/fetch-schedule-data";
 import { SelectOption } from "@features/select-option/index";
 import { Button } from "@shared/shadcn-ui/components";
@@ -42,8 +42,6 @@ export const ScheduleControlBar = () => {
       />
 
       <div className="flex justify-end items-center gap-2">
-        <AddUserModal />
-
         <Button variant="primary" className="w-[100px]">
           <FaCheck />
           확정

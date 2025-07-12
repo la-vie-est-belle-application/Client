@@ -1,9 +1,14 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { useDateStore } from "@views/schedule/manage/schedule-control-bar/model/useDateStore";
-import { User } from "@features/schedule/manage/add-user-modal/ui/add-user-modal";
+import { useUserPositionHook } from "@features/schedule/lib/use-schedule-manage-modal-hook";
+import {
+  AddUserModal,
+  User,
+} from "@features/schedule/manage/add-user-modal/ui/add-user-modal";
 import { EditUserModal } from "@features/schedule/manage/edit-modal/index";
+import { useDateStore } from "@features/schedule/manage/model/useDateStore";
+import { RemoveUserName } from "@features/schedule/manage/remove-user-name";
 import { supabase } from "@features/schedule/register/create-schedule/api/post-create-schedule";
 import {
   Table,
@@ -17,6 +22,7 @@ import {
 export const PositionTable = () => {
   const selectedDate = useDateStore((state) => state.date);
   const [userPositionData, setUserPositionData] = useState<User[]>();
+  const { positionList } = useUserPositionHook();
 
   const fetchPositionData = useCallback(async () => {
     try {
@@ -42,11 +48,12 @@ export const PositionTable = () => {
     }
   }, [selectedDate]);
 
-  const renderUserName = (user: User) => {
-    if (Array.isArray(user.name)) {
-      return user.name.map((name: string) => name).join(", ");
-    }
-    return user.name;
+  const filteredUserName = (position: string) => {
+    const userName = userPositionData?.filter(
+      (user) => user.position === position,
+    );
+
+    return userName?.map((user) => user.name).join(", ");
   };
 
   useEffect(() => {
@@ -58,23 +65,33 @@ export const PositionTable = () => {
       <TableHeader>
         <TableRow className="bg-gray-100">
           <TableHead>포지션</TableHead>
-          <TableHead className="text-center">이름</TableHead>
-          <TableHead className="text-center"></TableHead>
+          <TableHead className="text-center w-2/2">이름</TableHead>
+          <TableHead className="text-center w-1/4"></TableHead>
         </TableRow>
       </TableHeader>
 
       <TableBody>
-        {userPositionData?.map((user, index) => (
-          <TableRow key={index}>
-            <TableCell className="text-left">{user.position}</TableCell>
-            <TableCell className="text-center">
-              {renderUserName(user)}
-            </TableCell>
-            <TableCell className="text-right pr-4">
-              <EditUserModal />
-            </TableCell>
-          </TableRow>
-        ))}
+        {positionList.map((position) => {
+          const userName = filteredUserName(position);
+
+          return (
+            <TableRow key={position}>
+              <TableCell className="text-left">{position}</TableCell>
+              <TableCell className="text-center">{userName}</TableCell>
+
+              <TableCell className="text-right pr-4">
+                <div className="flex justify-end gap-2">
+                  <AddUserModal position={position} />
+
+                  <RemoveUserName
+                    position={position}
+                    name={userName as string}
+                  />
+                </div>
+              </TableCell>
+            </TableRow>
+          );
+        })}
       </TableBody>
     </Table>
   );

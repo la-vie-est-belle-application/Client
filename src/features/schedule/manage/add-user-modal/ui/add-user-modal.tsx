@@ -26,14 +26,11 @@ export interface User {
   is_trained: boolean;
 }
 
-export const AddUserModal = () => {
+export const AddUserModal = ({ position }: { position: string }) => {
   const {
     userId,
-    positionList,
-    position,
     name,
     isTrained,
-    setPosition,
     setName,
     setIsTrained,
     setSelectedNameIndex,
@@ -56,7 +53,7 @@ export const AddUserModal = () => {
       <DialogTrigger asChild>
         <Button variant="primary">
           <FaUserPlus />
-          인원 등록
+          추가
         </Button>
       </DialogTrigger>
 
@@ -64,16 +61,6 @@ export const AddUserModal = () => {
         <DialogHeader>
           <DialogTitle className="mb-4">포지션 인원 등록</DialogTitle>
         </DialogHeader>
-
-        <div className="mb-2">
-          <p className="text-xs font-medium font-gray-500 mb-2">포지션</p>
-          <SelectOption
-            className="w-full"
-            icon={<FaUser />}
-            selectItem={positionList}
-            onValueChange={setPosition}
-          />
-        </div>
 
         <div className="overflow-y-scroll max-h-[200px]">
           {selectCount.map((count) => (
@@ -87,6 +74,7 @@ export const AddUserModal = () => {
                   className="w-full"
                   icon={<FaUser />}
                   selectItem={nameList}
+                  disabledItems={name}
                   onValueChange={(selectedName) => {
                     setSelectedNameIndex(count);
                     setName((prev) => {
