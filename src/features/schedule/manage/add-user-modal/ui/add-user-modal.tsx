@@ -1,6 +1,7 @@
 "use client";
 
 import { FaMinus, FaPlus, FaUser, FaUserPlus } from "react-icons/fa";
+import { toast } from "sonner";
 import {
   useApplicantHook,
   useSelectOptionHook,
@@ -10,7 +11,6 @@ import { postAddUser } from "@features/schedule/manage/add-user-modal/api/post-a
 import { SelectOption } from "@features/select-option";
 import {
   Button,
-  Checkbox,
   Dialog,
   DialogClose,
   DialogContent,
@@ -33,14 +33,7 @@ export const AddUserModal = ({
   position: string;
   onChange: () => void;
 }) => {
-  const {
-    userId,
-    name,
-    isTrained,
-    setName,
-    setIsTrained,
-    setSelectedNameIndex,
-  } = useUserPositionHook();
+  const { userId, name, setName, setSelectedNameIndex } = useUserPositionHook();
 
   const { selectCount, setSelectCount, addSelectOption, removeSelectOption } =
     useSelectOptionHook();
@@ -51,8 +44,10 @@ export const AddUserModal = ({
     id: userId,
     position,
     name,
-    is_trained: isTrained,
+    is_trained: false,
   };
+
+  const isNameEmpty = name.every((name) => name === "");
 
   return (
     <Dialog>
@@ -132,7 +127,7 @@ export const AddUserModal = ({
             </Button>
           </DialogClose>
 
-          <DialogClose asChild>
+          <DialogClose asChild disabled={isNameEmpty}>
             <Button
               variant="primary"
               className="flex-1"
