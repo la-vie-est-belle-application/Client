@@ -95,25 +95,6 @@ export const AddUserModal = ({
           ))}
         </div>
 
-        <div className="flex justify-end">
-          <div className="flex items-center gap-2 ">
-            <div className="grid gap-1 leading-none">
-              <label
-                htmlFor="terms1"
-                className="text-xs font-medium font-gray-500 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              >
-                교육 여부
-              </label>
-            </div>
-
-            <Checkbox
-              id="terms1"
-              checked={isTrained}
-              onCheckedChange={(checked: boolean) => setIsTrained(checked)}
-            />
-          </div>
-        </div>
-
         <div className="flex gap-2">
           <Button
             variant="remove"

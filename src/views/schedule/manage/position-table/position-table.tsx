@@ -10,6 +10,7 @@ import { useDateStore } from "@features/schedule/manage/model/useDateStore";
 import { RemoveUserName } from "@features/schedule/manage/remove-user-name";
 import { supabase } from "@features/schedule/register/create-schedule/api/post-create-schedule";
 import {
+  Checkbox,
   Table,
   TableBody,
   TableCell,
@@ -21,7 +22,7 @@ import {
 export const PositionTable = () => {
   const selectedDate = useDateStore((state) => state.date);
   const [userPositionData, setUserPositionData] = useState<User[]>();
-  const { positionList } = useUserPositionHook();
+  const { positionData, setPositionTrained, isLoaded } = useUserPositionHook();
 
   const fetchPositionData = useCallback(async () => {
     try {
@@ -54,9 +55,8 @@ export const PositionTable = () => {
       );
 
       const userName = userData?.flatMap((user) => user.name).join(", ") || "";
-      const isTrained = userData?.some((user) => user.is_trained);
 
-      return { userName, isTrained };
+      return userName;
     },
     [userPositionData],
   );
@@ -76,19 +76,37 @@ export const PositionTable = () => {
       </TableHeader>
 
       <TableBody>
-        {positionList.map((position) => {
-          const { userName, isTrained } = filteredUserInfo(position);
-          const trained = isTrained ? "(교육)" : "";
-
+        {Object.entries(positionData).map(([position, data]) => {
           return (
             <TableRow key={position}>
-              <TableCell className="text-left">{position}</TableCell>
+              <TableCell className="text-left">{data.name}</TableCell>
               <TableCell className="text-center">
-                {`${userName}${userName && trained}`}
+                {filteredUserInfo(position)}
               </TableCell>
 
               <TableCell className="text-right pr-4">
-                <div className="flex justify-end gap-2">
+                <div className="flex justify-end gap-2 pr-4">
+                  <div className="flex justify-end">
+                    <div className="flex items-center gap-2 ">
+                      <div className="grid gap-1 leading-none">
+                        <label
+                          htmlFor={position}
+                          className="text-xs font-medium font-gray-500 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        >
+                          교육 여부
+                        </label>
+                      </div>
+
+                      <Checkbox
+                        id={position}
+                        checked={isLoaded ? data.isTrained : false}
+                        onCheckedChange={(checked: boolean) =>
+                          setPositionTrained(position, checked)
+                        }
+                      />
+                    </div>
+                  </div>
+
                   <AddUserModal
                     position={position}
                     onChange={fetchPositionData}
@@ -96,7 +114,7 @@ export const PositionTable = () => {
 
                   <RemoveUserName
                     position={position}
-                    name={userName as string}
+                    name={filteredUserInfo(position) as string}
                     onChange={fetchPositionData}
                   />
                 </div>
