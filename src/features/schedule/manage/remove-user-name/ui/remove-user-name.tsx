@@ -6,14 +6,18 @@ import { Button } from "@shared/shadcn-ui/components";
 export const RemoveUserName = ({
   position,
   name,
+  onChange,
+  isConfirmed,
 }: {
   position: string;
   name: string;
+  onChange: () => void;
+  isConfirmed: boolean;
 }) => {
   const date = useDateStore((state) => state.date);
 
   const handleRemoveUserName = async () => {
-    await deleteUserName({ position, date });
+    await deleteUserName({ position, date, onChange });
   };
 
   return (
@@ -21,7 +25,7 @@ export const RemoveUserName = ({
       variant="remove"
       className="p-2"
       onClick={handleRemoveUserName}
-      disabled={!name}
+      disabled={!name || isConfirmed}
     >
       <FaTrash />
     </Button>

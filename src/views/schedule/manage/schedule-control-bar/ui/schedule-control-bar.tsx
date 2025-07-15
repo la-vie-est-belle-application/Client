@@ -1,17 +1,26 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { FaCheck } from "react-icons/fa";
 import { FaRegCalendar } from "react-icons/fa6";
 import { useShallow } from "zustand/react/shallow";
-import { AddUserModal } from "@features/schedule/manage/add-user-modal/index";
+import { fetchConfirmed } from "@views/schedule/manage/schedule-control-bar/api/fetch-confirmed";
+import { postConfirmed } from "@views/schedule/manage/schedule-control-bar/api/post-confirmed";
+import { putConfirmed } from "@views/schedule/manage/schedule-control-bar/api/put-confirmed";
 import { useDateStore } from "@features/schedule/manage/model/useDateStore";
 import { fetchScheduleData } from "@features/schedule/register/schedule-calender/api/fetch-schedule-data";
 import { SelectOption } from "@features/select-option/index";
 import { Button } from "@shared/shadcn-ui/components";
+import { useConfirmedStore } from "@shared/store/index";
 
 export const ScheduleControlBar = () => {
   const [dateList, setDateList] = useState<string[]>([]);
+
+  const { isConfirmed, setIsConfirmed } = useConfirmedStore(
+    useShallow((state) => ({
+      isConfirmed: state.isConfirmed,
+      setIsConfirmed: state.setIsConfirmed,
+    })),
+  );
 
   const { selectedDate, setDate } = useDateStore(
     useShallow((state) => ({
@@ -24,12 +33,40 @@ export const ScheduleControlBar = () => {
     const data = await fetchScheduleData();
 
     const dateList = data.map((item) => item.date);
+    const confirmed = data.some((item) => item.is_confirmed);
     setDateList(dateList);
+    setIsConfirmed(confirmed);
+  };
+
+  const handleClickConfirm = async () => {
+    const { success } = await postConfirmed(selectedDate);
+
+    if (success) {
+      setIsConfirmed(true);
+    }
+  };
+
+  const handleClickEditConfirm = async () => {
+    await putConfirmed(selectedDate);
+
+    setIsConfirmed(false);
   };
 
   useEffect(() => {
     getDateList();
   }, []);
+
+  // 선택된 날짜가 변경될 때마다 확정 상태 확인
+  useEffect(() => {
+    const checkConfirmedStatus = async () => {
+      if (selectedDate) {
+        const confirmed = await fetchConfirmed(selectedDate);
+        setIsConfirmed(confirmed);
+      }
+    };
+
+    checkConfirmedStatus();
+  }, [selectedDate]);
 
   return (
     <div className="flex justify-between items-center gap-4 mb-6">
@@ -42,10 +79,23 @@ export const ScheduleControlBar = () => {
       />
 
       <div className="flex justify-end items-center gap-2">
-        <Button variant="primary" className="w-[100px]">
-          <FaCheck />
-          확정
-        </Button>
+        {isConfirmed ? (
+          <Button
+            variant="primary"
+            className="w-[100px]"
+            onClick={handleClickEditConfirm}
+          >
+            수정 하기
+          </Button>
+        ) : (
+          <Button
+            variant="primary"
+            className="w-[100px]"
+            onClick={handleClickConfirm}
+          >
+            확정 하기
+          </Button>
+        )}
       </div>
     </div>
   );

@@ -10,7 +10,6 @@ import { postAddUser } from "@features/schedule/manage/add-user-modal/api/post-a
 import { SelectOption } from "@features/select-option";
 import {
   Button,
-  Checkbox,
   Dialog,
   DialogClose,
   DialogContent,
@@ -26,15 +25,16 @@ export interface User {
   is_trained: boolean;
 }
 
-export const AddUserModal = ({ position }: { position: string }) => {
-  const {
-    userId,
-    name,
-    isTrained,
-    setName,
-    setIsTrained,
-    setSelectedNameIndex,
-  } = useUserPositionHook();
+export const AddUserModal = ({
+  position,
+  onChange,
+  isConfirmed,
+}: {
+  position: string;
+  onChange: () => void;
+  isConfirmed: boolean;
+}) => {
+  const { userId, name, setName, setSelectedNameIndex } = useUserPositionHook();
 
   const { selectCount, setSelectCount, addSelectOption, removeSelectOption } =
     useSelectOptionHook();
@@ -45,13 +45,15 @@ export const AddUserModal = ({ position }: { position: string }) => {
     id: userId,
     position,
     name,
-    is_trained: isTrained,
+    is_trained: false,
   };
+
+  const isNameEmpty = name.every((name) => name === "");
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="primary">
+        <Button variant="primary" disabled={isConfirmed}>
           <FaUserPlus />
           추가
         </Button>
@@ -87,25 +89,6 @@ export const AddUserModal = ({ position }: { position: string }) => {
               </div>
             </div>
           ))}
-        </div>
-
-        <div className="flex justify-end">
-          <div className="flex items-center gap-2 ">
-            <div className="grid gap-1 leading-none">
-              <label
-                htmlFor="terms1"
-                className="text-xs font-medium font-gray-500 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              >
-                교육 여부
-              </label>
-            </div>
-
-            <Checkbox
-              id="terms1"
-              checked={isTrained}
-              onCheckedChange={(checked: boolean) => setIsTrained(checked)}
-            />
-          </div>
         </div>
 
         <div className="flex gap-2">
@@ -145,12 +128,12 @@ export const AddUserModal = ({ position }: { position: string }) => {
             </Button>
           </DialogClose>
 
-          <DialogClose asChild>
+          <DialogClose asChild disabled={isNameEmpty}>
             <Button
               variant="primary"
               className="flex-1"
               onClick={() => {
-                postAddUser(newUser, selectedDate);
+                postAddUser(newUser, selectedDate, onChange);
                 setName([]);
                 setSelectCount([0]);
               }}

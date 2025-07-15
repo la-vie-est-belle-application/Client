@@ -6,11 +6,11 @@ import {
   AddUserModal,
   User,
 } from "@features/schedule/manage/add-user-modal/ui/add-user-modal";
-import { EditUserModal } from "@features/schedule/manage/edit-modal/index";
 import { useDateStore } from "@features/schedule/manage/model/useDateStore";
 import { RemoveUserName } from "@features/schedule/manage/remove-user-name";
 import { supabase } from "@features/schedule/register/create-schedule/api/post-create-schedule";
 import {
+  Checkbox,
   Table,
   TableBody,
   TableCell,
@@ -18,11 +18,13 @@ import {
   TableHeader,
   TableRow,
 } from "@shared/shadcn-ui/components";
+import { useConfirmedStore } from "@shared/store";
 
 export const PositionTable = () => {
   const selectedDate = useDateStore((state) => state.date);
   const [userPositionData, setUserPositionData] = useState<User[]>();
-  const { positionList } = useUserPositionHook();
+  const { positionData, setPositionTrained, isLoaded } = useUserPositionHook();
+  const isConfirmed = useConfirmedStore((state) => state.isConfirmed);
 
   const fetchPositionData = useCallback(async () => {
     try {
@@ -48,17 +50,22 @@ export const PositionTable = () => {
     }
   }, [selectedDate]);
 
-  const filteredUserName = (position: string) => {
-    const userName = userPositionData?.filter(
-      (user) => user.position === position,
-    );
+  const filteredUserInfo = useCallback(
+    (position: string) => {
+      const userData = userPositionData?.filter(
+        (user) => user.position === position,
+      );
 
-    return userName?.map((user) => user.name).join(", ");
-  };
+      const userName = userData?.flatMap((user) => user.name).join(", ") || "";
+
+      return userName;
+    },
+    [userPositionData],
+  );
 
   useEffect(() => {
     fetchPositionData();
-  }, [fetchPositionData, userPositionData]);
+  }, [fetchPositionData]);
 
   return (
     <Table className="bg-white w-full">
@@ -71,21 +78,48 @@ export const PositionTable = () => {
       </TableHeader>
 
       <TableBody>
-        {positionList.map((position) => {
-          const userName = filteredUserName(position);
-
+        {Object.entries(positionData).map(([position, data]) => {
           return (
             <TableRow key={position}>
-              <TableCell className="text-left">{position}</TableCell>
-              <TableCell className="text-center">{userName}</TableCell>
+              <TableCell className="text-left">{data.name}</TableCell>
+              <TableCell className="text-center">
+                {filteredUserInfo(position)}
+              </TableCell>
 
               <TableCell className="text-right pr-4">
-                <div className="flex justify-end gap-2">
-                  <AddUserModal position={position} />
+                <div className="flex justify-end gap-2 pr-4">
+                  <div className="flex justify-end">
+                    <div className="flex items-center gap-2 ">
+                      <div className="grid gap-1 leading-none">
+                        <label
+                          htmlFor={position}
+                          className="text-xs font-medium font-gray-500 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        >
+                          교육 여부
+                        </label>
+                      </div>
+
+                      <Checkbox
+                        id={position}
+                        checked={isLoaded ? data.isTrained : false}
+                        onCheckedChange={(checked: boolean) =>
+                          setPositionTrained(position, checked)
+                        }
+                      />
+                    </div>
+                  </div>
+
+                  <AddUserModal
+                    position={position}
+                    onChange={fetchPositionData}
+                    isConfirmed={isConfirmed}
+                  />
 
                   <RemoveUserName
                     position={position}
-                    name={userName as string}
+                    name={filteredUserInfo(position) as string}
+                    onChange={fetchPositionData}
+                    isConfirmed={isConfirmed}
                   />
                 </div>
               </TableCell>
