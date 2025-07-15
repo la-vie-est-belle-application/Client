@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { fetchConfirmed } from "@views/schedule/manage/schedule-control-bar/api/fetch-confirmed";
 import { useUserPositionHook } from "@features/schedule/lib/use-schedule-manage-modal-hook";
 import {
   AddUserModal,
@@ -18,11 +19,13 @@ import {
   TableHeader,
   TableRow,
 } from "@shared/shadcn-ui/components";
+import { useConfirmedStore } from "@shared/store";
 
 export const PositionTable = () => {
   const selectedDate = useDateStore((state) => state.date);
   const [userPositionData, setUserPositionData] = useState<User[]>();
   const { positionData, setPositionTrained, isLoaded } = useUserPositionHook();
+  const isConfirmed = useConfirmedStore((state) => state.isConfirmed);
 
   const fetchPositionData = useCallback(async () => {
     try {
@@ -110,12 +113,14 @@ export const PositionTable = () => {
                   <AddUserModal
                     position={position}
                     onChange={fetchPositionData}
+                    isConfirmed={isConfirmed}
                   />
 
                   <RemoveUserName
                     position={position}
                     name={filteredUserInfo(position) as string}
                     onChange={fetchPositionData}
+                    isConfirmed={isConfirmed}
                   />
                 </div>
               </TableCell>

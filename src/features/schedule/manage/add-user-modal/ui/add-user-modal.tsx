@@ -29,9 +29,11 @@ export interface User {
 export const AddUserModal = ({
   position,
   onChange,
+  isConfirmed,
 }: {
   position: string;
   onChange: () => void;
+  isConfirmed: boolean;
 }) => {
   const { userId, name, setName, setSelectedNameIndex } = useUserPositionHook();
 
@@ -52,7 +54,7 @@ export const AddUserModal = ({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="primary">
+        <Button variant="primary" disabled={isConfirmed}>
           <FaUserPlus />
           추가
         </Button>

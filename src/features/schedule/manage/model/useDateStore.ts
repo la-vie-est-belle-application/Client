@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-import { SelectorHook } from "@features/schedule/register/schedule-calender/model/types";
+import { SelectorHook } from "@shared/store/types";
 
 interface DateStore {
   date: string;

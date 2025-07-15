@@ -3,7 +3,8 @@ import FullCalendar from "@fullcalendar/react";
 import { enableMapSet } from "immer";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
-import { ScheduleCalenderStore, SelectorHook } from "./types";
+import { SelectorHook } from "@shared/store/index";
+import { ScheduleCalenderStore } from "./types";
 
 enableMapSet();
 
