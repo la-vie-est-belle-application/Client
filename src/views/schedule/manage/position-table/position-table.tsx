@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { fetchConfirmed } from "@views/schedule/manage/schedule-control-bar/api/fetch-confirmed";
 import { useUserPositionHook } from "@features/schedule/lib/use-schedule-manage-modal-hook";
 import {
   AddUserModal,

@@ -39,9 +39,11 @@ export const ScheduleControlBar = () => {
   };
 
   const handleClickConfirm = async () => {
-    await postConfirmed(selectedDate);
+    const { success } = await postConfirmed(selectedDate);
 
-    setIsConfirmed(true);
+    if (success) {
+      setIsConfirmed(true);
+    }
   };
 
   const handleClickEditConfirm = async () => {

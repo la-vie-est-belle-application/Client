@@ -1,7 +1,6 @@
 "use client";
 
 import { FaMinus, FaPlus, FaUser, FaUserPlus } from "react-icons/fa";
-import { toast } from "sonner";
 import {
   useApplicantHook,
   useSelectOptionHook,

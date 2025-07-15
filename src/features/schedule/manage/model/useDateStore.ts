@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-import { SelectorHook } from "@shared/store/types";
+import { SelectorHook } from "@shared/store/common-types";
 
 interface DateStore {
   date: string;

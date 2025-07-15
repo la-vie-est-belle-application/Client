@@ -11,7 +11,7 @@ export const postConfirmed = async (selectedDate: string) => {
 
   if (userName.length < 11) {
     toast("아직 등록하지 않은 유저가 있습니다");
-    return;
+    return { success: false };
   }
 
   const { error } = await supabase
@@ -22,8 +22,9 @@ export const postConfirmed = async (selectedDate: string) => {
   if (error) {
     console.error("스케줄 확정 실패:", error);
     toast("스케줄 확정에 실패했습니다.");
-    return;
+    return { success: false };
   }
 
   toast("스케줄 확정되었습니다.");
+  return { success: true };
 };

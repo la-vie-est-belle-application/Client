@@ -1,2 +1,2 @@
 export { useConfirmedStore } from "./use-confirmed-store/use-confirmed-store";
-export { type SelectorHook } from "./types";
+export { type SelectorHook } from "./common-types";
