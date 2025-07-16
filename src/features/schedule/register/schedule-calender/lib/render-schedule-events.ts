@@ -16,7 +16,7 @@ export const renderScheduleEvents = async (
       id: `schedule-${schedule.date}`,
       start: schedule.date,
       end: schedule.date,
-      color: schedule.is_confirmed ? "var(--tertiary)" : "#FEF9C3",
+      color: schedule.is_confirmed ? "var(--color-tertiary)" : "#FEF9C3",
     });
   });
 };
