@@ -1,8 +1,12 @@
 import { supabase } from "@features/schedule/register/create-schedule";
 
 export const putConfirmed = async (selectedDate: string) => {
-  await supabase
+  const { error } = await supabase
     .from("schedules")
-    .update({ isConfirmed: false })
+    .update({ is_confirmed: false })
     .eq("date", selectedDate);
+
+  if (error) {
+    console.error(error);
+  }
 };
