@@ -2,6 +2,11 @@ import { toast } from "sonner";
 import { User } from "@features/schedule/manage/add-user-modal/ui/add-user-modal";
 import { fetchUserList } from "@features/schedule/manage/api/fetch-user-list";
 import { supabase } from "@features/schedule/register/create-schedule";
+import {
+  errorToast,
+  successToast,
+  warningToast,
+} from "@shared/shadcn-ui/lib/toast";
 
 export const postConfirmed = async (selectedDate: string) => {
   const userList = await fetchUserList(selectedDate);
@@ -10,7 +15,7 @@ export const postConfirmed = async (selectedDate: string) => {
   const userName = userNameList.flat();
 
   if (userName.length < 11) {
-    toast("아직 등록하지 않은 유저가 있습니다");
+    warningToast("아직 등록하지 않은 유저가 있습니다");
     return { success: false };
   }
 
@@ -21,10 +26,10 @@ export const postConfirmed = async (selectedDate: string) => {
 
   if (error) {
     console.error("스케줄 확정 실패:", error);
-    toast("스케줄 확정에 실패했습니다.");
+    errorToast("스케줄 확정에 실패했습니다.");
     return { success: false };
   }
 
-  toast("스케줄 확정되었습니다.");
+  successToast("스케줄 확정되었습니다.");
   return { success: true };
 };

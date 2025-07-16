@@ -1,6 +1,11 @@
 import { createClient } from "@supabase/supabase-js";
 import { toast } from "sonner";
 import { fetchExistingDateList } from "@shared/api/index";
+import {
+  errorToast,
+  successToast,
+  warningToast,
+} from "@shared/shadcn-ui/lib/toast";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -9,7 +14,7 @@ const supabase = createClient(
 
 export const deleteSchedule = async (selectedDateList: string[]) => {
   if (selectedDateList.length === 0) {
-    toast("삭제할 스케줄이 없습니다");
+    warningToast("삭제할 스케줄이 없습니다");
     return;
   }
 
@@ -19,7 +24,7 @@ export const deleteSchedule = async (selectedDateList: string[]) => {
   );
 
   if (nonExistingDates.length > 0) {
-    toast("선택한 날짜 중 스케줄이 등록되어 있지 않습니다");
+    warningToast("선택한 날짜 중 스케줄이 등록되어 있지 않습니다");
     return;
   }
 
@@ -29,11 +34,11 @@ export const deleteSchedule = async (selectedDateList: string[]) => {
     .in("date", selectedDateList);
 
   if (error) {
-    toast("스케줄 삭제에 실패했습니다");
+    errorToast("스케줄 삭제에 실패했습니다");
     throw new Error("스케줄 삭제에 실패했습니다");
   }
 
-  toast("스케줄이 삭제되었습니다");
+  successToast("스케줄이 삭제되었습니다");
 
   return { success: true };
 };

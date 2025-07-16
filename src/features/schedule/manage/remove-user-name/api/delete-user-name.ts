@@ -1,7 +1,7 @@
-import { toast } from "sonner";
 import { User } from "@features/schedule/manage/add-user-modal/ui/add-user-modal";
 import { fetchUserList } from "@features/schedule/manage/api/fetch-user-list";
 import { supabase } from "@features/schedule/register/create-schedule/api/post-create-schedule";
+import { errorToast, successToast } from "@shared/shadcn-ui/lib/toast";
 
 interface Params {
   position: string;
@@ -18,7 +18,6 @@ export const deleteUserName = async ({ position, date, onChange }: Params) => {
     );
 
     if (existingUserIndex !== -1) {
-      // 같은 포지션이 존재하는 경우, 이름 배열에 새 이름들을 추가
       userList[existingUserIndex].name.pop();
 
       const { error: updateError } = await supabase
@@ -32,10 +31,10 @@ export const deleteUserName = async ({ position, date, onChange }: Params) => {
       }
     }
 
-    toast("사용자 삭제 완료!");
+    successToast("사용자 삭제 완료!");
     onChange();
   } catch (error) {
     console.error("사용자 삭제 중 예상치 못한 에러가 발생했습니다:", error);
-    toast("사용자 삭제에 실패했습니다.");
+    errorToast("사용자 삭제에 실패했습니다.");
   }
 };

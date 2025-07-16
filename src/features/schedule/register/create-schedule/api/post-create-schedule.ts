@@ -1,6 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 import { toast } from "sonner";
 import { fetchExistingDateList } from "@shared/api/index";
+import { successToast, warningToast } from "@shared/shadcn-ui/lib/toast";
 
 export interface ScheduleData {
   is_open: boolean;
@@ -15,14 +16,14 @@ export const supabase = createClient(
 
 export const postCreateSchedule = async (selectedDateList: string[]) => {
   if (selectedDateList.length === 0) {
-    toast("등록할 스케줄이 없습니다");
+    warningToast("등록할 스케줄이 없습니다");
     return;
   }
 
   const existingScheduleList = await fetchExistingDateList(selectedDateList);
 
   if (existingScheduleList.length > 0) {
-    toast("선택하신 날짜 중 이미 등록되어 있는 날짜가 있습니다.");
+    warningToast("선택하신 날짜 중 이미 등록되어 있는 날짜가 있습니다.");
     return;
   }
 
@@ -39,6 +40,6 @@ export const postCreateSchedule = async (selectedDateList: string[]) => {
     throw new Error("스케줄 등록 중 오류가 발생했습니다.");
   }
 
-  toast("새로운 스케줄이 성공적으로 등록되었습니다.");
+  successToast("새로운 스케줄이 성공적으로 등록되었습니다.");
   return { success: true };
 };

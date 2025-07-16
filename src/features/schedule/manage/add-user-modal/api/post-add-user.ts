@@ -2,6 +2,7 @@ import { toast } from "sonner";
 import { fetchUserList } from "@features/schedule/manage/add-user-modal/api/fetch-user-list";
 import { User } from "@features/schedule/manage/add-user-modal/ui/add-user-modal";
 import { supabase } from "@features/schedule/register/create-schedule";
+import { successToast, warningToast } from "@shared/shadcn-ui/lib/toast";
 
 export const postAddUser = async (
   newUser: User,
@@ -25,7 +26,7 @@ export const postAddUser = async (
     );
 
     if (isDuplicateName) {
-      toast("이미 등록된 이름입니다.");
+      warningToast("이미 등록된 이름입니다.");
       return;
     }
 
@@ -38,7 +39,7 @@ export const postAddUser = async (
     );
 
     if (isDuplicateName) {
-      toast("이미 등록된 이름입니다.");
+      warningToast("이미 등록된 이름입니다.");
       return;
     }
 
@@ -56,6 +57,6 @@ export const postAddUser = async (
     return;
   }
 
-  toast("등록되었습니다.");
+  successToast("등록되었습니다.");
   onChange();
 };
