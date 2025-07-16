@@ -105,6 +105,7 @@ export const PositionTable = () => {
                         onCheckedChange={(checked: boolean) =>
                           setPositionTrained(position, checked)
                         }
+                        disabled={isConfirmed}
                       />
                     </div>
                   </div>
