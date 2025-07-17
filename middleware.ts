@@ -1,6 +1,5 @@
-import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { updateSession } from "@entities/supabase/lib";
+import { updateSession } from "@admin/entities/supabase/lib";
 
 export async function middleware(request: NextRequest) {
   console.log("🔥 미들웨어 작동:", request.nextUrl.pathname);

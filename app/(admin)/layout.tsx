@@ -1,7 +1,7 @@
-import { Container } from "@widgets/container";
-import { Header } from "@widgets/header";
-import { SideBar } from "@widgets/side-bar";
-import { Toaster } from "@shared/shadcn-ui/components/index";
+import { Toaster } from "@admin/shared/shadcn-ui/components/index";
+import { Container } from "@admin/widgets/container";
+import { Header } from "@admin/widgets/header";
+import { SideBar } from "@admin/widgets/side-bar";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (

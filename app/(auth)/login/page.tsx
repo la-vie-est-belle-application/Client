@@ -1,4 +1,4 @@
-import { LoginForm } from "@entities/auth/ui/login-form";
+import { LoginForm } from "@admin/entities/auth/ui/login-form";
 
 export default function LoginPage() {
   return (

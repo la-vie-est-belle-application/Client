@@ -1,0 +1,22 @@
+import { ScheduleData } from "@admin/features/register/create-schedule";
+import FullCalendar from "@fullcalendar/react";
+
+export const renderScheduleEvents = async (
+  data: ScheduleData[],
+  calendarRef: React.RefObject<FullCalendar | null>,
+) => {
+  const calendarApi = calendarRef.current?.getApi();
+
+  if (!calendarApi) return;
+
+  calendarApi.removeAllEvents();
+
+  (await data).forEach((schedule) => {
+    calendarApi.addEvent({
+      id: `schedule-${schedule.date}`,
+      start: schedule.date,
+      end: schedule.date,
+      color: schedule.is_confirmed ? "var(--color-tertiary)" : "#FEF9C3",
+    });
+  });
+};
