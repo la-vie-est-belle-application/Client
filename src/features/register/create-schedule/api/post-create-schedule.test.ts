@@ -1,7 +1,7 @@
-import { toast } from "sonner";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { postCreateSchedule } from "@features/schedule/register/create-schedule/api/post-create-schedule";
-import * as sharedApi from "@shared/api/fetch-schedule-date";
+import { postCreateSchedule } from "@features/register/create-schedule/api/post-create-schedule";
+import { warningToast } from "@shared/shadcn-ui/lib/toast";
+import { successToast } from "@shared/shadcn-ui/lib/toast";
 
 // 모킹 설정
 vi.mock("sonner", () => ({
@@ -33,7 +33,7 @@ describe("postCreateSchedule", () => {
 
     const result = await postCreateSchedule(emptyDateList);
 
-    expect(toast).toHaveBeenCalledWith("등록할 스케줄이 없습니다");
+    expect(warningToast).toHaveBeenCalledWith("등록할 스케줄이 없습니다");
     expect(result).toBeUndefined();
     expect(mockSupabaseSelect).not.toHaveBeenCalled();
     expect(mockSupabaseInsert).not.toHaveBeenCalled();
@@ -50,7 +50,7 @@ describe("postCreateSchedule", () => {
 
     const result = await postCreateSchedule(selectedDates);
 
-    expect(toast).toHaveBeenCalledWith(
+    expect(warningToast).toHaveBeenCalledWith(
       "선택하신 날짜 중 이미 등록되어 있는 날짜가 있습니다.",
     );
     expect(result).toBeUndefined();
@@ -78,7 +78,7 @@ describe("postCreateSchedule", () => {
     expect(mockSupabaseInsert).toHaveBeenCalledWith(
       selectedDates.map((date) => ({ date })),
     );
-    expect(toast).toHaveBeenCalledWith(
+    expect(successToast).toHaveBeenCalledWith(
       "새로운 스케줄이 성공적으로 등록되었습니다.",
     );
     expect(result).toEqual({ success: true });
@@ -102,6 +102,8 @@ describe("postCreateSchedule", () => {
     await expect(postCreateSchedule(selectedDates)).rejects.toThrow(
       "스케줄 등록 중 오류가 발생했습니다.",
     );
-    expect(toast).toHaveBeenCalledWith("스케줄 등록 중 오류가 발생했습니다.");
+    expect(warningToast).toHaveBeenCalledWith(
+      "스케줄 등록 중 오류가 발생했습니다.",
+    );
   });
 });

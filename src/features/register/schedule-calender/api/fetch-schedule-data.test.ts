@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { fetchScheduleData } from "./fetch-schedule-data";
-import { supabase } from "@features/schedule/register/create-schedule/index";
-import { ScheduleData } from "@features/schedule/register/create-schedule/index";
+import { supabase } from "@features/register/create-schedule/index";
+import { ScheduleData } from "@features/register/create-schedule/index";
 
 // supabase 모킹
 vi.mock("@features/schedule/register/create-schedule/index", () => ({

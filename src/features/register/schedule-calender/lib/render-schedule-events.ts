@@ -1,5 +1,5 @@
 import FullCalendar from "@fullcalendar/react";
-import { ScheduleData } from "@features/schedule/register/create-schedule";
+import { ScheduleData } from "@features/register/create-schedule";
 
 export const renderScheduleEvents = async (
   data: ScheduleData[],

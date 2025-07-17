@@ -1,4 +1,4 @@
-import { supabase } from "@features/register/create-schedule";
+import { supabase } from "@shared/api/fetch-schedule-date";
 
 export const fetchUserList = async (selectedDate: string) => {
   const { data, error } = await supabase
