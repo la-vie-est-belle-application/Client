@@ -22,17 +22,17 @@ export const SideBar = () => {
     {
       icon: <FaPlus />,
       title: "스케줄 등록",
-      url: "/schedule-dashboard/register",
+      url: "/schedule-register",
     },
     {
       icon: <FaCalendarAlt />,
       title: "스케줄 관리",
-      url: "/schedule-dashboard/manage",
+      url: "/schedule-manage",
     },
     {
       icon: <FaList />,
       title: "리스트로 보기",
-      url: "/schedule",
+      url: "",
     },
   ];
   return (
