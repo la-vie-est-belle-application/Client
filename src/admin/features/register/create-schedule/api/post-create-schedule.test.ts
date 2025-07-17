@@ -1,7 +1,7 @@
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { postCreateSchedule } from "@admin/features/register/create-schedule/api/post-create-schedule";
 import { warningToast } from "@admin/shared/shadcn-ui/lib/toast";
 import { successToast } from "@admin/shared/shadcn-ui/lib/toast";
-import { beforeEach, describe, expect, it, vi } from "vitest";
 
 // 모킹 설정
 vi.mock("sonner", () => ({

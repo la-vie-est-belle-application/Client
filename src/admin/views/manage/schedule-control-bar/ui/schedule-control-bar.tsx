@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { FaRegCalendar } from "react-icons/fa6";
+import { useShallow } from "zustand/react/shallow";
 import { fetchScheduleData } from "@admin/features/register/schedule-calender/api/fetch-schedule-data";
 import { SelectOption } from "@admin/features/select-option/index";
 import { Button } from "@admin/shared/shadcn-ui/components";
@@ -10,7 +11,6 @@ import { useSelectedManageDateStore } from "@admin/shared/store/use-selected-man
 import { fetchConfirmed } from "@admin/views/manage/schedule-control-bar/api/fetch-confirmed";
 import { postConfirmed } from "@admin/views/manage/schedule-control-bar/api/post-confirmed";
 import { putConfirmed } from "@admin/views/manage/schedule-control-bar/api/put-confirmed";
-import { useShallow } from "zustand/react/shallow";
 
 export const ScheduleControlBar = () => {
   const [dateList, setDateList] = useState<string[]>([]);

@@ -1,11 +1,11 @@
 "use client";
 
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { loginAction, signupAction } from "@admin/entities/auth/api/actions";
 import { loginSchema, userSchema } from "@admin/entities/auth/model/schema";
 import { AuthCredentials, AuthProfile } from "@admin/entities/auth/types";
 import { getErrorMessageKo } from "@admin/shared/lib/get-error-message-ko";
-import { zodResolver } from "@hookform/resolvers/zod";
 
 export default function useAuthAction() {
   const signupForm = useForm<AuthProfile>({

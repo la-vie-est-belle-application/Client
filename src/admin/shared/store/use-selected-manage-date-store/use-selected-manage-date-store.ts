@@ -1,6 +1,6 @@
-import { SelectorHook } from "@admin/shared/store/common-types";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
+import { SelectorHook } from "@admin/shared/store/common-types";
 
 interface SelectedManageDateStore {
   selectedDate: string;

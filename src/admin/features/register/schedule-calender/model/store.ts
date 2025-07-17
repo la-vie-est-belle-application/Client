@@ -1,10 +1,10 @@
 import { createRef } from "react";
-import { SelectorHook } from "@admin/shared/store/index";
 import FullCalendar from "@fullcalendar/react";
 import { enableMapSet } from "immer";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import { ScheduleCalenderStore } from "./types";
+import { SelectorHook } from "@admin/shared/store/index";
 
 enableMapSet();
 

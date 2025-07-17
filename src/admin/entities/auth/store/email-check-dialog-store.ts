@@ -1,5 +1,5 @@
-import { CheckResult } from "@admin/entities/auth/types";
 import { create } from "zustand";
+import { CheckResult } from "@admin/entities/auth/types";
 
 interface CheckEmailDialog {
   isOpen: boolean;

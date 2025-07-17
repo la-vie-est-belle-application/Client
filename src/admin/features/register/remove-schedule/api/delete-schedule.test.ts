@@ -1,8 +1,8 @@
-import { deleteSchedule } from "@admin/features/register/remove-schedule/api/delete-schedule";
-import { fetchExistingDateList } from "@admin/shared/api/index";
 import { createClient } from "@supabase/supabase-js";
 import { toast } from "sonner";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { fetchExistingDateList } from "@admin/shared/api/index";
+import { deleteSchedule } from "@admin/features/register/remove-schedule/api/delete-schedule";
 
 vi.mock("@supabase/supabase-js", () => {
   const supabaseMock = {

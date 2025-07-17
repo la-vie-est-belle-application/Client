@@ -1,10 +1,10 @@
 "use client";
 
 import { Control, Path, PathValue, useFormContext } from "react-hook-form";
+import { EmailCheckField } from "./email-check-field";
 import { useEmailDuplicationCheckDialog } from "@admin/entities/auth/hooks/use-email-duplication-check-dialog";
 import { AuthCredentials, AuthProfile } from "@admin/entities/auth/types";
 import { BaseField } from "@admin/entities/auth/ui/form-fields/base-field";
-import { EmailCheckField } from "./email-check-field";
 
 interface EmailFieldProps<T extends AuthProfile | AuthCredentials> {
   control: Control<T>;

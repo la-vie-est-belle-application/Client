@@ -1,8 +1,8 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { supabaseKey, supabaseUrl } from "@admin/entities/supabase";
 import { createServerClient } from "@supabase/ssr";
+import { supabaseKey, supabaseUrl } from "@admin/entities/supabase";
 
 export async function createServer() {
   const cookieStore = await cookies();
