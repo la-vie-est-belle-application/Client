@@ -1,5 +1,5 @@
-import { pipe } from "@admin/shared/lib/compose";
 import { describe, expect, it } from "vitest";
+import { pipe } from "@admin/shared/lib/compose";
 
 describe("pipe 유틸 테스트", () => {
   const add1 = (x: number) => x + 1;

@@ -10,10 +10,10 @@ import {
   useFormContext,
   useFormState,
 } from "react-hook-form";
-import { Label } from "@admin/shared/shadcn-ui/components/label";
-import { cn } from "@admin/shared/shadcn-ui/lib/utils";
 import * as LabelPrimitive from "@radix-ui/react-label";
 import { Slot } from "@radix-ui/react-slot";
+import { Label } from "@admin/shared/shadcn-ui/components/label";
+import { cn } from "@admin/shared/shadcn-ui/lib/utils";
 
 const Form = FormProvider;
 

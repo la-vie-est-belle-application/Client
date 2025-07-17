@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import { FieldValues } from "react-hook-form";
-import { BaseFieldProps } from "@admin/entities/auth/types";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { BaseField } from "./base-field";
+import { BaseFieldProps } from "@admin/entities/auth/types";
 
 export function PasswordField<T extends FieldValues>(props: BaseFieldProps<T>) {
   const [show, setShow] = useState(false);

@@ -1,7 +1,7 @@
-import { SelectorHook } from "@admin/shared/store/index";
-import { ConfirmedStore } from "@admin/shared/store/use-confirmed-store/types";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { SelectorHook } from "@admin/shared/store/index";
+import { ConfirmedStore } from "@admin/shared/store/use-confirmed-store/types";
 
 const confirmedStore = create<{
   isConfirmed: boolean;

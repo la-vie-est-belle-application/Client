@@ -2,13 +2,13 @@
 
 import React from "react";
 import { FaPlus } from "react-icons/fa";
+import { useShallow } from "zustand/react/shallow";
 import { postCreateSchedule } from "@admin/features/register/create-schedule/api/post-create-schedule";
 import { fetchScheduleData } from "@admin/features/register/schedule-calender/api/fetch-schedule-data";
 import { renderScheduleEvents } from "@admin/features/register/schedule-calender/lib/render-schedule-events";
 import { renderSelectedDateEvents } from "@admin/features/register/schedule-calender/lib/render-selected-date-event";
 import { useScheduleCalenderStore } from "@admin/features/register/schedule-calender/model/store";
 import { Button } from "@admin/shared/shadcn-ui/components";
-import { useShallow } from "zustand/react/shallow";
 
 export const CreateSchedule = () => {
   const { calendarRef, selectedDateList, clearSelectedDate } =

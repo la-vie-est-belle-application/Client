@@ -1,6 +1,6 @@
+import { createClient } from "@supabase/supabase-js";
 import { fetchExistingDateList } from "@admin/shared/api/index";
 import { successToast, warningToast } from "@admin/shared/shadcn-ui/lib/toast";
-import { createClient } from "@supabase/supabase-js";
 
 export interface ScheduleData {
   is_open: boolean;

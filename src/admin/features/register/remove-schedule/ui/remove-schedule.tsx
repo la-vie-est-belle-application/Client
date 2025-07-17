@@ -2,6 +2,7 @@
 
 import React from "react";
 import { FaTrash } from "react-icons/fa";
+import { useShallow } from "zustand/react/shallow";
 import { deleteSchedule } from "@admin/features/register/remove-schedule/api/delete-schedule";
 import { fetchScheduleData } from "@admin/features/register/schedule-calender/api/fetch-schedule-data";
 import { renderScheduleEvents } from "@admin/features/register/schedule-calender/lib/render-schedule-events";
@@ -16,7 +17,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@admin/shared/shadcn-ui/components";
-import { useShallow } from "zustand/react/shallow";
 
 export const RemoveSchedule = () => {
   const { calendarRef, selectedDateList, clearSelectedDate } =
